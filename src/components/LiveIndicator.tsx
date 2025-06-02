@@ -3,13 +3,15 @@
 import { Wifi, WifiOff } from 'lucide-react'
 
 interface LiveIndicatorProps {
-  isConnected: boolean
+  isLive?: boolean
+  isConnected?: boolean
 }
 
-export default function LiveIndicator({ isConnected }: LiveIndicatorProps) {
+export default function LiveIndicator({ isLive, isConnected }: LiveIndicatorProps) {
+  const connected = isLive ?? isConnected ?? false
   return (
     <div className="flex items-center gap-2 text-sm">
-      {isConnected ? (
+      {connected ? (
         <>
           <div className="relative">
             <Wifi className="h-4 w-4 text-green-500" />

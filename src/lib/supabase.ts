@@ -8,4 +8,7 @@ export function createClient() {
   )
 }
 
+// Create singleton instance for convenience
+export const supabase = createClient()
+
 export type SupabaseClient = ReturnType<typeof createClient>
