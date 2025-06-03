@@ -28,20 +28,42 @@ export function useAuth(): AuthState & {
   
   const loadUserProfile = useCallback(async (userId: string) => {
     try {
+      // First try to get existing profile
       const { data: profile, error } = await supabase
         .from('user_profiles')
         .select('*')
         .eq('id', userId)
         .single()
       
-      if (error && error.code !== 'PGRST116') { // PGRST116 = no rows returned
-        console.error('Error loading profile:', error)
+      if (profile && !error) {
+        setProfile(profile)
         return
       }
       
-      setProfile(profile)
+      // If no profile exists, create one using RPC
+      console.log('🔄 No profile found, creating via ensure_my_profile...')
+      const { data: rpcResult, error: rpcError } = await supabase.rpc('ensure_my_profile')
+      
+      if (rpcError) {
+        console.error('❌ RPC error:', rpcError)
+        return
+      }
+      
+      if (rpcResult?.success) {
+        // Fetch the newly created profile
+        const { data: newProfile } = await supabase
+          .from('user_profiles')
+          .select('*')
+          .eq('id', userId)
+          .single()
+        
+        if (newProfile) {
+          setProfile(newProfile)
+          console.log('✅ Profile created and loaded:', newProfile.email)
+        }
+      }
     } catch (error) {
-      console.error('Error loading user profile:', error)
+      console.error('Error in loadUserProfile:', error)
     }
   }, [supabase])
   
