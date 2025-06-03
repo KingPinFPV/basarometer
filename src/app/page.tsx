@@ -1,184 +1,143 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { createClient } from '@/lib/supabase'
+import { useState } from 'react'
 import { Header } from '@/components/layout/Header'
-
-interface PriceData {
-  meat_cut_id: string
-  retailer_id: string
-  price_per_kg: number
-  meat_cut_name: string
-  retailer_name: string
-}
+import { PriceMatrix } from '@/components/matrix/PriceMatrix'
+import { PriceReportModal } from '@/components/forms/PriceReportModal'
+import { Plus, TrendingUp, Users, Zap } from 'lucide-react'
 
 export default function HomePage() {
-  const [priceData, setPriceData] = useState<PriceData[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false)
+  const [preSelectedMeatCutId, setPreSelectedMeatCutId] = useState<string>('')
+  const [preSelectedRetailerId, setPreSelectedRetailerId] = useState<string>('')
 
-  useEffect(() => {
-    const loadPriceData = async () => {
-      try {
-        const supabase = createClient()
-        
-        // Simple query with timeout
-        const timeoutPromise = new Promise((_, reject) => 
-          setTimeout(() => reject(new Error('Request timeout - נסה שוב')), 10000)
-        )
-        
-        const dataPromise = supabase
-          .from('price_reports')
-          .select(`
-            meat_cut_id,
-            retailer_id,
-            price_per_kg,
-            meat_cuts(name_hebrew),
-            retailers(name)
-          `)
-          .limit(50)
-
-        const result = await Promise.race([dataPromise, timeoutPromise])
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const { data, error } = result as { data: any; error: any }
-        
-        if (error) {
-          throw error
-        }
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const formattedData = data?.map((item: { [key: string]: any }) => ({
-          meat_cut_id: item.meat_cut_id,
-          retailer_id: item.retailer_id,
-          price_per_kg: item.price_per_kg,
-          meat_cut_name: item.meat_cuts?.name_hebrew || 'לא ידוע',
-          retailer_name: item.retailers?.name || 'לא ידוע'
-        })) || []
-
-        setPriceData(formattedData)
-        setError(null)
-      } catch (err) {
-        console.error('Data loading error:', err)
-        setError(err instanceof Error ? err.message : 'שגיאה בטעינת נתונים')
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    loadPriceData()
-  }, [])
-
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50" dir="rtl">
-        <div className="max-w-md mx-auto text-center p-6 bg-white rounded-lg shadow-lg">
-          <div className="text-4xl mb-4">⚠️</div>
-          <h1 className="text-xl font-bold text-red-600 mb-4">שגיאה בטעינת הנתונים</h1>
-          <p className="text-gray-600 mb-4">{error}</p>
-          <div className="space-y-2">
-            <button
-              onClick={() => window.location.reload()}
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700"
-            >
-              רענן דף
-            </button>
-            <button
-              onClick={() => {
-                document.cookie.split(";").forEach(c => {
-                  const eqPos = c.indexOf("=")
-                  const name = eqPos > -1 ? c.substr(0, eqPos) : c
-                  document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/"
-                })
-                localStorage.clear()
-                sessionStorage.clear()
-                window.location.reload()
-              }}
-              className="w-full bg-orange-600 text-white py-2 px-4 rounded-md hover:bg-orange-700"
-            >
-              נקה עוגיות ורענן
-            </button>
-          </div>
-        </div>
-      </div>
-    )
+  const handleReportPrice = (meatCutId?: string, retailerId?: string) => {
+    setPreSelectedMeatCutId(meatCutId || '')
+    setPreSelectedRetailerId(retailerId || '')
+    setIsReportModalOpen(true)
   }
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50" dir="rtl">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">טוען נתונים...</p>
-          <p className="text-sm text-gray-500 mt-2">אם הטעינה לוקחת זמן רב, רענן את הדף</p>
-        </div>
-      </div>
-    )
+  const handleReportSuccess = () => {
+    // This will be called after successful price report submission
+    // The PriceMatrix component will automatically refresh its data
+    window.location.reload()
   }
 
   return (
-    <div className="min-h-screen bg-gray-50" dir="rtl">
+    <div className="min-h-screen" dir="rtl">
       <Header />
-      <div className="max-w-6xl mx-auto p-4">
-        <header className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            מטריקס מחירי בשר ישראלי
-          </h1>
-          <p className="text-gray-600">
-            השוואת מחירי בשר מתקדמת עם דיווחים קהילתיים ומבצעים
-          </p>
-        </header>
-        
-        <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-xl font-bold mb-4">מטריקס מחירי בשר ישראלי</h2>
-          
-          {priceData.length === 0 ? (
-            <div className="text-center py-8">
-              <p className="text-gray-600 mb-4">אין נתוני מחירים זמינים כרגע</p>
+      
+      {/* Hero Section */}
+      <div className="bg-gradient-primary">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="text-center space-y-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+              בשרומטר V3
+            </h1>
+            <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+              השוואת מחירי בשר מתקדמת עם דיווחים קהילתיים בזמן אמת
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4 rtl:space-x-reverse pt-6">
               <button
-                onClick={() => window.location.reload()}
-                className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700"
+                onClick={() => handleReportPrice()}
+                className="bg-white text-blue-600 hover:bg-gray-50 px-8 py-3 rounded-lg font-semibold transition-colors flex items-center space-x-2 rtl:space-x-reverse"
               >
-                רענן נתונים
+                <Plus className="w-5 h-5" />
+                <span>דווח מחיר חדש</span>
               </button>
-            </div>
-          ) : (
-            <>
-              <p className="text-sm text-gray-600 mb-4">
-                מציג {priceData.length} דיווחי מחירים אחרונים
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {priceData.slice(0, 12).map((item, index) => (
-                  <div key={index} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-                    <h3 className="font-bold text-lg text-gray-900">{item.meat_cut_name}</h3>
-                    <p className="text-gray-600 text-sm">{item.retailer_name}</p>
-                    <p className="text-xl font-bold text-green-600 my-2">
-                      ₪{(item.price_per_kg / 100).toFixed(2)} לק&quot;ג
-                    </p>
-                    <button 
-                      onClick={() => alert('דיווח מחיר חדש יתווסף בקרוב!\\nתכונה זו תחזור בעדכון הבא.')}
-                      className="w-full mt-2 bg-blue-600 text-white px-3 py-2 rounded text-sm hover:bg-blue-700 transition-colors"
-                    >
-                      דווח מחיר חדש
-                    </button>
-                  </div>
-                ))}
-              </div>
-              
-              {priceData.length > 12 && (
-                <div className="text-center mt-6">
-                  <p className="text-gray-600 text-sm">
-                    מציג 12 מתוך {priceData.length} דיווחים
-                  </p>
+              <div className="flex items-center space-x-6 rtl:space-x-reverse text-white/80 text-sm">
+                <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                  <TrendingUp className="w-4 h-4" />
+                  <span>מחירים מעודכנים</span>
                 </div>
-              )}
-            </>
-          )}
+                <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                  <Users className="w-4 h-4" />
+                  <span>קהילה פעילה</span>
+                </div>
+                <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                  <Zap className="w-4 h-4" />
+                  <span>עדכונים בזמן אמת</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        
-        <footer className="text-center mt-8 text-sm text-gray-500">
-          בשרומטר V3 - גרסת חירום מייוצבת
-        </footer>
       </div>
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <PriceMatrix onReportPrice={handleReportPrice} />
+      </div>
+
+      {/* Stats Section */}
+      <div className="bg-gray-50 border-t border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="text-center space-y-8">
+            <h2 className="text-2xl font-bold text-gray-900">
+              פלטפורמה לעזור לציבור הישראלי לחסוך בעלויות מזון
+            </h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="text-center space-y-3">
+                <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto">
+                  <TrendingUp className="w-8 h-8 text-blue-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900">השוואת מחירים</h3>
+                <p className="text-gray-600">
+                  מטריקס מתקדם להשוואת מחירי בשר בין רשתות שונות
+                </p>
+              </div>
+
+              <div className="text-center space-y-3">
+                <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto">
+                  <Users className="w-8 h-8 text-green-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900">קהילה פעילה</h3>
+                <p className="text-gray-600">
+                  דיווחי מחירים מהקהילה לעדכונים מדויקים ורלוונטיים
+                </p>
+              </div>
+
+              <div className="text-center space-y-3">
+                <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto">
+                  <Zap className="w-8 h-8 text-purple-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900">עדכונים בזמן אמת</h3>
+                <p className="text-gray-600">
+                  מידע עדכני על מחירים ומבצעים ברחבי הארץ
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="text-center space-y-4">
+            <div className="flex items-center justify-center space-x-3 rtl:space-x-reverse">
+              <TrendingUp className="w-6 h-6" />
+              <span className="text-xl font-bold">בשרומטר V3</span>
+            </div>
+            <p className="text-gray-400 text-sm">
+              פלטפורמה קהילתית להשוואת מחירי בשר בישראל
+            </p>
+            <div className="text-xs text-gray-500">
+              גרסה 3.0 - מעוצב עם ❤️ לקהילה הישראלית
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      {/* Price Report Modal */}
+      <PriceReportModal
+        isOpen={isReportModalOpen}
+        onClose={() => setIsReportModalOpen(false)}
+        preSelectedMeatCutId={preSelectedMeatCutId}
+        preSelectedRetailerId={preSelectedRetailerId}
+        onSuccess={handleReportSuccess}
+      />
     </div>
   )
 }
