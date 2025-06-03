@@ -52,6 +52,11 @@ export interface Database {
           created_at: string
           updated_at: string
           user_id: string | null
+          is_on_sale: boolean | null
+          sale_price: number | null
+          sale_expires_at: string | null
+          discount_percentage: number | null
+          reported_at: string | null
         }
         Insert: {
           id?: number
@@ -66,6 +71,11 @@ export interface Database {
           created_at?: string
           updated_at?: string
           user_id?: string | null
+          is_on_sale?: boolean | null
+          sale_price?: number | null
+          sale_expires_at?: string | null
+          discount_percentage?: number | null
+          reported_at?: string | null
         }
         Update: {
           id?: number
@@ -80,6 +90,11 @@ export interface Database {
           created_at?: string
           updated_at?: string
           user_id?: string | null
+          is_on_sale?: boolean | null
+          sale_price?: number | null
+          sale_expires_at?: string | null
+          discount_percentage?: number | null
+          reported_at?: string | null
         }
       }
       products: {
@@ -171,6 +186,7 @@ export interface Database {
           last_login: string | null
           created_at: string
           updated_at: string
+          is_admin: boolean | null
         }
         Insert: {
           id: string
@@ -184,6 +200,7 @@ export interface Database {
           last_login?: string | null
           created_at?: string
           updated_at?: string
+          is_admin?: boolean | null
         }
         Update: {
           id?: string
@@ -195,6 +212,42 @@ export interface Database {
           role?: string | null
           is_active?: boolean | null
           last_login?: string | null
+          created_at?: string
+          updated_at?: string
+          is_admin?: boolean | null
+        }
+      }
+      user_profiles: {
+        Row: {
+          id: string
+          full_name: string | null
+          phone: string | null
+          city: string | null
+          is_admin: boolean | null
+          reputation_score: number | null
+          total_reports: number | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id: string
+          full_name?: string | null
+          phone?: string | null
+          city?: string | null
+          is_admin?: boolean | null
+          reputation_score?: number | null
+          total_reports?: number | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          full_name?: string | null
+          phone?: string | null
+          city?: string | null
+          is_admin?: boolean | null
+          reputation_score?: number | null
+          total_reports?: number | null
           created_at?: string
           updated_at?: string
         }

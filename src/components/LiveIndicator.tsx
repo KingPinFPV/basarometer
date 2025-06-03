@@ -7,7 +7,7 @@ interface LiveIndicatorProps {
   isConnected?: boolean
 }
 
-export default function LiveIndicator({ isLive, isConnected }: LiveIndicatorProps) {
+export function LiveIndicator({ isLive, isConnected }: LiveIndicatorProps) {
   const connected = isLive ?? isConnected ?? false
   return (
     <div className="flex items-center gap-2 text-sm">
@@ -28,3 +28,5 @@ export default function LiveIndicator({ isLive, isConnected }: LiveIndicatorProp
     </div>
   )
 }
+
+export default LiveIndicator
