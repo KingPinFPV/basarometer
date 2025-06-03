@@ -1,88 +1,116 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
 import { createClient } from '@/lib/supabase'
-import { User } from '@supabase/supabase-js'
-import { Database } from '@/lib/database.types'
+import { useEffect, useState, useCallback, useMemo, useRef } from 'react'
+import type { User } from '@supabase/supabase-js'
+import type { Database } from '@/lib/database.types'
 
-type UserProfile = Database['public']['Tables']['user_profiles']['Row']
+type Profile = Database['public']['Tables']['user_profiles']['Row']
+
+interface AuthProfileState {
+  user: User | null
+  profile: Profile | null
+  isLoading: boolean
+  isAdmin: boolean
+  error: string | null
+}
 
 export function useAuthProfile() {
-  const [user, setUser] = useState<User | null>(null)
-  const [profile, setProfile] = useState<UserProfile | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [profileError, setProfileError] = useState<string | null>(null)
+  const [state, setState] = useState<AuthProfileState>({
+    user: null,
+    profile: null,
+    isLoading: true,
+    isAdmin: false,
+    error: null
+  })
   
-  const supabase = createClient()
+  // Create supabase client once and memoize it
+  const supabase = useMemo(() => createClient(), [])
+  const profileRef = useRef(state.profile)
 
-  // Ensure user has a profile using the RPC function
-  const ensureProfile = useCallback(async (currentUser: User): Promise<UserProfile | null> => {
+  // Memoized profile fetching function to prevent unnecessary re-renders
+  const fetchProfile = useCallback(async (user: User) => {
     try {
-      setProfileError(null)
+      setState(prev => ({ ...prev, isLoading: true, error: null }))
       
-      // First try to get existing profile
-      const { data: existingProfile, error: fetchError } = await supabase
+      const { data: profile, error } = await supabase
         .from('user_profiles')
         .select('*')
-        .eq('id', currentUser.id)
+        .eq('id', user.id)
         .single()
 
-      if (existingProfile && !fetchError) {
-        console.log('✅ Profile found:', existingProfile.email)
-        return existingProfile
+      if (error && error.code !== 'PGRST116') { // PGRST116 = no rows found
+        console.error('Profile fetch error:', error)
+        
+        // Try to ensure profile exists
+        const { error: rpcError } = await supabase.rpc('ensure_my_profile')
+        if (rpcError) {
+          throw new Error(`Profile creation failed: ${rpcError.message}`)
+        }
+        
+        // Retry profile fetch after creation
+        const { data: retryProfile, error: retryError } = await supabase
+          .from('user_profiles')
+          .select('*')
+          .eq('id', user.id)
+          .single()
+        
+        if (retryError) {
+          throw new Error(`Profile retry failed: ${retryError.message}`)
+        }
+        
+        setState(prev => ({
+          ...prev,
+          profile: retryProfile,
+          isAdmin: retryProfile?.is_admin || false,
+          isLoading: false,
+          error: null
+        }))
+      } else if (profile) {
+        setState(prev => ({
+          ...prev,
+          profile,
+          isAdmin: profile?.is_admin || false,
+          isLoading: false,
+          error: null
+        }))
+      } else {
+        // No profile found, try to create one
+        const { error: rpcError } = await supabase.rpc('ensure_my_profile')
+        if (rpcError) {
+          throw new Error(`Profile creation failed: ${rpcError.message}`)
+        }
+        
+        // Fetch the newly created profile
+        const { data: newProfile, error: newError } = await supabase
+          .from('user_profiles')
+          .select('*')
+          .eq('id', user.id)
+          .single()
+        
+        if (newError) {
+          throw new Error(`New profile fetch failed: ${newError.message}`)
+        }
+        
+        setState(prev => ({
+          ...prev,
+          profile: newProfile,
+          isAdmin: newProfile?.is_admin || false,
+          isLoading: false,
+          error: null
+        }))
       }
-
-      console.log('🔄 No profile found, creating via RPC...')
-      
-      // If no profile, create one via RPC function
-      const { data: rpcResult, error: rpcError } = await supabase.rpc('ensure_my_profile')
-      
-      if (rpcError) {
-        console.error('❌ RPC error:', rpcError)
-        setProfileError(`Profile creation failed: ${rpcError.message}`)
-        return null
-      }
-
-      if (!rpcResult?.success) {
-        console.error('❌ RPC failed:', rpcResult?.error)
-        setProfileError(`Profile creation failed: ${rpcResult?.error || 'Unknown error'}`)
-        return null
-      }
-
-      console.log('✅ Profile creation result:', rpcResult)
-      
-      // Fetch the newly created profile
-      const { data: newProfile, error: newFetchError } = await supabase
-        .from('user_profiles')
-        .select('*')
-        .eq('id', currentUser.id)
-        .single()
-      
-      if (newFetchError) {
-        console.error('❌ Error fetching new profile:', newFetchError)
-        setProfileError(`Could not fetch new profile: ${newFetchError.message}`)
-        return null
-      }
-
-      console.log('✅ New profile fetched:', newProfile?.email)
-      return newProfile
-      
     } catch (error) {
-      console.error('❌ Unexpected error in ensureProfile:', error)
-      setProfileError('Unexpected error creating profile')
-      return null
+      console.error('Auth profile error:', error)
+      setState(prev => ({
+        ...prev,
+        isLoading: false,
+        error: error instanceof Error ? error.message : 'Authentication error'
+      }))
     }
   }, [supabase])
 
-  // Load user profile
-  const loadProfile = useCallback(async (currentUser: User) => {
-    console.log('🔄 Loading profile for:', currentUser.email)
-    const profileData = await ensureProfile(currentUser)
-    setProfile(profileData)
-    setLoading(false)
-  }, [ensureProfile])
-
-  // Initialize auth state
+  // Initialize auth state and listen for changes
   useEffect(() => {
     let mounted = true
 
@@ -92,101 +120,132 @@ export function useAuthProfile() {
         const { data: { session }, error: sessionError } = await supabase.auth.getSession()
         
         if (sessionError) {
-          console.error('❌ Session error:', sessionError)
-          setLoading(false)
+          console.error('Session error:', sessionError)
+          if (mounted) {
+            setState(prev => ({
+              ...prev,
+              isLoading: false,
+              error: 'Session error'
+            }))
+          }
           return
         }
 
         if (session?.user && mounted) {
           console.log('✅ Initial session found:', session.user.email)
-          setUser(session.user)
-          await loadProfile(session.user)
-        } else {
-          console.log('ℹ️ No initial session')
-          if (mounted) {
-            setLoading(false)
-          }
+          setState(prev => ({
+            ...prev,
+            user: session.user,
+            isLoading: true
+          }))
+          await fetchProfile(session.user)
+        } else if (mounted) {
+          setState(prev => ({
+            ...prev,
+            user: null,
+            profile: null,
+            isAdmin: false,
+            isLoading: false,
+            error: null
+          }))
         }
       } catch (error) {
-        console.error('❌ Initialize auth error:', error)
+        console.error('Auth initialization error:', error)
         if (mounted) {
-          setLoading(false)
+          setState(prev => ({
+            ...prev,
+            isLoading: false,
+            error: 'Initialization error'
+          }))
         }
       }
     }
 
+    // Initialize auth
     initializeAuth()
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        console.log('🔄 Auth state change:', event, session?.user?.email)
-        
         if (!mounted) return
 
+        console.log('🔄 Auth state change:', event, session?.user?.email)
+        
         try {
           if (event === 'SIGNED_IN' && session?.user) {
-            setUser(session.user)
-            setProfileError(null)
-            await loadProfile(session.user)
+            setState(prev => ({
+              ...prev,
+              user: session.user,
+              isLoading: true,
+              error: null
+            }))
+            await fetchProfile(session.user)
           } else if (event === 'SIGNED_OUT') {
-            setUser(null)
-            setProfile(null)
-            setProfileError(null)
-            setLoading(false)
+            setState({
+              user: null,
+              profile: null,
+              isAdmin: false,
+              isLoading: false,
+              error: null
+            })
           } else if (event === 'TOKEN_REFRESHED' && session?.user) {
-            setUser(session.user)
-            // Don't reload profile on token refresh if we already have it
-            if (!profile) {
-              await loadProfile(session.user)
+            setState(prev => ({
+              ...prev,
+              user: session.user
+            }))
+            // Only fetch profile if we don't have one
+            if (!profileRef.current) {
+              await fetchProfile(session.user)
             }
           }
         } catch (error) {
-          console.error('❌ Auth state change error:', error)
-          setLoading(false)
+          console.error('Auth state change error:', error)
+          if (mounted) {
+            setState(prev => ({
+              ...prev,
+              isLoading: false,
+              error: 'Auth state change error'
+            }))
+          }
         }
       }
     )
 
+    // Cleanup function
     return () => {
       mounted = false
       subscription.unsubscribe()
     }
-  }, [supabase.auth, loadProfile, profile])
+  }, [supabase.auth, fetchProfile]) // Removed profile dependency to prevent infinite loop
+  
+  // Update profile ref when state changes
+  useEffect(() => {
+    profileRef.current = state.profile
+  }, [state.profile])
 
-  // Sign out function
-  const signOut = useCallback(async () => {
-    try {
-      setLoading(true)
+  // Memoized auth functions
+  const authFunctions = useMemo(() => ({
+    signOut: async () => {
+      setState(prev => ({ ...prev, isLoading: true }))
       const { error } = await supabase.auth.signOut()
-      
       if (error) {
-        console.error('❌ Sign out error:', error)
-      } else {
-        console.log('✅ Signed out successfully')
+        console.error('Sign out error:', error)
+        setState(prev => ({ ...prev, isLoading: false, error: 'Sign out error' }))
       }
-      
-      setUser(null)
-      setProfile(null)
-      setProfileError(null)
-    } catch (error) {
-      console.error('❌ Unexpected sign out error:', error)
-    } finally {
-      setLoading(false)
-    }
-  }, [supabase.auth])
+    },
+    signInWithPassword: (email: string, password: string) => 
+      supabase.auth.signInWithPassword({ email, password }),
+    signUp: (email: string, password: string) =>
+      supabase.auth.signUp({ email, password }),
+    updateProfile: async (updates: Partial<Profile>) => {
+      if (!state.user || !state.profile) {
+        throw new Error('No user logged in')
+      }
 
-  // Update profile function
-  const updateProfile = useCallback(async (updates: Partial<UserProfile>) => {
-    if (!user || !profile) {
-      throw new Error('No user logged in')
-    }
-
-    try {
       const { data, error } = await supabase
         .from('user_profiles')
         .update({ ...updates, updated_at: new Date().toISOString() })
-        .eq('id', user.id)
+        .eq('id', state.user.id)
         .select()
         .single()
 
@@ -195,24 +254,19 @@ export function useAuthProfile() {
       }
 
       if (data) {
-        setProfile(data)
+        setState(prev => ({ ...prev, profile: data }))
       }
 
       return { data, error: null }
-    } catch (error) {
-      console.error('❌ Profile update error:', error)
-      return { data: null, error }
     }
-  }, [user, profile, supabase])
+  }), [supabase, state.user, state.profile])
 
   return {
-    user,
-    profile,
-    loading,
-    profileError,
-    isAdmin: profile?.is_admin || false,
-    signOut,
-    updateProfile,
-    refreshProfile: user ? () => loadProfile(user) : () => Promise.resolve()
+    user: state.user,
+    profile: state.profile,
+    loading: state.isLoading,
+    profileError: state.error,
+    isAdmin: state.isAdmin,
+    ...authFunctions
   }
 }

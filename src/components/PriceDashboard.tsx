@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { supabase } from '@/lib/supabase'
+import { createClient } from '@/lib/supabase'
 import PriceCard from './PriceCard'
 import LiveIndicator from './LiveIndicator'
 
@@ -37,6 +37,7 @@ function LoadingSpinner() {
 export default function PriceDashboard() {
   const [prices, setPrices] = useState<PriceReport[]>([])
   const [loading, setLoading] = useState(true)
+  const supabase = createClient()
   const [error, setError] = useState<string | null>(null)
   const [isLive, setIsLive] = useState(false)
 
