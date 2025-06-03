@@ -1,11 +1,30 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useCleanMatrix } from '@/hooks/useCleanMatrix'
 import { formatPrice, getPriceColor, type MeatCategory, type Retailer, type PriceReport } from '@/types/market'
+import ReportPriceModal from '@/components/matrix/ReportPriceModal'
 
 export default function CleanMatrix() {
   const { categories, retailers, priceReports, isLoading, error } = useCleanMatrix()
+  const [modalOpen, setModalOpen] = useState(false)
+  const [selectedPrice, setSelectedPrice] = useState<{
+    meatCutId: string
+    retailerId: string
+    productName: string
+    retailerName: string
+    currentPrice?: number
+  } | null>(null)
+
+  const handleReportPrice = (meatCutId: string, retailerId: string, productName: string, retailerName: string, currentPrice?: number) => {
+    setSelectedPrice({ meatCutId, retailerId, productName, retailerName, currentPrice })
+    setModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setModalOpen(false)
+    setSelectedPrice(null)
+  }
 
   if (isLoading) {
     return (
@@ -128,7 +147,10 @@ export default function CleanMatrix() {
                             <td key={retailer.id} className="p-2 text-center border border-gray-200 bg-gray-50">
                               <div className="flex flex-col items-center gap-1">
                                 <span className="text-gray-400 text-xs">אין מחיר</span>
-                                <button className="text-xs px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
+                                <button 
+                                  onClick={() => handleReportPrice(cut.id, retailer.id, cut.name_hebrew, retailer.name)}
+                                  className="text-xs px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                                >
                                   דווח מחיר
                                 </button>
                               </div>
@@ -161,7 +183,10 @@ export default function CleanMatrix() {
                                 <span className="text-xs text-blue-600">במבצע!</span>
                               )}
                               <div className="flex gap-1">
-                                <button className="text-xs px-1 py-0.5 bg-green-500 text-white rounded hover:bg-green-600">
+                                <button 
+                                  onClick={() => handleReportPrice(cut.id, retailer.id, cut.name_hebrew, retailer.name, priceData.price_per_kg)}
+                                  className="text-xs px-1 py-0.5 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
+                                >
                                   עדכן
                                 </button>
                               </div>
@@ -204,6 +229,19 @@ export default function CleanMatrix() {
           </div>
         </div>
       </div>
+      
+      {/* Price Report Modal */}
+      {selectedPrice && (
+        <ReportPriceModal
+          isOpen={modalOpen}
+          onClose={handleCloseModal}
+          meatCutId={selectedPrice.meatCutId}
+          retailerId={selectedPrice.retailerId}
+          productName={selectedPrice.productName}
+          retailerName={selectedPrice.retailerName}
+          currentPrice={selectedPrice.currentPrice}
+        />
+      )}
     </div>
   )
 }

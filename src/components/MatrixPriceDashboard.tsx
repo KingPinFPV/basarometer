@@ -66,8 +66,8 @@ export default function MatrixPriceDashboard() {
       <ReportPriceModal
         isOpen={reportModal.isOpen}
         onClose={closeReportModal}
-        productId={reportModal.productId}
-        retailerId={reportModal.retailerId}
+        meatCutId={reportModal.productId?.toString() || ''}
+        retailerId={reportModal.retailerId?.toString() || ''}
         productName={reportModal.productName}
         retailerName={reportModal.retailerName}
         currentPrice={reportModal.currentPrice}

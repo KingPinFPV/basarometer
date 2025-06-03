@@ -2,14 +2,14 @@
 
 import React, { useState } from 'react'
 import { createClient } from '@/lib/supabase'
-import { useAuth } from '@/hooks/useAuth'
+import { useAuthProfile } from '@/hooks/useAuthProfile'
 import { X, AlertCircle, DollarSign, Calendar, FileText } from 'lucide-react'
 
 interface ReportPriceModalProps {
   isOpen: boolean
   onClose: () => void
-  productId: number
-  retailerId: number
+  meatCutId: string
+  retailerId: string
   productName: string
   retailerName: string
   currentPrice?: number
@@ -18,7 +18,7 @@ interface ReportPriceModalProps {
 export default function ReportPriceModal({
   isOpen,
   onClose,
-  productId,
+  meatCutId,
   retailerId,
   productName,
   retailerName,
@@ -29,11 +29,13 @@ export default function ReportPriceModal({
   const [salePrice, setSalePrice] = useState('')
   const [saleExpiresAt, setSaleExpiresAt] = useState('')
   const [notes, setNotes] = useState('')
+  const [storeLocation, setStoreLocation] = useState('')
+  const [purchaseDate, setPurchaseDate] = useState(new Date().toISOString().split('T')[0])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
   
-  const { user } = useAuth()
+  const { user } = useAuthProfile()
 
   const calculateDiscount = () => {
     if (!isOnSale || !price || !salePrice) return null
@@ -92,17 +94,18 @@ export default function ReportPriceModal({
       const { error: insertError } = await supabase
         .from('price_reports')
         .insert({
-          product_id: productId,
+          meat_cut_id: meatCutId,
           retailer_id: retailerId,
-          price: priceValue,
+          price_per_kg: priceValue,
           is_on_sale: isOnSale,
           sale_price: salePriceValue,
           sale_expires_at: isOnSale && saleExpiresAt ? saleExpiresAt : null,
           discount_percentage: discountPercentage,
           notes: notes.trim() || null,
           user_id: user.id,
-          reported_at: new Date().toISOString(),
-          is_active: true
+          purchase_date: purchaseDate,
+          store_location: storeLocation.trim() || retailerName,
+          confidence_score: 5
         })
 
       if (insertError) throw insertError
@@ -116,6 +119,8 @@ export default function ReportPriceModal({
         setSalePrice('')
         setSaleExpiresAt('')
         setNotes('')
+        setStoreLocation('')
+        setPurchaseDate(new Date().toISOString().split('T')[0])
         setSuccess(false)
         onClose()
       }, 2000)
@@ -260,6 +265,38 @@ export default function ReportPriceModal({
                 </div>
               </div>
             )}
+
+            <div>
+              <label htmlFor="purchase-date" className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+                <Calendar size={16} />
+                תאריך רכישה *
+              </label>
+              <input
+                type="date"
+                id="purchase-date"
+                value={purchaseDate}
+                onChange={(e) => setPurchaseDate(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+                disabled={!user}
+              />
+            </div>
+
+            <div>
+              <label htmlFor="store-location" className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+                📍 מיקום חנות *
+              </label>
+              <input
+                type="text"
+                id="store-location"
+                value={storeLocation}
+                onChange={(e) => setStoreLocation(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder={`לדוגמה: ${retailerName} תל אביב`}
+                required
+                disabled={!user}
+              />
+            </div>
 
             <div>
               <label htmlFor="notes" className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
