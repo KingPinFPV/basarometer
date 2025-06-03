@@ -7,14 +7,6 @@ import { Database } from '@/lib/database.types'
 
 type UserProfile = Database['public']['Tables']['user_profiles']['Row']
 
-interface AuthProfileState {
-  user: User | null
-  profile: UserProfile | null
-  loading: boolean
-  isAdmin: boolean
-  profileError: string | null
-}
-
 export function useAuthProfile() {
   const [user, setUser] = useState<User | null>(null)
   const [profile, setProfile] = useState<UserProfile | null>(null)
