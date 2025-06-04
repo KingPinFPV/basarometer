@@ -18,7 +18,7 @@ export function calculatePriceColors(allPrices: PriceReport[]): Map<string, stri
   })
 
   // Calculate colors for each meat cut group
-  pricesByMeatCut.forEach((prices, meatCutId) => {
+  pricesByMeatCut.forEach((prices) => {
     // Calculate effective prices (use sale price if available)
     const effectivePrices = prices.map(p => ({
       ...p,

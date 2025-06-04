@@ -20,7 +20,7 @@ export default function HomePage() {
   const [preSelectedMeatCutId, setPreSelectedMeatCutId] = useState<string>('')
   const [preSelectedRetailerId, setPreSelectedRetailerId] = useState<string>('')
   const [refreshKey, setRefreshKey] = useState(0)
-  const { toasts, removeToast, success, error } = useToast()
+  const { toasts, removeToast, success } = useToast()
 
   const supabase = createClientComponentClient()
 

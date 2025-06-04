@@ -21,7 +21,7 @@ export function calculatePriceColors(allPrices: PriceReport[]): Map<string, stri
   });
   
   // Calculate colors for each meat category
-  pricesByMeatCut.forEach((prices, meatCutId) => {
+  pricesByMeatCut.forEach((prices) => {
     if (prices.length === 0) return;
     
     // Calculate effective price for each report
@@ -32,7 +32,6 @@ export function calculatePriceColors(allPrices: PriceReport[]): Map<string, stri
     
     const minPrice = Math.min(...effectivePrices.map(p => p.effective_price));
     const maxPrice = Math.max(...effectivePrices.map(p => p.effective_price));
-    const avgPrice = effectivePrices.reduce((sum, p) => sum + p.effective_price, 0) / effectivePrices.length;
     
     effectivePrices.forEach(price => {
       const key = `${price.meat_cut_id}-${price.retailer_id}`;

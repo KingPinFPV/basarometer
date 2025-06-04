@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { calculatePriceColors, getSaleIndicator, getCellBackgroundColor, formatPriceDisplay } from '@/utils/priceColorLogic'
 import { AuthTrigger } from '@/components/auth/AuthGuard'
@@ -40,11 +40,7 @@ export function PriceMatrix({ onReportPrice }: PriceMatrixProps) {
 
   const supabase = createClientComponentClient()
 
-  useEffect(() => {
-    fetchData()
-  }, [])
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true)
     
     // Fetch meat cuts
@@ -77,7 +73,11 @@ export function PriceMatrix({ onReportPrice }: PriceMatrixProps) {
     }
     
     setLoading(false)
-  }
+  }, [supabase])
+
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
 
   const getPriceForCell = (meatCutId: string, retailerId: string) => {
     return priceData.find(
