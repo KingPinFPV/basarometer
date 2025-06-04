@@ -60,7 +60,8 @@ export function PriceMatrix({ refreshKey }: PriceMatrixProps) {
       if (retailersRes.data) setRetailers(retailersRes.data)
       if (pricesRes.data) setPriceData(pricesRes.data)
       
-    } catch (_err) {
+    } catch (err) {
+      console.error('Error fetching data:', err)
       error('שגיאה בטעינת הנתונים', 'נסה לרענן את הדף')
     } finally {
       setLoading(false)
