@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-//import { supabase } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase'
 import { useAuthProfile } from './useAuthProfile'
 import type { AuthError } from '@supabase/supabase-js'
 
@@ -9,11 +9,6 @@ interface AuthCredentials {
   email: string
   password: string
   fullName?: string
-}
-
-interface AuthResponse {
-  error: AuthError | null
-  success: boolean
 }
 
 export function useAuth() {
