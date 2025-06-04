@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react'
 import { usePriceReport } from '@/hooks/usePriceReport'
 import { usePriceMatrix } from '@/hooks/usePriceMatrix'
-import { X, DollarSign, MapPin, Calendar, Tag, CheckCircle, AlertCircle, Loader2 } from 'lucide-react'
+import { useAuth } from '@/hooks/useAuth'
+import { X, DollarSign, MapPin, Calendar, Tag, CheckCircle, AlertCircle, Loader2, User } from 'lucide-react'
 
 interface PriceReportModalProps {
   isOpen: boolean
@@ -22,6 +23,7 @@ export function PriceReportModal({
 }: PriceReportModalProps) {
   const { submitPriceReport, validatePriceReport, isSubmitting, lastResponse, clearLastResponse } = usePriceReport()
   const { meatCuts, retailers } = usePriceMatrix()
+  const { isAuthenticated } = useAuth()
 
   // Form state
   const [formData, setFormData] = useState({
@@ -112,6 +114,27 @@ export function PriceReportModal({
 
   // Don't render if not open
   if (!isOpen) return null
+
+  // Check authentication
+  if (!isAuthenticated) {
+    return (
+      <div className="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-50" dir="rtl">
+        <div className="card max-w-md w-full p-8 text-center animate-fade-in">
+          <User className="w-16 h-16 text-blue-500 mx-auto mb-4" />
+          <h3 className="text-xl font-bold text-gray-900 mb-2">נדרשת התחברות</h3>
+          <p className="text-gray-600 mb-6">
+            כדי לדווח מחירים, יש להתחבר למערכת תחילה
+          </p>
+          <button
+            onClick={handleClose}
+            className="btn-primary px-6 py-2 rounded-lg"
+          >
+            סגור
+          </button>
+        </div>
+      </div>
+    )
+  }
 
   // Success state
   if (showSuccess) {

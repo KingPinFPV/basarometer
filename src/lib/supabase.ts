@@ -10,9 +10,10 @@ export function createClient() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       auth: {
-        persistSession: false, // Disable session persistence temporarily
-        autoRefreshToken: false, // Disable auto refresh temporarily
-        detectSessionInUrl: false // Disable URL session detection temporarily
+        persistSession: true, // Enable session persistence for authentication
+        autoRefreshToken: true, // Enable auto refresh for longer sessions
+        detectSessionInUrl: true, // Enable URL session detection for auth flows
+        storage: typeof window !== 'undefined' ? window.localStorage : undefined
       }
     }
   )

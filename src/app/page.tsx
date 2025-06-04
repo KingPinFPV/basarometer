@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Header } from '@/components/layout/Header'
 import { PriceMatrix } from '@/components/matrix/PriceMatrix'
 import { PriceReportModal } from '@/components/forms/PriceReportModal'
+import { AuthTrigger } from '@/components/auth/AuthGuard'
 import { Plus, TrendingUp, Users, Zap } from 'lucide-react'
 
 export default function HomePage() {
@@ -38,13 +39,13 @@ export default function HomePage() {
               השוואת מחירי בשר מתקדמת עם דיווחים קהילתיים בזמן אמת
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4 rtl:space-x-reverse pt-6">
-              <button
-                onClick={() => handleReportPrice()}
+              <AuthTrigger
+                onSuccess={() => handleReportPrice()}
                 className="bg-white text-blue-600 hover:bg-gray-50 px-8 py-3 rounded-lg font-semibold transition-colors flex items-center space-x-2 rtl:space-x-reverse"
               >
                 <Plus className="w-5 h-5" />
                 <span>דווח מחיר חדש</span>
-              </button>
+              </AuthTrigger>
               <div className="flex items-center space-x-6 rtl:space-x-reverse text-white/80 text-sm">
                 <div className="flex items-center space-x-2 rtl:space-x-reverse">
                   <TrendingUp className="w-4 h-4" />

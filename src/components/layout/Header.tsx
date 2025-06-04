@@ -2,7 +2,71 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Menu, X, TrendingUp, Users, Settings } from 'lucide-react'
+import { Menu, X, TrendingUp, Users, Settings, User, LogOut } from 'lucide-react'
+import { useAuth } from '@/hooks/useAuth'
+import { AuthTrigger } from '@/components/auth/AuthGuard'
+
+function UserAuthStatus() {
+  const { isAuthenticated, user, signOut, loading } = useAuth()
+  const [showUserMenu, setShowUserMenu] = useState(false)
+
+  if (loading) {
+    return (
+      <div className="bg-gray-500/20 text-gray-300 px-3 py-1 rounded-full text-xs">
+        טוען...
+      </div>
+    )
+  }
+
+  if (isAuthenticated && user) {
+    return (
+      <div className="relative">
+        <button
+          onClick={() => setShowUserMenu(!showUserMenu)}
+          className="flex items-center space-x-2 rtl:space-x-reverse bg-green-500/20 text-green-100 px-3 py-2 rounded-lg text-sm font-medium border border-green-400/30 hover:bg-green-500/30 transition-colors"
+        >
+          <User className="w-4 h-4" />
+          <span>{user.email?.split('@')[0] || 'משתמש'}</span>
+        </button>
+
+        {showUserMenu && (
+          <>
+            {/* Backdrop */}
+            <div 
+              className="fixed inset-0 z-10"
+              onClick={() => setShowUserMenu(false)}
+            />
+            
+            {/* User Menu */}
+            <div className="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-20">
+              <div className="p-3 border-b border-gray-200">
+                <p className="text-sm font-medium text-gray-900">{user.email}</p>
+                <p className="text-xs text-gray-500">משתמש רשום</p>
+              </div>
+              <button
+                onClick={() => {
+                  signOut()
+                  setShowUserMenu(false)
+                }}
+                className="w-full flex items-center space-x-2 rtl:space-x-reverse px-3 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>התנתק</span>
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    )
+  }
+
+  return (
+    <AuthTrigger className="bg-blue-500/20 text-blue-100 px-3 py-2 rounded-lg text-sm font-medium border border-blue-400/30 hover:bg-blue-500/30 transition-colors flex items-center space-x-2 rtl:space-x-reverse">
+      <User className="w-4 h-4" />
+      <span>התחבר</span>
+    </AuthTrigger>
+  )
+}
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -52,13 +116,8 @@ export function Header() {
               <span>ניהול</span>
             </Link>
             
-            {/* Status Badge */}
-            <div className="bg-green-500/20 text-green-100 px-3 py-1 rounded-full text-xs font-medium border border-green-400/30">
-              <div className="flex items-center space-x-1 rtl:space-x-reverse">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span>מערכת פעילה</span>
-              </div>
-            </div>
+            {/* User Authentication Status */}
+            <UserAuthStatus />
           </nav>
 
           {/* Mobile Menu Button */}

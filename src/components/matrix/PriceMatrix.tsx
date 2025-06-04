@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import { usePriceMatrix } from '@/hooks/usePriceMatrix'
+import { AuthTrigger } from '@/components/auth/AuthGuard'
 import { RefreshCw, Plus, Tag, TrendingUp, AlertCircle } from 'lucide-react'
 
 interface PriceMatrixProps {
@@ -227,12 +228,12 @@ export function PriceMatrix({ onReportPrice }: PriceMatrixProps) {
                             </div>
 
                             {/* Report Button */}
-                            <button
-                              onClick={() => handleReportPrice(meatCut.meat_cut_id, retailer.id)}
+                            <AuthTrigger
+                              onSuccess={() => handleReportPrice(meatCut.meat_cut_id, retailer.id)}
                               className="w-full px-2 py-1 text-xs bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-md transition-colors border border-blue-200"
                             >
                               דווח מחיר
-                            </button>
+                            </AuthTrigger>
                           </div>
                         ) : (
                           // No Price Data
@@ -240,13 +241,13 @@ export function PriceMatrix({ onReportPrice }: PriceMatrixProps) {
                             <div className="text-sm text-gray-400 py-2">
                               אין מחיר
                             </div>
-                            <button
-                              onClick={() => handleReportPrice(meatCut.meat_cut_id, retailer.id)}
+                            <AuthTrigger
+                              onSuccess={() => handleReportPrice(meatCut.meat_cut_id, retailer.id)}
                               className="w-full px-2 py-1 text-xs bg-green-50 text-green-600 hover:bg-green-100 rounded-md transition-colors border border-green-200 flex items-center justify-center space-x-1 rtl:space-x-reverse"
                             >
                               <Plus className="w-3 h-3" />
                               <span>דווח</span>
-                            </button>
+                            </AuthTrigger>
                           </div>
                         )}
                       </td>
