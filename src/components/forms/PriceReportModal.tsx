@@ -38,7 +38,6 @@ export function PriceReportModal({
   })
 
   const [validationErrors, setValidationErrors] = useState<string[]>([])
-  const [showSuccess, setShowSuccess] = useState(false)
 
   // Update form when props change
   useEffect(() => {
@@ -81,14 +80,23 @@ export function PriceReportModal({
     })
 
     if (result.success) {
-      setShowSuccess(true)
-      setTimeout(() => {
-        setShowSuccess(false)
-        onClose()
-        if (onSuccess) {
-          onSuccess()
-        }
-      }, 2000)
+      // Clear form data
+      setFormData({
+        meat_cut_id: '',
+        retailer_id: '',
+        price_shekel: '',
+        store_location: '',
+        notes: '',
+        purchase_date: new Date().toISOString().split('T')[0],
+        is_on_sale: false,
+        sale_price_shekel: ''
+      })
+      setValidationErrors([])
+      
+      // Call success callback (which will show toast and refresh data)
+      if (onSuccess) {
+        onSuccess()
+      }
     }
   }
 
@@ -107,7 +115,6 @@ export function PriceReportModal({
       })
       setValidationErrors([])
       clearLastResponse()
-      setShowSuccess(false)
       onClose()
     }
   }
@@ -136,23 +143,6 @@ export function PriceReportModal({
     )
   }
 
-  // Success state
-  if (showSuccess) {
-    return (
-      <div className="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-50" dir="rtl">
-        <div className="card max-w-md w-full p-8 text-center animate-fade-in">
-          <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-gray-900 mb-2">דיווח נשלח בהצלחה!</h3>
-          <p className="text-gray-600 mb-4">
-            תודה על התרומה לקהילה. הדיווח שלך יעזור לאחרים לחסוך כסף.
-          </p>
-          <div className="text-sm text-green-600 font-medium">
-            {lastResponse?.message}
-          </div>
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-50" dir="rtl">

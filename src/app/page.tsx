@@ -5,12 +5,15 @@ import { Header } from '@/components/layout/Header'
 import { PriceMatrix } from '@/components/matrix/PriceMatrix'
 import { PriceReportModal } from '@/components/forms/PriceReportModal'
 import { AuthTrigger } from '@/components/auth/AuthGuard'
+import { ToastContainer, useToast } from '@/components/ui/Toast'
 import { Plus, TrendingUp, Users, Zap } from 'lucide-react'
 
 export default function HomePage() {
   const [isReportModalOpen, setIsReportModalOpen] = useState(false)
   const [preSelectedMeatCutId, setPreSelectedMeatCutId] = useState<string>('')
   const [preSelectedRetailerId, setPreSelectedRetailerId] = useState<string>('')
+  const [refreshKey, setRefreshKey] = useState(0)
+  const { toasts, removeToast, success } = useToast()
 
   const handleReportPrice = (meatCutId?: string, retailerId?: string) => {
     setPreSelectedMeatCutId(meatCutId || '')
@@ -19,9 +22,14 @@ export default function HomePage() {
   }
 
   const handleReportSuccess = () => {
-    // This will be called after successful price report submission
-    // The PriceMatrix component will automatically refresh its data
-    window.location.reload()
+    // Show success toast
+    success('דיווח נשלח בהצלחה!', 'תודה על התרומה לקהילה 🎉')
+    
+    // Refresh the matrix data by forcing a re-render
+    setRefreshKey(prev => prev + 1)
+    
+    // Close the modal
+    setIsReportModalOpen(false)
   }
 
   return (
@@ -67,7 +75,7 @@ export default function HomePage() {
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <PriceMatrix onReportPrice={handleReportPrice} />
+        <PriceMatrix key={refreshKey} onReportPrice={handleReportPrice} />
       </div>
 
       {/* Stats Section */}
@@ -139,6 +147,9 @@ export default function HomePage() {
         preSelectedRetailerId={preSelectedRetailerId}
         onSuccess={handleReportSuccess}
       />
+
+      {/* Toast Notifications */}
+      <ToastContainer toasts={toasts} onClose={removeToast} />
     </div>
   )
 }

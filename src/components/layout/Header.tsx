@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Menu, X, TrendingUp, Users, Settings, User, LogOut } from 'lucide-react'
+import { Menu, X, TrendingUp, User, LogOut } from 'lucide-react'
 import { useAuth } from '@/hooks/useAuth'
 import { AuthTrigger } from '@/components/auth/AuthGuard'
 
@@ -101,20 +101,6 @@ export function Header() {
               <TrendingUp className="w-4 h-4" />
               <span>מטריקס מחירים</span>
             </Link>
-            <Link 
-              href="/community" 
-              className="flex items-center space-x-2 rtl:space-x-reverse text-white/90 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-white/10"
-            >
-              <Users className="w-4 h-4" />
-              <span>קהילה</span>
-            </Link>
-            <Link 
-              href="/admin" 
-              className="flex items-center space-x-2 rtl:space-x-reverse text-white/90 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-white/10"
-            >
-              <Settings className="w-4 h-4" />
-              <span>ניהול</span>
-            </Link>
             
             {/* User Authentication Status */}
             <UserAuthStatus />
@@ -150,22 +136,6 @@ export function Header() {
               >
                 <TrendingUp className="w-5 h-5" />
                 <span>מטריקס מחירים</span>
-              </Link>
-              <Link 
-                href="/community" 
-                className="flex items-center space-x-3 rtl:space-x-reverse text-gray-700 hover:text-gray-900 hover:bg-gray-50 px-3 py-3 rounded-md text-base font-medium transition-colors"
-                onClick={toggleMobileMenu}
-              >
-                <Users className="w-5 h-5" />
-                <span>קהילה</span>
-              </Link>
-              <Link 
-                href="/admin" 
-                className="flex items-center space-x-3 rtl:space-x-reverse text-gray-700 hover:text-gray-900 hover:bg-gray-50 px-3 py-3 rounded-md text-base font-medium transition-colors"
-                onClick={toggleMobileMenu}
-              >
-                <Settings className="w-5 h-5" />
-                <span>ניהול</span>
               </Link>
               
               {/* Mobile Status */}
