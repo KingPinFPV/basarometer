@@ -1,120 +1,247 @@
 'use client'
 
 import { usePriceData } from '@/hooks/usePriceData'
+import { useMemo } from 'react'
 
-export default function PriceMatrix() {
-  const { priceReports, meatCuts, retailers, loading, error, refetch } = usePriceData()
+interface PriceCell {
+  price: number | null
+  isOnSale: boolean
+  reportId: string | null
+  lastUpdated: string | null
+  confidence: number
+}
+
+export default function ColorfulPriceMatrix() {
+  const { priceReports, meatCuts, retailers, loading, error } = usePriceData()
+
+  // יצירת מטריצה עם צבעים
+  const matrix = useMemo(() => {
+    if (!priceReports.length || !meatCuts.length || !retailers.length) {
+      return { grid: {}, allPrices: [], minPrice: 0, maxPrice: 0 }
+    }
+
+    const grid: Record<string, Record<string, PriceCell>> = {}
+    const allPrices: number[] = []
+
+    // בניית הגריד
+    meatCuts.forEach(cut => {
+      grid[cut.id] = {}
+      retailers.forEach(retailer => {
+        const report = priceReports.find(r => 
+          r.meat_cut_id === cut.id && r.retailer_id === retailer.id
+        )
+        
+        const price = report?.price_per_kg || null
+        if (price) allPrices.push(price)
+        
+        grid[cut.id][retailer.id] = {
+          price,
+          isOnSale: report?.is_on_sale || false,
+          reportId: report?.id || null,
+          lastUpdated: report?.created_at || null,
+          confidence: report?.confidence_score || 0
+        }
+      })
+    })
+
+    const minPrice = Math.min(...allPrices)
+    const maxPrice = Math.max(...allPrices)
+
+    return { grid, allPrices, minPrice, maxPrice }
+  }, [priceReports, meatCuts, retailers])
+
+  // פונקציית צבע לפי מחיר
+  const getPriceColor = (price: number | null): string => {
+    if (!price || matrix.allPrices.length === 0) return 'bg-gray-50'
+    
+    const { minPrice, maxPrice } = matrix
+    const range = maxPrice - minPrice
+    const normalized = (price - minPrice) / range
+
+    if (normalized <= 0.33) return 'bg-green-100 border-green-200' // זול
+    if (normalized <= 0.66) return 'bg-yellow-100 border-yellow-200' // בינוני  
+    return 'bg-red-100 border-red-200' // יקר
+  }
+
+  const getTextColor = (price: number | null): string => {
+    if (!price || matrix.allPrices.length === 0) return 'text-gray-400'
+    
+    const { minPrice, maxPrice } = matrix
+    const range = maxPrice - minPrice
+    const normalized = (price - minPrice) / range
+
+    if (normalized <= 0.33) return 'text-green-800'
+    if (normalized <= 0.66) return 'text-yellow-800'
+    return 'text-red-800'
+  }
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center p-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-        <span className="mr-2 text-gray-600">טוען נתונים...</span>
+      <div className="flex items-center justify-center p-12">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <span className="mr-4 text-gray-600 text-lg">טוען מטריצת מחירים...</span>
       </div>
     )
   }
 
   if (error) {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-lg p-4 m-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className="text-red-800 font-medium">שגיאה בטעינת נתונים</h3>
-            <p className="text-red-600 text-sm mt-1">{error}</p>
-          </div>
-          <button 
-            onClick={refetch}
-            className="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700"
-          >
-            נסה שוב
-          </button>
-        </div>
+      <div className="bg-red-50 border border-red-200 rounded-lg p-6 m-4">
+        <div className="text-red-800 font-medium text-lg">שגיאה בטעינת נתונים</div>
+        <p className="text-red-600 mt-2">{error}</p>
       </div>
     )
   }
 
-  if (!priceReports.length && !meatCuts.length && !retailers.length) {
+  if (!matrix.allPrices.length) {
     return (
-      <div className="text-center p-8">
-        <div className="text-gray-500 text-lg">📭 אין נתונים להצגה</div>
-        <button 
-          onClick={refetch}
-          className="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-        >
-          רענן נתונים
-        </button>
+      <div className="text-center p-12">
+        <div className="text-gray-500 text-xl">📭 אין נתונים להצגה</div>
+        <p className="text-gray-400 mt-2">היו ראשונים לדווח על מחירים!</p>
       </div>
     )
   }
 
   return (
-    <div className="bg-white rounded-lg shadow p-6 m-4">
-      {/* Header with stats */}
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">מטריצת מחירי בשר</h2>
-        <div className="flex gap-4 text-sm text-gray-600">
-          <span>📊 {priceReports.length} דיווחי מחיר</span>
-          <span>🥩 {meatCuts.length} מוצרי בשר</span>
-          <span>🏪 {retailers.length} קמעונאים</span>
+    <div className="max-w-7xl mx-auto p-4">
+      {/* כותרת עם סטטיסטיקות */}
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">
+          בשרומטר V3 - פלטפורמת הקהילה
+        </h1>
+        <p className="text-gray-600 mb-4">
+          השוואת מחירי בשר מתקדמת עם דיווחי קהילתיים ונכחיים
+        </p>
+        
+        {/* מקרא צבעים */}
+        <div className="flex justify-center items-center gap-6 mb-6">
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 bg-green-100 border border-green-200 rounded"></div>
+            <span className="text-sm text-gray-600">הכי זול</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 bg-yellow-100 border border-yellow-200 rounded"></div>
+            <span className="text-sm text-gray-600">מחיר בינוני</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 bg-red-100 border border-red-200 rounded"></div>
+            <span className="text-sm text-gray-600">הכי יקר</span>
+          </div>
         </div>
       </div>
 
-      {/* Quick data preview for debugging */}
-      <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-3">דיווחי מחיר אחרונים</h3>
-        <div className="overflow-x-auto">
-          <table className="min-w-full border border-gray-200 rounded">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="border-b px-4 py-2 text-right">מוצר</th>
-                <th className="border-b px-4 py-2 text-right">קמעונאי</th>
-                <th className="border-b px-4 py-2 text-right">מחיר לקילו</th>
-                <th className="border-b px-4 py-2 text-right">תאריך</th>
-                <th className="border-b px-4 py-2 text-right">מיקום</th>
-              </tr>
-            </thead>
-            <tbody>
-              {priceReports.slice(0, 10).map((report) => {
-                const meatCut = meatCuts.find(cut => cut.id === report.meat_cut_id)
-                const retailer = retailers.find(r => r.id === report.retailer_id)
-                
-                return (
-                  <tr key={report.id} className="hover:bg-gray-50">
-                    <td className="border-b px-4 py-2">
-                      {meatCut?.name_hebrew || 'לא ידוע'}
-                    </td>
-                    <td className="border-b px-4 py-2">
-                      {retailer?.name || 'לא ידוע'}
-                    </td>
-                    <td className="border-b px-4 py-2 font-medium">
-                      ₪{(report.price_per_kg / 100).toFixed(2)}
-                      {report.is_on_sale && (
-                        <span className="text-red-600 text-xs mr-1">🔥</span>
+      {/* סטטיסטיקות */}
+      <div className="bg-white rounded-lg shadow-sm border p-4 mb-6">
+        <div className="text-center">
+          <div className="text-2xl font-bold text-blue-600 mb-1">
+            מטריקס מחירי בשר ישראלי
+          </div>
+          <div className="flex justify-center gap-8 text-sm text-gray-600">
+            <span>📊 {priceReports.length} דיווחי מחיר</span>
+            <span>🥩 {meatCuts.length} מוצרי בשר</span>
+            <span>🏪 {retailers.length} קמעונאים</span>
+          </div>
+        </div>
+      </div>
+
+      {/* הגריד */}
+      <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-0">
+          {/* כותרת ריקה */}
+          <div className="bg-gray-100 p-4 border-b border-r border-gray-200">
+            <div className="font-bold text-gray-700 text-right">מוצר</div>
+          </div>
+          
+          {/* כותרות קמעונאים */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-0">
+            {retailers.map((retailer) => (
+              <div 
+                key={retailer.id}
+                className="bg-gray-100 p-3 border-b border-gray-200 text-center min-h-[80px] flex flex-col justify-center"
+              >
+                <div className="font-semibold text-gray-700 text-sm mb-1">
+                  {retailer.name}
+                </div>
+                <div className="text-xs text-gray-500">
+                  {retailer.type || 'supermarket'}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* שורות המוצרים */}
+          {meatCuts.map((cut) => (
+            <div key={cut.id} className="contents">
+              {/* שם המוצר */}
+              <div className="bg-gray-50 p-4 border-b border-r border-gray-200 flex flex-col justify-center">
+                <div className="font-bold text-gray-800 text-right">
+                  {cut.name_hebrew}
+                </div>
+                <div className="text-sm text-gray-500 text-right">
+                  {cut.name_english}
+                </div>
+                <div className="text-xs text-gray-400 text-right mt-1">
+                  מחירים
+                </div>
+              </div>
+              
+              {/* תאי מחירים */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-0">
+                {retailers.map((retailer) => {
+                  const cell = matrix.grid[cut.id]?.[retailer.id]
+                  const price = cell?.price
+                  const priceInShekels = price ? (price / 100).toFixed(2) : null
+                  
+                  return (
+                    <div
+                      key={`${cut.id}-${retailer.id}`}
+                      className={`
+                        ${getPriceColor(price)} 
+                        border-b border-gray-200 p-3 text-center min-h-[100px] 
+                        flex flex-col justify-center transition-all hover:shadow-md
+                      `}
+                    >
+                      {priceInShekels ? (
+                        <>
+                          <div className={`text-lg font-bold ${getTextColor(price)}`}>
+                            ₪{priceInShekels}
+                          </div>
+                          {cell?.isOnSale && (
+                            <div className="text-xs text-red-600 font-medium">
+                              🔥 מבצע
+                            </div>
+                          )}
+                          <div className="text-xs text-gray-500 mt-1">
+                            עדכן
+                          </div>
+                          {cell?.lastUpdated && (
+                            <div className="text-xs text-gray-400">
+                              {new Date(cell.lastUpdated).toLocaleDateString('he-IL')}
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <>
+                          <div className="text-gray-400 text-sm">אין מידע</div>
+                          <button className="text-xs bg-blue-500 text-white px-2 py-1 rounded mt-2 hover:bg-blue-600">
+                            דווח מחיר
+                          </button>
+                        </>
                       )}
-                    </td>
-                    <td className="border-b px-4 py-2 text-sm text-gray-600">
-                      {new Date(report.purchase_date).toLocaleDateString('he-IL')}
-                    </td>
-                    <td className="border-b px-4 py-2 text-sm text-gray-600">
-                      {report.location || '-'}
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Debug info */}
-      <details className="mt-4">
-        <summary className="cursor-pointer text-sm text-gray-500">🔍 מידע טכני לדיבוג</summary>
-        <div className="mt-2 p-3 bg-gray-50 rounded text-xs">
-          <div>Last price report: {priceReports[0]?.created_at}</div>
-          <div>Total data points: {priceReports.length + meatCuts.length + retailers.length}</div>
-          <div>Supabase connection: ✅ Working</div>
-        </div>
-      </details>
+      {/* מידע נוסף */}
+      <div className="mt-6 text-center text-sm text-gray-500">
+        עדכון אחרון: {new Date().toLocaleString('he-IL')} | 
+        נתונים מקהילת בשרומטר V3 ❤️
+      </div>
     </div>
   )
 }
