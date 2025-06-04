@@ -42,12 +42,6 @@ export default function HomePage() {
     checkAdmin()
   }, [checkAdmin])
 
-  const handleReportPrice = (meatCutId?: string, retailerId?: string) => {
-    setPreSelectedMeatCutId(meatCutId || '')
-    setPreSelectedRetailerId(retailerId || '')
-    setIsReportModalOpen(true)
-  }
-
   const handleReportSuccess = () => {
     success('דיווח נשלח בהצלחה!', 'תודה על התרומה לקהילה 🎉')
     setRefreshKey(prev => prev + 1)
@@ -97,10 +91,7 @@ export default function HomePage() {
         )}
         
         {/* Price Matrix */}
-        <PriceMatrix 
-          key={refreshKey} 
-          onReportPrice={handleReportPrice} 
-        />
+        <PriceMatrix key={refreshKey} />
       </div>
 
       {/* Stats Section */}
@@ -165,14 +156,6 @@ export default function HomePage() {
       </footer>
 
       {/* Modals */}
-      <PriceReportModal
-        isOpen={isReportModalOpen}
-        onClose={() => setIsReportModalOpen(false)}
-        preSelectedMeatCutId={preSelectedMeatCutId}
-        preSelectedRetailerId={preSelectedRetailerId}
-        onSuccess={handleReportSuccess}
-      />
-
       <AddProductForm
         isOpen={showAddProduct}
         onClose={() => setShowAddProduct(false)}

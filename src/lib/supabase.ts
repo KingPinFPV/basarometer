@@ -74,7 +74,7 @@ export type Database = {
           logo_url: string | null
           website_url: string | null
           is_chain: boolean
-          location_coverage: any
+          location_coverage: Record<string, unknown>
           is_active: boolean
           created_at: string
         }
@@ -108,7 +108,7 @@ export type Database = {
           reputation_score: number
           avatar_url: string | null
           bio: string | null
-          preferences: any
+          preferences: Record<string, unknown>
           created_at: string
           updated_at: string
         }

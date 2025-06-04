@@ -2,11 +2,7 @@
 
 import { usePriceData } from '@/hooks/usePriceData'
 
-interface PriceMatrixProps {
-  onReportPrice?: (meatCutId: string, retailerId: string) => void
-}
-
-export default function PriceMatrix({ onReportPrice }: PriceMatrixProps) {
+export default function PriceMatrix() {
   const { priceReports, meatCuts, retailers, loading, error, refetch } = usePriceData()
 
   if (loading) {
@@ -51,12 +47,6 @@ export default function PriceMatrix({ onReportPrice }: PriceMatrixProps) {
     )
   }
 
-  const handleReportClick = (meatCutId: string, retailerId: string) => {
-    if (onReportPrice) {
-      onReportPrice(meatCutId, retailerId)
-    }
-  }
-
   return (
     <div className="bg-white rounded-lg shadow p-6 m-4">
       {/* Header with stats */}
@@ -81,7 +71,6 @@ export default function PriceMatrix({ onReportPrice }: PriceMatrixProps) {
                 <th className="border-b px-4 py-2 text-right">מחיר/ק"ג</th>
                 <th className="border-b px-4 py-2 text-right">תאריך</th>
                 <th className="border-b px-4 py-2 text-right">מיקום</th>
-                <th className="border-b px-4 py-2 text-right">פעולות</th>
               </tr>
             </thead>
             <tbody>
@@ -108,14 +97,6 @@ export default function PriceMatrix({ onReportPrice }: PriceMatrixProps) {
                     </td>
                     <td className="border-b px-4 py-2 text-sm text-gray-600">
                       {report.location || '-'}
-                    </td>
-                    <td className="border-b px-4 py-2">
-                      <button
-                        onClick={() => handleReportClick(report.meat_cut_id, report.retailer_id)}
-                        className="text-blue-600 hover:text-blue-800 text-sm"
-                      >
-                        דווח מחיר חדש
-                      </button>
                     </td>
                   </tr>
                 )
