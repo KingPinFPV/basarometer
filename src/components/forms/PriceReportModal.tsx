@@ -39,6 +39,25 @@ export function PriceReportModal({
 
   const [validationErrors, setValidationErrors] = useState<string[]>([])
 
+  // Clear any cached errors when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      // Force clear all error states
+      clearLastResponse()
+      setValidationErrors([])
+      
+      // Also clear any cached data in browser
+      if (typeof window !== 'undefined') {
+        // Clear any potential cached responses
+        const cacheKeys = ['lastPriceReportError', 'priceReportState']
+        cacheKeys.forEach(key => {
+          sessionStorage.removeItem(key)
+          localStorage.removeItem(key)
+        })
+      }
+    }
+  }, [isOpen, clearLastResponse])
+
   // Update form when props change
   useEffect(() => {
     if (preSelectedMeatCutId && preSelectedMeatCutId !== formData.meat_cut_id) {
@@ -169,8 +188,8 @@ export function PriceReportModal({
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
-          {/* Error Display */}
-          {(validationErrors.length > 0 || lastResponse?.error) && (
+          {/* Error Display - Only show validation errors or current submission errors */}
+          {(validationErrors.length > 0 || (lastResponse?.error && !lastResponse?.success)) && (
             <div className="bg-red-50 border border-red-200 rounded-lg p-4">
               <div className="flex items-start space-x-3 rtl:space-x-reverse">
                 <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
@@ -180,7 +199,9 @@ export function PriceReportModal({
                     {validationErrors.map((error, index) => (
                       <li key={index}>• {error}</li>
                     ))}
-                    {lastResponse?.error && <li>• {lastResponse.error}</li>}
+                    {lastResponse?.error && !lastResponse?.success && (
+                      <li>• {lastResponse.error}</li>
+                    )}
                   </ul>
                 </div>
               </div>

@@ -78,8 +78,15 @@ export function usePriceReport() {
         throw new Error(response.error || 'שגיאה לא ידועה בשליחת הדיווח')
       }
 
-      setLastResponse(response)
-      return response
+      // Clear any previous error state on success
+      const successResponse: PriceReportResponse = {
+        ...response,
+        success: true,
+        error: undefined // Clear any error field
+      }
+
+      setLastResponse(successResponse)
+      return successResponse
 
     } catch (err) {
       const errorResponse: PriceReportResponse = {
