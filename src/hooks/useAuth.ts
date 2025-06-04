@@ -1,8 +1,9 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { createClient } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase'
 import { useAuthProfile } from './useAuthProfile'
+import type { AuthError } from '@supabase/supabase-js'
 
 interface AuthCredentials {
   email: string
@@ -10,36 +11,38 @@ interface AuthCredentials {
   fullName?: string
 }
 
+interface AuthResponse {
+  error: AuthError | null
+  success: boolean
+}
+
 export function useAuth() {
   const { user, profile, loading, signOut } = useAuthProfile()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [authError, setAuthError] = useState<string | null>(null)
-
-  const supabase = createClient()
 
   const signIn = useCallback(async ({ email, password }: AuthCredentials) => {
     try {
       setIsSubmitting(true)
       setAuthError(null)
 
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: email.trim(),
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
         password
       })
 
-      if (error) {
-        throw new Error(getHebrewErrorMessage(error.message))
-      }
+      if (error) throw error
 
-      return { user: data.user, error: null }
+      return { error: null, success: true }
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'שגיאה בהתחברות'
-      setAuthError(errorMessage)
-      return { user: null, error: errorMessage }
+      console.error('Auth error:', err)
+      const error = err as AuthError
+      setAuthError(error.message)
+      return { error, success: false }
     } finally {
       setIsSubmitting(false)
     }
-  }, [supabase])
+  }, [])
 
   const signUp = useCallback(async ({ email, password, fullName }: AuthCredentials) => {
     try {
@@ -78,7 +81,7 @@ export function useAuth() {
     } finally {
       setIsSubmitting(false)
     }
-  }, [supabase])
+  }, [])
 
   const resetPassword = useCallback(async (email: string) => {
     try {
@@ -104,7 +107,7 @@ export function useAuth() {
     } finally {
       setIsSubmitting(false)
     }
-  }, [supabase])
+  }, [])
 
   const clearError = useCallback(() => {
     setAuthError(null)
@@ -125,7 +128,7 @@ export function useAuth() {
 
     // Auth form state
     isSubmitting,
-    authError,
+    error: authError,
     clearError
   }
 }
