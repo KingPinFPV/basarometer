@@ -7,6 +7,7 @@ import { PriceReportModal } from '@/components/forms/PriceReportModal'
 import { AuthTrigger } from '@/components/auth/AuthGuard'
 import { ToastContainer, useToast } from '@/components/ui/Toast'
 import { Plus, TrendingUp, Users, Zap } from 'lucide-react'
+import { PriceLegend } from '@/components/PriceLegend'
 
 export default function HomePage() {
   const [isReportModalOpen, setIsReportModalOpen] = useState(false)
@@ -36,45 +37,28 @@ export default function HomePage() {
     <div className="min-h-screen" dir="rtl">
       <Header />
       
-      {/* Hero Section */}
-      <div className="bg-gradient-primary">
+      {/* Header Section */}
+      <div className="bg-gradient-to-b from-blue-50 to-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="text-center space-y-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              בשרומטר V3
+          <div className="text-center space-y-6">
+            <h1 className="text-4xl font-bold text-gray-900">
+              השוואת מחירי בשר בישראל
             </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
-              השוואת מחירי בשר מתקדמת עם דיווחים קהילתיים בזמן אמת
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              מטריקס מחירים חכם המתעדכן בזמן אמת על ידי הקהילה
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4 rtl:space-x-reverse pt-6">
-              <AuthTrigger
-                onSuccess={() => handleReportPrice()}
-                className="bg-white text-blue-600 hover:bg-gray-50 px-8 py-3 rounded-lg font-semibold transition-colors flex items-center space-x-2 rtl:space-x-reverse"
-              >
-                <Plus className="w-5 h-5" />
-                <span>דווח מחיר חדש</span>
-              </AuthTrigger>
-              <div className="flex items-center space-x-6 rtl:space-x-reverse text-white/80 text-sm">
-                <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                  <TrendingUp className="w-4 h-4" />
-                  <span>מחירים מעודכנים</span>
-                </div>
-                <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                  <Users className="w-4 h-4" />
-                  <span>קהילה פעילה</span>
-                </div>
-                <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                  <Zap className="w-4 h-4" />
-                  <span>עדכונים בזמן אמת</span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* Price Matrix Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Price Legend */}
+        <div className="mb-6">
+          <PriceLegend />
+        </div>
+        
+        {/* Matrix */}
         <PriceMatrix key={refreshKey} onReportPrice={handleReportPrice} />
       </div>
 

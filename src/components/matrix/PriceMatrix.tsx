@@ -4,14 +4,36 @@ import { useState, useMemo } from 'react'
 import { usePriceMatrix } from '@/hooks/usePriceMatrix'
 import { AuthTrigger } from '@/components/auth/AuthGuard'
 import { RefreshCw, Plus, Tag, TrendingUp, AlertCircle } from 'lucide-react'
+import { calculatePriceColors } from '@/utils/priceLogic'
+import { PriceLegend } from '@/components/PriceLegend'
+import { PriceReport } from '@/types/market'
 
 interface PriceMatrixProps {
   onReportPrice?: (meatCutId: string, retailerId: string) => void
 }
 
 export function PriceMatrix({ onReportPrice }: PriceMatrixProps) {
-  const { matrixData, isLoading, error, refreshData, getPriceColor, getAllRetailers } = usePriceMatrix()
+  const { matrixData, isLoading, error, refreshData, getAllRetailers } = usePriceMatrix()
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
+
+  // Calculate price colors for all data
+  const colorMap = useMemo(() => {
+    const allPrices: PriceReport[] = matrixData.flatMap(cut => 
+      cut.retailer_data.map(retailer => ({
+        id: `${cut.meat_cut_id}-${retailer.retailer_id}`,
+        meat_cut_id: cut.meat_cut_id,
+        retailer_id: retailer.retailer_id,
+        price_per_kg: retailer.price_per_kg,
+        is_on_sale: retailer.is_on_sale,
+        sale_price_per_kg: retailer.sale_price_per_kg,
+        confidence_score: 5, // Default confidence score
+        expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(), // 7 days from now
+        is_active: true,
+        created_at: retailer.created_at
+      }))
+    )
+    return calculatePriceColors(allPrices)
+  }, [matrixData])
 
   // Get unique categories for filtering
   const categories = useMemo(() => {
@@ -189,26 +211,26 @@ export function PriceMatrix({ onReportPrice }: PriceMatrixProps) {
                       r => r.retailer_id === retailer.id
                     )
 
+                    const cellColorClass = colorMap.get(`${meatCut.meat_cut_id}-${retailer.id}`) || 'bg-gray-400'
+
                     return (
                       <td key={retailer.id} className="px-4 py-4 text-center">
                         {priceData ? (
                           <div className="space-y-2">
                             {/* Price Display */}
                             <div className="space-y-1">
-                              <div
-                                className={`text-lg font-bold ${getPriceColor(
-                                  priceData.price_per_kg,
-                                  priceData.is_on_sale
-                                )}`}
-                              >
+                              <div className={`text-lg font-bold ${cellColorClass} rounded-md px-2 py-1`}>
                                 ₪{priceData.price_shekel.toFixed(2)}
+                                {priceData.is_on_sale && (
+                                  <span className="text-blue-600 mr-1">🔵</span>
+                                )}
                               </div>
                               
                               {/* Sale Price */}
                               {priceData.is_on_sale && priceData.sale_price_shekel && (
                                 <div className="flex items-center justify-center space-x-1 rtl:space-x-reverse">
-                                  <Tag className="w-3 h-3 text-purple-500" />
-                                  <span className="text-sm font-semibold text-purple-600">
+                                  <Tag className="w-3 h-3 text-blue-500" />
+                                  <span className="text-sm font-semibold text-blue-600">
                                     ₪{priceData.sale_price_shekel.toFixed(2)}
                                   </span>
                                 </div>
@@ -260,28 +282,8 @@ export function PriceMatrix({ onReportPrice }: PriceMatrixProps) {
         </div>
       </div>
 
-      {/* Legend */}
-      <div className="card p-4">
-        <h3 className="text-sm font-semibold text-gray-900 mb-3">מקרא צבעים</h3>
-        <div className="flex flex-wrap items-center gap-4 text-sm">
-          <div className="flex items-center space-x-2 rtl:space-x-reverse">
-            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-            <span className="text-gray-600">מחיר זול (עד ₪30)</span>
-          </div>
-          <div className="flex items-center space-x-2 rtl:space-x-reverse">
-            <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-            <span className="text-gray-600">מחיר בינוני (₪30-60)</span>
-          </div>
-          <div className="flex items-center space-x-2 rtl:space-x-reverse">
-            <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-            <span className="text-gray-600">מחיר יקר (מעל ₪60)</span>
-          </div>
-          <div className="flex items-center space-x-2 rtl:space-x-reverse">
-            <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-            <span className="text-gray-600">מבצע</span>
-          </div>
-        </div>
-      </div>
+      {/* Price Legend */}
+      <PriceLegend />
     </div>
   )
 }
