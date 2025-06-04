@@ -59,7 +59,6 @@ export interface UserProfile {
   preferred_retailers: string[]
   location?: string
   reputation_score: number
-  total_reports: number
   created_at: string
 }
 

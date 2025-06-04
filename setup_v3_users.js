@@ -152,8 +152,7 @@ async function createUser(userData, index) {
           city: userData.city,
           phone: userData.phone,
           is_admin: userData.is_admin,
-          reputation_score: 0,
-          total_reports: 0
+          reputation_score: 0
         })
       
       if (profileError) {

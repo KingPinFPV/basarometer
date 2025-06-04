@@ -225,7 +225,6 @@ export interface Database {
           city: string | null
           is_admin: boolean | null
           reputation_score: number | null
-          total_reports: number | null
           created_at: string
           updated_at: string
         }
@@ -236,7 +235,6 @@ export interface Database {
           city?: string | null
           is_admin?: boolean | null
           reputation_score?: number | null
-          total_reports?: number | null
           created_at?: string
           updated_at?: string
         }
@@ -247,7 +245,6 @@ export interface Database {
           city?: string | null
           is_admin?: boolean | null
           reputation_score?: number | null
-          total_reports?: number | null
           created_at?: string
           updated_at?: string
         }
