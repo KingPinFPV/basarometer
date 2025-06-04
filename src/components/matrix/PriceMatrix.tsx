@@ -1,140 +1,139 @@
 'use client'
 
-import React, { useState, useEffect, useCallback } from 'react'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { Loader2 } from 'lucide-react'
-import { PriceCell } from '.'
-import { useToast } from '@/components/ui/Toast'
-import { calculatePriceColors, getSaleIndicator } from '@/utils/priceColorLogic'
-
-interface MeatCut {
-  id: string
-  name_hebrew: string
-  name_english: string
-  category_id: string
-  is_popular: boolean
-}
-
-interface Retailer {
-  id: string
-  name: string
-  type: string
-  is_active: boolean
-}
-
-interface PriceData {
-  meat_cut_id: string
-  retailer_id: string
-  price_per_kg: number
-  is_on_sale: boolean
-  sale_price_per_kg?: number
-  reported_at: string
-  confidence_score: number
-}
+import { usePriceData } from '@/hooks/usePriceData'
 
 interface PriceMatrixProps {
-  refreshKey?: number
   onReportPrice?: (meatCutId: string, retailerId: string) => void
 }
 
-export function PriceMatrix({ refreshKey, onReportPrice }: PriceMatrixProps) {
-  const [meatCuts, setMeatCuts] = useState<MeatCut[]>([])
-  const [retailers, setRetailers] = useState<Retailer[]>([])
-  const [priceData, setPriceData] = useState<PriceData[]>([])
-  const [loading, setLoading] = useState(true)
-  
-  const supabase = createClientComponentClient()
-  const { error } = useToast()
-
-  const fetchData = useCallback(async () => {
-    try {
-      setLoading(true)
-      
-      // Fetch all data...
-      const [meatCutsRes, retailersRes, pricesRes] = await Promise.all([
-        supabase.from('meat_cuts').select('*').eq('is_active', true).order('display_order'),
-        supabase.from('retailers').select('*').eq('is_active', true),
-        supabase.from('price_reports').select('*').eq('is_active', true)
-      ])
-
-      if (meatCutsRes.data) setMeatCuts(meatCutsRes.data)
-      if (retailersRes.data) setRetailers(retailersRes.data)
-      if (pricesRes.data) setPriceData(pricesRes.data)
-      
-    } catch (err) {
-      console.error('Error fetching data:', err)
-      error('שגיאה בטעינת הנתונים', 'נסה לרענן את הדף')
-    } finally {
-      setLoading(false)
-    }
-  }, [supabase, error])
-
-  useEffect(() => {
-    fetchData()
-  }, [fetchData, refreshKey])
-
-  // Calculate colors
-  const colorMap = calculatePriceColors(priceData)
-
-  // Get price for specific cell
-  const getPrice = (meatCutId: string, retailerId: string) => {
-    return priceData.find(p => p.meat_cut_id === meatCutId && p.retailer_id === retailerId)
-  }
+export default function PriceMatrix({ onReportPrice }: PriceMatrixProps) {
+  const { priceReports, meatCuts, retailers, loading, error, refetch } = usePriceData()
 
   if (loading) {
     return (
       <div className="flex items-center justify-center p-8">
-        <Loader2 className="animate-spin w-8 h-8" />
-        <span className="mr-2">טוען נתונים...</span>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <span className="mr-2 text-gray-600">טוען נתונים...</span>
       </div>
     )
   }
 
-  return (
-    <div className="w-full overflow-x-auto" dir="rtl">
-      <div className="min-w-full">
-        <table className="w-full border-collapse bg-white shadow-lg rounded-lg overflow-hidden">
-          <thead>
-            <tr className="bg-gray-50">
-              <th className="p-3 text-right font-semibold">מוצר</th>
-              {retailers.map(retailer => (
-                <th key={retailer.id} className="p-3 text-center font-semibold min-w-32">
-                  {retailer.name}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {meatCuts.map(cut => (
-              <tr key={cut.id} className="border-t hover:bg-gray-50/50">
-                <td className="p-3 font-medium bg-gray-50">
-                  <div className="text-right">
-                    <div className="font-semibold">{cut.name_hebrew}</div>
-                    <div className="text-sm text-gray-500">{cut.name_english}</div>
-                  </div>
-                </td>
-                {retailers.map(retailer => {
-                  const price = getPrice(cut.id, retailer.id)
-                  const colorKey = `${cut.id}-${retailer.id}`
-                  const bgColor = colorMap.get(colorKey) || 'bg-gray-200'
-                  
-                  return (
-                    <PriceCell
-                      key={`${cut.id}-${retailer.id}`}
-                      price={price}
-                      backgroundColor={bgColor}
-                      saleIndicator={price ? getSaleIndicator(price.is_on_sale) : ''}
-                      meatCutId={cut.id}
-                      retailerId={retailer.id}
-                      onReport={onReportPrice}
-                    />
-                  )
-                })}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+  if (error) {
+    return (
+      <div className="bg-red-50 border border-red-200 rounded-lg p-4 m-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="text-red-800 font-medium">שגיאה בטעינת נתונים</h3>
+            <p className="text-red-600 text-sm mt-1">{error}</p>
+          </div>
+          <button 
+            onClick={refetch}
+            className="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700"
+          >
+            נסה שוב
+          </button>
+        </div>
       </div>
+    )
+  }
+
+  if (!priceReports.length && !meatCuts.length && !retailers.length) {
+    return (
+      <div className="text-center p-8">
+        <div className="text-gray-500 text-lg">📭 אין נתונים להצגה</div>
+        <button 
+          onClick={refetch}
+          className="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          רענן נתונים
+        </button>
+      </div>
+    )
+  }
+
+  const handleReportClick = (meatCutId: string, retailerId: string) => {
+    if (onReportPrice) {
+      onReportPrice(meatCutId, retailerId)
+    }
+  }
+
+  return (
+    <div className="bg-white rounded-lg shadow p-6 m-4">
+      {/* Header with stats */}
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">מטריצת מחירי בשר</h2>
+        <div className="flex gap-4 text-sm text-gray-600">
+          <span>📊 {priceReports.length} דיווחי מחיר</span>
+          <span>🥩 {meatCuts.length} מוצרי בשר</span>
+          <span>🏪 {retailers.length} קמעונאים</span>
+        </div>
+      </div>
+
+      {/* Quick data preview for debugging */}
+      <div className="mb-6">
+        <h3 className="text-lg font-semibold mb-3">דיווחי מחיר אחרונים</h3>
+        <div className="overflow-x-auto">
+          <table className="min-w-full border border-gray-200 rounded">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="border-b px-4 py-2 text-right">מוצר</th>
+                <th className="border-b px-4 py-2 text-right">קמעונאי</th>
+                <th className="border-b px-4 py-2 text-right">מחיר/ק"ג</th>
+                <th className="border-b px-4 py-2 text-right">תאריך</th>
+                <th className="border-b px-4 py-2 text-right">מיקום</th>
+                <th className="border-b px-4 py-2 text-right">פעולות</th>
+              </tr>
+            </thead>
+            <tbody>
+              {priceReports.slice(0, 10).map((report) => {
+                const meatCut = meatCuts.find(cut => cut.id === report.meat_cut_id)
+                const retailer = retailers.find(r => r.id === report.retailer_id)
+                
+                return (
+                  <tr key={report.id} className="hover:bg-gray-50">
+                    <td className="border-b px-4 py-2">
+                      {meatCut?.name_hebrew || 'לא ידוע'}
+                    </td>
+                    <td className="border-b px-4 py-2">
+                      {retailer?.name || 'לא ידוע'}
+                    </td>
+                    <td className="border-b px-4 py-2 font-medium">
+                      ₪{(report.price_per_kg / 100).toFixed(2)}
+                      {report.is_on_sale && (
+                        <span className="text-red-600 text-xs mr-1">🔥</span>
+                      )}
+                    </td>
+                    <td className="border-b px-4 py-2 text-sm text-gray-600">
+                      {new Date(report.purchase_date).toLocaleDateString('he-IL')}
+                    </td>
+                    <td className="border-b px-4 py-2 text-sm text-gray-600">
+                      {report.location || '-'}
+                    </td>
+                    <td className="border-b px-4 py-2">
+                      <button
+                        onClick={() => handleReportClick(report.meat_cut_id, report.retailer_id)}
+                        className="text-blue-600 hover:text-blue-800 text-sm"
+                      >
+                        דווח מחיר חדש
+                      </button>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Debug info */}
+      <details className="mt-4">
+        <summary className="cursor-pointer text-sm text-gray-500">🔍 מידע טכני לדיבוג</summary>
+        <div className="mt-2 p-3 bg-gray-50 rounded text-xs">
+          <div>Last price report: {priceReports[0]?.created_at}</div>
+          <div>Total data points: {priceReports.length + meatCuts.length + retailers.length}</div>
+          <div>Supabase connection: ✅ Working</div>
+        </div>
+      </details>
     </div>
   )
 }

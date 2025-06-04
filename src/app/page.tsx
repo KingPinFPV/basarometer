@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Header } from '@/components/layout/Header'
-import { PriceMatrix } from '@/components/matrix/PriceMatrix'
+import PriceMatrix from '@/components/matrix/PriceMatrix'
 import { PriceReportModal } from '@/components/forms/PriceReportModal'
 import { ToastContainer, useToast } from '@/components/ui/Toast'
 import { TrendingUp, Users, Zap } from 'lucide-react'
