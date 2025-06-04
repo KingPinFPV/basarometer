@@ -1,27 +1,42 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Header } from '@/components/layout/Header'
 import { PriceMatrix } from '@/components/matrix/PriceMatrix'
 import { PriceReportModal } from '@/components/forms/PriceReportModal'
-import { AuthTrigger } from '@/components/auth/AuthGuard'
 import { ToastContainer, useToast } from '@/components/ui/Toast'
-import { Plus, TrendingUp, Users, Zap } from 'lucide-react'
+import { TrendingUp, Users, Zap } from 'lucide-react'
 import { PriceLegend } from '@/components/PriceLegend'
 import AdminButtons from '@/components/AdminButtons'
 import AddProductForm from '@/components/forms/AddProductForm'
 import AddRetailerForm from '@/components/forms/AddRetailerForm'
-import { useAuth } from '@/hooks/useAuth'
 
 export default function HomePage() {
   const [isReportModalOpen, setIsReportModalOpen] = useState(false)
-  const [isAddProductOpen, setIsAddProductOpen] = useState(false)
-  const [isAddRetailerOpen, setIsAddRetailerOpen] = useState(false)
+  const [showAddProduct, setShowAddProduct] = useState(false)
+  const [showAddRetailer, setShowAddRetailer] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
   const [preSelectedMeatCutId, setPreSelectedMeatCutId] = useState<string>('')
   const [preSelectedRetailerId, setPreSelectedRetailerId] = useState<string>('')
   const [refreshKey, setRefreshKey] = useState(0)
-  const { toasts, removeToast, success } = useToast()
-  const { profile } = useAuth()
+  const { toasts, removeToast, success, error } = useToast()
+
+  const supabase = createClientComponentClient()
+
+  // Check admin permissions
+  useEffect(() => {
+    const checkAdmin = async () => {
+      const { data, error: adminError } = await supabase.rpc('check_user_admin')
+      if (adminError) {
+        console.error('Error checking admin status:', adminError)
+        error('שגיאה בבדיקת הרשאות', 'אנא נסה שוב מאוחר יותר')
+        return
+      }
+      setIsAdmin(data || false)
+    }
+    checkAdmin()
+  }, [])
 
   const handleReportPrice = (meatCutId?: string, retailerId?: string) => {
     setPreSelectedMeatCutId(meatCutId || '')
@@ -30,68 +45,57 @@ export default function HomePage() {
   }
 
   const handleReportSuccess = () => {
-    // Show success toast
     success('דיווח נשלח בהצלחה!', 'תודה על התרומה לקהילה 🎉')
-    
-    // Refresh the matrix data by forcing a re-render
     setRefreshKey(prev => prev + 1)
-    
-    // Close the modal
     setIsReportModalOpen(false)
   }
 
   const handleAddProduct = () => {
-    setIsAddProductOpen(true)
+    setShowAddProduct(true)
   }
 
   const handleAddProductSuccess = () => {
     success('המוצר נוסף בהצלחה!', 'המוצר החדש נוסף למאגר 🎉')
     setRefreshKey(prev => prev + 1)
+    setShowAddProduct(false)
   }
 
   const handleAddRetailer = () => {
-    setIsAddRetailerOpen(true)
+    setShowAddRetailer(true)
   }
 
   const handleAddRetailerSuccess = () => {
     success('הקמעונאי נוסף בהצלחה!', 'הקמעונאי החדש נוסף למאגר 🎉')
     setRefreshKey(prev => prev + 1)
+    setShowAddRetailer(false)
   }
 
   return (
     <div className="min-h-screen" dir="rtl">
       <Header />
       
-      {/* Header Section */}
-      <div className="bg-gradient-to-b from-blue-50 to-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="text-center space-y-6">
-            <h1 className="text-4xl font-bold text-gray-900">
-              השוואת מחירי בשר בישראל
-            </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              מטריקס מחירים חכם המתעדכן בזמן אמת על ידי הקהילה
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Price Matrix Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Admin Buttons */}
-        <AdminButtons
-          isAdmin={profile?.is_admin ?? false}
-          onAddProduct={handleAddProduct}
-          onAddRetailer={handleAddRetailer}
-        />
-        
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
         {/* Price Legend */}
         <div className="mb-6">
           <PriceLegend />
         </div>
+
+        {/* Admin Buttons - Only shown to admins */}
+        {isAdmin && (
+          <div className="mb-6">
+            <AdminButtons
+              onAddProduct={handleAddProduct}
+              onAddRetailer={handleAddRetailer}
+            />
+          </div>
+        )}
         
-        {/* Matrix */}
-        <PriceMatrix key={refreshKey} onReportPrice={handleReportPrice} />
+        {/* Price Matrix */}
+        <PriceMatrix 
+          key={refreshKey} 
+          onReportPrice={handleReportPrice} 
+        />
       </div>
 
       {/* Stats Section */}
@@ -155,7 +159,7 @@ export default function HomePage() {
         </div>
       </footer>
 
-      {/* Price Report Modal */}
+      {/* Modals */}
       <PriceReportModal
         isOpen={isReportModalOpen}
         onClose={() => setIsReportModalOpen(false)}
@@ -165,14 +169,14 @@ export default function HomePage() {
       />
 
       <AddProductForm
-        isOpen={isAddProductOpen}
-        onClose={() => setIsAddProductOpen(false)}
+        isOpen={showAddProduct}
+        onClose={() => setShowAddProduct(false)}
         onSuccess={handleAddProductSuccess}
       />
 
       <AddRetailerForm
-        isOpen={isAddRetailerOpen}
-        onClose={() => setIsAddRetailerOpen(false)}
+        isOpen={showAddRetailer}
+        onClose={() => setShowAddRetailer(false)}
         onSuccess={handleAddRetailerSuccess}
       />
 
