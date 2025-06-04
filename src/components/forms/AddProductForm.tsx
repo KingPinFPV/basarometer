@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
 interface Category {
@@ -29,18 +29,19 @@ export default function AddProductForm({ isOpen, onClose, onSuccess }: AddProduc
 
   const supabase = createClientComponentClient()
 
-  useEffect(() => {
-    if (isOpen) {
-      fetchCategories()
-    }
-  }, [isOpen])
-
-  const fetchCategories = async () => {
+  // useCallback for fetchCategories
+  const fetchCategories = useCallback(async () => {
     const { data } = await supabase.rpc('get_meat_categories_for_form')
     if (data) {
       setCategories(data)
     }
-  }
+  }, [supabase])
+
+  useEffect(() => {
+    if (isOpen) {
+      fetchCategories()
+    }
+  }, [isOpen, fetchCategories])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

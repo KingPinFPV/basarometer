@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Header } from '@/components/layout/Header'
 import { PriceMatrix } from '@/components/matrix/PriceMatrix'
@@ -24,19 +24,23 @@ export default function HomePage() {
 
   const supabase = createClientComponentClient()
 
-  // Check admin permissions
-  useEffect(() => {
-    const checkAdmin = async () => {
+  // useCallback for checkAdmin
+  const checkAdmin = useCallback(async () => {
+    try {
       const { data, error: adminError } = await supabase.rpc('check_user_admin')
       if (adminError) {
-        console.error('Error checking admin status:', adminError)
-        error('שגיאה בבדיקת הרשאות', 'אנא נסה שוב מאוחר יותר')
+        console.error('Error checking admin:', adminError)
         return
       }
       setIsAdmin(data || false)
+    } catch (err) {
+      console.error('Error checking admin:', err)
     }
+  }, [supabase])
+
+  useEffect(() => {
     checkAdmin()
-  }, [])
+  }, [checkAdmin])
 
   const handleReportPrice = (meatCutId?: string, retailerId?: string) => {
     setPreSelectedMeatCutId(meatCutId || '')
@@ -85,6 +89,7 @@ export default function HomePage() {
         {isAdmin && (
           <div className="mb-6">
             <AdminButtons
+              isAdmin={isAdmin}
               onAddProduct={handleAddProduct}
               onAddRetailer={handleAddRetailer}
             />

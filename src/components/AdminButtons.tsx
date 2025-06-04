@@ -1,11 +1,14 @@
-import { Plus, Package, Store } from 'lucide-react'
+import { Package, Store } from 'lucide-react'
 
 interface AdminButtonsProps {
-  onAddProduct: () => void
-  onAddRetailer: () => void
+  isAdmin: boolean;
+  onAddProduct: () => void;
+  onAddRetailer: () => void;
 }
 
-export default function AdminButtons({ onAddProduct, onAddRetailer }: AdminButtonsProps) {
+export default function AdminButtons({ isAdmin, onAddProduct, onAddRetailer }: AdminButtonsProps) {
+  if (!isAdmin) return null;
+
   return (
     <div className="flex gap-3 mb-6" dir="rtl">
       <button
@@ -24,5 +27,5 @@ export default function AdminButtons({ onAddProduct, onAddRetailer }: AdminButto
         <span>הוסף קמעונאי חדש</span>
       </button>
     </div>
-  )
+  );
 } 
