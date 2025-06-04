@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { supabase } from '@/lib/supabase'
+//import { supabase } from '@/lib/supabase'
 import { useAuthProfile } from './useAuthProfile'
 import type { AuthError } from '@supabase/supabase-js'
 
