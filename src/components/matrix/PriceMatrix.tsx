@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { Loader2, RefreshCw } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 import { PriceCell } from './PriceCell'
 import { useToast } from '@/components/ui/Toast'
 import { calculatePriceColors, getSaleIndicator } from '@/utils/priceColorLogic'
@@ -60,7 +60,7 @@ export function PriceMatrix({ refreshKey }: PriceMatrixProps) {
       if (retailersRes.data) setRetailers(retailersRes.data)
       if (pricesRes.data) setPriceData(pricesRes.data)
       
-    } catch (err) {
+    } catch (_err) {
       error('שגיאה בטעינת הנתונים', 'נסה לרענן את הדף')
     } finally {
       setLoading(false)
