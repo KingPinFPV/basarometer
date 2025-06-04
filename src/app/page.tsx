@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { supabase } from '@/lib/supabase'
 import { Header } from '@/components/layout/Header'
 import PriceMatrix from '@/components/matrix/PriceMatrix'
 import { ToastContainer, useToast } from '@/components/ui/Toast'
@@ -18,7 +18,6 @@ export default function HomePage() {
   const [refreshKey, setRefreshKey] = useState(0)
   const { toasts, removeToast, success } = useToast()
 
-  const supabase = createClientComponentClient()
 
   // useCallback for checkAdmin
   const checkAdmin = useCallback(async () => {
@@ -32,7 +31,7 @@ export default function HomePage() {
     } catch (err) {
       console.error('Error checking admin:', err)
     }
-  }, [supabase])
+  }, [])
 
   useEffect(() => {
     checkAdmin()

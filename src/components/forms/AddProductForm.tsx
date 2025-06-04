@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { supabase } from '@/lib/supabase'
 
 interface Category {
   id: string
@@ -27,7 +27,6 @@ export default function AddProductForm({ isOpen, onClose, onSuccess }: AddProduc
     is_popular: false
   })
 
-  const supabase = createClientComponentClient()
 
   // useCallback for fetchCategories
   const fetchCategories = useCallback(async () => {
@@ -35,7 +34,7 @@ export default function AddProductForm({ isOpen, onClose, onSuccess }: AddProduc
     if (data) {
       setCategories(data)
     }
-  }, [supabase])
+  }, [])
 
   useEffect(() => {
     if (isOpen) {

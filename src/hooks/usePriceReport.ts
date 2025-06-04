@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { createClient } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase'
 
 export interface PriceReportData {
   meat_cut_id: string
@@ -27,7 +27,6 @@ export function usePriceReport() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [lastResponse, setLastResponse] = useState<PriceReportResponse | null>(null)
 
-  const supabase = createClient()
 
   const submitPriceReport = useCallback(async (reportData: PriceReportData): Promise<PriceReportResponse> => {
     try {
@@ -99,7 +98,7 @@ export function usePriceReport() {
     } finally {
       setIsSubmitting(false)
     }
-  }, [supabase])
+  }, [])
 
   const validatePriceReport = useCallback((reportData: Partial<PriceReportData>): string[] => {
     const errors: string[] = []

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { createClient } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase'
 import type { User } from '@supabase/supabase-js'
 
 interface AuthState {
@@ -18,7 +18,6 @@ export function useAuthProfile() {
   })
 
   useEffect(() => {
-    const supabase = createClient()
     let mounted = true
 
     // Get initial session ONCE
@@ -63,7 +62,6 @@ export function useAuthProfile() {
     profileError: state.error,
     isAdmin: false,
     signOut: () => {
-      const supabase = createClient()
       return supabase.auth.signOut()
     }
   }

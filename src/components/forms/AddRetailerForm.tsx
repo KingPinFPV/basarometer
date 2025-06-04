@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { supabase } from '@/lib/supabase'
 
 interface AddRetailerFormProps {
   isOpen: boolean
@@ -16,7 +16,6 @@ export default function AddRetailerForm({ isOpen, onClose, onSuccess }: AddRetai
     logo_url: ''
   })
 
-  const supabase = createClientComponentClient()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

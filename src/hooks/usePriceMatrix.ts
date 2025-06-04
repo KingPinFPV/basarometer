@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { createClient } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase'
 
 export interface PriceMatrixItem {
   meat_cut_id: string
@@ -45,7 +45,6 @@ export function usePriceMatrix() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  const supabase = createClient()
 
   const loadPriceMatrix = useCallback(async () => {
     try {
@@ -65,7 +64,7 @@ export function usePriceMatrix() {
     } finally {
       setIsLoading(false)
     }
-  }, [supabase])
+  }, [])
 
   const loadMeatCuts = useCallback(async () => {
     try {
@@ -79,7 +78,7 @@ export function usePriceMatrix() {
     } catch (err) {
       console.error('Error loading meat cuts:', err)
     }
-  }, [supabase])
+  }, [])
 
   const loadRetailers = useCallback(async () => {
     try {
@@ -93,7 +92,7 @@ export function usePriceMatrix() {
     } catch (err) {
       console.error('Error loading retailers:', err)
     }
-  }, [supabase])
+  }, [])
 
   const refreshData = useCallback(async () => {
     await Promise.all([

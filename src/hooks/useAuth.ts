@@ -21,19 +21,19 @@ export function useAuth() {
       setIsSubmitting(true)
       setAuthError(null)
 
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password
       })
 
       if (error) throw error
 
-      return { error: null, success: true }
+      return { user: data.user, error: null, success: true }
     } catch (err) {
       console.error('Auth error:', err)
       const error = err as AuthError
       setAuthError(error.message)
-      return { error, success: false }
+      return { user: null, error, success: false }
     } finally {
       setIsSubmitting(false)
     }
@@ -123,6 +123,7 @@ export function useAuth() {
 
     // Auth form state
     isSubmitting,
+    authError,
     error: authError,
     clearError
   }
