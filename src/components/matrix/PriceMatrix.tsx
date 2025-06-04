@@ -68,7 +68,7 @@ export default function PriceMatrix() {
               <tr>
                 <th className="border-b px-4 py-2 text-right">מוצר</th>
                 <th className="border-b px-4 py-2 text-right">קמעונאי</th>
-                <th className="border-b px-4 py-2 text-right">מחיר/ק"ג</th>
+                <th className="border-b px-4 py-2 text-right">מחיר לקילו</th>
                 <th className="border-b px-4 py-2 text-right">תאריך</th>
                 <th className="border-b px-4 py-2 text-right">מיקום</th>
               </tr>
