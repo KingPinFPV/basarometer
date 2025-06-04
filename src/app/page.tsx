@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Header } from '@/components/layout/Header'
 import PriceMatrix from '@/components/matrix/PriceMatrix'
-import { PriceReportModal } from '@/components/forms/PriceReportModal'
 import { ToastContainer, useToast } from '@/components/ui/Toast'
 import { TrendingUp, Users, Zap } from 'lucide-react'
 import { PriceLegend } from '@/components/PriceLegend'
@@ -13,12 +12,9 @@ import AddProductForm from '@/components/forms/AddProductForm'
 import AddRetailerForm from '@/components/forms/AddRetailerForm'
 
 export default function HomePage() {
-  const [isReportModalOpen, setIsReportModalOpen] = useState(false)
   const [showAddProduct, setShowAddProduct] = useState(false)
   const [showAddRetailer, setShowAddRetailer] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
-  const [preSelectedMeatCutId, setPreSelectedMeatCutId] = useState<string>('')
-  const [preSelectedRetailerId, setPreSelectedRetailerId] = useState<string>('')
   const [refreshKey, setRefreshKey] = useState(0)
   const { toasts, removeToast, success } = useToast()
 
@@ -41,12 +37,6 @@ export default function HomePage() {
   useEffect(() => {
     checkAdmin()
   }, [checkAdmin])
-
-  const handleReportSuccess = () => {
-    success('דיווח נשלח בהצלחה!', 'תודה על התרומה לקהילה 🎉')
-    setRefreshKey(prev => prev + 1)
-    setIsReportModalOpen(false)
-  }
 
   const handleAddProduct = () => {
     setShowAddProduct(true)

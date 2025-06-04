@@ -116,3 +116,5 @@ export type Database = {
     }
   }
 }
+
+export { createClient } from '@supabase/supabase-js'
