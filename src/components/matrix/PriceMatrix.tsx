@@ -1,121 +1,96 @@
 'use client'
 
-import { useState, useMemo } from 'react'
-import { usePriceMatrix } from '@/hooks/usePriceMatrix'
+import { useEffect, useState } from 'react'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { calculatePriceColors, getSaleIndicator, getCellBackgroundColor, formatPriceDisplay } from '@/utils/priceColorLogic'
 import { AuthTrigger } from '@/components/auth/AuthGuard'
 import { RefreshCw, Plus, Tag, TrendingUp, AlertCircle } from 'lucide-react'
-import { calculatePriceColors } from '@/utils/priceLogic'
 import { PriceLegend } from '@/components/PriceLegend'
 import { PriceReport } from '@/types/market'
 
 interface PriceMatrixProps {
-  onReportPrice?: (meatCutId: string, retailerId: string) => void
+  onReportPrice: (meatCutId: string, retailerId: string) => void
+}
+
+interface MeatCut {
+  id: string
+  name_hebrew: string
+  category_id: string
+}
+
+interface Retailer {
+  id: string
+  name: string
+}
+
+interface PriceData {
+  meat_cut_id: string
+  retailer_id: string
+  price_per_kg: number
+  is_on_sale: boolean
+  sale_price_per_kg: number | null
 }
 
 export function PriceMatrix({ onReportPrice }: PriceMatrixProps) {
-  const { matrixData, isLoading, error, refreshData, getAllRetailers } = usePriceMatrix()
-  const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const [meatCuts, setMeatCuts] = useState<MeatCut[]>([])
+  const [retailers, setRetailers] = useState<Retailer[]>([])
+  const [priceData, setPriceData] = useState<PriceData[]>([])
+  const [colorMap, setColorMap] = useState<Map<string, string>>(new Map())
+  const [loading, setLoading] = useState(true)
 
-  // Calculate price colors for all data
-  const colorMap = useMemo(() => {
-    const allPrices: PriceReport[] = matrixData.flatMap(cut => 
-      cut.retailer_data.map(retailer => ({
-        id: `${cut.meat_cut_id}-${retailer.retailer_id}`,
-        meat_cut_id: cut.meat_cut_id,
-        retailer_id: retailer.retailer_id,
-        price_per_kg: retailer.price_per_kg,
-        is_on_sale: retailer.is_on_sale,
-        sale_price_per_kg: retailer.sale_price_per_kg,
-        confidence_score: 5, // Default confidence score
-        expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(), // 7 days from now
-        is_active: true,
-        created_at: retailer.created_at
-      }))
-    )
-    return calculatePriceColors(allPrices)
-  }, [matrixData])
+  const supabase = createClientComponentClient()
 
-  // Get unique categories for filtering
-  const categories = useMemo(() => {
-    const categorySet = new Set<string>()
-    matrixData.forEach(item => {
-      if (item.category_id) {
-        categorySet.add(item.category_id)
-      }
-    })
-    return Array.from(categorySet)
-  }, [matrixData])
+  useEffect(() => {
+    fetchData()
+  }, [])
 
-  // Filter data by category
-  const filteredData = useMemo(() => {
-    if (selectedCategory === 'all') return matrixData
-    return matrixData.filter(item => item.category_id === selectedCategory)
-  }, [matrixData, selectedCategory])
-
-  // Get all retailers for the header
-  const allRetailers = getAllRetailers()
-
-  // Loading state
-  if (isLoading) {
-    return (
-      <div className="card p-8">
-        <div className="flex flex-col items-center justify-center space-y-4">
-          <RefreshCw className="w-8 h-8 text-blue-500 animate-spin" />
-          <h3 className="text-lg font-semibold text-gray-900">טוען מטריקס מחירים...</h3>
-          <p className="text-gray-600 text-center">
-            אנא המתן בזמן שאנחנו טוענים את הנתונים העדכניים ביותר
-          </p>
-        </div>
-      </div>
-    )
-  }
-
-  // Error state
-  if (error) {
-    return (
-      <div className="card p-8">
-        <div className="flex flex-col items-center justify-center space-y-4">
-          <AlertCircle className="w-8 h-8 text-red-500" />
-          <h3 className="text-lg font-semibold text-red-700">שגיאה בטעינת המטריקס</h3>
-          <p className="text-gray-600 text-center">{error}</p>
-          <button
-            onClick={refreshData}
-            className="btn-primary px-4 py-2 rounded-lg flex items-center space-x-2 rtl:space-x-reverse"
-          >
-            <RefreshCw className="w-4 h-4" />
-            <span>נסה שוב</span>
-          </button>
-        </div>
-      </div>
-    )
-  }
-
-  // Empty state
-  if (filteredData.length === 0) {
-    return (
-      <div className="card p-8">
-        <div className="flex flex-col items-center justify-center space-y-4">
-          <TrendingUp className="w-8 h-8 text-gray-400" />
-          <h3 className="text-lg font-semibold text-gray-900">אין נתוני מחירים זמינים</h3>
-          <p className="text-gray-600 text-center">
-            בקרוב יהיו זמינים נתוני מחירים מהקהילה
-          </p>
-          <button
-            onClick={refreshData}
-            className="btn-primary px-4 py-2 rounded-lg flex items-center space-x-2 rtl:space-x-reverse"
-          >
-            <RefreshCw className="w-4 h-4" />
-            <span>רענן נתונים</span>
-          </button>
-        </div>
-      </div>
-    )
-  }
-
-  const handleReportPrice = (meatCutId: string, retailerId: string) => {
-    if (onReportPrice) {
-      onReportPrice(meatCutId, retailerId)
+  const fetchData = async () => {
+    setLoading(true)
+    
+    // Fetch meat cuts
+    const { data: meatCutsData } = await supabase
+      .from('meat_cuts')
+      .select('id, name_hebrew, category_id')
+      .eq('is_active', true)
+      .order('display_order')
+    
+    // Fetch retailers
+    const { data: retailersData } = await supabase
+      .from('retailers')
+      .select('id, name')
+      .eq('is_active', true)
+      .order('name')
+    
+    // Fetch latest prices
+    const { data: pricesData } = await supabase
+      .from('latest_prices_view')
+      .select('meat_cut_id, retailer_id, price_per_kg, is_on_sale, sale_price_per_kg')
+    
+    if (meatCutsData && retailersData && pricesData) {
+      setMeatCuts(meatCutsData)
+      setRetailers(retailersData)
+      setPriceData(pricesData)
+      
+      // Calculate colors
+      const colors = calculatePriceColors(pricesData)
+      setColorMap(colors)
     }
+    
+    setLoading(false)
+  }
+
+  const getPriceForCell = (meatCutId: string, retailerId: string) => {
+    return priceData.find(
+      p => p.meat_cut_id === meatCutId && p.retailer_id === retailerId
+    )
+  }
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    )
   }
 
   return (
@@ -126,34 +101,18 @@ export function PriceMatrix({ onReportPrice }: PriceMatrixProps) {
           <div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">מטריקס מחירי בשר</h2>
             <p className="text-gray-600">
-              השוואת מחירים מתקדמת מ-{filteredData.length} סוגי בשר ב-{allRetailers.length} רשתות
+              השוואת מחירים מתקדמת מ-{meatCuts.length} סוגי בשר ב-{retailers.length} רשתות
             </p>
           </div>
           
           <div className="flex items-center space-x-4 rtl:space-x-reverse">
-            {/* Category Filter */}
-            {categories.length > 0 && (
-              <select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="focus-ring px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900"
-              >
-                <option value="all">כל הקטגוריות</option>
-                {categories.map(categoryId => (
-                  <option key={categoryId} value={categoryId}>
-                    קטגוריה {categoryId.slice(0, 8)}...
-                  </option>
-                ))}
-              </select>
-            )}
-            
             {/* Refresh Button */}
             <button
-              onClick={refreshData}
+              onClick={fetchData}
               className="btn-secondary px-3 py-2 rounded-lg flex items-center space-x-2 rtl:space-x-reverse"
-              disabled={isLoading}
+              disabled={loading}
             >
-              <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
+              <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
               <span>רענן</span>
             </button>
           </div>
@@ -170,17 +129,13 @@ export function PriceMatrix({ onReportPrice }: PriceMatrixProps) {
                 <th className="sticky right-0 bg-gray-50 px-6 py-4 text-right text-sm font-semibold text-gray-900 border-l border-gray-200">
                   חתך בשר
                 </th>
-                {allRetailers.map(retailer => (
+                {retailers.map(retailer => (
                   <th
                     key={retailer.id}
                     className="px-4 py-4 text-center text-sm font-semibold text-gray-900 min-w-[120px]"
                   >
                     <div className="space-y-1">
                       <div className="font-medium">{retailer.name}</div>
-                      <div className="text-xs text-gray-500 capitalize">
-                        {retailer.type === 'supermarket' ? 'סופרמרקט' : 
-                         retailer.type === 'butcher' ? 'קצביה' : retailer.type}
-                      </div>
                     </div>
                   </th>
                 ))}
@@ -189,69 +144,38 @@ export function PriceMatrix({ onReportPrice }: PriceMatrixProps) {
 
             {/* Table Body */}
             <tbody className="divide-y divide-gray-200">
-              {filteredData.map(meatCut => (
-                <tr key={meatCut.meat_cut_id} className="hover:bg-gray-50/50 transition-colors">
+              {meatCuts.map(meatCut => (
+                <tr key={meatCut.id} className="hover:bg-gray-50/50 transition-colors">
                   {/* Meat Cut Name */}
                   <td className="sticky right-0 bg-white hover:bg-gray-50/50 px-6 py-4 border-l border-gray-200">
                     <div className="space-y-1">
                       <div className="font-semibold text-gray-900">
-                        {meatCut.meat_cut_name}
+                        {meatCut.name_hebrew}
                       </div>
-                      {meatCut.meat_cut_name_en && (
-                        <div className="text-xs text-gray-500">
-                          {meatCut.meat_cut_name_en}
-                        </div>
-                      )}
                     </div>
                   </td>
 
                   {/* Price Cells */}
-                  {allRetailers.map(retailer => {
-                    const priceData = meatCut.retailer_data.find(
-                      r => r.retailer_id === retailer.id
-                    )
-
-                    const cellColorClass = colorMap.get(`${meatCut.meat_cut_id}-${retailer.id}`) || 'bg-gray-400'
+                  {retailers.map(retailer => {
+                    const price = getPriceForCell(meatCut.id, retailer.id)
+                    const cellKey = `${meatCut.id}-${retailer.id}`
+                    const bgColor = getCellBackgroundColor(colorMap, cellKey)
 
                     return (
-                      <td key={retailer.id} className="px-4 py-4 text-center">
-                        {priceData ? (
+                      <td key={retailer.id} className={`px-4 py-4 text-center ${bgColor}`}>
+                        {price ? (
                           <div className="space-y-2">
                             {/* Price Display */}
                             <div className="space-y-1">
-                              <div className={`text-lg font-bold ${cellColorClass} rounded-md px-2 py-1`}>
-                                ₪{priceData.price_shekel.toFixed(2)}
-                                {priceData.is_on_sale && (
-                                  <span className="text-blue-600 mr-1">🔵</span>
-                                )}
+                              <div className={`text-lg font-bold ${bgColor} rounded-md px-2 py-1`}>
+                                {formatPriceDisplay(price.price_per_kg, price.is_on_sale, price.sale_price_per_kg)}
+                                {getSaleIndicator(price.is_on_sale)}
                               </div>
-                              
-                              {/* Sale Price */}
-                              {priceData.is_on_sale && priceData.sale_price_shekel && (
-                                <div className="flex items-center justify-center space-x-1 rtl:space-x-reverse">
-                                  <Tag className="w-3 h-3 text-blue-500" />
-                                  <span className="text-sm font-semibold text-blue-600">
-                                    ₪{priceData.sale_price_shekel.toFixed(2)}
-                                  </span>
-                                </div>
-                              )}
-                              
-                              {/* Date */}
-                              <div className="text-xs text-gray-500">
-                                {new Date(priceData.purchase_date).toLocaleDateString('he-IL')}
-                              </div>
-                              
-                              {/* Location */}
-                              {priceData.store_location && (
-                                <div className="text-xs text-gray-400 truncate max-w-20">
-                                  {priceData.store_location}
-                                </div>
-                              )}
                             </div>
 
                             {/* Report Button */}
                             <AuthTrigger
-                              onSuccess={() => handleReportPrice(meatCut.meat_cut_id, retailer.id)}
+                              onSuccess={() => onReportPrice(meatCut.id, retailer.id)}
                               className="w-full px-2 py-1 text-xs bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-md transition-colors border border-blue-200"
                             >
                               דווח מחיר
@@ -264,7 +188,7 @@ export function PriceMatrix({ onReportPrice }: PriceMatrixProps) {
                               אין מחיר
                             </div>
                             <AuthTrigger
-                              onSuccess={() => handleReportPrice(meatCut.meat_cut_id, retailer.id)}
+                              onSuccess={() => onReportPrice(meatCut.id, retailer.id)}
                               className="w-full px-2 py-1 text-xs bg-green-50 text-green-600 hover:bg-green-100 rounded-md transition-colors border border-green-200 flex items-center justify-center space-x-1 rtl:space-x-reverse"
                             >
                               <Plus className="w-3 h-3" />

@@ -8,13 +8,20 @@ import { AuthTrigger } from '@/components/auth/AuthGuard'
 import { ToastContainer, useToast } from '@/components/ui/Toast'
 import { Plus, TrendingUp, Users, Zap } from 'lucide-react'
 import { PriceLegend } from '@/components/PriceLegend'
+import AdminButtons from '@/components/AdminButtons'
+import AddProductForm from '@/components/forms/AddProductForm'
+import AddRetailerForm from '@/components/forms/AddRetailerForm'
+import { useAuth } from '@/hooks/useAuth'
 
 export default function HomePage() {
   const [isReportModalOpen, setIsReportModalOpen] = useState(false)
+  const [isAddProductOpen, setIsAddProductOpen] = useState(false)
+  const [isAddRetailerOpen, setIsAddRetailerOpen] = useState(false)
   const [preSelectedMeatCutId, setPreSelectedMeatCutId] = useState<string>('')
   const [preSelectedRetailerId, setPreSelectedRetailerId] = useState<string>('')
   const [refreshKey, setRefreshKey] = useState(0)
   const { toasts, removeToast, success } = useToast()
+  const { profile } = useAuth()
 
   const handleReportPrice = (meatCutId?: string, retailerId?: string) => {
     setPreSelectedMeatCutId(meatCutId || '')
@@ -31,6 +38,24 @@ export default function HomePage() {
     
     // Close the modal
     setIsReportModalOpen(false)
+  }
+
+  const handleAddProduct = () => {
+    setIsAddProductOpen(true)
+  }
+
+  const handleAddProductSuccess = () => {
+    success('המוצר נוסף בהצלחה!', 'המוצר החדש נוסף למאגר 🎉')
+    setRefreshKey(prev => prev + 1)
+  }
+
+  const handleAddRetailer = () => {
+    setIsAddRetailerOpen(true)
+  }
+
+  const handleAddRetailerSuccess = () => {
+    success('הקמעונאי נוסף בהצלחה!', 'הקמעונאי החדש נוסף למאגר 🎉')
+    setRefreshKey(prev => prev + 1)
   }
 
   return (
@@ -53,6 +78,13 @@ export default function HomePage() {
 
       {/* Price Matrix Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Admin Buttons */}
+        <AdminButtons
+          isAdmin={profile?.is_admin ?? false}
+          onAddProduct={handleAddProduct}
+          onAddRetailer={handleAddRetailer}
+        />
+        
         {/* Price Legend */}
         <div className="mb-6">
           <PriceLegend />
@@ -130,6 +162,18 @@ export default function HomePage() {
         preSelectedMeatCutId={preSelectedMeatCutId}
         preSelectedRetailerId={preSelectedRetailerId}
         onSuccess={handleReportSuccess}
+      />
+
+      <AddProductForm
+        isOpen={isAddProductOpen}
+        onClose={() => setIsAddProductOpen(false)}
+        onSuccess={handleAddProductSuccess}
+      />
+
+      <AddRetailerForm
+        isOpen={isAddRetailerOpen}
+        onClose={() => setIsAddRetailerOpen(false)}
+        onSuccess={handleAddRetailerSuccess}
       />
 
       {/* Toast Notifications */}
