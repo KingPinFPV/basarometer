@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Loader2 } from 'lucide-react'
-import { PriceCell } from './PriceCell'
+import { PriceCell } from '.'
 import { useToast } from '@/components/ui/Toast'
 import { calculatePriceColors, getSaleIndicator } from '@/utils/priceColorLogic'
 
@@ -34,9 +34,10 @@ interface PriceData {
 
 interface PriceMatrixProps {
   refreshKey?: number
+  onReportPrice?: (meatCutId: string, retailerId: string) => void
 }
 
-export function PriceMatrix({ refreshKey }: PriceMatrixProps) {
+export function PriceMatrix({ refreshKey, onReportPrice }: PriceMatrixProps) {
   const [meatCuts, setMeatCuts] = useState<MeatCut[]>([])
   const [retailers, setRetailers] = useState<Retailer[]>([])
   const [priceData, setPriceData] = useState<PriceData[]>([])
@@ -125,6 +126,7 @@ export function PriceMatrix({ refreshKey }: PriceMatrixProps) {
                       saleIndicator={price ? getSaleIndicator(price.is_on_sale) : ''}
                       meatCutId={cut.id}
                       retailerId={retailer.id}
+                      onReport={onReportPrice}
                     />
                   )
                 })}

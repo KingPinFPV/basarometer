@@ -12,6 +12,7 @@ interface PriceCellProps {
   saleIndicator: string
   meatCutId: string
   retailerId: string
+  onReport?: (meatCutId: string, retailerId: string) => void
 }
 
 export function PriceCell({ 
@@ -19,10 +20,17 @@ export function PriceCell({
   backgroundColor, 
   saleIndicator,
   meatCutId,
-  retailerId 
+  retailerId,
+  onReport
 }: PriceCellProps) {
   const formatPrice = (price: number) => {
     return `₪${price.toFixed(2)}`
+  }
+
+  const handleReport = () => {
+    if (onReport) {
+      onReport(meatCutId, retailerId)
+    }
   }
 
   return (
@@ -43,10 +51,7 @@ export function PriceCell({
             {saleIndicator}
           </div>
           <AuthTrigger
-            onSuccess={() => {
-              // This will be handled by the parent component through context or props if needed
-              console.log('Report price for:', meatCutId, retailerId)
-            }}
+            onSuccess={handleReport}
             className="w-full px-2 py-1 text-xs bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-md transition-colors border border-blue-200"
           >
             דווח מחיר
@@ -58,10 +63,7 @@ export function PriceCell({
             אין מחיר
           </div>
           <AuthTrigger
-            onSuccess={() => {
-              // This will be handled by the parent component through context or props if needed
-              console.log('Report new price for:', meatCutId, retailerId)
-            }}
+            onSuccess={handleReport}
             className="w-full px-2 py-1 text-xs bg-green-50 text-green-600 hover:bg-green-100 rounded-md transition-colors border border-green-200 flex items-center justify-center space-x-1 rtl:space-x-reverse"
           >
             <Plus className="w-3 h-3" />
