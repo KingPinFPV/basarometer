@@ -9,212 +9,159 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      cuts: {
+      meat_categories: {
         Row: {
-          id: number
-          name: string
-          category: string
-          description: string | null
-          is_premium: boolean | null
+          id: string
+          name_hebrew: string
+          name_english: string
+          display_order: number
+          is_active: boolean
           created_at: string
-          updated_at: string
         }
         Insert: {
-          id?: number
-          name: string
-          category: string
-          description?: string | null
-          is_premium?: boolean | null
+          id?: string
+          name_hebrew: string
+          name_english: string
+          display_order: number
+          is_active?: boolean
           created_at?: string
-          updated_at?: string
         }
         Update: {
-          id?: number
-          name?: string
-          category?: string
-          description?: string | null
-          is_premium?: boolean | null
+          id?: string
+          name_hebrew?: string
+          name_english?: string
+          display_order?: number
+          is_active?: boolean
           created_at?: string
-          updated_at?: string
+        }
+      }
+      meat_sub_categories: {
+        Row: {
+          id: string
+          category_id: string
+          name_hebrew: string
+          name_english: string
+          icon: string | null
+          description: string | null
+          display_order: number
+          is_active: boolean
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          category_id: string
+          name_hebrew: string
+          name_english: string
+          icon?: string | null
+          description?: string | null
+          display_order?: number
+          is_active?: boolean
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          category_id?: string
+          name_hebrew?: string
+          name_english?: string
+          icon?: string | null
+          description?: string | null
+          display_order?: number
+          is_active?: boolean
+          created_at?: string
+        }
+      }
+      meat_cuts: {
+        Row: {
+          id: string
+          category_id: string
+          sub_category_id: string | null
+          name_hebrew: string
+          name_english: string | null
+          description: string | null
+          typical_price_range_min: number | null
+          typical_price_range_max: number | null
+          is_popular: boolean
+          display_order: number | null
+          is_active: boolean
+          attributes: Json
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          category_id: string
+          sub_category_id?: string | null
+          name_hebrew: string
+          name_english?: string | null
+          description?: string | null
+          typical_price_range_min?: number | null
+          typical_price_range_max?: number | null
+          is_popular?: boolean
+          display_order?: number | null
+          is_active?: boolean
+          attributes?: Json
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          category_id?: string
+          sub_category_id?: string | null
+          name_hebrew?: string
+          name_english?: string | null
+          description?: string | null
+          typical_price_range_min?: number | null
+          typical_price_range_max?: number | null
+          is_popular?: boolean
+          display_order?: number | null
+          is_active?: boolean
+          attributes?: Json
+          created_at?: string
         }
       }
       price_reports: {
         Row: {
-          id: number
-          product_id: number
-          retailer_id: number
-          price: number
-          weight: number | null
-          unit: string | null
-          image_url: string | null
-          notes: string | null
-          is_active: boolean | null
-          created_at: string
-          updated_at: string
-          user_id: string | null
-          is_on_sale: boolean | null
-          sale_price: number | null
-          sale_expires_at: string | null
-          discount_percentage: number | null
-          reported_at: string | null
-        }
-        Insert: {
-          id?: number
-          product_id: number
-          retailer_id: number
-          price: number
-          weight?: number | null
-          unit?: string | null
-          image_url?: string | null
-          notes?: string | null
-          is_active?: boolean | null
-          created_at?: string
-          updated_at?: string
-          user_id?: string | null
-          is_on_sale?: boolean | null
-          sale_price?: number | null
-          sale_expires_at?: string | null
-          discount_percentage?: number | null
-          reported_at?: string | null
-        }
-        Update: {
-          id?: number
-          product_id?: number
-          retailer_id?: number
-          price?: number
-          weight?: number | null
-          unit?: string | null
-          image_url?: string | null
-          notes?: string | null
-          is_active?: boolean | null
-          created_at?: string
-          updated_at?: string
-          user_id?: string | null
-          is_on_sale?: boolean | null
-          sale_price?: number | null
-          sale_expires_at?: string | null
-          discount_percentage?: number | null
-          reported_at?: string | null
-        }
-      }
-      products: {
-        Row: {
-          id: number
-          name: string
-          brand: string | null
-          cut_id: number | null
-          subtype_id: number | null
-          description: string | null
-          image_url: string | null
-          category: string | null
-          subcategory: string | null
-          normalized_name: string | null
-          keywords: string | null
-          is_active: boolean | null
-          created_at: string
-          updated_at: string
-        }
-        Insert: {
-          id?: number
-          name: string
-          brand?: string | null
-          cut_id?: number | null
-          subtype_id?: number | null
-          description?: string | null
-          image_url?: string | null
-          category?: string | null
-          subcategory?: string | null
-          normalized_name?: string | null
-          keywords?: string | null
-          is_active?: boolean | null
-          created_at?: string
-          updated_at?: string
-        }
-        Update: {
-          id?: number
-          name?: string
-          brand?: string | null
-          cut_id?: number | null
-          subtype_id?: number | null
-          description?: string | null
-          image_url?: string | null
-          category?: string | null
-          subcategory?: string | null
-          normalized_name?: string | null
-          keywords?: string | null
-          is_active?: boolean | null
-          created_at?: string
-          updated_at?: string
-        }
-      }
-      product_subtypes: {
-        Row: {
-          id: number
-          name: string
-          cut_id: number
-          description: string | null
-          created_at: string
-          updated_at: string
-        }
-        Insert: {
-          id?: number
-          name: string
-          cut_id: number
-          description?: string | null
-          created_at?: string
-          updated_at?: string
-        }
-        Update: {
-          id?: number
-          name?: string
-          cut_id?: number
-          description?: string | null
-          created_at?: string
-          updated_at?: string
-        }
-      }
-      profiles: {
-        Row: {
           id: string
-          username: string | null
-          first_name: string | null
-          last_name: string | null
-          email: string | null
-          avatar_url: string | null
-          role: string | null
-          is_active: boolean | null
-          last_login: string | null
+          meat_cut_id: string
+          retailer_id: string
+          price_per_kg: number
+          is_on_sale: boolean
+          sale_price_per_kg: number | null
+          reported_by: string | null
+          location: string | null
+          confidence_score: number
+          verified_at: string | null
+          expires_at: string | null
+          is_active: boolean
           created_at: string
-          updated_at: string
-          is_admin: boolean | null
         }
         Insert: {
-          id: string
-          username?: string | null
-          first_name?: string | null
-          last_name?: string | null
-          email?: string | null
-          avatar_url?: string | null
-          role?: string | null
-          is_active?: boolean | null
-          last_login?: string | null
+          id?: string
+          meat_cut_id: string
+          retailer_id: string
+          price_per_kg: number
+          is_on_sale?: boolean
+          sale_price_per_kg?: number | null
+          reported_by?: string | null
+          location?: string | null
+          confidence_score?: number
+          verified_at?: string | null
+          expires_at?: string | null
+          is_active?: boolean
           created_at?: string
-          updated_at?: string
-          is_admin?: boolean | null
         }
         Update: {
           id?: string
-          username?: string | null
-          first_name?: string | null
-          last_name?: string | null
-          email?: string | null
-          avatar_url?: string | null
-          role?: string | null
-          is_active?: boolean | null
-          last_login?: string | null
+          meat_cut_id?: string
+          retailer_id?: string
+          price_per_kg?: number
+          is_on_sale?: boolean
+          sale_price_per_kg?: number | null
+          reported_by?: string | null
+          location?: string | null
+          confidence_score?: number
+          verified_at?: string | null
+          expires_at?: string | null
+          is_active?: boolean
           created_at?: string
-          updated_at?: string
-          is_admin?: boolean | null
         }
       }
       user_profiles: {
@@ -251,52 +198,37 @@ export interface Database {
       }
       retailers: {
         Row: {
-          id: number
+          id: string
           name: string
-          type: string | null
-          address: string | null
-          city: string | null
-          region: string | null
-          phone: string | null
-          email: string | null
-          website: string | null
+          type: string
           logo_url: string | null
-          chain_id: string | null
-          is_active: boolean | null
+          website_url: string | null
+          is_chain: boolean
+          location_coverage: string[]
+          is_active: boolean
           created_at: string
-          updated_at: string
         }
         Insert: {
-          id?: number
+          id?: string
           name: string
-          type?: string | null
-          address?: string | null
-          city?: string | null
-          region?: string | null
-          phone?: string | null
-          email?: string | null
-          website?: string | null
+          type: string
           logo_url?: string | null
-          chain_id?: string | null
-          is_active?: boolean | null
+          website_url?: string | null
+          is_chain?: boolean
+          location_coverage?: string[]
+          is_active?: boolean
           created_at?: string
-          updated_at?: string
         }
         Update: {
-          id?: number
+          id?: string
           name?: string
-          type?: string | null
-          address?: string | null
-          city?: string | null
-          region?: string | null
-          phone?: string | null
-          email?: string | null
-          website?: string | null
+          type?: string
           logo_url?: string | null
-          chain_id?: string | null
-          is_active?: boolean | null
+          website_url?: string | null
+          is_chain?: boolean
+          location_coverage?: string[]
+          is_active?: boolean
           created_at?: string
-          updated_at?: string
         }
       }
     }
@@ -304,7 +236,31 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_categories_with_subcategories: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
+      }
+      get_meat_categories_enhanced: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
+      }
+      get_meat_cuts_hierarchical: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
+      }
+      validate_migration: {
+        Args: Record<PropertyKey, never>
+        Returns: Array<{
+          total_cuts: number
+          mapped_cuts: number
+          unmapped_cuts: number
+          price_reports_preserved: number
+        }>
+      }
+      check_user_admin: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
@@ -315,9 +271,43 @@ export interface Database {
   }
 }
 
-export type PriceReportWithDetails = Database['public']['Tables']['price_reports']['Row'] & {
-  products: (Database['public']['Tables']['products']['Row'] & {
-    cuts: Database['public']['Tables']['cuts']['Row'] | null
-  }) | null
-  retailers: Database['public']['Tables']['retailers']['Row'] | null
+// Enhanced types for the hierarchical structure
+export type MeatCategory = Database['public']['Tables']['meat_categories']['Row']
+export type MeatSubCategory = Database['public']['Tables']['meat_sub_categories']['Row']
+export type MeatCut = Database['public']['Tables']['meat_cuts']['Row']
+export type Retailer = Database['public']['Tables']['retailers']['Row']
+export type PriceReport = Database['public']['Tables']['price_reports']['Row']
+
+export interface CategoryWithSubCategories extends MeatCategory {
+  sub_categories: (MeatSubCategory & {
+    cuts_count: number
+  })[]
+}
+
+export interface SubCategoryWithCuts extends MeatSubCategory {
+  cuts: MeatCut[]
+}
+
+export interface PriceReportWithDetails extends PriceReport {
+  meat_cuts: MeatCut | null
+  retailers: Retailer | null
+}
+
+export interface HierarchicalData {
+  category_id: string
+  category_name_hebrew: string
+  category_name_english: string
+  sub_categories: {
+    sub_category_id: string
+    sub_category_name_hebrew: string
+    sub_category_name_english: string
+    icon: string | null
+    cuts: {
+      id: string
+      name_hebrew: string
+      name_english: string | null
+      is_popular: boolean
+      attributes: Json
+    }[]
+  }[]
 }

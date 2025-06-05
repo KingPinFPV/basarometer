@@ -32,6 +32,10 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # vercel
 .vercel
@@ -39,3 +43,27 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Migration files (temporary/sensitive)
+migration_*.js
+migrate_*.js
+*_migration.js
+*_migration.sql
+populate_*.js
+execute_*.js
+check_*.js
+
+# Logs and temporary files
+*.log
+temp_*
+debug_*
+backup_*
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+Thumbs.db

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
 import { Header } from '@/components/layout/Header'
-import PriceMatrix from '@/components/matrix/PriceMatrix'
+import AccordionMatrixContainer from '@/components/matrix/AccordionMatrixContainer'
 import { ToastContainer, useToast } from '@/components/ui/Toast'
 import { TrendingUp, Users, Zap } from 'lucide-react'
 import { PriceLegend } from '@/components/PriceLegend'
@@ -79,8 +79,8 @@ export default function HomePage() {
           </div>
         )}
         
-        {/* Price Matrix */}
-        <PriceMatrix key={refreshKey} />
+        {/* Enhanced Accordion Matrix */}
+        <AccordionMatrixContainer key={refreshKey} />
       </div>
 
       {/* Stats Section */}
