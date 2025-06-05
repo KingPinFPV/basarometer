@@ -115,7 +115,7 @@ export function SignupModal({ isOpen, onClose, onSwitchToLogin, onSuccess }: Sig
   // Success state for email confirmation
   if (successMessage) {
     return (
-      <div className="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-50" dir="rtl" onClick={handleClose}>
+      <div className="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-50" dir="rtl">
         <div 
           className="card max-w-md w-full mx-auto text-center animate-fade-in"
           onClick={(e) => e.stopPropagation()}
@@ -145,7 +145,7 @@ export function SignupModal({ isOpen, onClose, onSwitchToLogin, onSuccess }: Sig
   }
 
   return (
-    <div className="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-50" dir="rtl" onClick={handleClose}>
+    <div className="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-50" dir="rtl">
       <div 
         className="card max-w-md w-full mx-auto animate-fade-in"
         onClick={(e) => e.stopPropagation()}
