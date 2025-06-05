@@ -44,9 +44,9 @@ export function NavBar({ className = '' }: NavBarProps) {
               />
             </div>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-1 rtl:space-x-reverse">
-              {navigationItems.map((item) => (
+            {/* Desktop Navigation - Simplified Top Bar */}
+            <div className="hidden lg:flex items-center space-x-1 rtl:space-x-reverse">
+              {navigationItems.slice(0, 3).map((item) => (
                 <NavItem
                   key={item.href}
                   href={item.href}
@@ -54,7 +54,7 @@ export function NavBar({ className = '' }: NavBarProps) {
                   label={item.label}
                   description={item.description}
                   showDescription={false}
-                  className="px-6 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200"
+                  className="px-4 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 text-sm"
                 />
               ))}
             </div>
@@ -73,10 +73,10 @@ export function NavBar({ className = '' }: NavBarProps) {
           </div>
         </div>
 
-        {/* Desktop Navigation - Full Width on Large Screens */}
-        <div className="hidden lg:block border-t border-gray-100">
+        {/* Desktop Navigation - Full Width for Medium Screens */}
+        <div className="hidden md:block lg:hidden border-t border-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-center space-x-8 rtl:space-x-reverse py-2">
+            <div className="flex items-center justify-center space-x-4 rtl:space-x-reverse py-2">
               {navigationItems.map((item) => (
                 <NavItem
                   key={`${item.href}-desktop`}
@@ -85,7 +85,7 @@ export function NavBar({ className = '' }: NavBarProps) {
                   label={item.label}
                   description={item.description}
                   showDescription={true}
-                  className="px-4 py-3 rounded-xl hover:bg-gray-50 transition-all duration-200 min-w-[140px]"
+                  className="px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 min-w-[120px] text-sm"
                 />
               ))}
             </div>

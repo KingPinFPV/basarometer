@@ -6,6 +6,7 @@ import AccordionMatrixContainer from '@/components/matrix/AccordionMatrixContain
 import { ToastContainer, useToast } from '@/components/ui/Toast'
 import { TrendingUp, Users, Zap } from 'lucide-react'
 import { PriceLegend } from '@/components/PriceLegend'
+import { IndexBanner } from '@/components/index/IndexBanner'
 import AdminButtons from '@/components/AdminButtons'
 import AddProductForm from '@/components/forms/AddProductForm'
 import AddRetailerForm from '@/components/forms/AddRetailerForm'
@@ -59,6 +60,9 @@ export default function HomePage() {
   return (
     <div className="min-h-screen" dir="rtl">
       {/* Header now provided by AppLayout */}
+      
+      {/* Index Banner */}
+      <IndexBanner />
       
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">

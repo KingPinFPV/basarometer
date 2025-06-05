@@ -8,6 +8,9 @@ import { CategoryAccordion } from './CategoryAccordion'
 import { MatrixSearch } from './MatrixSearch'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import { ColorLegendV2 } from '@/components/ui/ColorLegendV2'
+import { StoreReviewModal } from '@/components/community/StoreReviewModal'
+import { MessageSquare } from 'lucide-react'
+import type { Retailer } from '@/lib/database.types'
 
 export default function AccordionMatrixContainer() {
   const { 
@@ -28,6 +31,8 @@ export default function AccordionMatrixContainer() {
   const [expandedSubCategories, setExpandedSubCategories] = useState<Set<string>>(new Set())
   const [useV2Algorithm, setUseV2Algorithm] = useState(true)
   const [showColorLegend, setShowColorLegend] = useState(false)
+  const [showReviewModal, setShowReviewModal] = useState(false)
+  const [selectedRetailer, setSelectedRetailer] = useState<Retailer | null>(null)
 
   // Handle adding items to shopping list
   const handleAddToShoppingList = async (cutId: string) => {
@@ -82,6 +87,21 @@ export default function AccordionMatrixContainer() {
       newExpanded.add(subCategoryId)
     }
     setExpandedSubCategories(newExpanded)
+  }
+
+  // Handle review modal
+  const openReviewModal = (retailer: Retailer) => {
+    if (!user) {
+      alert('התחבר כדי לכתוב ביקורת')
+      return
+    }
+    setSelectedRetailer(retailer)
+    setShowReviewModal(true)
+  }
+
+  const closeReviewModal = () => {
+    setShowReviewModal(false)
+    setSelectedRetailer(null)
   }
 
   // Filter cuts based on search
@@ -191,20 +211,31 @@ export default function AccordionMatrixContainer() {
           </div>
           
           {/* Retailers header */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-0">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-0">
             {retailers.map((retailer) => (
               <div 
                 key={retailer.id}
-                className="bg-gray-100 p-3 border-b border-gray-200 text-center min-h-[80px] flex flex-col justify-center"
+                className="bg-gray-100 p-3 border-b border-gray-200 text-center min-h-[100px] flex flex-col justify-between"
               >
-                <div className="font-semibold text-gray-700 text-sm mb-1">
-                  {retailer.name}
+                <div>
+                  <div className="font-semibold text-gray-700 text-sm mb-1">
+                    {retailer.name}
+                  </div>
+                  <div className="text-xs text-gray-500 mb-2">
+                    {retailer.type === 'supermarket' ? 'סופרמרקט' : 
+                     retailer.type === 'butcher' ? 'קצבייה' :
+                     retailer.type === 'online' ? 'אונליין' : retailer.type}
+                  </div>
                 </div>
-                <div className="text-xs text-gray-500">
-                  {retailer.type === 'supermarket' ? 'סופרמרקט' : 
-                   retailer.type === 'butcher' ? 'קצבייה' :
-                   retailer.type === 'online' ? 'אונליין' : retailer.type}
-                </div>
+                
+                {/* Review Button */}
+                <button
+                  onClick={() => openReviewModal(retailer)}
+                  className="flex items-center justify-center space-x-1 rtl:space-x-reverse text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded hover:bg-blue-100 transition-colors"
+                >
+                  <MessageSquare className="w-3 h-3" />
+                  <span>ביקורת</span>
+                </button>
               </div>
             ))}
           </div>
@@ -250,6 +281,15 @@ export default function AccordionMatrixContainer() {
           בשרומטר V5.1 - אלגוריתם צבעים חכם ❤️
         </div>
       </div>
+
+      {/* Store Review Modal */}
+      {showReviewModal && selectedRetailer && (
+        <StoreReviewModal
+          retailer={selectedRetailer}
+          isOpen={showReviewModal}
+          onClose={closeReviewModal}
+        />
+      )}
     </div>
   )
 }

@@ -51,11 +51,11 @@ export function CategoryAccordion({
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden accordion-card">
       {/* Category Header */}
       <button
         onClick={onToggleCategory}
-        className="w-full p-4 text-right hover:bg-gray-50 transition-colors border-b border-gray-200"
+        className="w-full p-4 md:p-6 text-right hover:bg-gray-50 transition-colors border-b border-gray-200 category-header touch-action-manipulation"
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3 rtl:space-x-reverse">

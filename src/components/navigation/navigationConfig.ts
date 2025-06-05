@@ -1,4 +1,4 @@
-import { Home, ShoppingCart, TrendingUp, Trophy, LucideIcon } from 'lucide-react'
+import { Home, ShoppingCart, TrendingUp, Trophy, BarChart3, Camera, LucideIcon } from 'lucide-react'
 
 export interface NavigationItem {
   href: string
@@ -17,11 +17,25 @@ export const navigationItems: NavigationItem[] = [
     ariaLabel: 'עמוד הבית - מטריצת השוואת מחירים'
   },
   {
+    href: '/ocr',
+    icon: Camera,
+    label: 'סריקת קבלות',
+    description: 'דיווח אוטומטי',
+    ariaLabel: 'סריקת קבלות ודיווח מחירים אוטומטי'
+  },
+  {
     href: '/shopping-lists',
     icon: ShoppingCart,
     label: 'רשימות קניות',
     description: 'תכנון חכם וחיסכון',
     ariaLabel: 'רשימות קניות חכמות ותכנון מסלולים'
+  },
+  {
+    href: '/index',
+    icon: BarChart3,
+    label: 'מדד כלכלי',
+    description: 'ניתוח מתקדם',
+    ariaLabel: 'מדד הבשר וניתוח כלכלי מתקדם'
   },
   {
     href: '/trends',

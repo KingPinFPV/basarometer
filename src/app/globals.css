@@ -246,4 +246,55 @@ body {
     min-height: 44px; /* Touch target size */
     padding: 12px 16px;
   }
+  
+  /* Matrix Mobile Layout Improvements */
+  .accordion-card {
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .price-display {
+    font-size: 1.1rem;
+    line-height: 1.4;
+  }
+  
+  .action-buttons {
+    gap: 0.5rem;
+  }
+  
+  .category-header {
+    font-size: 1.25rem;
+    padding: 1rem 0;
+  }
+  
+  /* Price Cell Mobile Improvements */
+  .price-cell-mobile {
+    min-height: 100px;
+    padding: 0.75rem;
+    touch-action: manipulation;
+  }
+  
+  .price-cell-mobile .price-text {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+  .price-cell-mobile .price-label {
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+  }
+  
+  /* Sub-category spacing */
+  .sub-category-mobile {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Touch-friendly buttons */
+  .mobile-action-btn {
+    min-height: 40px;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    border-radius: 0.5rem;
+  }
 }

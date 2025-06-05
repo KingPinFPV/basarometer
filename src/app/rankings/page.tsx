@@ -2,8 +2,12 @@
 
 import { useState } from 'react'
 import { useStoreRankings } from '@/hooks/useStoreRankings'
+import { useCommunity } from '@/hooks/useCommunity'
+import { useAuth } from '@/hooks/useAuth'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
-import { Trophy, TrendingUp, TrendingDown, Star, Medal, Crown, Award, Users } from 'lucide-react'
+import { StoreReviewModal } from '@/components/community/StoreReviewModal'
+import { Trophy, TrendingUp, TrendingDown, Star, Medal, Crown, Award, Users, MessageSquare, Heart } from 'lucide-react'
+import type { Retailer } from '@/lib/database.types'
 
 export default function RankingsPage() {
   const {
@@ -19,8 +23,18 @@ export default function RankingsPage() {
     totalStores,
     totalUsers
   } = useStoreRankings()
+  
+  const { user } = useAuth()
+  const { 
+    reviews, 
+    // trendingStores, 
+    communityInsights, 
+    getStoreInsights 
+  } = useCommunity()
 
   const [activeTab, setActiveTab] = useState<'stores' | 'users'>('stores')
+  const [showReviewModal, setShowReviewModal] = useState(false)
+  const [selectedRetailer, setSelectedRetailer] = useState<Retailer | null>(null)
 
   // Format price for display
   const formatPrice = (price: number): string => {
@@ -45,6 +59,42 @@ export default function RankingsPage() {
       case 'contributor': return 'תורם'
       default: return 'מתחיל'
     }
+  }
+
+  // Handle review modal
+  const openReviewModal = (retailer: Retailer) => {
+    if (!user) {
+      alert('התחבר כדי לכתוב ביקורת')
+      return
+    }
+    setSelectedRetailer(retailer)
+    setShowReviewModal(true)
+  }
+
+  const closeReviewModal = () => {
+    setShowReviewModal(false)
+    setSelectedRetailer(null)
+  }
+
+  // Get community insights for a retailer
+  // const getRetailerInsights = (retailerId: string) => {
+  //   return communityInsights.get(retailerId)
+  // }
+
+  // Get store reviews count
+  const getStoreReviewsCount = (retailerId: string) => {
+    return reviews.filter(r => r.retailer_id === retailerId).length
+  }
+
+  // Get store average community rating
+  const getStoreAverageRating = (retailerId: string) => {
+    const storeReviews = reviews.filter(r => r.retailer_id === retailerId)
+    if (storeReviews.length === 0) return 0
+    
+    const totalRating = storeReviews.reduce((sum, review) => 
+      sum + (review.quality_rating + review.service_rating + review.cleanliness_rating) / 3, 0
+    )
+    return totalRating / storeReviews.length
   }
 
   return (
@@ -250,9 +300,9 @@ export default function RankingsPage() {
                           </div>
                         </div>
 
-                        <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div className="mt-4 grid grid-cols-2 md:grid-cols-5 gap-4">
                           <div className="text-center">
-                            <div className="text-sm text-gray-600">דיווחים</div>
+                            <div className="text-sm text-gray-600">דיווחי מחיר</div>
                             <div className="font-semibold">{ranking.reportCount}</div>
                           </div>
 
@@ -286,11 +336,64 @@ export default function RankingsPage() {
                           </div>
 
                           <div className="text-center">
+                            <div className="text-sm text-gray-600">ביקורות קהילה</div>
+                            <div className="flex items-center justify-center space-x-1 rtl:space-x-reverse">
+                              <Heart className="w-4 h-4 text-red-500" />
+                              <span className="font-semibold">{getStoreReviewsCount(ranking.retailer.id)}</span>
+                            </div>
+                            {getStoreAverageRating(ranking.retailer.id) > 0 && (
+                              <div className="text-xs text-gray-500">
+                                {getStoreAverageRating(ranking.retailer.id).toFixed(1)}/5
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="text-center">
                             <div className="text-sm text-gray-600">קטגוריות</div>
                             <div className="font-semibold">
                               {Object.keys(ranking.categoryBreakdown).length}
                             </div>
                           </div>
+                        </div>
+
+                        {/* Community Actions */}
+                        <div className="mt-4 pt-4 border-t border-gray-200 flex items-center justify-between">
+                          <div className="flex items-center space-x-4 rtl:space-x-reverse">
+                            <button
+                              onClick={() => openReviewModal(ranking.retailer)}
+                              className="flex items-center space-x-2 rtl:space-x-reverse px-3 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors text-sm"
+                            >
+                              <MessageSquare className="w-4 h-4" />
+                              <span>כתוב ביקורת</span>
+                            </button>
+                            
+                            {getStoreReviewsCount(ranking.retailer.id) > 0 && (
+                              <button 
+                                onClick={() => getStoreInsights(ranking.retailer.id)}
+                                className="text-sm text-gray-600 hover:text-gray-900 underline"
+                              >
+                                ראה ביקורות ({getStoreReviewsCount(ranking.retailer.id)})
+                              </button>
+                            )}
+                          </div>
+                          
+                          {getStoreAverageRating(ranking.retailer.id) > 0 && (
+                            <div className="flex items-center space-x-1 rtl:space-x-reverse text-sm text-gray-600">
+                              <span>דירוג קהילה:</span>
+                              <div className="flex">
+                                {[...Array(5)].map((_, i) => (
+                                  <Star
+                                    key={i}
+                                    className={`w-3 h-3 ${
+                                      i < Math.round(getStoreAverageRating(ranking.retailer.id)) 
+                                        ? 'text-yellow-400 fill-current' 
+                                        : 'text-gray-300'
+                                    }`}
+                                  />
+                                ))}
+                              </div>
+                            </div>
+                          )}
                         </div>
 
                         {/* Category Breakdown */}
@@ -394,6 +497,15 @@ export default function RankingsPage() {
               )}
             </div>
           </div>
+        )}
+
+        {/* Store Review Modal */}
+        {showReviewModal && selectedRetailer && (
+          <StoreReviewModal
+            retailer={selectedRetailer}
+            isOpen={showReviewModal}
+            onClose={closeReviewModal}
+          />
         )}
       </div>
     </div>

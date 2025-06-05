@@ -44,11 +44,11 @@ export function SubCategorySection({
   }
 
   return (
-    <div className="border border-gray-200 rounded-lg overflow-hidden">
+    <div className="border border-gray-200 rounded-lg overflow-hidden sub-category-mobile">
       {/* Sub-Category Header */}
       <button
         onClick={onToggle}
-        className="w-full p-3 text-right hover:bg-gray-50 transition-colors bg-gray-50"
+        className="w-full p-3 md:p-4 text-right hover:bg-gray-50 transition-colors bg-gray-50 touch-action-manipulation"
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3 rtl:space-x-reverse">
@@ -96,7 +96,7 @@ export function SubCategorySection({
                 </div>
                 
                 {/* Price Cells */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-0">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-0">
                   {retailers.map((retailer) => {
                     const priceReport = priceMatrix[cut.id]?.[retailer.id]
                     

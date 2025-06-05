@@ -70,9 +70,10 @@ export function EnhancedPriceCellV2({
   return (
     <div 
       className={`
-        ${colorResult.background} ${colorResult.border} border-b border-gray-200 p-3 text-center 
-        ${compact ? 'min-h-[80px]' : 'min-h-[100px]'} flex flex-col justify-center transition-all hover:shadow-md
-        cursor-pointer relative
+        ${colorResult.background} ${colorResult.border} border-b border-gray-200 
+        ${compact ? 'min-h-[80px] p-2' : 'min-h-[100px] p-3'} 
+        md:p-3 text-center flex flex-col justify-center transition-all hover:shadow-md
+        cursor-pointer relative price-cell-mobile
         ${isExpired ? 'opacity-60' : ''}
       `}
       onClick={() => setShowDetails(!showDetails)}
@@ -104,24 +105,24 @@ export function EnhancedPriceCellV2({
       ) : (
         <>
           {/* Main Price */}
-          <div className={`${compact ? 'text-md' : 'text-lg'} font-bold ${colorResult.text} mb-1`}>
+          <div className={`${compact ? 'text-md' : 'text-lg md:text-xl'} font-bold ${colorResult.text} mb-1 price-text`}>
             {priceDisplay.mainPrice}
           </div>
 
           {/* Original Price (if on sale) */}
           {priceDisplay.originalPrice && (
-            <div className="text-xs text-gray-500 line-through mb-1">
+            <div className="text-xs md:text-sm text-gray-500 line-through mb-1">
               {priceDisplay.originalPrice}
             </div>
           )}
 
           {/* Context Label */}
-          <div className={`text-xs ${colorResult.text} font-medium mb-1`}>
+          <div className={`text-xs md:text-sm ${colorResult.text} font-medium mb-1 price-label`}>
             {priceDisplay.contextLabel}
           </div>
 
           {/* Normalized Display */}
-          <div className="text-xs text-gray-500">
+          <div className="text-xs md:text-sm text-gray-500">
             {(priceReport.price_per_kg / 1000).toFixed(2)} ₪/100גר
           </div>
         </>
@@ -151,7 +152,7 @@ export function EnhancedPriceCellV2({
       {/* Action Buttons (when not expanded) */}
       {!showDetails && onAddToShoppingList && (
         <button 
-          className="absolute bottom-1 right-1 text-xs bg-green-500 text-white px-1 py-0.5 rounded hover:bg-green-600 transition-colors"
+          className="absolute bottom-1 right-1 text-xs md:text-sm bg-green-500 text-white px-2 py-1 md:px-3 md:py-1.5 rounded hover:bg-green-600 transition-colors mobile-action-btn"
           onClick={(e) => {
             e.stopPropagation()
             onAddToShoppingList()
