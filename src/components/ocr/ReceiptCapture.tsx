@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useCallback } from 'react'
 import { Camera, Upload, X } from 'lucide-react'
+import Image from 'next/image'
 import { loadTesseractJS, preprocessImage } from '@/utils/ocrProcessor'
 
 interface ReceiptCaptureProps {
@@ -227,9 +228,11 @@ export function ReceiptCapture({ onImageCapture, processing, onCancel }: Receipt
       {/* Image Preview */}
       {previewImage && (
         <div className="relative bg-gray-100 rounded-lg overflow-hidden mb-4">
-          <img
+          <Image
             src={previewImage}
             alt="תצוגה מקדימה של הקבלה"
+            width={800}
+            height={600}
             className="w-full h-64 sm:h-80 object-contain"
           />
           <div className="absolute top-2 right-2 flex space-x-2 rtl:space-x-reverse">

@@ -229,7 +229,7 @@ export function useMeatIndex() {
   }, [priceReports, meatCuts, calculateIndexFromReports])
 
   // Generate price predictions
-  const predictPriceTrends = (timeframe: '1w' | '1m' | '3m'): PricePrediction => {
+  const predictPriceTrends = useCallback((timeframe: '1w' | '1m' | '3m'): PricePrediction => {
     if (!currentIndex) {
       return {
         timeframe,
@@ -286,7 +286,7 @@ export function useMeatIndex() {
       factors,
       recommendation
     }
-  }
+  }, [currentIndex])
 
   const getSeasonalFactor = (month: number): string => {
     if (month >= 8 && month <= 10) return 'עונת חגים - עלייה צפויה'
@@ -310,7 +310,7 @@ export function useMeatIndex() {
   }
 
   // Calculate inflation analysis
-  const calculateInflationAnalysis = (): InflationAnalysis => {
+  const calculateInflationAnalysis = useCallback((): InflationAnalysis => {
     if (indexHistory.length < 30) {
       return {
         monthlyInflation: 0,
@@ -347,7 +347,7 @@ export function useMeatIndex() {
       meatInflationTrend,
       impact
     }
-  }
+  }, [indexHistory])
 
   const generateInflationImpact = (yearlyInflation: number): string => {
     if (yearlyInflation > 10) {
@@ -403,7 +403,7 @@ export function useMeatIndex() {
   }
 
   // Generate price alerts
-  const generatePriceAlerts = (): PriceAlert[] => {
+  const generatePriceAlerts = useCallback((): PriceAlert[] => {
     if (!currentIndex) return []
 
     const alerts: PriceAlert[] = []
@@ -465,10 +465,10 @@ export function useMeatIndex() {
     }
 
     return alerts
-  }
+  }, [currentIndex])
 
   // Detect market anomalies
-  const detectAnomalies = (): MarketAnomaly[] => {
+  const detectAnomalies = useCallback((): MarketAnomaly[] => {
     const anomalies: MarketAnomaly[] = []
 
     if (!currentIndex || priceReports.length < 10) return anomalies
@@ -493,7 +493,7 @@ export function useMeatIndex() {
     }
 
     return anomalies
-  }
+  }, [currentIndex, priceReports])
 
   // Fetch historical index data
   const fetchIndexHistory = async () => {

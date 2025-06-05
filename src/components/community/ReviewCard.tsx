@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Star, ThumbsUp, Flag, Clock } from 'lucide-react'
+import Image from 'next/image'
 import { formatDistanceToNow } from 'date-fns'
 import { he } from 'date-fns/locale'
 import { useCommunity, type StoreReview } from '@/hooks/useCommunity'
@@ -69,9 +70,11 @@ export function ReviewCard({
           {/* User Avatar */}
           <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
             {review.user_profile?.avatar_url ? (
-              <img 
+              <Image 
                 src={review.user_profile.avatar_url} 
                 alt={review.user_profile.display_name}
+                width={40}
+                height={40}
                 className="w-10 h-10 rounded-full"
               />
             ) : (
