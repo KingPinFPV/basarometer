@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 // import { supabase } from '@/lib/supabase'
 import { usePriceData } from '@/hooks/usePriceData'
 
@@ -85,8 +85,44 @@ export function useMeatIndex() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  // Helper function to calculate index from reports (must be defined before useMemo)
-  const calculateIndexFromReports = (reports: Array<{ meat_cut_id: string; price_per_kg: number }>, date: string): MeatIndexData => {
+  // Helper functions (wrapped in useCallback for stability)
+  const getCategoryName = useCallback((categoryId: string): string => {
+    // This would normally come from a categories lookup
+    // For now, we'll use basic mapping
+    const categoryMap: Record<string, string> = {
+      'beef': 'בקר',
+      'chicken': 'עוף', 
+      'lamb': 'כבש',
+      'turkey': 'הודו',
+      'pork': 'חזיר'
+    }
+    return categoryMap[categoryId] || 'כללי'
+  }, [])
+
+  const getCategoryAverage = useCallback((
+    categoryGroups: Map<string, number[]>, 
+    categoryNames: Map<string, string>, 
+    searchTerm: string
+  ): number => {
+    for (const [categoryId, prices] of categoryGroups) {
+      const categoryName = categoryNames.get(categoryId) || ''
+      if (categoryName.includes(searchTerm)) {
+        return prices.reduce((sum, price) => sum + price, 0) / prices.length / 100
+      }
+    }
+    return 0
+  }, [])
+
+  const calculateStandardDeviation = useCallback((values: number[]): number => {
+    if (values.length === 0) return 0
+    const mean = values.reduce((sum, val) => sum + val, 0) / values.length
+    const squaredDiffs = values.map(val => Math.pow(val - mean, 2))
+    const avgSquaredDiff = squaredDiffs.reduce((sum, val) => sum + val, 0) / values.length
+    return Math.sqrt(avgSquaredDiff)
+  }, [])
+
+  // Helper function to calculate index from reports (wrapped in useCallback)
+  const calculateIndexFromReports = useCallback((reports: Array<{ meat_cut_id: string; price_per_kg: number }>, date: string): MeatIndexData => {
     // Group reports by category
     const categoryGroups = new Map<string, number[]>()
     const categoryNames = new Map<string, string>()
@@ -169,7 +205,7 @@ export function useMeatIndex() {
       marketVolatility: Math.round(marketVolatility * 100) / 100,
       economicTrend
     }
-  }
+  }, [meatCuts, getCategoryName, getCategoryAverage, calculateStandardDeviation])
 
   // Calculate today's meat index
   const calculateDailyIndex = useMemo(() => {
@@ -190,42 +226,7 @@ export function useMeatIndex() {
     }
 
     return calculateIndexFromReports(todayReports, today)
-  }, [priceReports, meatCuts])
-
-  const getCategoryName = (categoryId: string): string => {
-    // This would normally come from a categories lookup
-    // For now, we'll use basic mapping
-    const categoryMap: Record<string, string> = {
-      'beef': 'בקר',
-      'chicken': 'עוף', 
-      'lamb': 'כבש',
-      'turkey': 'הודו',
-      'pork': 'חזיר'
-    }
-    return categoryMap[categoryId] || 'כללי'
-  }
-
-  const getCategoryAverage = (
-    categoryGroups: Map<string, number[]>, 
-    categoryNames: Map<string, string>, 
-    searchTerm: string
-  ): number => {
-    for (const [categoryId, prices] of categoryGroups) {
-      const categoryName = categoryNames.get(categoryId) || ''
-      if (categoryName.includes(searchTerm)) {
-        return prices.reduce((sum, price) => sum + price, 0) / prices.length / 100
-      }
-    }
-    return 0
-  }
-
-  const calculateStandardDeviation = (values: number[]): number => {
-    if (values.length === 0) return 0
-    const mean = values.reduce((sum, val) => sum + val, 0) / values.length
-    const squaredDiffs = values.map(val => Math.pow(val - mean, 2))
-    const avgSquaredDiff = squaredDiffs.reduce((sum, val) => sum + val, 0) / values.length
-    return Math.sqrt(avgSquaredDiff)
-  }
+  }, [priceReports, meatCuts, calculateIndexFromReports])
 
   // Generate price predictions
   const predictPriceTrends = (timeframe: '1w' | '1m' | '3m'): PricePrediction => {
