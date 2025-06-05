@@ -29,12 +29,12 @@ export function NavBar({ className = '' }: NavBarProps) {
       <nav 
         className={`
           sticky top-0 z-40 w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 
-          shadow-sm transition-all duration-200 ${className}
+          shadow-sm transition-all duration-200 min-h-[64px] ${className}
         `}
         dir="rtl"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-18">
+          <div className="flex items-center justify-between h-16 min-h-[64px]">
             
             {/* Brand Logo */}
             <div className="flex-shrink-0">
@@ -46,27 +46,29 @@ export function NavBar({ className = '' }: NavBarProps) {
             </div>
 
             {/* Desktop Navigation - Simplified Top Bar */}
-            <div className="hidden lg:flex items-center space-x-3 rtl:space-x-reverse">
-              {navigationItems.slice(0, 3).map((item) => (
-                <NavItem
-                  key={item.href}
-                  href={item.href}
-                  icon={item.icon}
-                  label={item.label}
-                  description={item.description}
-                  showDescription={false}
-                  className="px-4 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 text-sm"
-                />
-              ))}
+            <div className="hidden lg:flex items-center space-x-3 rtl:space-x-reverse flex-1 justify-end">
+              <div className="flex items-center space-x-3 rtl:space-x-reverse">
+                {navigationItems.slice(0, 3).map((item) => (
+                  <NavItem
+                    key={item.href}
+                    href={item.href}
+                    icon={item.icon}
+                    label={item.label}
+                    description={item.description}
+                    showDescription={false}
+                    className="px-4 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 text-sm whitespace-nowrap"
+                  />
+                ))}
+              </div>
               
               {/* Auth Button */}
-              <div className="border-r border-gray-200 pr-3 mr-3">
+              <div className="border-r border-gray-200 pr-3 mr-3 flex-shrink-0">
                 <AuthButton size="sm" showText={true} />
               </div>
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="md:hidden">
+            <div className="lg:hidden">
               <button
                 onClick={toggleMobileMenu}
                 className="p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -82,8 +84,8 @@ export function NavBar({ className = '' }: NavBarProps) {
         {/* Desktop Navigation - Full Width for Medium Screens */}
         <div className="hidden md:block lg:hidden border-t border-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between py-2">
-              <div className="flex items-center space-x-4 rtl:space-x-reverse">
+            <div className="flex items-center justify-between py-2 min-h-[48px]">
+              <div className="flex items-center space-x-2 rtl:space-x-reverse flex-wrap">
                 {navigationItems.map((item) => (
                   <NavItem
                     key={`${item.href}-desktop`}
@@ -92,13 +94,13 @@ export function NavBar({ className = '' }: NavBarProps) {
                     label={item.label}
                     description={item.description}
                     showDescription={true}
-                    className="px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 min-w-[120px] text-sm"
+                    className="px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 text-sm whitespace-nowrap"
                   />
                 ))}
               </div>
               
               {/* Auth Button for Medium Screens */}
-              <div className="border-r border-gray-200 pr-3 mr-3">
+              <div className="border-r border-gray-200 pr-3 mr-3 flex-shrink-0">
                 <AuthButton size="sm" showText={true} />
               </div>
             </div>

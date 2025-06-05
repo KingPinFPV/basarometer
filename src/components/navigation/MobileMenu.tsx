@@ -49,7 +49,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     <>
       {/* Backdrop */}
       <div 
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300"
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-mobile-menu transition-opacity duration-300"
         onClick={onClose}
         aria-hidden="true"
       />
@@ -57,7 +57,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       {/* Mobile Menu Panel */}
       <div 
         className={`
-          fixed top-0 right-0 h-full w-80 max-w-full bg-white shadow-2xl z-50
+          fixed top-0 right-0 h-full w-80 max-w-full bg-white shadow-2xl z-mobile-menu
           transform transition-transform duration-300 ease-in-out
           ${isOpen ? 'translate-x-0' : 'translate-x-full'}
         `}

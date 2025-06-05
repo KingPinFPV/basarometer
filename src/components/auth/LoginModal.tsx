@@ -87,8 +87,15 @@ export function LoginModal({ isOpen, onClose, onSwitchToSignup, onSuccess }: Log
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-50" dir="rtl">
-      <div className="card max-w-md w-full animate-fade-in">
+    <div 
+      className="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-[9999]" 
+      dir="rtl"
+      onClick={handleClose}
+    >
+      <div 
+        className="card max-w-md w-full mx-auto animate-fade-in"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
         <div className="bg-gradient-primary text-white p-6 rounded-t-xl">
           <div className="flex items-center justify-between">
