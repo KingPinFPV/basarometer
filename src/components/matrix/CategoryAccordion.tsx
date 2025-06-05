@@ -15,6 +15,9 @@ interface CategoryAccordionProps {
   onToggleCategory: () => void
   onToggleSubCategory: (subCategoryId: string) => void
   getFilteredCuts: (cuts: string[]) => string[]
+  useV2Algorithm?: boolean
+  onReportPrice?: (cutId: string, retailerId: string) => void
+  onAddToShoppingList?: (cutId: string) => void
 }
 
 export function CategoryAccordion({
@@ -27,7 +30,10 @@ export function CategoryAccordion({
   expandedSubCategories,
   onToggleCategory,
   onToggleSubCategory,
-  getFilteredCuts
+  getFilteredCuts,
+  useV2Algorithm = true,
+  onReportPrice,
+  onAddToShoppingList
 }: CategoryAccordionProps) {
   
   // Get cuts for this category
@@ -112,6 +118,9 @@ export function CategoryAccordion({
                   filteredCutIds={filteredSubCategoryCutIds}
                   isExpanded={expandedSubCategories.has(subCategory.id)}
                   onToggle={() => onToggleSubCategory(subCategory.id)}
+                  useV2Algorithm={useV2Algorithm}
+                  onReportPrice={onReportPrice}
+                  onAddToShoppingList={onAddToShoppingList}
                 />
               )
             })}
@@ -144,6 +153,9 @@ export function CategoryAccordion({
                     filteredCutIds={filteredUncategorizedCutIds}
                     isExpanded={expandedSubCategories.has('uncategorized')}
                     onToggle={() => onToggleSubCategory('uncategorized')}
+                    useV2Algorithm={useV2Algorithm}
+                    onReportPrice={onReportPrice}
+                    onAddToShoppingList={onAddToShoppingList}
                   />
                 )
               }

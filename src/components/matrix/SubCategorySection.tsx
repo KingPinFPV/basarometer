@@ -2,6 +2,7 @@
 
 import { ChevronDown, ChevronRight } from 'lucide-react'
 import { EnhancedPriceCell } from './EnhancedPriceCell'
+import { EnhancedPriceCellV2 } from './EnhancedPriceCellV2'
 import type { MeatSubCategory, MeatCut, Retailer, PriceReport } from '@/lib/database.types'
 
 interface SubCategorySectionProps {
@@ -12,6 +13,9 @@ interface SubCategorySectionProps {
   filteredCutIds: string[]
   isExpanded: boolean
   onToggle: () => void
+  useV2Algorithm?: boolean
+  onReportPrice?: (cutId: string, retailerId: string) => void
+  onAddToShoppingList?: (cutId: string) => void
 }
 
 export function SubCategorySection({
@@ -21,11 +25,19 @@ export function SubCategorySection({
   priceMatrix,
   filteredCutIds,
   isExpanded,
-  onToggle
+  onToggle,
+  useV2Algorithm = true,
+  onReportPrice,
+  onAddToShoppingList
 }: SubCategorySectionProps) {
   
   // Only show cuts that match the filter
   const visibleCuts = cuts.filter(cut => filteredCutIds.includes(cut.id))
+  
+  // Get all price reports in this category for V2 color algorithm
+  const allReportsInCategory = visibleCuts.flatMap(cut => 
+    Object.values(priceMatrix[cut.id] || {}).filter(Boolean) as PriceReport[]
+  )
   
   if (visibleCuts.length === 0) {
     return null
@@ -87,6 +99,22 @@ export function SubCategorySection({
                 <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-0">
                   {retailers.map((retailer) => {
                     const priceReport = priceMatrix[cut.id]?.[retailer.id]
+                    
+                    if (useV2Algorithm) {
+                      return (
+                        <EnhancedPriceCellV2
+                          key={`${cut.id}-${retailer.id}`}
+                          priceReport={priceReport}
+                          meatCut={cut}
+                          retailer={retailer}
+                          allReportsInCategory={allReportsInCategory}
+                          onReportPrice={() => onReportPrice?.(cut.id, retailer.id)}
+                          onAddToShoppingList={() => onAddToShoppingList?.(cut.id)}
+                          showCalculator={false}
+                          compact={false}
+                        />
+                      )
+                    }
                     
                     return (
                       <EnhancedPriceCell

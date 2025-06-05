@@ -2,9 +2,12 @@
 
 import { useState } from 'react'
 import { usePriceMatrixData } from '@/hooks/usePriceMatrixData'
+import { useShoppingList } from '@/hooks/useShoppingList'
+import { useAuth } from '@/hooks/useAuth'
 import { CategoryAccordion } from './CategoryAccordion'
 import { MatrixSearch } from './MatrixSearch'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
+import { ColorLegendV2 } from '@/components/ui/ColorLegendV2'
 
 export default function AccordionMatrixContainer() {
   const { 
@@ -16,10 +19,42 @@ export default function AccordionMatrixContainer() {
     error,
     refetch 
   } = usePriceMatrixData()
+
+  const { user } = useAuth()
+  const { currentList, addItem, createList } = useShoppingList()
   
   const [searchTerm, setSearchTerm] = useState('')
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set())
   const [expandedSubCategories, setExpandedSubCategories] = useState<Set<string>>(new Set())
+  const [useV2Algorithm, setUseV2Algorithm] = useState(true)
+  const [showColorLegend, setShowColorLegend] = useState(false)
+
+  // Handle adding items to shopping list
+  const handleAddToShoppingList = async (cutId: string) => {
+    if (!user) {
+      alert('התחבר כדי להשתמש ברשימות קניות')
+      return
+    }
+
+    let listToUse = currentList
+
+    // Create default list if none exists
+    if (!listToUse) {
+      listToUse = await createList('רשימת קניות ראשית')
+      if (!listToUse) {
+        alert('שגיאה ביצירת רשימת קניות')
+        return
+      }
+    }
+
+    const success = await addItem(listToUse.id, cutId, 1, 'kg')
+    if (success) {
+      const meatCut = meatCuts.find(cut => cut.id === cutId)
+      alert(`${meatCut?.name_hebrew || 'פריט'} נוסף לרשימת הקניות! 🛒`)
+    } else {
+      alert('שגיאה בהוספה לרשימת קניות')
+    }
+  }
 
   const toggleCategory = (categoryId: string) => {
     const newExpanded = new Set(expandedCategories)
@@ -100,11 +135,32 @@ export default function AccordionMatrixContainer() {
       {/* Header with Search */}
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-800 mb-2">
-          בשרומטר V4 - מטריצה היררכית
+          בשרומטר V5.1 - מטריצה חכמה
         </h1>
-        <p className="text-gray-600 mb-6">
-          השוואת מחירי בשר מתקדמת עם תצוגה מקובצת לפי קטגוריות
+        <p className="text-gray-600 mb-4">
+          השוואת מחירי בשר מתקדמת עם אלגוריתם צבעים חדש ומחשבון מחירים
         </p>
+        
+        {/* V5.1 Controls */}
+        <div className="flex justify-center items-center gap-4 mb-6">
+          <button
+            onClick={() => setUseV2Algorithm(!useV2Algorithm)}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              useV2Algorithm 
+                ? 'bg-blue-500 text-white' 
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+            }`}
+          >
+            {useV2Algorithm ? '🎨 אלגוריתם V2.0 פעיל' : 'אלגוריתם קלאסי'}
+          </button>
+          
+          <button
+            onClick={() => setShowColorLegend(!showColorLegend)}
+            className="px-4 py-2 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+          >
+            🎨 {showColorLegend ? 'הסתר' : 'הצג'} מפתח צבעים
+          </button>
+        </div>
         
         <MatrixSearch 
           searchTerm={searchTerm}
@@ -114,6 +170,17 @@ export default function AccordionMatrixContainer() {
           totalRetailers={retailers.length}
         />
       </div>
+
+      {/* Color Legend V2 */}
+      {showColorLegend && (
+        <div className="mb-6 flex justify-center">
+          <ColorLegendV2 
+            className="max-w-md"
+            compact={false}
+            showDescription={true}
+          />
+        </div>
+      )}
 
       {/* Retailers Header Row */}
       <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-4">
@@ -159,6 +226,12 @@ export default function AccordionMatrixContainer() {
             onToggleCategory={() => toggleCategory(category.id)}
             onToggleSubCategory={toggleSubCategory}
             getFilteredCuts={getFilteredCuts}
+            useV2Algorithm={useV2Algorithm}
+            onReportPrice={(cutId, retailerId) => {
+              console.log('Report price for:', cutId, 'at', retailerId)
+              // TODO: Open price report modal
+            }}
+            onAddToShoppingList={handleAddToShoppingList}
           />
         ))}
       </div>
@@ -174,7 +247,7 @@ export default function AccordionMatrixContainer() {
         </div>
         <div className="mt-4">
           עדכון אחרון: {new Date().toLocaleString('he-IL')} | 
-          נתונים מקהילת בשרומטר V4 ❤️
+          בשרומטר V5.1 - אלגוריתם צבעים חכם ❤️
         </div>
       </div>
     </div>
