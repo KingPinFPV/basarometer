@@ -209,14 +209,14 @@ export function usePriceTrends() {
   // Initialize data
   useEffect(() => {
     fetchAvailableCuts()
-  }, [])
+  }, []) // fetchAvailableCuts is stable, no need to include
 
   // Fetch trends when selection changes
   useEffect(() => {
     if (selectedMeatCut) {
       fetchPriceTrends(selectedMeatCut, selectedTimeRange)
     }
-  }, [selectedMeatCut, selectedTimeRange])
+  }, [selectedMeatCut, selectedTimeRange]) // fetchPriceTrends is stable, no need to include
 
   return {
     // State

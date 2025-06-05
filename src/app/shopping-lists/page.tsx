@@ -64,7 +64,21 @@ export default function ShoppingListsPage() {
   }
 
   if (!user) {
-    return <AuthGuard />
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center" dir="rtl">
+        <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-6 text-center">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            רשימות קניות חכמות
+          </h2>
+          <p className="text-gray-600 mb-6">
+            התחבר כדי לגשת לרשימות הקניות החכמות שלך
+          </p>
+          <AuthGuard requireAuth={true}>
+            <div></div>
+          </AuthGuard>
+        </div>
+      </div>
+    )
   }
 
   return (
