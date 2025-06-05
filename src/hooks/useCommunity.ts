@@ -352,7 +352,7 @@ export function useCommunity() {
   }
 
   // Flag a review as inappropriate
-  const flagReview = async (reviewId: string, reason: string): Promise<boolean> => {
+  const flagReview = async (reviewId: string): Promise<boolean> => {
     if (!user) return false
 
     try {

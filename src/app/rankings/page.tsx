@@ -28,7 +28,7 @@ export default function RankingsPage() {
   const { 
     reviews, 
     // trendingStores, 
-    communityInsights, 
+    // communityInsights, 
     getStoreInsights 
   } = useCommunity()
 

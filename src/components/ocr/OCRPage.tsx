@@ -5,7 +5,7 @@ import {
   Camera, 
   FileText, 
   CheckCircle, 
-  ArrowRight, 
+ 
   RotateCcw,
   Zap,
   Brain,
@@ -21,7 +21,7 @@ import { useToast } from '@/components/ui/Toast'
 
 export function OCRPage() {
   const { user } = useAuth()
-  const { success, error: showError } = useToast()
+  const { error: showError } = useToast()
   const {
     processing,
     currentResult,
@@ -31,11 +31,11 @@ export function OCRPage() {
     validateExtractedItems,
     bulkSubmitPrices,
     clearSession,
-    hasResult,
-    hasValidation,
-    canSubmit,
-    itemCount,
-    validItemCount
+    hasResult
+    // hasValidation,
+    // canSubmit,
+    // itemCount,
+    // validItemCount
   } = useOCR()
 
   const [step, setStep] = useState<'capture' | 'process' | 'validate' | 'submit'>('capture')
@@ -67,7 +67,7 @@ export function OCRPage() {
     }
   }
 
-  const handleItemUpdate = (index: number, updatedItem: any) => {
+  const handleItemUpdate = (index: number, updatedItem: { text: string; price: number; confidence: number; isValidated: boolean; meatCutId?: string; retailerId?: string; suggestedCategory?: string; quantity?: number; unit?: string }) => {
     if (currentResult) {
       const updatedItems = [...currentResult.extractedItems]
       updatedItems[index] = updatedItem
@@ -82,11 +82,11 @@ export function OCRPage() {
       const updatedItems = currentResult.extractedItems.filter((_, i) => i !== index)
       
       // Update current result
-      const updatedResult = {
-        ...currentResult,
-        extractedItems: updatedItems,
-        totalItems: updatedItems.length
-      }
+      // const updatedResult = {
+      //   ...currentResult,
+      //   extractedItems: updatedItems,
+      //   totalItems: updatedItems.length
+      // }
       
       // Re-validate
       validateExtractedItems(updatedItems)
@@ -127,11 +127,11 @@ export function OCRPage() {
         ? 'text-green-600' 
         : 'text-gray-400'
 
-    const bgClass = isActive 
-      ? 'bg-blue-100' 
-      : isCompleted 
-        ? 'bg-green-100' 
-        : 'bg-gray-100'
+    // const bgClass = isActive 
+    //   ? 'bg-blue-100' 
+    //   : isCompleted 
+    //     ? 'bg-green-100' 
+    //     : 'bg-gray-100'
 
     switch (stepName) {
       case 'capture':
@@ -270,7 +270,7 @@ export function OCRPage() {
                 <div className="mt-6 p-4 bg-blue-50 rounded-lg">
                   <h4 className="font-medium text-blue-900 mb-2">תוצאות ביניים:</h4>
                   <div className="text-blue-800 text-sm">
-                    <p>זוהו {itemCount} פריטים</p>
+                    <p>זוהו {currentResult?.extractedItems.length || 0} פריטים</p>
                     {currentResult.storeInfo && (
                       <p>חנות: {currentResult.storeInfo.name}</p>
                     )}

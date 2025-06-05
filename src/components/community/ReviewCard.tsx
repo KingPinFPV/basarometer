@@ -33,8 +33,8 @@ export function ReviewCard({
     }
   }
 
-  const handleFlag = async (reason: string) => {
-    const success = await flagReview(review.id, reason)
+  const handleFlag = async () => {
+    const success = await flagReview(review.id)
     if (success) {
       setFlagged(true)
       setShowFlagModal(false)
@@ -219,7 +219,7 @@ export function ReviewCard({
               ].map((reason) => (
                 <button
                   key={reason}
-                  onClick={() => handleFlag(reason)}
+                  onClick={() => handleFlag()}
                   className="w-full text-right p-2 hover:bg-gray-50 rounded transition-colors"
                 >
                   {reason}

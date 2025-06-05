@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useState, useMemo } from 'react'
-import { X, MapPin, Calendar, Store, CheckCircle, AlertTriangle, Package } from 'lucide-react'
-import type { ExtractedItem, ValidationResult } from '@/hooks/useOCR'
+import { X, MapPin, Store, CheckCircle, AlertTriangle, Package } from 'lucide-react'
+import type { ValidationResult } from '@/hooks/useOCR'
 import { usePriceData } from '@/hooks/usePriceData'
 
 interface BulkSubmitModalProps {

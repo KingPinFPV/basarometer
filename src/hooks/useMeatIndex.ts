@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
-import { supabase } from '@/lib/supabase'
+// import { supabase } from '@/lib/supabase'
 import { usePriceData } from '@/hooks/usePriceData'
 
 export interface MeatIndexData {
@@ -75,7 +75,8 @@ export function useMeatIndex() {
   
   const [indexHistory, setIndexHistory] = useState<MeatIndexData[]>([])
   const [currentIndex, setCurrentIndex] = useState<MeatIndexData | null>(null)
-  const [categoryAverages, setCategoryAverages] = useState<CategoryAverage[]>([])
+  const [categoryAverages] = useState<CategoryAverage[]>([])
+  // const [setCategoryAverages] = useState<CategoryAverage[]>([])
   const [predictions, setPredictions] = useState<Map<string, PricePrediction>>(new Map())
   const [inflationAnalysis, setInflationAnalysis] = useState<InflationAnalysis | null>(null)
   const [seasonalPatterns, setSeasonalPatterns] = useState<SeasonalPattern[]>([])
@@ -105,7 +106,7 @@ export function useMeatIndex() {
     return calculateIndexFromReports(todayReports, today)
   }, [priceReports, meatCuts])
 
-  const calculateIndexFromReports = (reports: any[], date: string): MeatIndexData => {
+  const calculateIndexFromReports = (reports: Array<{ meat_cut_id: string; price_per_kg: number }>, date: string): MeatIndexData => {
     // Group reports by category
     const categoryGroups = new Map<string, number[]>()
     const categoryNames = new Map<string, string>()
@@ -335,7 +336,7 @@ export function useMeatIndex() {
     else if (comparedToGeneral > 1) meatInflationTrend = 'higher'
     else meatInflationTrend = 'lower'
 
-    const impact = generateInflationImpact(yearlyInflation, comparedToGeneral)
+    const impact = generateInflationImpact(yearlyInflation)
 
     return {
       monthlyInflation: Math.round(monthlyInflation * 100) / 100,
@@ -346,7 +347,7 @@ export function useMeatIndex() {
     }
   }
 
-  const generateInflationImpact = (yearlyInflation: number, compared: number): string => {
+  const generateInflationImpact = (yearlyInflation: number): string => {
     if (yearlyInflation > 10) {
       return 'אינפלציה גבוהה במיוחד - משפיעה משמעותית על תקציב המשפחה'
     } else if (yearlyInflation > 5) {
@@ -404,7 +405,8 @@ export function useMeatIndex() {
     if (!currentIndex) return []
 
     const alerts: PriceAlert[] = []
-    const { indexValue, marketVolatility, economicTrend } = currentIndex
+    const { indexValue, marketVolatility } = currentIndex
+    // const { economicTrend } = currentIndex
 
     // Significant price change alert
     if (indexValue > 70) {
@@ -566,14 +568,14 @@ export function useMeatIndex() {
         setLoading(false)
       }
     }
-  }, [priceDataLoading, priceReports, calculateDailyIndex])
+  }, [priceDataLoading, priceReports, calculateDailyIndex, detectAnomalies, generatePriceAlerts, predictPriceTrends])
 
   // Update inflation analysis when history is available
   useEffect(() => {
     if (indexHistory.length > 0) {
       setInflationAnalysis(calculateInflationAnalysis())
     }
-  }, [indexHistory])
+  }, [indexHistory, calculateInflationAnalysis])
 
   return {
     // Current data

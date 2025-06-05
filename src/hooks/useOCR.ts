@@ -263,7 +263,7 @@ export function useOCR() {
   }
 
   // Calculate item confidence score
-  const calculateItemConfidence = (text: string, price: number, matchedCut: any): number => {
+  const calculateItemConfidence = (text: string, price: number, matchedCut: { id: string; name_hebrew: string } | null): number => {
     let confidence = 0.5 // Base confidence
 
     // Price reasonableness

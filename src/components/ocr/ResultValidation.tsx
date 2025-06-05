@@ -7,9 +7,6 @@ import {
   AlertTriangle, 
   Edit3, 
   Trash2, 
-  ShoppingCart,
-  DollarSign,
-  Tag,
   Package
 } from 'lucide-react'
 import type { ExtractedItem, ValidationResult } from '@/hooks/useOCR'
@@ -30,23 +27,24 @@ export function ResultValidation({
   onValidate,
   processing
 }: ResultValidationProps) {
-  const { meatCuts, retailers } = usePriceData()
+  const { meatCuts } = usePriceData()
+  // const { retailers } = usePriceData()
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
 
   const allItems = [...validationResult.validItems, ...validationResult.invalidItems]
 
-  const handleItemEdit = (index: number, field: keyof ExtractedItem, value: any) => {
-    const item = allItems[index]
-    if (!item) return
+  // const handleItemEdit = (index: number, field: keyof ExtractedItem, value: any) => {
+  //   const item = allItems[index]
+  //   if (!item) return
 
-    const updatedItem: ExtractedItem = {
-      ...item,
-      [field]: value,
-      isValidated: false // Reset validation when editing
-    }
+  //   const updatedItem: ExtractedItem = {
+  //     ...item,
+  //     [field]: value,
+  //     isValidated: false // Reset validation when editing
+  //   }
 
-    onItemUpdate(index, updatedItem)
-  }
+  //   onItemUpdate(index, updatedItem)
+  // }
 
   const getItemStatusIcon = (item: ExtractedItem) => {
     if (validationResult.validItems.includes(item)) {
@@ -68,17 +66,17 @@ export function ResultValidation({
     return 'border-yellow-200 bg-yellow-50'
   }
 
-  const getConfidenceColor = (confidence: number) => {
-    if (confidence >= 0.8) return 'text-green-600 bg-green-100'
-    if (confidence >= 0.6) return 'text-yellow-600 bg-yellow-100'
-    return 'text-red-600 bg-red-100'
-  }
+  // const getConfidenceColor = (confidence: number) => {
+  //   if (confidence >= 0.8) return 'text-green-600 bg-green-100'
+  //   if (confidence >= 0.6) return 'text-yellow-600 bg-yellow-100'
+  //   return 'text-red-600 bg-red-100'
+  // }
 
-  const getConfidenceText = (confidence: number) => {
-    if (confidence >= 0.8) return 'גבוה'
-    if (confidence >= 0.6) return 'בינוני'
-    return 'נמוך'
-  }
+  // const getConfidenceText = (confidence: number) => {
+  //   if (confidence >= 0.8) return 'גבוה'
+  //   if (confidence >= 0.6) return 'בינוני'
+  //   return 'נמוך'
+  // }
 
   return (
     <div className="space-y-6" dir="rtl">
@@ -207,7 +205,7 @@ function ViewItemDetails({
   onRemove 
 }: { 
   item: ExtractedItem
-  meatCuts: any[]
+  meatCuts: Array<{ id: string; name_hebrew: string; category_id: string }>
   onEdit: () => void
   onRemove: () => void
 }) {
@@ -282,7 +280,7 @@ function EditItemForm({
   onCancel 
 }: { 
   item: ExtractedItem
-  meatCuts: any[]
+  meatCuts: Array<{ id: string; name_hebrew: string; category_id: string }>
   onSave: (item: ExtractedItem) => void
   onCancel: () => void
 }) {

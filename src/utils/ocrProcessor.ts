@@ -70,7 +70,7 @@ class OCRProcessor {
 
       // If Tesseract is not available, use fallback
       if (!this.worker || !window.Tesseract) {
-        return this.fallbackProcessing(imageFile)
+        return this.fallbackProcessing()
       }
 
       // Process image with OCR
@@ -100,7 +100,7 @@ class OCRProcessor {
   // Post-process OCR text to improve Hebrew recognition
   private postProcessText(text: string): string {
     // Clean up common OCR errors in Hebrew
-    let processed = text
+    const processed = text
       // Fix common character misrecognitions
       .replace(/\u05E9\u05BC/g, 'ש') // Fix שׂ to ש
       .replace(/\u05D0\u05BC/g, 'א') // Fix אׂ to א
@@ -119,7 +119,7 @@ class OCRProcessor {
   }
 
   // Fallback processing when Tesseract is not available
-  private fallbackProcessing(imageFile: File): Promise<string> {
+  private fallbackProcessing(): Promise<string> {
     return new Promise((resolve) => {
       // Return a mock receipt text for demonstration
       // In a real implementation, this could use a server-side OCR service

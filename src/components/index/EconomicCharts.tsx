@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useMemo } from 'react'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, BarChart, Bar } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, BarChart, Bar, Cell } from 'recharts'
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react'
 import type { MeatIndexData } from '@/hooks/useMeatIndex'
 
@@ -68,12 +68,12 @@ export function EconomicCharts({ indexHistory, currentIndex }: EconomicChartsPro
     }
   }, [indexHistory])
 
-  const CustomTooltip = ({ active, payload, label }: any) => {
+  const CustomTooltip = ({ active, payload, label }: { active?: boolean; payload?: Array<{ name: string; value: number; color: string }>; label?: string }) => {
     if (active && payload && payload.length) {
       return (
         <div className="bg-white p-3 border border-gray-200 rounded-lg shadow-lg" dir="rtl">
           <p className="text-sm font-medium text-gray-900 mb-2">{label}</p>
-          {payload.map((entry: any, index: number) => (
+          {payload.map((entry, index: number) => (
             <p key={index} className="text-sm" style={{ color: entry.color }}>
               <span className="font-medium">{entry.name}:</span> 
               {entry.name === 'דיווחים' ? ` ${entry.value}` : ` ₪${entry.value?.toFixed(2)}`}
@@ -175,7 +175,7 @@ export function EconomicCharts({ indexHistory, currentIndex }: EconomicChartsPro
                 radius={[4, 4, 0, 0]}
               >
                 {categoryData.map((entry, index) => (
-                  <Bar key={`cell-${index}`} fill={entry.color} />
+                  <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}
               </Bar>
             </BarChart>

@@ -1,5 +1,8 @@
 import { MeatIndexDashboard } from '@/components/index/MeatIndexDashboard'
 
+// Force dynamic rendering for meat index page (complex calculations)
+export const dynamic = 'force-dynamic'
+
 export default function IndexPage() {
   return <MeatIndexDashboard />
 }

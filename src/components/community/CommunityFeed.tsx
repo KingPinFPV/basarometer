@@ -108,7 +108,7 @@ export function CommunityFeed({ className = '' }: CommunityFeedProps) {
         ].map((tab) => (
           <button
             key={tab.key}
-            onClick={() => setFilter(tab.key as any)}
+            onClick={() => setFilter(tab.key as 'all' | 'recent' | 'trending')}
             className={`flex-1 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
               filter === tab.key
                 ? 'bg-white text-blue-600 shadow-sm'

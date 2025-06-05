@@ -20,7 +20,7 @@ export function MeatIndexDashboard() {
     loading,
     error,
     isDataAvailable,
-    marketStatus,
+    // marketStatus,
     alertCount
   } = useMeatIndex()
 

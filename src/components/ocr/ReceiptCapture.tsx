@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useCallback } from 'react'
-import { Camera, Upload, X, RotateCcw, Crop } from 'lucide-react'
+import { Camera, Upload, X } from 'lucide-react'
 import { loadTesseractJS, preprocessImage } from '@/utils/ocrProcessor'
 
 interface ReceiptCaptureProps {
