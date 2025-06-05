@@ -1,0 +1,49 @@
+import { Home, ShoppingCart, TrendingUp, Trophy, LucideIcon } from 'lucide-react'
+
+export interface NavigationItem {
+  href: string
+  icon: LucideIcon
+  label: string
+  description: string
+  ariaLabel?: string
+}
+
+export const navigationItems: NavigationItem[] = [
+  {
+    href: '/',
+    icon: Home,
+    label: 'מטריצה',
+    description: 'השוואת מחירים חכמה',
+    ariaLabel: 'עמוד הבית - מטריצת השוואת מחירים'
+  },
+  {
+    href: '/shopping-lists',
+    icon: ShoppingCart,
+    label: 'רשימות קניות',
+    description: 'תכנון חכם וחיסכון',
+    ariaLabel: 'רשימות קניות חכמות ותכנון מסלולים'
+  },
+  {
+    href: '/trends',
+    icon: TrendingUp,
+    label: 'מגמות',
+    description: 'מעקב מחירים',
+    ariaLabel: 'מגמות מחירים וניתוח היסטורי'
+  },
+  {
+    href: '/rankings',
+    icon: Trophy,
+    label: 'דירוגים',
+    description: 'חנויות ומשתמשים',
+    ariaLabel: 'דירוגי חנויות ולוח מובילים'
+  }
+]
+
+export const getNavigationItemByPath = (pathname: string): NavigationItem | undefined => {
+  return navigationItems.find(item => item.href === pathname)
+}
+
+export const getPageTitle = (pathname: string): string => {
+  const item = getNavigationItemByPath(pathname)
+  return item ? `${item.label} | בשרומטר V5.1` : 'בשרומטר V5.1'
+}

@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
-import { Header } from '@/components/layout/Header'
 import AccordionMatrixContainer from '@/components/matrix/AccordionMatrixContainer'
 import { ToastContainer, useToast } from '@/components/ui/Toast'
 import { TrendingUp, Users, Zap } from 'lucide-react'
@@ -59,7 +58,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen" dir="rtl">
-      <Header />
+      {/* Header now provided by AppLayout */}
       
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
