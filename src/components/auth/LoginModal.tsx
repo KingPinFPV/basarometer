@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useAuth } from '@/hooks/useAuth'
 import { X, Mail, Lock, Eye, EyeOff, User, AlertCircle, CheckCircle, Loader2 } from 'lucide-react'
+import { ModalPortal } from '@/components/ui/ModalPortal'
 
 interface LoginModalProps {
   isOpen: boolean
@@ -84,10 +85,8 @@ export function LoginModal({ isOpen, onClose, onSwitchToSignup, onSuccess }: Log
     onSwitchToSignup()
   }
 
-  if (!isOpen) return null
-
   return (
-    <div className="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-50" dir="rtl">
+    <ModalPortal isOpen={isOpen}>
       <div 
         className="card max-w-md w-full mx-auto animate-fade-in"
         onClick={(e) => e.stopPropagation()}
@@ -219,7 +218,7 @@ export function LoginModal({ isOpen, onClose, onSwitchToSignup, onSuccess }: Log
           </div>
         </form>
       </div>
-    </div>
+    </ModalPortal>
   )
 }
 
