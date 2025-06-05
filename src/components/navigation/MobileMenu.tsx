@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import { X } from 'lucide-react'
 import { NavItem } from './NavItem'
+import { AuthButton } from '@/components/auth/AuthButton'
 import { navigationItems } from './navigationConfig'
 
 interface MobileMenuProps {
@@ -74,6 +75,13 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           >
             <X className="w-5 h-5 text-gray-500" />
           </button>
+        </div>
+
+        {/* Authentication Section */}
+        <div className="p-4 border-b border-gray-200 bg-gray-50">
+          <div className="flex justify-center">
+            <AuthButton size="md" showText={true} className="w-full justify-center" />
+          </div>
         </div>
 
         {/* Navigation Items */}

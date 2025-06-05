@@ -5,6 +5,7 @@ import { Menu } from 'lucide-react'
 import { BrandLogo } from './BrandLogo'
 import { NavItem } from './NavItem'
 import { MobileMenu } from './MobileMenu'
+import { AuthButton } from '@/components/auth/AuthButton'
 import { navigationItems } from './navigationConfig'
 
 interface NavBarProps {
@@ -45,7 +46,7 @@ export function NavBar({ className = '' }: NavBarProps) {
             </div>
 
             {/* Desktop Navigation - Simplified Top Bar */}
-            <div className="hidden lg:flex items-center space-x-1 rtl:space-x-reverse">
+            <div className="hidden lg:flex items-center space-x-3 rtl:space-x-reverse">
               {navigationItems.slice(0, 3).map((item) => (
                 <NavItem
                   key={item.href}
@@ -57,6 +58,11 @@ export function NavBar({ className = '' }: NavBarProps) {
                   className="px-4 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 text-sm"
                 />
               ))}
+              
+              {/* Auth Button */}
+              <div className="border-r border-gray-200 pr-3 mr-3">
+                <AuthButton size="sm" showText={true} />
+              </div>
             </div>
 
             {/* Mobile Menu Button */}
@@ -76,18 +82,25 @@ export function NavBar({ className = '' }: NavBarProps) {
         {/* Desktop Navigation - Full Width for Medium Screens */}
         <div className="hidden md:block lg:hidden border-t border-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-center space-x-4 rtl:space-x-reverse py-2">
-              {navigationItems.map((item) => (
-                <NavItem
-                  key={`${item.href}-desktop`}
-                  href={item.href}
-                  icon={item.icon}
-                  label={item.label}
-                  description={item.description}
-                  showDescription={true}
-                  className="px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 min-w-[120px] text-sm"
-                />
-              ))}
+            <div className="flex items-center justify-between py-2">
+              <div className="flex items-center space-x-4 rtl:space-x-reverse">
+                {navigationItems.map((item) => (
+                  <NavItem
+                    key={`${item.href}-desktop`}
+                    href={item.href}
+                    icon={item.icon}
+                    label={item.label}
+                    description={item.description}
+                    showDescription={true}
+                    className="px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 min-w-[120px] text-sm"
+                  />
+                ))}
+              </div>
+              
+              {/* Auth Button for Medium Screens */}
+              <div className="border-r border-gray-200 pr-3 mr-3">
+                <AuthButton size="sm" showText={true} />
+              </div>
             </div>
           </div>
         </div>

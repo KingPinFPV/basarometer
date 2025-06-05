@@ -1,4 +1,4 @@
-import { Home, ShoppingCart, TrendingUp, Trophy, BarChart3, Camera, LucideIcon } from 'lucide-react'
+import { Home, ShoppingCart, TrendingUp, Trophy, BarChart3, Camera, Users, LucideIcon } from 'lucide-react'
 
 export interface NavigationItem {
   href: string
@@ -50,6 +50,13 @@ export const navigationItems: NavigationItem[] = [
     label: 'דירוגים',
     description: 'חנויות ומשתמשים',
     ariaLabel: 'דירוגי חנויות ולוח מובילים'
+  },
+  {
+    href: '/community',
+    icon: Users,
+    label: 'קהילה',
+    description: 'ביקורות וחוויות',
+    ariaLabel: 'קהילת משתמשים וביקורות חנויות'
   }
 ]
 

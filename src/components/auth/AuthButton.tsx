@@ -1,0 +1,158 @@
+'use client'
+
+import { useState } from 'react'
+import { useAuth } from '@/hooks/useAuth'
+import { LoginModal } from './LoginModal'
+import { SignupModal } from './SignupModal'
+import { User, LogIn, UserPlus, LogOut, Loader2 } from 'lucide-react'
+
+interface AuthButtonProps {
+  className?: string
+  showText?: boolean
+  size?: 'sm' | 'md' | 'lg'
+}
+
+export function AuthButton({ 
+  className = '', 
+  showText = true, 
+  size = 'md' 
+}: AuthButtonProps) {
+  const { user, isAuthenticated, signOut, loading } = useAuth()
+  const [showLoginModal, setShowLoginModal] = useState(false)
+  const [showSignupModal, setShowSignupModal] = useState(false)
+
+  // Size classes
+  const sizeClasses = {
+    sm: 'px-2 py-1 text-xs',
+    md: 'px-3 py-2 text-sm',
+    lg: 'px-4 py-3 text-base'
+  }
+
+  const iconSizeClasses = {
+    sm: 'w-3 h-3',
+    md: 'w-4 h-4',
+    lg: 'w-5 h-5'
+  }
+
+  const handleSignOut = async () => {
+    try {
+      await signOut()
+    } catch (error) {
+      console.error('Sign out error:', error)
+    }
+  }
+
+  const handleLoginSuccess = () => {
+    setShowLoginModal(false)
+  }
+
+  const handleSignupSuccess = () => {
+    setShowSignupModal(false)
+  }
+
+  const switchToSignup = () => {
+    setShowLoginModal(false)
+    setShowSignupModal(true)
+  }
+
+  const switchToLogin = () => {
+    setShowSignupModal(false)
+    setShowLoginModal(true)
+  }
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className={`flex items-center space-x-2 rtl:space-x-reverse ${sizeClasses[size]} ${className}`}>
+        <Loader2 className={`${iconSizeClasses[size]} animate-spin`} />
+        {showText && <span>טוען...</span>}
+      </div>
+    )
+  }
+
+  // Authenticated state
+  if (isAuthenticated && user) {
+    const displayName = user.user_metadata?.full_name || user.email?.split('@')[0] || 'משתמש'
+    
+    return (
+      <div className={`flex items-center space-x-2 rtl:space-x-reverse ${className}`}>
+        {/* User Info */}
+        <div className={`flex items-center space-x-2 rtl:space-x-reverse ${sizeClasses[size]} text-gray-700`}>
+          <User className={iconSizeClasses[size]} />
+          {showText && (
+            <span className="max-w-20 truncate">
+              שלום, {displayName}
+            </span>
+          )}
+        </div>
+
+        {/* Logout Button */}
+        <button
+          onClick={handleSignOut}
+          className={`
+            flex items-center space-x-1 rtl:space-x-reverse ${sizeClasses[size]}
+            text-red-600 hover:text-red-800 hover:bg-red-50 
+            rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-red-500
+          `}
+          title="התנתק"
+        >
+          <LogOut className={iconSizeClasses[size]} />
+          {showText && <span>התנתק</span>}
+        </button>
+      </div>
+    )
+  }
+
+  // Not authenticated state
+  return (
+    <>
+      <div className={`flex items-center space-x-2 rtl:space-x-reverse ${className}`}>
+        {/* Login Button */}
+        <button
+          onClick={() => setShowLoginModal(true)}
+          className={`
+            flex items-center space-x-1 rtl:space-x-reverse ${sizeClasses[size]}
+            text-blue-600 hover:text-blue-800 hover:bg-blue-50 
+            rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500
+          `}
+          title="התחבר"
+        >
+          <LogIn className={iconSizeClasses[size]} />
+          {showText && <span>התחבר</span>}
+        </button>
+
+        {/* Signup Button */}
+        <button
+          onClick={() => setShowSignupModal(true)}
+          className={`
+            flex items-center space-x-1 rtl:space-x-reverse ${sizeClasses[size]}
+            text-green-600 hover:text-green-800 hover:bg-green-50 
+            rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-green-500
+          `}
+          title="הירשם"
+        >
+          <UserPlus className={iconSizeClasses[size]} />
+          {showText && <span>הירשם</span>}
+        </button>
+      </div>
+
+      {/* Login Modal */}
+      <LoginModal
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+        onSwitchToSignup={switchToSignup}
+        onSuccess={handleLoginSuccess}
+      />
+
+      {/* Signup Modal */}
+      <SignupModal
+        isOpen={showSignupModal}
+        onClose={() => setShowSignupModal(false)}
+        onSwitchToLogin={switchToLogin}
+        onSuccess={handleSignupSuccess}
+      />
+    </>
+  )
+}
+
+export default AuthButton

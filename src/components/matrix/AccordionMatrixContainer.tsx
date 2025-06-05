@@ -9,6 +9,7 @@ import { MatrixSearch } from './MatrixSearch'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import { ColorLegendV2 } from '@/components/ui/ColorLegendV2'
 import { StoreReviewModal } from '@/components/community/StoreReviewModal'
+import { PriceReportModal } from '@/components/forms/PriceReportModal'
 import { MessageSquare } from 'lucide-react'
 import type { Retailer } from '@/lib/database.types'
 
@@ -33,6 +34,9 @@ export default function AccordionMatrixContainer() {
   const [showColorLegend, setShowColorLegend] = useState(false)
   const [showReviewModal, setShowReviewModal] = useState(false)
   const [selectedRetailer, setSelectedRetailer] = useState<Retailer | null>(null)
+  const [showPriceReportModal, setShowPriceReportModal] = useState(false)
+  const [selectedMeatCutId, setSelectedMeatCutId] = useState<string | null>(null)
+  const [selectedRetailerId, setSelectedRetailerId] = useState<string | null>(null)
 
   // Handle adding items to shopping list
   const handleAddToShoppingList = async (cutId: string) => {
@@ -102,6 +106,28 @@ export default function AccordionMatrixContainer() {
   const closeReviewModal = () => {
     setShowReviewModal(false)
     setSelectedRetailer(null)
+  }
+
+  // Handle price report modal
+  const openPriceReportModal = (cutId: string, retailerId: string) => {
+    if (!user) {
+      alert('התחבר כדי לדווח מחירים')
+      return
+    }
+    setSelectedMeatCutId(cutId)
+    setSelectedRetailerId(retailerId)
+    setShowPriceReportModal(true)
+  }
+
+  const closePriceReportModal = () => {
+    setShowPriceReportModal(false)
+    setSelectedMeatCutId(null)
+    setSelectedRetailerId(null)
+  }
+
+  const handlePriceReportSuccess = () => {
+    closePriceReportModal()
+    refetch() // Refresh data to show new price
   }
 
   // Filter cuts based on search
@@ -258,10 +284,7 @@ export default function AccordionMatrixContainer() {
             onToggleSubCategory={toggleSubCategory}
             getFilteredCuts={getFilteredCuts}
             useV2Algorithm={useV2Algorithm}
-            onReportPrice={(cutId, retailerId) => {
-              console.log('Report price for:', cutId, 'at', retailerId)
-              // TODO: Open price report modal
-            }}
+            onReportPrice={openPriceReportModal}
             onAddToShoppingList={handleAddToShoppingList}
           />
         ))}
@@ -288,6 +311,17 @@ export default function AccordionMatrixContainer() {
           retailer={selectedRetailer}
           isOpen={showReviewModal}
           onClose={closeReviewModal}
+        />
+      )}
+
+      {/* Price Report Modal */}
+      {showPriceReportModal && selectedMeatCutId && selectedRetailerId && (
+        <PriceReportModal
+          isOpen={showPriceReportModal}
+          onClose={closePriceReportModal}
+          preSelectedMeatCutId={selectedMeatCutId}
+          preSelectedRetailerId={selectedRetailerId}
+          onSuccess={handlePriceReportSuccess}
         />
       )}
     </div>
