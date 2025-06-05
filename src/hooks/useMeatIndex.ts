@@ -85,27 +85,7 @@ export function useMeatIndex() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  // Calculate today's meat index
-  const calculateDailyIndex = useMemo(() => {
-    if (!priceReports.length || !meatCuts.length) return null
-
-    const today = new Date().toISOString().split('T')[0]
-    const todayReports = priceReports.filter(report => 
-      report.created_at.split('T')[0] === today
-    )
-
-    if (todayReports.length === 0) {
-      // Use most recent reports if no data today
-      const sortedReports = [...priceReports].sort((a, b) => 
-        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-      )
-      const recentReports = sortedReports.slice(0, Math.min(50, sortedReports.length))
-      return calculateIndexFromReports(recentReports, today)
-    }
-
-    return calculateIndexFromReports(todayReports, today)
-  }, [priceReports, meatCuts])
-
+  // Helper function to calculate index from reports (must be defined before useMemo)
   const calculateIndexFromReports = (reports: Array<{ meat_cut_id: string; price_per_kg: number }>, date: string): MeatIndexData => {
     // Group reports by category
     const categoryGroups = new Map<string, number[]>()
@@ -190,6 +170,27 @@ export function useMeatIndex() {
       economicTrend
     }
   }
+
+  // Calculate today's meat index
+  const calculateDailyIndex = useMemo(() => {
+    if (!priceReports.length || !meatCuts.length) return null
+
+    const today = new Date().toISOString().split('T')[0]
+    const todayReports = priceReports.filter(report => 
+      report.created_at.split('T')[0] === today
+    )
+
+    if (todayReports.length === 0) {
+      // Use most recent reports if no data today
+      const sortedReports = [...priceReports].sort((a, b) => 
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      )
+      const recentReports = sortedReports.slice(0, Math.min(50, sortedReports.length))
+      return calculateIndexFromReports(recentReports, today)
+    }
+
+    return calculateIndexFromReports(todayReports, today)
+  }, [priceReports, meatCuts])
 
   const getCategoryName = (categoryId: string): string => {
     // This would normally come from a categories lookup
