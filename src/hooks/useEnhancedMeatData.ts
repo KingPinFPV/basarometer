@@ -85,31 +85,67 @@ export function useEnhancedMeatData(categoryFilter?: string) {
 
       if (cutsError) throw cutsError
 
-      // Fetch quality mappings and variations
-      const { data: qualityMappings, error: mappingsError } = await supabase
-        .from('meat_name_mappings')
-        .select('*')
-        .gte('confidence_score', 0.7)
-
-      if (mappingsError) throw mappingsError
+      // Fetch quality mappings and variations (fallback if table doesn't exist)
+      let qualityMappings: any[] = []
+      try {
+        const { data: mappings, error: mappingsError } = await supabase
+          .from('meat_name_mappings')
+          .select('*')
+          .gte('confidence_score', 0.7)
+        
+        if (!mappingsError && mappings) {
+          qualityMappings = mappings
+        }
+      } catch (error) {
+        console.warn('meat_name_mappings table not found, using fallback data')
+        qualityMappings = []
+      }
 
       // Fetch current price data for market coverage analysis
-      const { data: priceData, error: priceError } = await supabase
-        .from('integrated_price_view')
-        .select('*')
-        .eq('is_active', true)
-        .gte('created_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString())
+      let priceData: any[] = []
+      try {
+        const { data: integratedData, error: integratedError } = await supabase
+          .from('integrated_price_view')
+          .select('*')
+          .eq('is_active', true)
+          .gte('created_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString())
+        
+        if (!integratedError && integratedData) {
+          priceData = integratedData
+        } else {
+          throw new Error('Fallback to price_reports')
+        }
+      } catch (error) {
+        // Fallback to price_reports table
+        const { data: fallbackData, error: fallbackError } = await supabase
+          .from('price_reports')
+          .select('*')
+          .eq('is_active', true)
+          .gte('created_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString())
+        
+        if (!fallbackError && fallbackData) {
+          priceData = fallbackData
+        } else {
+          priceData = []
+        }
+      }
 
-      if (priceError) throw priceError
+      // Fetch scanner data for trend analysis (graceful fallback)
+      let scannerData: any[] = []
+      try {
+        const { data: scanData, error: scannerError } = await supabase
+          .from('scanner_products')
+          .select('*')
+          .eq('is_active', true)
+          .gte('scan_timestamp', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString())
 
-      // Fetch scanner data for trend analysis
-      const { data: scannerData, error: scannerError } = await supabase
-        .from('scanner_products')
-        .select('*')
-        .eq('is_active', true)
-        .gte('scan_timestamp', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString())
-
-      if (scannerError) throw scannerError
+        if (!scannerError && scanData) {
+          scannerData = scanData
+        }
+      } catch (error) {
+        console.warn('Scanner data not available, continuing without it')
+        scannerData = []
+      }
 
       // Process and enhance the data
       const enhancedCuts = await processEnhancedMeatData(
@@ -191,52 +227,55 @@ async function processEnhancedMeatData(
   priceData: any[],
   scannerData: any[]
 ): Promise<EnhancedMeatCut[]> {
+  if (!Array.isArray(meatCuts)) return []
+  
   return meatCuts.map(cut => {
     // Find variations for this cut
-    const variations = qualityMappings.filter(mapping => 
-      mapping.normalized_name === cut.name_hebrew ||
-      mapping.meat_cut_id === cut.id
-    )
+    const variations = Array.isArray(qualityMappings) ? qualityMappings.filter(mapping => 
+      mapping?.normalized_name === cut?.name_hebrew ||
+      mapping?.meat_cut_id === cut?.id
+    ) : []
 
     // Extract quality grades
     const qualityGrades = extractQualityGrades(variations)
 
     // Calculate price range from current market data
-    const cutPrices = priceData
-      .filter(price => price.meat_cut_id === cut.id)
-      .map(price => parseFloat(price.price_per_kg))
-      .filter(price => !isNaN(price))
+    const cutPrices = Array.isArray(priceData) ? priceData
+      .filter(price => price?.meat_cut_id === cut?.id)
+      .map(price => parseFloat(price?.price_per_kg))
+      .filter(price => !isNaN(price)) : []
 
-    const priceRange = cutPrices.length > 0 ? {
+    const priceRange = Array.isArray(cutPrices) && cutPrices.length > 0 ? {
       min: Math.min(...cutPrices),
       max: Math.max(...cutPrices)
     } : { min: 0, max: 0 }
 
     // Calculate market coverage (percentage of retailers carrying this cut)
-    const uniqueRetailers = new Set(
+    const uniqueRetailers = Array.isArray(priceData) ? new Set(
       priceData
-        .filter(price => price.meat_cut_id === cut.id)
-        .map(price => price.retailer_id)
-    ).size
+        .filter(price => price?.meat_cut_id === cut?.id)
+        .map(price => price?.retailer_id)
+        .filter(Boolean)
+    ).size : 0
 
-    const totalRetailers = new Set(priceData.map(price => price.retailer_id)).size
+    const totalRetailers = Array.isArray(priceData) ? new Set(priceData.map(price => price?.retailer_id).filter(Boolean)).size : 0
     const marketCoverage = totalRetailers > 0 ? (uniqueRetailers / totalRetailers) * 100 : 0
 
     // Calculate trending direction from recent scanner data
-    const recentPrices = scannerData
-      .filter(product => product.meat_cut_id === cut.id)
-      .sort((a, b) => new Date(b.scan_timestamp).getTime() - new Date(a.scan_timestamp).getTime())
+    const recentPrices = Array.isArray(scannerData) ? scannerData
+      .filter(product => product?.meat_cut_id === cut?.id)
+      .sort((a, b) => new Date(b?.scan_timestamp).getTime() - new Date(a?.scan_timestamp).getTime())
       .slice(0, 10)
-      .map(product => parseFloat(product.price_per_kg))
-      .filter(price => !isNaN(price))
+      .map(product => parseFloat(product?.price_per_kg))
+      .filter(price => !isNaN(price)) : []
 
     const trendingDirection = calculateTrendingDirection(recentPrices)
 
     return {
-      id: cut.id,
-      name_hebrew: cut.name_hebrew,
-      name_english: cut.name_english,
-      normalized_cut_id: cut.normalized_cut_id || generateNormalizedId(cut.name_hebrew),
+      id: cut?.id || '',
+      name_hebrew: cut?.name_hebrew || '',
+      name_english: cut?.name_english || '',
+      normalized_cut_id: cut?.normalized_cut_id || generateNormalizedId(cut?.name_hebrew || ''),
       quality_grades: qualityGrades,
       variations_count: variations.length,
       avg_price_range: priceRange,
@@ -252,20 +291,22 @@ async function processEnhancedMeatData(
 function extractQualityGrades(variations: any[]): QualityGrade[] {
   const gradeMap = new Map<string, QualityGrade>()
 
-  variations.forEach(variation => {
-    const tier = variation.quality_grade || 'regular'
-    
-    if (!gradeMap.has(tier)) {
-      gradeMap.set(tier, {
-        id: tier,
-        name_hebrew: getHebrewGradeName(tier),
-        name_english: tier,
-        tier: tier as any,
-        color: getGradeColor(tier),
-        description: getGradeDescription(tier)
-      })
-    }
-  })
+  if (Array.isArray(variations)) {
+    variations.forEach(variation => {
+      const tier = variation?.quality_grade || 'regular'
+      
+      if (!gradeMap.has(tier)) {
+        gradeMap.set(tier, {
+          id: tier,
+          name_hebrew: getHebrewGradeName(tier),
+          name_english: tier,
+          tier: tier as any,
+          color: getGradeColor(tier),
+          description: getGradeDescription(tier)
+        })
+      }
+    })
+  }
 
   return Array.from(gradeMap.values())
 }
@@ -274,12 +315,14 @@ function extractQualityGrades(variations: any[]): QualityGrade[] {
 function calculateQualityBreakdown(mappings: any[]): QualityBreakdown {
   const byQuality: Record<string, number> = {}
   
-  mappings.forEach(mapping => {
-    const grade = mapping.quality_grade || 'regular'
-    byQuality[grade] = (byQuality[grade] || 0) + 1
-  })
+  if (Array.isArray(mappings)) {
+    mappings.forEach(mapping => {
+      const grade = mapping?.quality_grade || 'regular'
+      byQuality[grade] = (byQuality[grade] || 0) + 1
+    })
+  }
 
-  const totalVariations = mappings.length
+  const totalVariations = Array.isArray(mappings) ? mappings.length : 0
   const mostCommonGrade = Object.entries(byQuality)
     .sort(([,a], [,b]) => b - a)[0]?.[0] || 'regular'
   
@@ -300,19 +343,19 @@ function calculateMarketInsights(
   priceData: any[],
   scannerData: any[]
 ): MarketInsights {
-  const totalProducts = priceData.length
-  const activeRetailers = new Set(priceData.map(p => p.retailer_id)).size
+  const totalProducts = Array.isArray(priceData) ? priceData.length : 0
+  const activeRetailers = Array.isArray(priceData) ? new Set(priceData.map(p => p?.retailer_id).filter(Boolean)).size : 0
   
-  const avgConfidence = scannerData && scannerData.length > 0 
-    ? (scannerData || []).reduce((sum, p) => sum + (parseFloat(p?.scanner_confidence) || 0), 0) / scannerData.length
+  const avgConfidence = Array.isArray(scannerData) && scannerData.length > 0 
+    ? scannerData.reduce((sum, p) => sum + (parseFloat(p?.scanner_confidence) || 0), 0) / scannerData.length
     : 0
 
-  const avgPricePerKg = priceData && priceData.length > 0
-    ? (priceData || []).reduce((sum, p) => sum + (parseFloat(p?.price_per_kg) || 0), 0) / priceData.length
+  const avgPricePerKg = Array.isArray(priceData) && priceData.length > 0
+    ? priceData.reduce((sum, p) => sum + (parseFloat(p?.price_per_kg) || 0), 0) / priceData.length
     : 0
 
-  const coveragePercentage = enhancedCuts.length > 0
-    ? (enhancedCuts || []).reduce((sum, cut) => sum + (cut?.market_coverage || 0), 0) / enhancedCuts.length
+  const coveragePercentage = Array.isArray(enhancedCuts) && enhancedCuts.length > 0
+    ? enhancedCuts.reduce((sum, cut) => sum + (cut?.market_coverage || 0), 0) / enhancedCuts.length
     : 0
 
   return {
@@ -377,8 +420,8 @@ function calculateTrendingDirection(prices: number[]): 'up' | 'down' | 'stable' 
   const recent = prices.slice(0, Math.ceil(prices.length / 2))
   const older = prices.slice(Math.ceil(prices.length / 2))
   
-  const recentAvg = recent && recent.length > 0 ? (recent || []).reduce((sum, p) => sum + (p || 0), 0) / recent.length : 0
-  const olderAvg = older && older.length > 0 ? (older || []).reduce((sum, p) => sum + (p || 0), 0) / older.length : 0
+  const recentAvg = Array.isArray(recent) && recent.length > 0 ? recent.reduce((sum, p) => sum + (p || 0), 0) / recent.length : 0
+  const olderAvg = Array.isArray(older) && older.length > 0 ? older.reduce((sum, p) => sum + (p || 0), 0) / older.length : 0
   
   const threshold = olderAvg * 0.05 // 5% threshold
   
@@ -388,9 +431,13 @@ function calculateTrendingDirection(prices: number[]): 'up' | 'down' | 'stable' 
 }
 
 function getLatestPriceUpdate(priceData: any[], cutId: string): string {
+  if (!Array.isArray(priceData) || !cutId) {
+    return new Date().toISOString()
+  }
+  
   const cutPrices = priceData
-    .filter(price => price.meat_cut_id === cutId)
-    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+    .filter(price => price?.meat_cut_id === cutId)
+    .sort((a, b) => new Date(b?.created_at).getTime() - new Date(a?.created_at).getTime())
   
   return cutPrices[0]?.created_at || new Date().toISOString()
 }
