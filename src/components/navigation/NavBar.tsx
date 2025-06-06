@@ -7,6 +7,7 @@ import { NavItem } from './NavItem'
 import { MobileMenu } from './MobileMenu'
 import { AuthButton } from '@/components/auth/AuthButton'
 import { navigationItems } from './navigationConfig'
+import LiveScannerStatus from '@/components/scanner/LiveScannerStatus'
 
 interface NavBarProps {
   className?: string
@@ -75,6 +76,15 @@ export function NavBar({ className = '' }: NavBarProps) {
               >
                 <Menu className="w-6 h-6" />
               </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Scanner Status Bar - Visible on all screen sizes */}
+        <div className="border-t border-gray-100 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-center py-2">
+              <LiveScannerStatus />
             </div>
           </div>
         </div>
