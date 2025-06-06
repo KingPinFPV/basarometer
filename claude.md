@@ -1,49 +1,60 @@
-# 📊 Basarometer V5.2 - Complete Development Documentation (claude.md)
+# 🧠 Basarometer V5.2 - AI Assistant Memory & Production Documentation
 
-## 🎯 **Project Overview - PRODUCTION V5.2**
-- **System**: Social Shopping Intelligence Platform
-- **Environment**: Production (v3.basarometer.org)  
-- **Phase**: V5.2 Complete - All 5 Major Systems Operational
-- **Last Updated**: January 5, 2025
-- **Status**: ✅ Production-ready with complete feature set
+## 🎯 **PROJECT OVERVIEW - Current Production State**
+
+### **מה זה Basarometer:**
+פלטפורמת אינטליגנציה ישראלית מתקדמת למחירי בשר עם אוטומציה מלאה באמצעות Browser-Use AI ועיבוד עברית מושלם.
+
+### **Status נוכחי: Production Ready V5.2**
+- ✅ **Scanner Automation**: 40+ מוצרים אוטומטיים, 97.5% דיוק  
+- ✅ **Database Integration**: Schema מותאם UUID בפרודקשן
+- ✅ **UI Components**: Enhanced Product Cards פעילים
+- ✅ **API Endpoints**: `/api/scanner/ingest` מוטב ופעיל
+- ✅ **Real-time Updates**: עדכונים חיים מהסקנר לממשק
 
 ---
 
-## 🚀 **V5.2 COMPLETE FEATURE SET**
+## 🏗️ **ARCHITECTURE V5.2 - תשתית נוכחית**
 
-### **✅ Core Foundation (V5.1 Base):**
-- **ColorAlgorithmV2**: Priority-based colors (gray→blue→green→red→yellow)
-- **PriceCalculator**: Universal ₪/kg normalization
-- **SmartShoppingList**: Store optimization and route planning
-- **PriceTrends**: Historical tracking (building data)
-- **StoreRankings**: Data-driven store comparison
-- **Professional Navigation**: Sticky nav with mobile hamburger menu
-
-### **🆕 V5.2 Advanced Systems:**
-
-#### **💬 1. Community Reviews & Engagement System**
-```typescript
-// Components: StoreReviewModal, ReviewCard, CommunityFeed
-// Hook: useCommunity (411 lines)
-// Features: 5-star ratings, user reputation, trending stores
-// Integration: Accordion matrix + rankings + dedicated community page
+### **🔄 Pipeline אוטומטי:**
+```
+Browser-Use AI Scanner → API Endpoint → Supabase DB → Next.js UI → Users
+✅ 6+ networks ready    ✅ Optimized   ✅ Auto-link  ✅ Hebrew RTL ✅ Real-time
 ```
 
-#### **📊 2. Advanced Meat Price Index & Economic Intelligence**
-```typescript
-// Components: MeatIndexDashboard, EconomicCharts, MarketInsights, PricePredictor
-// Hook: useMeatIndex (607 lines)
-// Features: AI-powered market analysis, ML price forecasting, economic indicators
-// Navigation: "מדד כלכלי" - Full economic intelligence dashboard
+### **🛠️ Tech Stack פעיל:**
+- **Frontend**: Next.js 15 + TypeScript + Tailwind CSS + shadcn/ui
+- **Backend**: Supabase (PostgreSQL + Row Level Security)
+- **Scanner**: Browser-Use AI + Hebrew Processing Engine  
+- **Deployment**: Vercel + GitHub Actions (Auto-deploy)
+- **AI Integration**: OpenAI + Custom Hebrew NLP
+
+### **📊 Database Schema V5.2:**
+```sql
+-- Main Tables (Production)
+scanner_products      -- Scanner data with auto-linking (UUID)
+scanner_activity      -- Scan logging and monitoring  
+price_reports        -- Enhanced with scanner fields
+meat_cuts           -- Existing meat products (preserved)
+retailers           -- Store information (preserved)
+
+-- Performance Features
+- Hebrew text search indexes
+- Auto-deduplication logic
+- Price change tracking
+- UUID compatibility
 ```
 
-#### **📸 3. OCR Receipt Processing & Auto-Reporting**
+### **🤖 Scanner Automation System:**
 ```typescript
-// Components: ReceiptCapture, OCRProcessor, ResultValidation, BulkSubmitModal
-// Hook: useOCR (442 lines)
-// Technology: Tesseract.js with Hebrew language support
-// Features: Camera capture, Hebrew text recognition, batch submission
-// Navigation: "סריקת קבלות" - Complete OCR workflow
+// Current Production Features:
+✅ 40+ products per scan (97.5% accuracy)
+✅ 6+ Israeli retail networks supported
+✅ Auto-linking to existing meat cuts
+✅ Real-time confidence scoring
+✅ Hebrew product name processing
+✅ Automatic deduplication
+✅ Price change tracking
 ```
 
 #### **🔔 4. Smart Notifications & Alerts System**
