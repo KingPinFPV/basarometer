@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { supabase } from '@/lib/supabase';
 
 interface ScannerStatus {
   site_name: string;
@@ -28,7 +28,6 @@ export default function ScannerDashboard() {
   const [logs, setLogs] = useState<ScannerLog[]>([]);
   const [loading, setLoading] = useState(true);
   const [isLive, setIsLive] = useState(false);
-  const supabase = createClientComponentClient();
 
   useEffect(() => {
     fetchScannerData();

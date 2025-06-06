@@ -303,12 +303,12 @@ function calculateMarketInsights(
   const totalProducts = priceData.length
   const activeRetailers = new Set(priceData.map(p => p.retailer_id)).size
   
-  const avgConfidence = scannerData.length > 0 
-    ? scannerData.reduce((sum, p) => sum + (parseFloat(p.scanner_confidence) || 0), 0) / scannerData.length
+  const avgConfidence = scannerData && scannerData.length > 0 
+    ? (scannerData || []).reduce((sum, p) => sum + (parseFloat(p?.scanner_confidence) || 0), 0) / scannerData.length
     : 0
 
-  const avgPricePerKg = priceData.length > 0
-    ? priceData.reduce((sum, p) => sum + (parseFloat(p.price_per_kg) || 0), 0) / priceData.length
+  const avgPricePerKg = priceData && priceData.length > 0
+    ? (priceData || []).reduce((sum, p) => sum + (parseFloat(p?.price_per_kg) || 0), 0) / priceData.length
     : 0
 
   const coveragePercentage = enhancedCuts.length > 0
@@ -377,8 +377,8 @@ function calculateTrendingDirection(prices: number[]): 'up' | 'down' | 'stable' 
   const recent = prices.slice(0, Math.ceil(prices.length / 2))
   const older = prices.slice(Math.ceil(prices.length / 2))
   
-  const recentAvg = recent.reduce((sum, p) => sum + p, 0) / recent.length
-  const olderAvg = older.reduce((sum, p) => sum + p, 0) / older.length
+  const recentAvg = recent && recent.length > 0 ? recent.reduce((sum, p) => sum + (p || 0), 0) / recent.length : 0
+  const olderAvg = older && older.length > 0 ? older.reduce((sum, p) => sum + (p || 0), 0) / older.length : 0
   
   const threshold = olderAvg * 0.05 // 5% threshold
   

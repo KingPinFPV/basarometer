@@ -1,7 +1,6 @@
 // /src/app/api/scanner/webhook/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { supabase } from '@/lib/supabase';
 
 interface WebhookPayload {
   event: 'scan_completed' | 'scan_started' | 'scan_failed';
@@ -17,7 +16,6 @@ interface WebhookPayload {
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createRouteHandlerClient({ cookies });
     const payload: WebhookPayload = await request.json();
     
     // Validate webhook signature/API key

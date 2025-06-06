@@ -598,8 +598,8 @@ async function calculateAdminStats(
   const pendingReviews = queueData.filter(item => item.manual_review_needed).length
   const autoApproved = queueData.filter(item => !item.manual_review_needed).length
   
-  const totalConfidenceSum = mappingData.reduce((sum, rule) => sum + rule.confidence_score, 0)
-  const accuracyRate = mappingData.length > 0 ? (totalConfidenceSum / mappingData.length) * 100 : 0
+  const totalConfidenceSum = (mappingData || []).reduce((sum, rule) => sum + (rule?.confidence_score || 0), 0)
+  const accuracyRate = mappingData && mappingData.length > 0 ? (totalConfidenceSum / mappingData.length) * 100 : 0
   
   const newVariationsWeek = mappingData.filter(rule => 
     new Date(rule.last_seen) > weekAgo

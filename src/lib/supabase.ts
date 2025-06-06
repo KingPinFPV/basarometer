@@ -117,4 +117,4 @@ export type Database = {
   }
 }
 
-export { createClient } from '@supabase/supabase-js'
+// Removed createClient export to prevent multiple instance violations

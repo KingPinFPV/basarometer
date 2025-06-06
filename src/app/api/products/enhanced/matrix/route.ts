@@ -331,7 +331,7 @@ function calculatePriceMetrics(prices: number[], scannerData: any[], cutId: stri
 
   const minPrice = Math.min(...prices)
   const maxPrice = Math.max(...prices)
-  const avgPrice = prices.reduce((a, b) => a + b, 0) / prices.length
+  const avgPrice = prices && prices.length > 0 ? prices.reduce((a, b) => (a || 0) + (b || 0), 0) / prices.length : 0
 
   // Calculate trend from scanner data
   const recentPrices = scannerData
@@ -434,12 +434,12 @@ function calculateMarketInsights(
   const totalProducts = priceData.length
   const activeRetailers = retailers.length
   
-  const avgConfidence = scannerData.length > 0 
-    ? scannerData.reduce((sum, p) => sum + (parseFloat(p.scanner_confidence) || 0), 0) / scannerData.length
+  const avgConfidence = scannerData && scannerData.length > 0 
+    ? (scannerData || []).reduce((sum, p) => sum + (parseFloat(p?.scanner_confidence) || 0), 0) / scannerData.length
     : 0
 
-  const avgPricePerKg = priceData.length > 0
-    ? priceData.reduce((sum, p) => sum + (parseFloat(p.price_per_kg) || 0), 0) / priceData.length
+  const avgPricePerKg = priceData && priceData.length > 0
+    ? (priceData || []).reduce((sum, p) => sum + (parseFloat(p?.price_per_kg) || 0), 0) / priceData.length
     : 0
 
   const totalCoverage = enhancedCuts.length > 0
