@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
-import { Settings, Database, PlusCircle, BarChart3, Users, Package } from 'lucide-react'
+import { Settings, Database, PlusCircle, BarChart3, Users, Package, Brain } from 'lucide-react'
 import Link from 'next/link'
 
 interface AdminStats {
@@ -266,6 +266,17 @@ export default function AdminDashboard() {
               <div>
                 <h3 className="text-sm font-medium text-gray-900">ניהול מאפיינים</h3>
                 <p className="text-sm text-gray-500">הגדרת תגיות טרי/קפוא/פרימיום</p>
+              </div>
+            </Link>
+
+            <Link
+              href="/admin/intelligence"
+              className="flex items-center p-4 border border-gray-200 rounded-lg hover:border-purple-300 hover:bg-purple-50 transition-colors"
+            >
+              <Brain className="h-6 w-6 text-purple-600 ml-3" />
+              <div>
+                <h3 className="text-sm font-medium text-gray-900">מערכת אינטליגנציה</h3>
+                <p className="text-sm text-gray-500">ניהול מיפויי בשר אוטומטיים ומערכת למידה</p>
               </div>
             </Link>
           </div>

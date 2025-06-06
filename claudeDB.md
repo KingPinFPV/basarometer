@@ -1165,4 +1165,289 @@ ORDER BY success_rate DESC, avg_products_per_scan DESC;
 
 ---
 
-**Status: ✅ Production V5.2 Complete - All database systems operational with comprehensive schema supporting Israel's most advanced social shopping intelligence platform with full scanner automation!** 🇮🇱📊🤖
+**Status: ✅ Production V5.2+ Enhanced Intelligence Complete - All database systems operational with comprehensive schema supporting Israel's most advanced social shopping intelligence platform with full scanner automation + Real Market Data Intelligence (54+ normalized cuts, 1000+ variations, auto-discovery system)!** 🇮🇱📊🤖🧠
+
+
+//##-- WARNING: This schema is for context only and is not meant to be run.
+-- Table order and constraints may not be valid for execution.
+
+CREATE TABLE public.meat_categories (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  name_hebrew text NOT NULL UNIQUE,
+  name_english text NOT NULL UNIQUE,
+  display_order integer NOT NULL,
+  is_active boolean DEFAULT true,
+  created_at timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
+  CONSTRAINT meat_categories_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.meat_cuts (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  category_id uuid,
+  name_hebrew text NOT NULL,
+  name_english text,
+  description text,
+  typical_price_range_min integer,
+  typical_price_range_max integer,
+  is_popular boolean DEFAULT false,
+  display_order integer,
+  is_active boolean DEFAULT true,
+  created_at timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
+  sub_category_id uuid,
+  attributes jsonb DEFAULT '[]'::jsonb,
+  normalized_cut_id character varying,
+  market_variations jsonb DEFAULT '[]'::jsonb,
+  quality_grade character varying DEFAULT 'regular'::character varying,
+  auto_detected boolean DEFAULT false,
+  CONSTRAINT meat_cuts_pkey PRIMARY KEY (id),
+  CONSTRAINT meat_cuts_category_id_fkey FOREIGN KEY (category_id) REFERENCES public.meat_categories(id),
+  CONSTRAINT meat_cuts_sub_category_id_fkey FOREIGN KEY (sub_category_id) REFERENCES public.meat_sub_categories(id)
+);
+CREATE TABLE public.meat_discovery_queue (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  product_name text NOT NULL UNIQUE,
+  normalized_suggestion text,
+  quality_grade_suggestion character varying,
+  confidence_score numeric,
+  source_site character varying,
+  auto_classification jsonb,
+  manual_review_needed boolean DEFAULT false,
+  approved boolean DEFAULT false,
+  created_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT meat_discovery_queue_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.meat_index_daily (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  date date NOT NULL UNIQUE,
+  index_value numeric NOT NULL,
+  beef_avg numeric,
+  chicken_avg numeric,
+  lamb_avg numeric,
+  pork_avg numeric,
+  fish_avg numeric,
+  other_avg numeric,
+  total_reports integer NOT NULL DEFAULT 0,
+  calculation_method text DEFAULT 'weighted_average'::text,
+  created_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT meat_index_daily_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.meat_name_mappings (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  meat_cut_id uuid,
+  original_name text NOT NULL UNIQUE,
+  normalized_name text NOT NULL,
+  quality_grade character varying DEFAULT 'regular'::character varying,
+  confidence_score numeric DEFAULT 1.0,
+  source character varying DEFAULT 'manual'::character varying,
+  auto_learned boolean DEFAULT false,
+  usage_count integer DEFAULT 1,
+  last_seen timestamp with time zone DEFAULT now(),
+  created_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT meat_name_mappings_pkey PRIMARY KEY (id),
+  CONSTRAINT meat_name_mappings_meat_cut_id_fkey FOREIGN KEY (meat_cut_id) REFERENCES public.meat_cuts(id)
+);
+CREATE TABLE public.meat_sub_categories (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  category_id uuid,
+  name_hebrew text NOT NULL,
+  name_english text NOT NULL,
+  icon text,
+  description text,
+  display_order integer DEFAULT 0,
+  is_active boolean DEFAULT true,
+  created_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT meat_sub_categories_pkey PRIMARY KEY (id),
+  CONSTRAINT meat_sub_categories_category_id_fkey FOREIGN KEY (category_id) REFERENCES public.meat_categories(id)
+);
+CREATE TABLE public.price_history (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  price_report_id uuid NOT NULL,
+  old_price integer,
+  new_price integer NOT NULL,
+  changed_at timestamp with time zone DEFAULT now(),
+  change_type text NOT NULL CHECK (change_type = ANY (ARRAY['created'::text, 'updated'::text, 'verified'::text, 'expired'::text])),
+  changed_by uuid,
+  CONSTRAINT price_history_pkey PRIMARY KEY (id),
+  CONSTRAINT price_history_changed_by_fkey FOREIGN KEY (changed_by) REFERENCES public.user_profiles(id),
+  CONSTRAINT price_history_price_report_id_fkey FOREIGN KEY (price_report_id) REFERENCES public.price_reports(id)
+);
+CREATE TABLE public.price_reports (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  meat_cut_id uuid,
+  retailer_id uuid,
+  price_per_kg integer NOT NULL,
+  is_on_sale boolean DEFAULT false,
+  sale_price_per_kg integer,
+  reported_by uuid,
+  location text,
+  confidence_score integer DEFAULT 5 CHECK (confidence_score >= 1 AND confidence_score <= 5),
+  verified_at timestamp with time zone,
+  expires_at timestamp with time zone DEFAULT (now() + '7 days'::interval),
+  is_active boolean DEFAULT true,
+  created_at timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
+  sale_expires_at timestamp with time zone,
+  discount_percentage integer,
+  notes text,
+  reported_at timestamp with time zone DEFAULT now(),
+  user_id uuid,
+  purchase_date date DEFAULT CURRENT_DATE,
+  scanner_source character varying,
+  original_product_name text,
+  scanner_confidence numeric,
+  processing_metadata jsonb DEFAULT '{}'::jsonb,
+  scanner_grade character varying,
+  detected_brand character varying,
+  scanner_product_id uuid,
+  scan_timestamp timestamp with time zone,
+  CONSTRAINT price_reports_pkey PRIMARY KEY (id),
+  CONSTRAINT price_reports_scanner_product_id_fkey FOREIGN KEY (scanner_product_id) REFERENCES public.scanner_products(id),
+  CONSTRAINT price_reports_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id),
+  CONSTRAINT price_reports_retailer_id_fkey FOREIGN KEY (retailer_id) REFERENCES public.retailers(id),
+  CONSTRAINT price_reports_meat_cut_id_fkey FOREIGN KEY (meat_cut_id) REFERENCES public.meat_cuts(id)
+);
+CREATE TABLE public.retailers (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  name text NOT NULL UNIQUE,
+  type text NOT NULL CHECK (type = ANY (ARRAY['supermarket'::text, 'butcher'::text, 'online'::text, 'wholesale'::text])),
+  logo_url text,
+  website_url text,
+  is_chain boolean DEFAULT false,
+  location_coverage ARRAY,
+  is_active boolean DEFAULT true,
+  created_at timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
+  chain_type character varying,
+  market_segment character varying,
+  branch_count integer,
+  pricing_tier character varying,
+  CONSTRAINT retailers_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.scanner_activity (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  scan_timestamp timestamp with time zone DEFAULT now(),
+  target_site character varying NOT NULL,
+  products_found integer DEFAULT 0,
+  products_processed integer DEFAULT 0,
+  products_valid integer DEFAULT 0,
+  average_confidence numeric,
+  scan_duration_seconds integer,
+  status character varying DEFAULT 'completed'::character varying,
+  error_message text,
+  metadata jsonb DEFAULT '{}'::jsonb,
+  created_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT scanner_activity_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.scanner_ingestion_logs (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  timestamp timestamp with time zone DEFAULT now(),
+  target_site character varying NOT NULL,
+  total_products integer NOT NULL,
+  processed_products integer NOT NULL,
+  duplicates_removed integer DEFAULT 0,
+  average_confidence numeric,
+  processing_time_ms integer,
+  status character varying DEFAULT 'success'::character varying,
+  error_message text,
+  metadata jsonb DEFAULT '{}'::jsonb,
+  created_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT scanner_ingestion_logs_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.scanner_products (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  product_name character varying NOT NULL,
+  normalized_name character varying,
+  brand character varying,
+  price numeric NOT NULL CHECK (price > 0::numeric),
+  price_per_kg numeric,
+  currency character varying DEFAULT '₪'::character varying,
+  category character varying,
+  weight character varying,
+  unit character varying,
+  store_name character varying NOT NULL,
+  store_site character varying,
+  retailer_id uuid,
+  scanner_confidence numeric CHECK (scanner_confidence >= 0::numeric AND scanner_confidence <= 1::numeric),
+  scanner_source character varying DEFAULT 'browser-use-ai'::character varying,
+  scan_timestamp timestamp with time zone,
+  site_confidence numeric CHECK (site_confidence >= 0::numeric AND site_confidence <= 1::numeric),
+  meat_cut_id uuid,
+  created_at timestamp with time zone DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
+  is_active boolean DEFAULT true,
+  is_valid boolean DEFAULT true,
+  validation_notes text,
+  product_hash character varying,
+  CONSTRAINT scanner_products_pkey PRIMARY KEY (id),
+  CONSTRAINT scanner_products_retailer_id_fkey FOREIGN KEY (retailer_id) REFERENCES public.retailers(id),
+  CONSTRAINT scanner_products_meat_cut_id_fkey FOREIGN KEY (meat_cut_id) REFERENCES public.meat_cuts(id)
+);
+CREATE TABLE public.scanner_quality_metrics (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  scan_date date NOT NULL,
+  site_name character varying NOT NULL,
+  total_products integer NOT NULL,
+  high_confidence_products integer DEFAULT 0,
+  avg_confidence numeric,
+  products_with_brand integer DEFAULT 0,
+  grade_distribution jsonb DEFAULT '{}'::jsonb,
+  price_accuracy_score numeric,
+  processing_time_avg integer,
+  created_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT scanner_quality_metrics_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.shopping_list_items (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  list_id uuid NOT NULL,
+  meat_cut_id uuid NOT NULL,
+  quantity numeric DEFAULT 1.0,
+  unit text DEFAULT 'kg'::text CHECK (unit = ANY (ARRAY['kg'::text, '100g'::text, 'piece'::text])),
+  priority integer DEFAULT 1 CHECK (priority >= 1 AND priority <= 5),
+  notes text,
+  created_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT shopping_list_items_pkey PRIMARY KEY (id),
+  CONSTRAINT shopping_list_items_list_id_fkey FOREIGN KEY (list_id) REFERENCES public.shopping_lists(id),
+  CONSTRAINT shopping_list_items_meat_cut_id_fkey FOREIGN KEY (meat_cut_id) REFERENCES public.meat_cuts(id)
+);
+CREATE TABLE public.shopping_lists (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  user_id uuid NOT NULL,
+  name text NOT NULL,
+  created_at timestamp with time zone DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
+  is_active boolean DEFAULT true,
+  CONSTRAINT shopping_lists_pkey PRIMARY KEY (id),
+  CONSTRAINT shopping_lists_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_profiles(id)
+);
+CREATE TABLE public.store_reviews (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  retailer_id uuid NOT NULL,
+  user_id uuid NOT NULL,
+  quality_rating integer CHECK (quality_rating >= 1 AND quality_rating <= 5),
+  service_rating integer CHECK (service_rating >= 1 AND service_rating <= 5),
+  cleanliness_rating integer CHECK (cleanliness_rating >= 1 AND cleanliness_rating <= 5),
+  content text,
+  is_verified boolean DEFAULT false,
+  is_flagged boolean DEFAULT false,
+  created_at timestamp with time zone DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT store_reviews_pkey PRIMARY KEY (id),
+  CONSTRAINT store_reviews_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_profiles(id),
+  CONSTRAINT store_reviews_retailer_id_fkey FOREIGN KEY (retailer_id) REFERENCES public.retailers(id)
+);
+CREATE TABLE public.user_profiles (
+  id uuid NOT NULL,
+  full_name text,
+  phone text,
+  city text,
+  is_admin boolean DEFAULT false,
+  created_at timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
+  updated_at timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
+  email text,
+  reputation_score integer DEFAULT 0,
+  total_reports integer DEFAULT 0,
+  verified_reports integer DEFAULT 0,
+  avatar_url text,
+  bio text,
+  preferences jsonb DEFAULT '{}'::jsonb,
+  CONSTRAINT user_profiles_pkey PRIMARY KEY (id),
+  CONSTRAINT user_profiles_id_fkey FOREIGN KEY (id) REFERENCES auth.users(id)
+);
+##//

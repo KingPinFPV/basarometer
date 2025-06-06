@@ -1,4 +1,4 @@
-import { Home, ShoppingCart, TrendingUp, Trophy, BarChart3, Camera, Users, LucideIcon } from 'lucide-react'
+import { Home, ShoppingCart, TrendingUp, Trophy, BarChart3, Camera, Users, Brain, LucideIcon } from 'lucide-react'
 
 export interface NavigationItem {
   href: string
@@ -36,6 +36,13 @@ export const navigationItems: NavigationItem[] = [
     label: 'מדד כלכלי',
     description: 'ניתוח מתקדם',
     ariaLabel: 'מדד הבשר וניתוח כלכלי מתקדם'
+  },
+  {
+    href: '/enhanced',
+    icon: Brain,
+    label: 'אינטליגנציה',
+    description: 'מטריצה חכמה',
+    ariaLabel: 'מטריצת בשר חכמה עם סיווג איכות מתקדם'
   },
   {
     href: '/trends',
