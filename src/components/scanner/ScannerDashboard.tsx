@@ -82,13 +82,13 @@ export default function ScannerDashboard() {
     }
   };
 
-  const handleRealtimeUpdate = (payload: any) => {
+  const handleRealtimeUpdate = (payload: { new: { scanner_source?: string } }) => {
     if (payload.new.scanner_source) {
       fetchScannerData(); // Refresh the status
     }
   };
 
-  const handleLogUpdate = (payload: any) => {
+  const handleLogUpdate = (payload: { new: ScannerLog }) => {
     setLogs(prev => [payload.new, ...prev.slice(0, 9)]);
   };
 
@@ -236,7 +236,7 @@ export default function ScannerDashboard() {
           <div className="text-2xl font-bold text-blue-600">
             {status.reduce((sum, s) => sum + s.products_today, 0).toLocaleString()}
           </div>
-          <div className="text-sm text-gray-600">סה"כ מוצרים היום</div>
+          <div className="text-sm text-gray-600">סה&quot;כ מוצרים היום</div>
         </div>
         
         <div className="text-center">

@@ -68,7 +68,8 @@ export async function POST(request: NextRequest) {
     }
     
     // Log successful ingestion
-    await logScannerIngestion(supabase, scannerData.scanInfo, processedProducts.length);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await logScannerIngestion(supabase as any, scannerData.scanInfo, processedProducts.length);
     
     return NextResponse.json({
       success: true,
@@ -95,10 +96,12 @@ async function transformScannerProduct(product: ScannerProduct) {
   const supabase = createRouteHandlerClient({ cookies });
   
   // Map site to retailer_id
-  const retailerId = await mapSiteToRetailer(supabase, product.site);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const retailerId = await mapSiteToRetailer(supabase as any, product.site);
   
   // Map product name to meat_cut_id
-  const meatCutId = await findOrCreateMeatCut(supabase, product.normalizedName, product.category);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const meatCutId = await findOrCreateMeatCut(supabase as any, product.normalizedName, product.category);
   
   // Calculate unit type from scanner unit format
   const unitType = normalizeUnit(product.unit);
@@ -139,7 +142,8 @@ const SITE_RETAILER_MAP: Record<string, string> = {
   'yayno-bitan': '8'
 };
 
-async function mapSiteToRetailer(supabase: ReturnType<typeof createRouteHandlerClient>, siteName: string): Promise<string> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function mapSiteToRetailer(supabase: any, siteName: string): Promise<string> {
   const normalizedSite = siteName.toLowerCase().replace(/[^a-z-]/g, '');
   const mappedId = SITE_RETAILER_MAP[normalizedSite];
   
@@ -182,7 +186,8 @@ const HEBREW_MEAT_CUTS: Record<string, string> = {
   'עגל': 'calf'
 };
 
-async function findOrCreateMeatCut(supabase: ReturnType<typeof createRouteHandlerClient>, productName: string, category: string): Promise<string> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function findOrCreateMeatCut(supabase: any, productName: string, category: string): Promise<string> {
   
   // Try to match existing meat cuts by Hebrew terms
   for (const [hebrewName] of Object.entries(HEBREW_MEAT_CUTS)) {
@@ -245,7 +250,8 @@ function normalizeUnit(unit: string): string {
 }
 
 // Log scanner ingestion for monitoring
-async function logScannerIngestion(supabase: ReturnType<typeof createRouteHandlerClient>, scanInfo: ScannerPayload['scanInfo'], processedCount: number) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function logScannerIngestion(supabase: any, scanInfo: ScannerPayload['scanInfo'], processedCount: number) {
   try {
     await supabase
       .from('scanner_ingestion_logs')

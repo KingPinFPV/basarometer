@@ -49,6 +49,7 @@ export default function EnhancedPriceCard({
   scannerConfidence,
   detectedBrand,
   scannerGrade,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   reportedBy: _reportedBy,
   isVerified = false
 }: EnhancedPriceCardProps) {
