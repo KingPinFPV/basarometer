@@ -423,7 +423,7 @@ function getRetailerPriceData(priceData: any[], cutId: string, retailers: any[])
     return []
   }
   
-  const retailerMap = new Map(retailers.map(r => [r?.id, r]).filter(([id]) => id))
+  const retailerMap = new Map(retailers.map(r => [r?.id, r]).filter(([id]) => id) as [string, any][])
   const cutPrices = priceData.filter(price => price?.meat_cut_id === cutId)
   const retailerPrices = new Map<string, any>()
 
