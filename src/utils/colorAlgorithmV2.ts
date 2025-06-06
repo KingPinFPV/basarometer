@@ -126,7 +126,7 @@ export function getCategoryColorStats(allReportsInCategory: PriceReport[]): {
     minPrice: regularPrices.length > 0 ? Math.min(...regularPrices) : 0,
     maxPrice: regularPrices.length > 0 ? Math.max(...regularPrices) : 0,
     avgPrice: regularPrices.length > 0 ? 
-      regularPrices.reduce((sum, price) => sum + price, 0) / regularPrices.length : 0
+      (regularPrices || []).reduce((sum, price) => sum + price, 0) / regularPrices.length : 0
   }
 }
 

@@ -313,7 +313,7 @@ function extractQualityGrades(variations: any[], priceData: any[], cutId: string
   return Array.from(gradeMap.entries()).map(([tier, data]) => ({
     tier: tier as any,
     count: data.count,
-    avg_price: data.prices.length > 0 ? data.prices.reduce((a, b) => a + b, 0) / data.prices.length : 0,
+    avg_price: data.prices && data.prices.length > 0 ? (data.prices || []).reduce((a, b) => a + b, 0) / data.prices.length : 0,
     market_share: totalVariations > 0 ? (data.count / totalVariations) * 100 : 0
   }))
 }
@@ -331,14 +331,14 @@ function calculatePriceMetrics(prices: number[], scannerData: any[], cutId: stri
 
   const minPrice = Math.min(...prices)
   const maxPrice = Math.max(...prices)
-  const avgPrice = prices && prices.length > 0 ? prices.reduce((a, b) => (a || 0) + (b || 0), 0) / prices.length : 0
+  const avgPrice = prices && prices.length > 0 ? (prices || []).reduce((a, b) => (a || 0) + (b || 0), 0) / prices.length : 0
 
   // Calculate trend from scanner data
-  const recentPrices = scannerData
-    .filter(product => product.meat_cut_id === cutId)
-    .sort((a, b) => new Date(b.scan_timestamp).getTime() - new Date(a.scan_timestamp).getTime())
+  const recentPrices = (scannerData || [])
+    .filter(product => product?.meat_cut_id === cutId)
+    .sort((a, b) => new Date(b?.scan_timestamp || new Date()).getTime() - new Date(a?.scan_timestamp || new Date()).getTime())
     .slice(0, 10)
-    .map(product => parseFloat(product.price_per_kg))
+    .map(product => parseFloat(product?.price_per_kg || '0'))
     .filter(price => !isNaN(price))
 
   const priceTrend = calculatePriceTrend(recentPrices)
@@ -442,8 +442,8 @@ function calculateMarketInsights(
     ? (priceData || []).reduce((sum, p) => sum + (parseFloat(p?.price_per_kg) || 0), 0) / priceData.length
     : 0
 
-  const totalCoverage = enhancedCuts.length > 0
-    ? enhancedCuts.reduce((sum, cut) => sum + cut.market_metrics.coverage_percentage, 0) / enhancedCuts.length
+  const totalCoverage = enhancedCuts && enhancedCuts.length > 0
+    ? (enhancedCuts || []).reduce((sum, cut) => sum + (cut?.market_metrics?.coverage_percentage || 0), 0) / enhancedCuts.length
     : 0
 
   return {
@@ -488,13 +488,13 @@ function generateNormalizedId(hebrewName: string): string {
 }
 
 function calculatePriceTrend(prices: number[]): 'up' | 'down' | 'stable' {
-  if (prices.length < 2) return 'stable'
+  if (!prices || prices.length < 2) return 'stable'
   
   const recent = prices.slice(0, Math.ceil(prices.length / 2))
   const older = prices.slice(Math.ceil(prices.length / 2))
   
-  const recentAvg = recent.reduce((sum, p) => sum + p, 0) / recent.length
-  const olderAvg = older.reduce((sum, p) => sum + p, 0) / older.length
+  const recentAvg = recent.length > 0 ? (recent || []).reduce((sum, p) => sum + p, 0) / recent.length : 0
+  const olderAvg = older.length > 0 ? (older || []).reduce((sum, p) => sum + p, 0) / older.length : 0
   
   const threshold = olderAvg * 0.05 // 5% threshold
   

@@ -312,7 +312,7 @@ function calculateMarketInsights(
     : 0
 
   const coveragePercentage = enhancedCuts.length > 0
-    ? enhancedCuts.reduce((sum, cut) => sum + cut.market_coverage, 0) / enhancedCuts.length
+    ? (enhancedCuts || []).reduce((sum, cut) => sum + (cut?.market_coverage || 0), 0) / enhancedCuts.length
     : 0
 
   return {
@@ -377,8 +377,8 @@ function calculateTrendingDirection(prices: number[]): 'up' | 'down' | 'stable' 
   const recent = prices.slice(0, Math.ceil(prices.length / 2))
   const older = prices.slice(Math.ceil(prices.length / 2))
   
-  const recentAvg = recent && recent.length > 0 ? recent.reduce((sum, p) => sum + (p || 0), 0) / recent.length : 0
-  const olderAvg = older && older.length > 0 ? older.reduce((sum, p) => sum + (p || 0), 0) / older.length : 0
+  const recentAvg = recent && recent.length > 0 ? (recent || []).reduce((sum, p) => sum + (p || 0), 0) / recent.length : 0
+  const olderAvg = older && older.length > 0 ? (older || []).reduce((sum, p) => sum + (p || 0), 0) / older.length : 0
   
   const threshold = olderAvg * 0.05 // 5% threshold
   

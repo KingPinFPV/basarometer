@@ -209,13 +209,13 @@ export function comparePrices(
       report.sale_price_per_kg : report.price_per_kg
   }))
 
-  const prices = calculations.map(c => c.effectivePrice)
-  const minPrice = Math.min(...prices)
-  const maxPrice = Math.max(...prices)
-  const averagePrice = prices.reduce((sum, price) => sum + price, 0) / prices.length
+  const prices = (calculations || []).map(c => c?.effectivePrice || 0)
+  const minPrice = prices.length > 0 ? Math.min(...prices) : 0
+  const maxPrice = prices.length > 0 ? Math.max(...prices) : 0
+  const averagePrice = prices && prices.length > 0 ? (prices || []).reduce((sum, price) => sum + price, 0) / prices.length : 0
 
-  const cheapest = calculations.find(c => c.effectivePrice === minPrice)!.report
-  const mostExpensive = calculations.find(c => c.effectivePrice === maxPrice)!.report
+  const cheapest = calculations.find(c => c?.effectivePrice === minPrice)?.report || calculations[0]?.report
+  const mostExpensive = calculations.find(c => c?.effectivePrice === maxPrice)?.report || calculations[0]?.report
 
   return {
     cheapest,

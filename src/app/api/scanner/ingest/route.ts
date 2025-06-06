@@ -176,9 +176,9 @@ export async function POST(request: NextRequest) {
 
 // Calculate average confidence score
 function calculateAverageConfidence(products: ScannerProduct[]): number {
-  if (products.length === 0) return 0;
+  if (!products || products.length === 0) return 0;
   
-  const total = products.reduce((sum, product) => sum + product.confidence, 0);
+  const total = (products || []).reduce((sum, product) => sum + (product?.confidence || 0), 0);
   return Math.round((total / products.length) * 100) / 100;
 }
 

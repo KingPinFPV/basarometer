@@ -209,8 +209,8 @@ function calculateMappingPerformance(mappingData: any[]): MappingPerformance {
   const totalMappings = mappingData.length
   
   // Calculate accuracy rate
-  const totalConfidenceSum = mappingData.reduce((sum, mapping) => 
-    sum + (mapping.confidence_score || 0), 0
+  const totalConfidenceSum = (mappingData || []).reduce((sum, mapping) => 
+    sum + (mapping?.confidence_score || 0), 0
   )
   const accuracyRate = totalMappings > 0 ? (totalConfidenceSum / totalMappings) * 100 : 0
 
@@ -278,7 +278,7 @@ function calculateSystemHealth(
 
   // Processing speed from scanner activity
   const avgProcessingSpeed = scannerActivity.length > 0 ?
-    scannerActivity.reduce((sum, activity) => sum + (activity.scan_duration_seconds || 0), 0) / scannerActivity.length : 0
+    (scannerActivity || []).reduce((sum, activity) => sum + (activity?.scan_duration_seconds || 0), 0) / scannerActivity.length : 0
 
   // Error rate from scanner activity
   const failedScans = scannerActivity.filter(activity => activity.status !== 'completed').length
@@ -293,7 +293,7 @@ function calculateSystemHealth(
   const avgScanProcessingTime = scannerActivity.length > 0 ?
     scannerActivity
       .filter(activity => activity.status === 'completed')
-      .reduce((sum, activity) => sum + (activity.scan_duration_seconds || 0), 0) / successfulScans : 0
+      .reduce((sum, activity) => sum + (activity?.scan_duration_seconds || 0), 0) / successfulScans : 0
 
   const lastSuccessfulScan = scannerActivity.find(activity => activity.status === 'completed')?.scan_timestamp || ''
 
@@ -364,7 +364,7 @@ function generateDailyTrends(mappingData: any[], days: number, metric: 'confiden
     })
 
     const avgConfidence = dayMappings.length > 0 ?
-      dayMappings.reduce((sum, mapping) => sum + (mapping.confidence_score || 0), 0) / dayMappings.length : 0
+      (dayMappings || []).reduce((sum, mapping) => sum + (mapping?.confidence_score || 0), 0) / dayMappings.length : 0
 
     trends.push({
       date: dateStr,

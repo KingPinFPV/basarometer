@@ -233,28 +233,28 @@ export default function ScannerDashboard() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 pt-6 border-t">
         <div className="text-center">
           <div className="text-2xl font-bold text-blue-600">
-            {status.reduce((sum, s) => sum + s.products_today, 0).toLocaleString()}
+            {(status || []).reduce((sum, s) => sum + (s?.products_today || 0), 0).toLocaleString()}
           </div>
           <div className="text-sm text-gray-600">סה&quot;כ מוצרים היום</div>
         </div>
         
         <div className="text-center">
           <div className="text-2xl font-bold text-green-600">
-            {status.length ? (status.reduce((sum, s) => sum + s.avg_confidence, 0) / status.length * 100).toFixed(1) : 0}%
+            {status && status.length ? ((status || []).reduce((sum, s) => sum + (s?.avg_confidence || 0), 0) / status.length * 100).toFixed(1) : 0}%
           </div>
           <div className="text-sm text-gray-600">ביטחון ממוצע</div>
         </div>
         
         <div className="text-center">
           <div className="text-2xl font-bold text-purple-600">
-            {status.reduce((sum, s) => sum + s.products_last_hour, 0)}
+            {(status || []).reduce((sum, s) => sum + (s?.products_last_hour || 0), 0)}
           </div>
           <div className="text-sm text-gray-600">מוצרים בשעה</div>
         </div>
         
         <div className="text-center">
           <div className="text-2xl font-bold text-orange-600">
-            {status.filter(s => s.quality_rating === 'Excellent' || s.quality_rating === 'Good').length}
+            {(status || []).filter(s => s?.quality_rating === 'Excellent' || s?.quality_rating === 'Good').length}
           </div>
           <div className="text-sm text-gray-600">אתרים איכותיים</div>
         </div>

@@ -36,9 +36,9 @@ export function BulkSubmitModal({
   // Calculate submission summary
   const submissionSummary = useMemo(() => {
     const itemsWithMeatCuts = validItems.filter(item => item.meatCutId)
-    const totalValue = validItems.reduce((sum, item) => sum + item.price, 0)
-    const avgConfidence = validItems.length > 0 
-      ? validItems.reduce((sum, item) => sum + item.confidence, 0) / validItems.length 
+    const totalValue = (validItems || []).reduce((sum, item) => sum + (item?.price || 0), 0)
+    const avgConfidence = validItems && validItems.length > 0 
+      ? (validItems || []).reduce((sum, item) => sum + (item?.confidence || 0), 0) / validItems.length 
       : 0
 
     return {

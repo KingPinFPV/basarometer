@@ -88,11 +88,11 @@ export default function RankingsPage() {
 
   // Get store average community rating
   const getStoreAverageRating = (retailerId: string) => {
-    const storeReviews = reviews.filter(r => r.retailer_id === retailerId)
-    if (storeReviews.length === 0) return 0
+    const storeReviews = (reviews || []).filter(r => r?.retailer_id === retailerId)
+    if (!storeReviews || storeReviews.length === 0) return 0
     
-    const totalRating = storeReviews.reduce((sum, review) => 
-      sum + (review.quality_rating + review.service_rating + review.cleanliness_rating) / 3, 0
+    const totalRating = (storeReviews || []).reduce((sum, review) => 
+      sum + ((review?.quality_rating || 0) + (review?.service_rating || 0) + (review?.cleanliness_rating || 0)) / 3, 0
     )
     return totalRating / storeReviews.length
   }

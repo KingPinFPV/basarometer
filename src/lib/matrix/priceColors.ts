@@ -67,7 +67,7 @@ export function calculateCategoryPriceComparison(
 
   const minPrice = Math.min(...validPrices)
   const maxPrice = Math.max(...validPrices)
-  const averagePrice = validPrices.reduce((sum, price) => sum + price, 0) / validPrices.length
+  const averagePrice = validPrices && validPrices.length > 0 ? (validPrices || []).reduce((sum, price) => sum + price, 0) / validPrices.length : 0
 
   return {
     category: '',

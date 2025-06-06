@@ -107,7 +107,7 @@ export function useMeatIndex() {
     for (const [categoryId, prices] of categoryGroups) {
       const categoryName = categoryNames.get(categoryId) || ''
       if (categoryName.includes(searchTerm)) {
-        return prices.reduce((sum, price) => sum + price, 0) / prices.length / 100
+        return prices && prices.length > 0 ? (prices || []).reduce((sum, price) => sum + price, 0) / prices.length / 100 : 0
       }
     }
     return 0
@@ -115,9 +115,9 @@ export function useMeatIndex() {
 
   const calculateStandardDeviation = useCallback((values: number[]): number => {
     if (values.length === 0) return 0
-    const mean = values.reduce((sum, val) => sum + val, 0) / values.length
+    const mean = values && values.length > 0 ? (values || []).reduce((sum, val) => sum + val, 0) / values.length : 0
     const squaredDiffs = values.map(val => Math.pow(val - mean, 2))
-    const avgSquaredDiff = squaredDiffs.reduce((sum, val) => sum + val, 0) / values.length
+    const avgSquaredDiff = squaredDiffs && squaredDiffs.length > 0 ? (squaredDiffs || []).reduce((sum, val) => sum + val, 0) / values.length : 0
     return Math.sqrt(avgSquaredDiff)
   }, [])
 
@@ -143,7 +143,7 @@ export function useMeatIndex() {
     // Calculate category averages
     const categoryAverages = new Map<string, number>()
     categoryGroups.forEach((prices, categoryId) => {
-      const average = prices.reduce((sum, price) => sum + price, 0) / prices.length
+      const average = prices && prices.length > 0 ? (prices || []).reduce((sum, price) => sum + price, 0) / prices.length : 0
       categoryAverages.set(categoryId, average / 100) // Convert to shekels
     })
 
@@ -478,7 +478,7 @@ export function useMeatIndex() {
       .slice(-20)
       .map(r => r.price_per_kg / 100)
     
-    const avgPrice = recentPrices.reduce((sum, p) => sum + p, 0) / recentPrices.length
+    const avgPrice = recentPrices && recentPrices.length > 0 ? (recentPrices || []).reduce((sum, p) => sum + p, 0) / recentPrices.length : 0
     const maxPrice = Math.max(...recentPrices)
 
     if (maxPrice > avgPrice * 1.5) {

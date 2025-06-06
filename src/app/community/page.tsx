@@ -117,9 +117,9 @@ export default function CommunityPage() {
             </div>
             <div>
               <div className="text-2xl font-bold text-gray-900">
-                {reviews.length > 0 
-                  ? (reviews.reduce((sum, r) => 
-                      sum + (r.quality_rating + r.service_rating + r.cleanliness_rating) / 3, 0
+                {reviews && reviews.length > 0 
+                  ? ((reviews || []).reduce((sum, r) => 
+                      sum + ((r?.quality_rating || 0) + (r?.service_rating || 0) + (r?.cleanliness_rating || 0)) / 3, 0
                     ) / reviews.length).toFixed(1)
                   : '0.0'
                 }

@@ -294,7 +294,7 @@ export default function AccordionMatrixContainer() {
       <div className="mt-8 text-center text-sm text-gray-500">
         <div className="bg-white rounded-lg shadow-sm border p-4">
           <div className="flex justify-center gap-8">
-            <span>📊 {categoriesWithSubCategories.reduce((sum, cat) => sum + cat.sub_categories.length, 0)} תת-קטגוריות</span>
+            <span>📊 {(categoriesWithSubCategories || []).reduce((sum, cat) => sum + (cat?.sub_categories?.length || 0), 0)} תת-קטגוריות</span>
             <span>🥩 {meatCuts.length} נתחי בשר</span>
             <span>🏪 {retailers.length} קמעונאים</span>
           </div>

@@ -122,23 +122,23 @@ export function useStoreRankings() {
       const rankings: StoreRanking[] = Array.from(retailerData.values())
         .map(data => {
           // Calculate average price (considering sale prices)
-          const effectivePrices = data.reports.map(report => 
-            report.is_on_sale && report.sale_price_per_kg 
+          const effectivePrices = (data.reports || []).map(report => 
+            report?.is_on_sale && report?.sale_price_per_kg 
               ? report.sale_price_per_kg 
-              : report.price_per_kg
+              : report?.price_per_kg || 0
           )
 
-          const avgPrice = effectivePrices.reduce((sum, price) => sum + price, 0) / effectivePrices.length
+          const avgPrice = effectivePrices && effectivePrices.length > 0 ? (effectivePrices || []).reduce((sum, price) => sum + price, 0) / effectivePrices.length : 0
 
           // Calculate category breakdown
           const categoryBreakdown: StoreRanking['categoryBreakdown'] = {}
           data.categoryData.forEach((catData, catId) => {
-            const catPrices = catData.reports.map(report =>
-              report.is_on_sale && report.sale_price_per_kg 
+            const catPrices = (catData.reports || []).map(report =>
+              report?.is_on_sale && report?.sale_price_per_kg 
                 ? report.sale_price_per_kg 
-                : report.price_per_kg
+                : report?.price_per_kg || 0
             )
-            const catAvgPrice = catPrices.reduce((sum, price) => sum + price, 0) / catPrices.length
+            const catAvgPrice = catPrices && catPrices.length > 0 ? (catPrices || []).reduce((sum, price) => sum + price, 0) / catPrices.length : 0
 
             categoryBreakdown[catId] = {
               categoryName: catData.categoryName,
@@ -171,7 +171,7 @@ export function useStoreRankings() {
 
       // Calculate price advantage relative to market average
       if (rankings.length > 0) {
-        const marketAverage = rankings.reduce((sum, r) => sum + r.avgPrice, 0) / rankings.length
+        const marketAverage = rankings && rankings.length > 0 ? (rankings || []).reduce((sum, r) => sum + (r?.avgPrice || 0), 0) / rankings.length : 0
         rankings.forEach(ranking => {
           ranking.priceAdvantage = ((marketAverage - ranking.avgPrice) / marketAverage) * 100
         })

@@ -137,8 +137,8 @@ export function usePriceTrends() {
       }))
 
       // Calculate statistics
-      const prices = trendData.map(d => d.price)
-      const avgPrice = prices.reduce((sum, price) => sum + price, 0) / prices.length
+      const prices = trendData.map(d => d?.price || 0)
+      const avgPrice = prices && prices.length > 0 ? (prices || []).reduce((sum, price) => sum + price, 0) / prices.length : 0
       const minPrice = Math.min(...prices)
       const maxPrice = Math.max(...prices)
       
@@ -148,7 +148,7 @@ export function usePriceTrends() {
       const priceChange = ((lastPrice - firstPrice) / firstPrice) * 100
 
       // Calculate volatility (standard deviation)
-      const variance = prices.reduce((sum, price) => sum + Math.pow(price - avgPrice, 2), 0) / prices.length
+      const variance = prices && prices.length > 0 ? (prices || []).reduce((sum, price) => sum + Math.pow(price - avgPrice, 2), 0) / prices.length : 0
       const volatility = Math.sqrt(variance) / avgPrice * 100
 
       // Determine trend

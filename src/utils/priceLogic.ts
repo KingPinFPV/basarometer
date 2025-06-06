@@ -29,7 +29,7 @@ export function calculatePriceColors(allPrices: PriceReport[]): Map<string, stri
     const range: PriceRange = {
       min: Math.min(...effectivePrices.map(p => p.effectivePrice)),
       max: Math.max(...effectivePrices.map(p => p.effectivePrice)),
-      avg: effectivePrices.reduce((sum, p) => sum + p.effectivePrice, 0) / effectivePrices.length
+      avg: effectivePrices && effectivePrices.length > 0 ? (effectivePrices || []).reduce((sum, p) => sum + (p?.effectivePrice || 0), 0) / effectivePrices.length : 0
     }
 
     // Assign colors based on price and sale status

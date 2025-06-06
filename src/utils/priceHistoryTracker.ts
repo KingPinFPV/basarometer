@@ -179,7 +179,7 @@ export class PriceHistoryTracker {
         }
       }
 
-      const stats = changes.reduce((acc, change) => {
+      const stats = (changes || []).reduce((acc, change) => {
         acc.totalChanges++
         
         switch (change.change_type) {
@@ -198,8 +198,8 @@ export class PriceHistoryTracker {
         }
 
         // Calculate percentage change
-        if (change.old_price > 0) {
-          const changePercent = ((change.new_price - change.old_price) / change.old_price) * 100
+        if ((change?.old_price || 0) > 0) {
+          const changePercent = (((change?.new_price || 0) - (change?.old_price || 0)) / (change?.old_price || 1)) * 100
           acc.totalChangePercent += Math.abs(changePercent)
         }
 

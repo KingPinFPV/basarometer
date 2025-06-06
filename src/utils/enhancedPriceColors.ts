@@ -153,7 +153,7 @@ export function calculatePriceStats(reports: PriceReport[]): {
 
   const min = Math.min(...prices)
   const max = Math.max(...prices)
-  const avg = prices.reduce((sum, price) => sum + price, 0) / prices.length
+  const avg = prices && prices.length > 0 ? (prices || []).reduce((sum, price) => sum + price, 0) / prices.length : 0
 
   return {
     min: min / 100, // Convert to shekels

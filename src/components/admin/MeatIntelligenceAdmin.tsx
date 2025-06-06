@@ -595,20 +595,20 @@ async function calculateAdminStats(
 ): Promise<AdminStats> {
   const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
   
-  const pendingReviews = queueData.filter(item => item.manual_review_needed).length
-  const autoApproved = queueData.filter(item => !item.manual_review_needed).length
+  const pendingReviews = (queueData || []).filter(item => item?.manual_review_needed).length
+  const autoApproved = (queueData || []).filter(item => !item?.manual_review_needed).length
   
   const totalConfidenceSum = (mappingData || []).reduce((sum, rule) => sum + (rule?.confidence_score || 0), 0)
   const accuracyRate = mappingData && mappingData.length > 0 ? (totalConfidenceSum / mappingData.length) * 100 : 0
   
-  const newVariationsWeek = mappingData.filter(rule => 
-    new Date(rule.last_seen) > weekAgo
+  const newVariationsWeek = (mappingData || []).filter(rule => 
+    rule?.last_seen && new Date(rule.last_seen) > weekAgo
   ).length
 
   const learningPerformance = {
-    high_confidence: mappingData.filter(rule => rule.confidence_score >= 0.8).length,
-    medium_confidence: mappingData.filter(rule => rule.confidence_score >= 0.6 && rule.confidence_score < 0.8).length,
-    low_confidence: mappingData.filter(rule => rule.confidence_score < 0.6).length
+    high_confidence: (mappingData || []).filter(rule => (rule?.confidence_score || 0) >= 0.8).length,
+    medium_confidence: (mappingData || []).filter(rule => (rule?.confidence_score || 0) >= 0.6 && (rule?.confidence_score || 0) < 0.8).length,
+    low_confidence: (mappingData || []).filter(rule => (rule?.confidence_score || 0) < 0.6).length
   }
 
   return {
@@ -616,7 +616,7 @@ async function calculateAdminStats(
     auto_approved: autoApproved,
     accuracy_rate: accuracyRate,
     new_variations_week: newVariationsWeek,
-    total_mappings: mappingData.length,
+    total_mappings: (mappingData || []).length,
     learning_performance: learningPerformance
   }
 }

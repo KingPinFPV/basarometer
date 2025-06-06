@@ -394,6 +394,6 @@ export function useShoppingList() {
 
     // Computed
     hasItems: currentItems.length > 0,
-    totalItems: currentItems.reduce((sum, item) => sum + item.quantity, 0)
+    totalItems: (currentItems || []).reduce((sum, item) => sum + (item?.quantity || 0), 0)
   }
 }

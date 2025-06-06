@@ -219,7 +219,7 @@ export function useNotifications() {
     priceGroups.forEach((prices, meatCutId) => {
       if (prices.length < 3) return
 
-      const avgPrice = prices.reduce((sum, price) => sum + price, 0) / prices.length
+      const avgPrice = prices && prices.length > 0 ? (prices || []).reduce((sum, price) => sum + price, 0) / prices.length : 0
       const minPrice = Math.min(...prices)
       const discountPercent = ((avgPrice - minPrice) / avgPrice) * 100
 

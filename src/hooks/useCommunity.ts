@@ -170,9 +170,9 @@ export function useCommunity() {
       const totalReviews = reviews.length
 
       // Calculate averages
-      const qualityAverage = reviews.reduce((sum, r) => sum + r.quality_rating, 0) / totalReviews
-      const serviceAverage = reviews.reduce((sum, r) => sum + r.service_rating, 0) / totalReviews
-      const cleanlinessAverage = reviews.reduce((sum, r) => sum + r.cleanliness_rating, 0) / totalReviews
+      const qualityAverage = reviews && reviews.length > 0 ? (reviews || []).reduce((sum, r) => sum + (r?.quality_rating || 0), 0) / totalReviews : 0
+      const serviceAverage = reviews && reviews.length > 0 ? (reviews || []).reduce((sum, r) => sum + (r?.service_rating || 0), 0) / totalReviews : 0
+      const cleanlinessAverage = reviews && reviews.length > 0 ? (reviews || []).reduce((sum, r) => sum + (r?.cleanliness_rating || 0), 0) / totalReviews : 0
       const averageRating = (qualityAverage + serviceAverage + cleanlinessAverage) / 3
 
       // Analyze trends (simple version - last 5 vs previous 5 reviews)
@@ -181,10 +181,10 @@ export function useCommunity() {
         const recent5 = reviews.slice(0, 5)
         const previous5 = reviews.slice(5, 10)
         
-        const recentAvg = recent5.reduce((sum, r) => 
-          sum + (r.quality_rating + r.service_rating + r.cleanliness_rating) / 3, 0) / 5
-        const previousAvg = previous5.reduce((sum, r) => 
-          sum + (r.quality_rating + r.service_rating + r.cleanliness_rating) / 3, 0) / 5
+        const recentAvg = recent5 && recent5.length > 0 ? (recent5 || []).reduce((sum, r) => 
+          sum + ((r?.quality_rating || 0) + (r?.service_rating || 0) + (r?.cleanliness_rating || 0)) / 3, 0) / 5 : 0
+        const previousAvg = previous5 && previous5.length > 0 ? (previous5 || []).reduce((sum, r) => 
+          sum + ((r?.quality_rating || 0) + (r?.service_rating || 0) + (r?.cleanliness_rating || 0)) / 3, 0) / 5 : 0
         
         if (recentAvg > previousAvg + 0.3) recentTrend = 'improving'
         else if (recentAvg < previousAvg - 0.3) recentTrend = 'declining'
@@ -249,8 +249,8 @@ export function useCommunity() {
         const recentCount = recentReviews?.length || 0
         if (recentCount === 0) continue
 
-        const averageRating = recentReviews!.reduce((sum, r) => 
-          sum + (r.quality_rating + r.service_rating + r.cleanliness_rating) / 3, 0) / recentCount
+        const averageRating = recentReviews && recentReviews.length > 0 ? (recentReviews || []).reduce((sum, r) => 
+          sum + ((r?.quality_rating || 0) + (r?.service_rating || 0) + (r?.cleanliness_rating || 0)) / 3, 0) / recentCount : 0
 
         // Activity score based on recent reviews and ratings
         const activityScore = recentCount * averageRating

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { supabase } from '@/lib/supabase';
 import { Bot, Activity } from 'lucide-react';
 
 interface LiveStatusData {
@@ -20,8 +20,6 @@ export default function LiveScannerStatus() {
   });
   const [isLive, setIsLive] = useState(false);
   const [loading, setLoading] = useState(true);
-  
-  const supabase = createClientComponentClient();
 
   useEffect(() => {
     fetchQuickStatus();
@@ -58,13 +56,13 @@ export default function LiveScannerStatus() {
       
       if (!error && data) {
         const totalProducts = data.length;
-        const avgConfidence = data.length > 0 
-          ? data.reduce((sum, item) => sum + (item.scanner_confidence || 0), 0) / data.length 
+        const avgConfidence = data && data.length > 0 
+          ? (data || []).reduce((sum, item) => sum + (item?.scanner_confidence || 0), 0) / data.length 
           : 0;
-        const lastUpdate = data.length > 0 
-          ? Math.max(...data.map(item => new Date(item.created_at).getTime()))
+        const lastUpdate = data && data.length > 0 
+          ? Math.max(...(data || []).map(item => new Date(item?.created_at || new Date()).getTime()))
           : null;
-        const activeSites = new Set(data.map(item => item.scanner_source)).size;
+        const activeSites = new Set((data || []).map(item => item?.scanner_source).filter(Boolean)).size;
         
         setStatus({
           totalProductsToday: totalProducts,

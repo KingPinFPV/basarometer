@@ -1,6 +1,5 @@
 // /src/lib/scanner-mapping.ts
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { supabase } from '@/lib/supabase';
 
 // Site to Retailer Mapping based on actual scanner configuration
 export const SITE_RETAILER_MAP: Record<string, string> = {
@@ -110,7 +109,6 @@ export const GRADE_KEYWORDS = {
  * Maps scanner site name to retailer in database
  */
 export async function mapSiteToRetailer(siteName: string): Promise<string> {
-  const supabase = createRouteHandlerClient({ cookies });
   const normalizedSite = siteName.toLowerCase().replace(/[^a-z-]/g, '');
   
   // Try direct mapping first
@@ -152,7 +150,6 @@ export async function findOrCreateMeatCut(
   productName: string, 
   category: string
 ): Promise<{ id: string; confidence: number }> {
-  const supabase = createRouteHandlerClient({ cookies });
   
   let bestMatch = { cut: '', confidence: 0, cutId: '' };
   

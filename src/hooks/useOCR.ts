@@ -284,7 +284,7 @@ export function useOCR() {
   const calculateOverallConfidence = (items: ExtractedItem[]): number => {
     if (items.length === 0) return 0
     
-    const avgConfidence = items.reduce((sum, item) => sum + item.confidence, 0) / items.length
+    const avgConfidence = items && items.length > 0 ? (items || []).reduce((sum, item) => sum + (item?.confidence || 0), 0) / items.length : 0
     
     // Bonus for having multiple items
     const itemCountBonus = Math.min(0.2, items.length * 0.05)
