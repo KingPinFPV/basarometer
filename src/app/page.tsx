@@ -1,14 +1,16 @@
-// Enhanced Intelligence Homepage - Basarometer V5.2
-// Replacing broken homepage with fully functional Enhanced Intelligence Matrix
-// Built on working /enhanced route patterns with Hebrew Excellence
+// Enhanced Intelligence Homepage - Basarometer V5.2 Phase 3
+// World-class user experience with mobile-first design and Hebrew voice search
+// Complete UX transformation with interactive comparison tools
 
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
 import MeatIntelligenceMatrix from '@/components/enhanced/MeatIntelligenceMatrix'
+import MobileOptimizedHomepage from '@/components/enhanced/MobileOptimizedHomepage'
+import EnhancedComparisonTable from '@/components/enhanced/EnhancedComparisonTable'
 import { ToastContainer, useToast } from '@/components/ui/Toast'
-import { TrendingUp, Users, Zap, Brain, BarChart3, Sparkles } from 'lucide-react'
+import { TrendingUp, Users, Zap, Brain, BarChart3, Sparkles, Smartphone, Monitor } from 'lucide-react'
 import { PriceLegend } from '@/components/PriceLegend'
 import AdminButtons from '@/components/AdminButtons'
 import AddProductForm from '@/components/forms/AddProductForm'
@@ -19,6 +21,8 @@ export default function HomePage() {
   const [showAddRetailer, setShowAddRetailer] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
   const [refreshKey, setRefreshKey] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
+  const [viewMode, setViewMode] = useState<'classic' | 'enhanced' | 'mobile'>('enhanced')
   const { toasts, removeToast, success } = useToast()
 
   // Check admin status with error handling
@@ -37,7 +41,20 @@ export default function HomePage() {
 
   useEffect(() => {
     checkAdmin()
-  }, [checkAdmin])
+    
+    // Detect mobile device and set initial view mode
+    const checkMobile = () => {
+      const isMobileDevice = window.innerWidth < 768
+      setIsMobile(isMobileDevice)
+      if (isMobileDevice && viewMode === 'enhanced') {
+        setViewMode('mobile')
+      }
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [checkAdmin, viewMode])
 
   const handleAddProduct = () => {
     setShowAddProduct(true)
@@ -59,6 +76,11 @@ export default function HomePage() {
     setShowAddRetailer(false)
   }
 
+  // Mobile-first view mode
+  if (viewMode === 'mobile') {
+    return <MobileOptimizedHomepage />
+  }
+
   return (
     <div className="min-h-screen" dir="rtl">
       {/* Enhanced Intelligence Hero Section */}
@@ -71,13 +93,13 @@ export default function HomePage() {
             </div>
             
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              ברוכים הבאים לבשרומטר
+              ברוכים הבאים לבשרומטר V5.2
             </h1>
             
             <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-              מערכת האינטליגנציה הישראלית המתקדמת למחירי בשר
+              חוויית משתמש מתקדמת עם חיפוש קולי בעברית וממשק נוח למובייל
               <br />
-              עם 54+ נתחי בשר מנורמלים ואוטומציה מלאה
+              השוואת מחירים חכמה עם 54+ נתחי בשר ו-8 רשתות שיווק
             </p>
 
             {/* Quick Stats */}
@@ -101,13 +123,28 @@ export default function HomePage() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <a 
-                href="/enhanced"
-                className="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors"
+              <button
+                onClick={() => setViewMode('enhanced')}
+                className={`inline-flex items-center px-6 py-3 rounded-lg font-medium transition-colors ${
+                  viewMode === 'enhanced' 
+                    ? 'bg-blue-600 text-white' 
+                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                }`}
               >
-                <Sparkles className="w-5 h-5 ml-2" />
-                חקור מטריצת אינטליגנציה
-              </a>
+                <Monitor className="w-5 h-5 ml-2" />
+                תצוגה מתקדמת
+              </button>
+              <button
+                onClick={() => setViewMode('mobile')}
+                className={`inline-flex items-center px-6 py-3 rounded-lg font-medium transition-colors ${
+                  viewMode === 'mobile' 
+                    ? 'bg-green-600 text-white' 
+                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                }`}
+              >
+                <Smartphone className="w-5 h-5 ml-2" />
+                חוויה מותאמת מובייל
+              </button>
               <a 
                 href="/admin"
                 className="inline-flex items-center px-6 py-3 rounded-lg bg-white text-gray-700 font-medium border border-gray-300 hover:bg-gray-50 transition-colors"
@@ -138,21 +175,28 @@ export default function HomePage() {
           </div>
         )}
         
-        {/* Enhanced Intelligence Matrix - Main Feature */}
+        {/* Enhanced Comparison Table - Main Feature */}
         <div className="bg-white rounded-lg border shadow-sm">
           <div className="px-6 py-4 border-b border-gray-200">
             <div className="flex items-center gap-3">
               <Brain className="w-6 h-6 text-blue-600" />
               <h2 className="text-xl font-semibold text-gray-900">
-                מטריצת אינטליגנציה מתקדמת
+                {viewMode === 'enhanced' ? 'מטריצת השוואה חכמה' : 'מטריצת אינטליגנציה מתקדמת'}
               </h2>
             </div>
             <p className="text-gray-600 mt-1">
-              מערכת זיהוי אוטומטית עם למידה מתמשכת ודיוק של 97%
+              {viewMode === 'enhanced' 
+                ? 'חיפוש קולי בעברית, סינון חכם והשוואת מחירים אינטראקטיבית'
+                : 'מערכת זיהוי אוטומטית עם למידה מתמשכת ודיוק של 97%'
+              }
             </p>
           </div>
           <div className="p-6">
-            <MeatIntelligenceMatrix key={refreshKey} />
+            {viewMode === 'enhanced' ? (
+              <EnhancedComparisonTable key={refreshKey} />
+            ) : (
+              <MeatIntelligenceMatrix key={refreshKey} />
+            )}
           </div>
         </div>
       </div>

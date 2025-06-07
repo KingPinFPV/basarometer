@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useShoppingList, type ShoppingListOptimization } from '@/hooks/useShoppingList'
 import { useAuth } from '@/hooks/useAuth'
 import { AuthGuard } from '@/components/auth/AuthGuard'
@@ -128,9 +129,9 @@ export default function ShoppingListsPage() {
           )}
         </div>
 
-        {/* New List Form */}
-        {showNewListForm && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        {/* New List Form Modal */}
+        {showNewListForm && typeof window !== 'undefined' && createPortal(
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" dir="rtl">
             <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
               <h3 className="text-lg font-semibold mb-4">יצירת רשימת קניות חדשה</h3>
               <form onSubmit={handleCreateList}>
@@ -163,7 +164,8 @@ export default function ShoppingListsPage() {
                 </div>
               </form>
             </div>
-          </div>
+          </div>,
+          document.body
         )}
 
         {error && (

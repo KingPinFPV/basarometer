@@ -1,6 +1,6 @@
-# 📊 Basarometer V5.2 - Israel's Complete Social Shopping Intelligence Platform with Scanner Automation
+# 📊 Basarometer V6.0 - Israel's Complete Social Shopping Intelligence Platform with Eight Network Coverage
 
-## 🚀 **Production Status: V5.2 Complete** ✅
+## 🚀 **Production Status: V6.0 Eight Networks Live** ✅
 
 **Live at: https://v3.basarometer.org**
 
@@ -18,8 +18,8 @@ Revolutionary social shopping platform combining AI-powered scanner automation, 
 - **Professional Navigation**: Mobile-first responsive design
 
 ### **🤖 NEW: Scanner Automation System (V5.2)**
-- **Browser-Use AI Integration**: Automated scanning of 6+ Israeli retail networks
-- **40+ Products per Scan**: 97.5% accuracy with Hebrew text processing
+- **Eight Network Integration**: Complete coverage of major Israeli retail chains
+- **1000+ Products Daily**: Optimized for large-scale processing with Hebrew excellence
 - **Auto-linking Intelligence**: Automatic product matching to existing database
 - **Real-time Data Pipeline**: Scanner → API → Database → UI → Users
 - **Quality Monitoring**: Confidence scoring and performance tracking
