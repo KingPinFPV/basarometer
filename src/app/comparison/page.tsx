@@ -67,16 +67,16 @@ interface ComparisonProduct {
   location_availability?: string[]
 }
 
-// 8 Israeli Network Configuration
+// 8 Israeli Network Configuration - Updated to match exact database names
 const NETWORKS = [
-  { id: 'rami-levy', name: 'רמי לוי', shortName: 'רמי', color: 'bg-blue-50 text-blue-700 border-blue-200' },
-  { id: 'shufersal', name: 'שופרסל', shortName: 'שופר', color: 'bg-red-50 text-red-700 border-red-200' },
-  { id: 'mega', name: 'מגה', shortName: 'מגה', color: 'bg-orange-50 text-orange-700 border-orange-200' },
-  { id: 'yohananof', name: 'יוחננוף', shortName: 'יוחנן', color: 'bg-purple-50 text-purple-700 border-purple-200' },
-  { id: 'victory', name: 'ויקטורי', shortName: 'ויקט', color: 'bg-green-50 text-green-700 border-green-200' },
-  { id: 'yeinot-bitan', name: 'יינות ביתן', shortName: 'יינות', color: 'bg-pink-50 text-pink-700 border-pink-200' },
-  { id: 'hazi-hinam', name: 'חצי חינם', shortName: 'חצי', color: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
-  { id: 'tiv-taam', name: 'טיב טעם', shortName: 'טיב', color: 'bg-yellow-50 text-yellow-700 border-yellow-200' }
+  { id: 'rami-levy', name: 'רמי לוי', dbName: 'רמי לוי', shortName: 'רמי', color: 'bg-blue-50 text-blue-700 border-blue-200' },
+  { id: 'shufersal', name: 'שופרסל', dbName: 'שופרסל', shortName: 'שופר', color: 'bg-red-50 text-red-700 border-red-200' },
+  { id: 'mega', name: 'מגה', dbName: 'מגא בעש', shortName: 'מגה', color: 'bg-orange-50 text-orange-700 border-orange-200' },
+  { id: 'yohananof', name: 'יוחננוף', dbName: 'יוחננוף', shortName: 'יוחנן', color: 'bg-purple-50 text-purple-700 border-purple-200' },
+  { id: 'victory', name: 'ויקטורי', dbName: 'ויקטורי', shortName: 'ויקט', color: 'bg-green-50 text-green-700 border-green-200' },
+  { id: 'yeinot-bitan', name: 'יינות ביתן', dbName: 'יינות ביתן', shortName: 'יינות', color: 'bg-pink-50 text-pink-700 border-pink-200' },
+  { id: 'hazi-hinam', name: 'חצי חינם', dbName: 'חצי חינם', shortName: 'חצי', color: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
+  { id: 'carrefour', name: 'קרפור', dbName: 'קרפור', shortName: 'קרפור', color: 'bg-gray-50 text-gray-700 border-gray-200' }
 ]
 
 const QUALITY_TIERS = [
@@ -135,6 +135,7 @@ export default function ComparisonPage() {
   
   const { 
     priceMatrix, 
+    retailers,
     loading: priceLoading 
   } = usePriceMatrixData()
 
@@ -146,16 +147,26 @@ export default function ComparisonPage() {
 
   // Process data into comparison format
   const comparisonProducts = useMemo(() => {
-    if (!enhancedMeatData || !priceMatrix) return []
+    if (!enhancedMeatData || !priceMatrix || !retailers) return []
     
     return enhancedMeatData.map(meat => {
       const networkPrices: Record<string, number> = {}
       const priceData = priceMatrix[meat.id] || {}
       
       NETWORKS.forEach(network => {
-        const price = priceData[network.id]
-        if (typeof price === 'number' && !isNaN(price) && price > 0) {
-          networkPrices[network.id] = price
+        // Match retailer by exact database name
+        const matchingRetailer = retailers.find(retailer => 
+          retailer.name === network.dbName
+        )
+        
+        if (matchingRetailer) {
+          const priceReport = priceData[matchingRetailer.id]
+          if (priceReport && typeof priceReport === 'object' && 'price_per_kg' in priceReport) {
+            const price = priceReport.price_per_kg / 100 // Convert from agorot to shekels
+            if (typeof price === 'number' && !isNaN(price) && price > 0) {
+              networkPrices[network.id] = price
+            }
+          }
         }
       })
       
@@ -169,7 +180,7 @@ export default function ComparisonPage() {
         id: meat.id,
         name_hebrew: meat.name_hebrew,
         name_english: meat.name_english,
-        category: meat.category?.name_hebrew || 'כללי',
+        category: 'בקר', // Default category since enhanced data doesn't include category
         quality_tier: meat.quality_grades?.[0]?.tier || 'regular',
         network_prices: networkPrices,
         best_price: bestPrice,
@@ -181,7 +192,7 @@ export default function ComparisonPage() {
         is_popular: meat.is_popular || false
       } as ComparisonProduct
     }).filter(product => product.availability_count > 0)
-  }, [enhancedMeatData, priceMatrix])
+  }, [enhancedMeatData, priceMatrix, retailers])
 
   // Apply filters and sorting
   const filteredProducts = useMemo(() => {
@@ -269,7 +280,7 @@ export default function ComparisonPage() {
     recognition.interimResults = false
 
     recognition.onstart = () => setIsVoiceRecording(true)
-    recognition.onresult = (event) => {
+    recognition.onresult = (event: any) => {
       const transcript = event.results[0][0].transcript
       setFilters(prev => ({ ...prev, search: transcript }))
       if (searchInputRef.current) {
