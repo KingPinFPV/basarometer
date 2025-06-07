@@ -1,4 +1,4 @@
-import { Home, ShoppingCart, TrendingUp, Trophy, BarChart3, Camera, Users, Brain, LucideIcon } from 'lucide-react'
+import { Home, ShoppingCart, TrendingUp, Trophy, BarChart3, Camera, Users, Brain, FileSpreadsheet, LucideIcon } from 'lucide-react'
 
 export interface NavigationItem {
   href: string
@@ -43,6 +43,13 @@ export const navigationItems: NavigationItem[] = [
     label: 'אינטליגנציה',
     description: 'מטריצה חכמה',
     ariaLabel: 'מטריצת בשר חכמה עם סיווג איכות מתקדם'
+  },
+  {
+    href: '/comparison',
+    icon: FileSpreadsheet,
+    label: 'השוואה מתקדמת',
+    description: 'טבלת אקסל עם כל הרשתות',
+    ariaLabel: 'השוואת מחירים מתקדמת בכל 8 הרשתות עם יכולות אקסל'
   },
   {
     href: '/trends',
