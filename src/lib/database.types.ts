@@ -511,6 +511,348 @@ export interface Database {
           created_at?: string
         }
       }
+      learning_patterns: {
+        Row: {
+          id: string
+          pattern_type: string
+          pattern_category: string
+          pattern_value: string
+          pattern_regex: string | null
+          context_data: Json
+          confidence_score: number
+          success_rate: number
+          sample_size: number
+          hebrew_specific: boolean
+          quality_indicators: string[] | null
+          business_context: string | null
+          geographic_relevance: string[] | null
+          is_active: boolean
+          created_at: string
+          last_updated: string
+        }
+        Insert: {
+          id?: string
+          pattern_type: string
+          pattern_category: string
+          pattern_value: string
+          pattern_regex?: string | null
+          context_data?: Json
+          confidence_score?: number
+          success_rate?: number
+          sample_size?: number
+          hebrew_specific?: boolean
+          quality_indicators?: string[] | null
+          business_context?: string | null
+          geographic_relevance?: string[] | null
+          is_active?: boolean
+          created_at?: string
+          last_updated?: string
+        }
+        Update: {
+          id?: string
+          pattern_type?: string
+          pattern_category?: string
+          pattern_value?: string
+          pattern_regex?: string | null
+          context_data?: Json
+          confidence_score?: number
+          success_rate?: number
+          sample_size?: number
+          hebrew_specific?: boolean
+          quality_indicators?: string[] | null
+          business_context?: string | null
+          geographic_relevance?: string[] | null
+          is_active?: boolean
+          created_at?: string
+          last_updated?: string
+        }
+      }
+      pattern_learning_sessions: {
+        Row: {
+          id: string
+          session_type: string
+          patterns_learned: number
+          patterns_updated: number
+          patterns_deprecated: number
+          session_accuracy: number | null
+          hebrew_patterns_count: number
+          execution_time_ms: number | null
+          session_data: Json
+          session_date: string
+          trigger_event: string | null
+          success: boolean
+        }
+        Insert: {
+          id?: string
+          session_type: string
+          patterns_learned?: number
+          patterns_updated?: number
+          patterns_deprecated?: number
+          session_accuracy?: number | null
+          hebrew_patterns_count?: number
+          execution_time_ms?: number | null
+          session_data?: Json
+          session_date?: string
+          trigger_event?: string | null
+          success?: boolean
+        }
+        Update: {
+          id?: string
+          session_type?: string
+          patterns_learned?: number
+          patterns_updated?: number
+          patterns_deprecated?: number
+          session_accuracy?: number | null
+          hebrew_patterns_count?: number
+          execution_time_ms?: number | null
+          session_data?: Json
+          session_date?: string
+          trigger_event?: string | null
+          success?: boolean
+        }
+      }
+      quality_predictions: {
+        Row: {
+          id: string
+          target_name: string
+          target_url: string | null
+          target_type: string
+          predicted_reliability: number | null
+          predicted_categories: string[] | null
+          prediction_confidence: number | null
+          prediction_factors: Json
+          hebrew_quality_prediction: number | null
+          meat_relevance_prediction: number | null
+          business_legitimacy_prediction: number | null
+          actual_reliability: number | null
+          prediction_accuracy: number | null
+          model_version: string
+          features_used: string[] | null
+          prediction_method: string
+          validated: boolean
+          validation_date: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          target_name: string
+          target_url?: string | null
+          target_type: string
+          predicted_reliability?: number | null
+          predicted_categories?: string[] | null
+          prediction_confidence?: number | null
+          prediction_factors?: Json
+          hebrew_quality_prediction?: number | null
+          meat_relevance_prediction?: number | null
+          business_legitimacy_prediction?: number | null
+          actual_reliability?: number | null
+          prediction_accuracy?: number | null
+          model_version?: string
+          features_used?: string[] | null
+          prediction_method?: string
+          validated?: boolean
+          validation_date?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          target_name?: string
+          target_url?: string | null
+          target_type?: string
+          predicted_reliability?: number | null
+          predicted_categories?: string[] | null
+          prediction_confidence?: number | null
+          prediction_factors?: Json
+          hebrew_quality_prediction?: number | null
+          meat_relevance_prediction?: number | null
+          business_legitimacy_prediction?: number | null
+          actual_reliability?: number | null
+          prediction_accuracy?: number | null
+          model_version?: string
+          features_used?: string[] | null
+          prediction_method?: string
+          validated?: boolean
+          validation_date?: string | null
+          created_at?: string
+        }
+      }
+      advanced_conflicts: {
+        Row: {
+          id: string
+          conflict_type: string
+          primary_item_name: string
+          secondary_item_name: string | null
+          primary_source: string | null
+          secondary_source: string | null
+          conflict_data: Json
+          confidence_score: number | null
+          auto_resolution_attempted: boolean
+          auto_resolution_success: boolean
+          resolution_method: string | null
+          resolution_confidence: number | null
+          human_intervention_required: boolean
+          resolution_time_ms: number | null
+          learning_applied: boolean
+          hebrew_processing_involved: boolean
+          market_impact_score: number | null
+          resolution_notes: string | null
+          created_at: string
+          resolved_at: string | null
+        }
+        Insert: {
+          id?: string
+          conflict_type: string
+          primary_item_name: string
+          secondary_item_name?: string | null
+          primary_source?: string | null
+          secondary_source?: string | null
+          conflict_data: Json
+          confidence_score?: number | null
+          auto_resolution_attempted?: boolean
+          auto_resolution_success?: boolean
+          resolution_method?: string | null
+          resolution_confidence?: number | null
+          human_intervention_required?: boolean
+          resolution_time_ms?: number | null
+          learning_applied?: boolean
+          hebrew_processing_involved?: boolean
+          market_impact_score?: number | null
+          resolution_notes?: string | null
+          created_at?: string
+          resolved_at?: string | null
+        }
+        Update: {
+          id?: string
+          conflict_type?: string
+          primary_item_name?: string
+          secondary_item_name?: string | null
+          primary_source?: string | null
+          secondary_source?: string | null
+          conflict_data?: Json
+          confidence_score?: number | null
+          auto_resolution_attempted?: boolean
+          auto_resolution_success?: boolean
+          resolution_method?: string | null
+          resolution_confidence?: number | null
+          human_intervention_required?: boolean
+          resolution_time_ms?: number | null
+          learning_applied?: boolean
+          hebrew_processing_involved?: boolean
+          market_impact_score?: number | null
+          resolution_notes?: string | null
+          created_at?: string
+          resolved_at?: string | null
+        }
+      }
+      market_intelligence: {
+        Row: {
+          id: string
+          intelligence_type: string
+          market_segment: string
+          geographic_scope: string[] | null
+          time_period: string | null
+          data_points: number | null
+          trend_direction: string | null
+          trend_strength: number | null
+          confidence_level: number | null
+          insights: Json
+          actionable_recommendations: string[] | null
+          hebrew_analysis: string | null
+          supporting_data: Json
+          generated_at: string
+          valid_until: string | null
+          is_active: boolean
+        }
+        Insert: {
+          id?: string
+          intelligence_type: string
+          market_segment: string
+          geographic_scope?: string[] | null
+          time_period?: string | null
+          data_points?: number | null
+          trend_direction?: string | null
+          trend_strength?: number | null
+          confidence_level?: number | null
+          insights?: Json
+          actionable_recommendations?: string[] | null
+          hebrew_analysis?: string | null
+          supporting_data?: Json
+          generated_at?: string
+          valid_until?: string | null
+          is_active?: boolean
+        }
+        Update: {
+          id?: string
+          intelligence_type?: string
+          market_segment?: string
+          geographic_scope?: string[] | null
+          time_period?: string | null
+          data_points?: number | null
+          trend_direction?: string | null
+          trend_strength?: number | null
+          confidence_level?: number | null
+          insights?: Json
+          actionable_recommendations?: string[] | null
+          hebrew_analysis?: string | null
+          supporting_data?: Json
+          generated_at?: string
+          valid_until?: string | null
+          is_active?: boolean
+        }
+      }
+      hebrew_nlp_analytics: {
+        Row: {
+          id: string
+          text_sample: string
+          original_source: string | null
+          processing_type: string
+          detected_patterns: string[] | null
+          quality_indicators: string[] | null
+          meat_terms_found: string[] | null
+          location_terms_found: string[] | null
+          business_type_indicators: string[] | null
+          confidence_scores: Json
+          processing_time_ms: number | null
+          hebrew_complexity_score: number | null
+          processing_accuracy: number | null
+          learning_feedback: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          text_sample: string
+          original_source?: string | null
+          processing_type: string
+          detected_patterns?: string[] | null
+          quality_indicators?: string[] | null
+          meat_terms_found?: string[] | null
+          location_terms_found?: string[] | null
+          business_type_indicators?: string[] | null
+          confidence_scores?: Json
+          processing_time_ms?: number | null
+          hebrew_complexity_score?: number | null
+          processing_accuracy?: number | null
+          learning_feedback?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          text_sample?: string
+          original_source?: string | null
+          processing_type?: string
+          detected_patterns?: string[] | null
+          quality_indicators?: string[] | null
+          meat_terms_found?: string[] | null
+          location_terms_found?: string[] | null
+          business_type_indicators?: string[] | null
+          confidence_scores?: Json
+          processing_time_ms?: number | null
+          hebrew_complexity_score?: number | null
+          processing_accuracy?: number | null
+          learning_feedback?: string | null
+          created_at?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never
@@ -599,6 +941,14 @@ export type DiscoverySearchLog = Database['public']['Tables']['discovery_search_
 export type PriceConflict = Database['public']['Tables']['price_conflicts']['Row']
 export type DiscoveryPattern = Database['public']['Tables']['discovery_patterns']['Row']
 
+// Advanced Learning Types (Phase 2)
+export type LearningPattern = Database['public']['Tables']['learning_patterns']['Row']
+export type PatternLearningSession = Database['public']['Tables']['pattern_learning_sessions']['Row']
+export type QualityPrediction = Database['public']['Tables']['quality_predictions']['Row']
+export type AdvancedConflict = Database['public']['Tables']['advanced_conflicts']['Row']
+export type MarketIntelligence = Database['public']['Tables']['market_intelligence']['Row']
+export type HebrewNLPAnalytics = Database['public']['Tables']['hebrew_nlp_analytics']['Row']
+
 export interface BusinessCandidate {
   url: string
   name: string | null
@@ -673,4 +1023,85 @@ export interface ConflictResolution {
   confidence: number
   resolver: string
   timestamp: Date
+}
+
+// Advanced Learning Interfaces (Phase 2)
+export interface LearningEngineResult {
+  patternsLearned: number
+  patternsUpdated: number
+  accuracy: number
+  confidence: number
+  executionTime: number
+  hebrewPatternsCount: number
+}
+
+export interface QualityPredictionResult {
+  reliability: number
+  categories: string[]
+  confidence: number
+  factors: {
+    nameScore: number
+    urlScore: number
+    contentScore: number
+    hebrewQuality: number
+    meatRelevance: number
+    businessLegitimacy: number
+  }
+  predictions: {
+    willSucceed: boolean
+    qualityLevel: 'high' | 'medium' | 'low'
+    recommendedAction: 'approve' | 'review' | 'reject'
+  }
+}
+
+export interface AdvancedConflictResult {
+  conflictType: string
+  autoResolved: boolean
+  confidence: number
+  method: string
+  resolutionTime: number
+  learningApplied: boolean
+  humanInterventionRequired: boolean
+}
+
+export interface MarketIntelligenceInsight {
+  type: string
+  segment: string
+  trend: {
+    direction: 'increasing' | 'decreasing' | 'stable' | 'volatile'
+    strength: number
+    confidence: number
+  }
+  recommendations: string[]
+  hebrewAnalysis: string
+  dataPoints: number
+  timeframe: string
+}
+
+export interface HebrewProcessingResult {
+  detectedPatterns: string[]
+  qualityIndicators: string[]
+  meatTerms: string[]
+  locationTerms: string[]
+  businessTypes: string[]
+  confidence: {
+    overall: number
+    hebrew: number
+    meat: number
+    location: number
+    business: number
+  }
+  complexity: number
+  accuracy: number
+}
+
+export interface LearningSystemStats {
+  totalPatterns: number
+  activePatterns: number
+  hebrewPatterns: number
+  averageAccuracy: number
+  recentSessions: number
+  autoResolutionRate: number
+  predictionAccuracy: number
+  marketInsights: number
 }

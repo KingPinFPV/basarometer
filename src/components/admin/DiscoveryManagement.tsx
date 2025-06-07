@@ -2,7 +2,16 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { DiscoveredSource, PriceConflict, DiscoveryPattern } from '@/lib/database.types'
+import { 
+    DiscoveredSource, 
+    PriceConflict, 
+    DiscoveryPattern,
+    LearningPattern,
+    QualityPrediction,
+    AdvancedConflict,
+    MarketIntelligence,
+    LearningSystemStats
+} from '@/lib/database.types'
 
 interface DiscoveryManagementProps {
     isAdmin: boolean
@@ -17,13 +26,21 @@ interface DiscoveryStats {
 }
 
 const DiscoveryManagement: React.FC<DiscoveryManagementProps> = ({ isAdmin }) => {
-    const [activeTab, setActiveTab] = useState<'sources' | 'conflicts' | 'queue' | 'analytics'>('sources')
+    const [activeTab, setActiveTab] = useState<'sources' | 'conflicts' | 'queue' | 'analytics' | 'learning'>('sources')
     const [sources, setSources] = useState<DiscoveredSource[]>([])
     const [conflicts, setConflicts] = useState<PriceConflict[]>([])
     const [stats, setStats] = useState<DiscoveryStats | null>(null)
     const [patterns, setPatterns] = useState<DiscoveryPattern[]>([])
     const [loading, setLoading] = useState(false)
     const [runningDiscovery, setRunningDiscovery] = useState(false)
+    
+    // Advanced Learning state
+    const [learningPatterns, setLearningPatterns] = useState<LearningPattern[]>([])
+    const [qualityPredictions, setQualityPredictions] = useState<QualityPrediction[]>([])
+    const [advancedConflicts, setAdvancedConflicts] = useState<AdvancedConflict[]>([])
+    const [marketIntelligence, setMarketIntelligence] = useState<MarketIntelligence[]>([])
+    const [learningStats, setLearningStats] = useState<LearningSystemStats | null>(null)
+    const [runningLearning, setRunningLearning] = useState(false)
 
     useEffect(() => {
         if (isAdmin) {
@@ -34,12 +51,25 @@ const DiscoveryManagement: React.FC<DiscoveryManagementProps> = ({ isAdmin }) =>
     const loadDiscoveryData = async () => {
         setLoading(true)
         try {
-            await Promise.all([
+            const loadPromises = [
                 loadSources(),
                 loadConflicts(),
                 loadStats(),
                 loadPatterns()
-            ])
+            ]
+            
+            // Load Advanced Learning data if on learning tab
+            if (activeTab === 'learning') {
+                loadPromises.push(
+                    loadLearningPatterns(),
+                    loadQualityPredictions(),
+                    loadAdvancedConflicts(),
+                    loadMarketIntelligence(),
+                    loadLearningStats()
+                )
+            }
+            
+            await Promise.all(loadPromises)
         } catch (error) {
             console.error('Failed to load discovery data:', error)
         } finally {
@@ -92,6 +122,67 @@ const DiscoveryManagement: React.FC<DiscoveryManagementProps> = ({ isAdmin }) =>
             }
         } catch (error) {
             console.error('Failed to load patterns:', error)
+        }
+    }
+
+    // Advanced Learning data loading functions
+    const loadLearningPatterns = async () => {
+        try {
+            const response = await fetch('/api/discovery/learning/patterns')
+            const data = await response.json()
+            if (data.success) {
+                setLearningPatterns(data.patterns)
+            }
+        } catch (error) {
+            console.error('Failed to load learning patterns:', error)
+        }
+    }
+
+    const loadQualityPredictions = async () => {
+        try {
+            const response = await fetch('/api/discovery/learning/predictions')
+            const data = await response.json()
+            if (data.success) {
+                setQualityPredictions(data.predictions)
+            }
+        } catch (error) {
+            console.error('Failed to load quality predictions:', error)
+        }
+    }
+
+    const loadAdvancedConflicts = async () => {
+        try {
+            const response = await fetch('/api/discovery/learning/conflicts')
+            const data = await response.json()
+            if (data.success) {
+                setAdvancedConflicts(data.conflicts)
+            }
+        } catch (error) {
+            console.error('Failed to load advanced conflicts:', error)
+        }
+    }
+
+    const loadMarketIntelligence = async () => {
+        try {
+            const response = await fetch('/api/discovery/learning/intelligence')
+            const data = await response.json()
+            if (data.success) {
+                setMarketIntelligence(data.intelligence)
+            }
+        } catch (error) {
+            console.error('Failed to load market intelligence:', error)
+        }
+    }
+
+    const loadLearningStats = async () => {
+        try {
+            const response = await fetch('/api/discovery/learning/stats')
+            const data = await response.json()
+            if (data.success) {
+                setLearningStats(data.stats)
+            }
+        } catch (error) {
+            console.error('Failed to load learning stats:', error)
         }
     }
 
@@ -189,6 +280,79 @@ const DiscoveryManagement: React.FC<DiscoveryManagementProps> = ({ isAdmin }) =>
         }
     }
 
+    // Advanced Learning action functions
+    const runLearningSession = async () => {
+        setRunningLearning(true)
+        try {
+            const response = await fetch('/api/discovery/learning/run-session', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ action: 'run_learning' })
+            })
+            
+            const data = await response.json()
+            if (data.success) {
+                alert(`Learning session complete! Learned ${data.result.patternsLearned} patterns, accuracy: ${data.result.accuracy}%`)
+                await loadDiscoveryData()
+            } else {
+                alert('Learning session failed: ' + data.error)
+            }
+        } catch (error) {
+            console.error('Learning session failed:', error)
+            alert('Learning session failed')
+        } finally {
+            setRunningLearning(false)
+        }
+    }
+
+    const optimizePatterns = async () => {
+        try {
+            const response = await fetch('/api/discovery/learning/patterns', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ action: 'optimize' })
+            })
+            
+            const data = await response.json()
+            if (data.success) {
+                alert('Pattern optimization completed successfully')
+                await loadLearningPatterns()
+            } else {
+                alert('Pattern optimization failed: ' + data.error)
+            }
+        } catch (error) {
+            console.error('Failed to optimize patterns:', error)
+            alert('Pattern optimization failed')
+        }
+    }
+
+    const generateMarketIntelligence = async () => {
+        try {
+            const response = await fetch('/api/discovery/learning/intelligence', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ action: 'generate' })
+            })
+            
+            const data = await response.json()
+            if (data.success) {
+                alert('Market intelligence generated successfully')
+                await loadMarketIntelligence()
+            } else {
+                alert('Market intelligence generation failed: ' + data.error)
+            }
+        } catch (error) {
+            console.error('Failed to generate market intelligence:', error)
+            alert('Market intelligence generation failed')
+        }
+    }
+
     if (!isAdmin) {
         return (
             <div className="text-center p-8">
@@ -236,15 +400,67 @@ const DiscoveryManagement: React.FC<DiscoveryManagementProps> = ({ isAdmin }) =>
                 </div>
             )}
 
+            {/* Advanced Learning Stats Dashboard */}
+            {activeTab === 'learning' && learningStats && (
+                <div className="learning-stats-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    <div className="stat-card bg-emerald-50 p-4 rounded-lg">
+                        <div className="text-2xl font-bold text-emerald-600">{learningStats.totalPatterns}</div>
+                        <div className="text-sm text-emerald-800">תבניות למידה</div>
+                    </div>
+                    <div className="stat-card bg-cyan-50 p-4 rounded-lg">
+                        <div className="text-2xl font-bold text-cyan-600">
+                            {Math.round(learningStats.averageAccuracy)}%
+                        </div>
+                        <div className="text-sm text-cyan-800">דיוק ממוצע</div>
+                    </div>
+                    <div className="stat-card bg-pink-50 p-4 rounded-lg">
+                        <div className="text-2xl font-bold text-pink-600">
+                            {Math.round(learningStats.autoResolutionRate)}%
+                        </div>
+                        <div className="text-sm text-pink-800">פתרון אוטומטי</div>
+                    </div>
+                    <div className="stat-card bg-orange-50 p-4 rounded-lg">
+                        <div className="text-2xl font-bold text-orange-600">{learningStats.marketInsights}</div>
+                        <div className="text-sm text-orange-800">תובנות שוק</div>
+                    </div>
+                </div>
+            )}
+
             {/* Action Buttons */}
             <div className="actions mb-6">
-                <button
-                    onClick={runDiscoverySession}
-                    disabled={runningDiscovery}
-                    className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
-                >
-                    {runningDiscovery ? 'מריץ גילוי...' : 'הפעל גילוי חדש'}
-                </button>
+                <div className="flex flex-wrap gap-4">
+                    <button
+                        onClick={runDiscoverySession}
+                        disabled={runningDiscovery}
+                        className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
+                    >
+                        {runningDiscovery ? 'מריץ גילוי...' : 'הפעל גילוי חדש'}
+                    </button>
+                    
+                    {activeTab === 'learning' && (
+                        <>
+                            <button
+                                onClick={runLearningSession}
+                                disabled={runningLearning}
+                                className="bg-emerald-600 text-white px-6 py-3 rounded-lg hover:bg-emerald-700 disabled:bg-gray-400 transition-colors"
+                            >
+                                {runningLearning ? 'מריץ למידה...' : 'הפעל למידה מתקדמת'}
+                            </button>
+                            <button
+                                onClick={optimizePatterns}
+                                className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors"
+                            >
+                                אמן תבניות
+                            </button>
+                            <button
+                                onClick={generateMarketIntelligence}
+                                className="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition-colors"
+                            >
+                                צור תובנות שוק
+                            </button>
+                        </>
+                    )}
+                </div>
             </div>
 
             {/* Tabs */}
@@ -254,7 +470,8 @@ const DiscoveryManagement: React.FC<DiscoveryManagementProps> = ({ isAdmin }) =>
                         { key: 'sources', label: 'מקורות שהתגלו' },
                         { key: 'conflicts', label: 'סתירות מחירים' },
                         { key: 'queue', label: 'תור גילוי' },
-                        { key: 'analytics', label: 'אנליטיקס' }
+                        { key: 'analytics', label: 'אנליטיקס' },
+                        { key: 'learning', label: 'למידה מתקדמת' }
                     ].map(tab => (
                         <button
                             key={tab.key}
@@ -361,6 +578,142 @@ const DiscoveryManagement: React.FC<DiscoveryManagementProps> = ({ isAdmin }) =>
                                 </div>
                             ) : (
                                 <div className="text-gray-500">אין תבניות זמינות</div>
+                            )}
+                        </div>
+                    </div>
+                )}
+
+                {/* Advanced Learning Tab */}
+                {activeTab === 'learning' && (
+                    <div className="learning-tab">
+                        <h3 className="text-xl font-semibold mb-4">למידה מתקדמת ובינה מלאכותית</h3>
+                        
+                        {/* Learning Patterns Section */}
+                        <div className="learning-patterns-section mb-8">
+                            <h4 className="text-lg font-medium mb-3">תבניות למידה מתקדמות ({learningPatterns.length})</h4>
+                            {learningPatterns.length > 0 ? (
+                                <div className="learning-patterns-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    {learningPatterns.slice(0, 6).map(pattern => (
+                                        <div key={pattern.id} className="learning-pattern-card bg-emerald-50 p-4 rounded-lg border border-emerald-200">
+                                            <div className="font-medium text-emerald-900">{pattern.pattern_value}</div>
+                                            <div className="text-sm text-emerald-700 mt-1">
+                                                קטגוריה: {pattern.pattern_category}
+                                            </div>
+                                            <div className="text-sm text-emerald-700">
+                                                ביטחון: {Math.round(pattern.confidence_score)}%
+                                            </div>
+                                            <div className="text-sm text-emerald-700">
+                                                הצלחה: {Math.round(pattern.success_rate)}%
+                                            </div>
+                                            {pattern.hebrew_specific && (
+                                                <div className="text-xs bg-emerald-100 text-emerald-800 px-2 py-1 rounded mt-2 inline-block">
+                                                    מותאם לעברית
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="text-gray-500">אין תבניות למידה זמינות</div>
+                            )}
+                        </div>
+
+                        {/* Quality Predictions Section */}
+                        <div className="quality-predictions-section mb-8">
+                            <h4 className="text-lg font-medium mb-3">תחזיות איכות ({qualityPredictions.length})</h4>
+                            {qualityPredictions.length > 0 ? (
+                                <div className="predictions-grid grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {qualityPredictions.slice(0, 4).map(prediction => (
+                                        <div key={prediction.id} className="prediction-card bg-cyan-50 p-4 rounded-lg border border-cyan-200">
+                                            <div className="font-medium text-cyan-900">{prediction.target_name}</div>
+                                            <div className="text-sm text-cyan-700 mt-1">
+                                                סוג: {prediction.target_type}
+                                            </div>
+                                            <div className="text-sm text-cyan-700">
+                                                אמינות צפויה: {Math.round(prediction.predicted_reliability || 0)}%
+                                            </div>
+                                            <div className="text-sm text-cyan-700">
+                                                ביטחון תחזית: {Math.round(prediction.prediction_confidence || 0)}%
+                                            </div>
+                                            <div className="text-sm text-cyan-700">
+                                                שיטה: {prediction.prediction_method}
+                                            </div>
+                                            {prediction.validated && (
+                                                <div className="text-xs bg-cyan-100 text-cyan-800 px-2 py-1 rounded mt-2 inline-block">
+                                                    מאומת
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="text-gray-500">אין תחזיות איכות זמינות</div>
+                            )}
+                        </div>
+
+                        {/* Advanced Conflicts Section */}
+                        <div className="advanced-conflicts-section mb-8">
+                            <h4 className="text-lg font-medium mb-3">סתירות מתקדמות ({advancedConflicts.length})</h4>
+                            {advancedConflicts.length > 0 ? (
+                                <div className="advanced-conflicts-grid grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {advancedConflicts.slice(0, 4).map(conflict => (
+                                        <div key={conflict.id} className="advanced-conflict-card bg-pink-50 p-4 rounded-lg border border-pink-200">
+                                            <div className="font-medium text-pink-900">{conflict.primary_item_name}</div>
+                                            <div className="text-sm text-pink-700 mt-1">
+                                                סוג סתירה: {conflict.conflict_type}
+                                            </div>
+                                            {conflict.auto_resolution_attempted && (
+                                                <div className="text-sm text-pink-700">
+                                                    פתרון אוטומטי: {conflict.auto_resolution_success ? 'הצליח' : 'נכשל'}
+                                                </div>
+                                            )}
+                                            {conflict.resolution_confidence && (
+                                                <div className="text-sm text-pink-700">
+                                                    ביטחון פתרון: {Math.round(conflict.resolution_confidence)}%
+                                                </div>
+                                            )}
+                                            {conflict.hebrew_processing_involved && (
+                                                <div className="text-xs bg-pink-100 text-pink-800 px-2 py-1 rounded mt-2 inline-block">
+                                                    עיבוד עברית
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="text-gray-500">אין סתירות מתקדמות</div>
+                            )}
+                        </div>
+
+                        {/* Market Intelligence Section */}
+                        <div className="market-intelligence-section mb-8">
+                            <h4 className="text-lg font-medium mb-3">תובנות שוק ({marketIntelligence.length})</h4>
+                            {marketIntelligence.length > 0 ? (
+                                <div className="intelligence-grid grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {marketIntelligence.slice(0, 4).map(intelligence => (
+                                        <div key={intelligence.id} className="intelligence-card bg-orange-50 p-4 rounded-lg border border-orange-200">
+                                            <div className="font-medium text-orange-900">
+                                                {intelligence.intelligence_type} - {intelligence.market_segment}
+                                            </div>
+                                            <div className="text-sm text-orange-700 mt-1">
+                                                כיוון מגמה: {intelligence.trend_direction}
+                                            </div>
+                                            <div className="text-sm text-orange-700">
+                                                עוצמת מגמה: {Math.round(intelligence.trend_strength || 0)}%
+                                            </div>
+                                            <div className="text-sm text-orange-700">
+                                                רמת ביטחון: {Math.round(intelligence.confidence_level || 0)}%
+                                            </div>
+                                            {intelligence.hebrew_analysis && (
+                                                <div className="text-xs mt-2 text-orange-800 bg-orange-100 p-2 rounded">
+                                                    {intelligence.hebrew_analysis.substring(0, 100)}...
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="text-gray-500">אין תובנות שוק זמינות</div>
                             )}
                         </div>
                     </div>
