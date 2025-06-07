@@ -213,7 +213,7 @@ const DiscoveryManagement: React.FC<DiscoveryManagementProps> = ({ isAdmin }) =>
                 <div className="stats-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
                     <div className="stat-card bg-blue-50 p-4 rounded-lg">
                         <div className="text-2xl font-bold text-blue-600">{stats.total_sources}</div>
-                        <div className="text-sm text-blue-800">סה"כ מקורות</div>
+                        <div className="text-sm text-blue-800">סה&quot;כ מקורות</div>
                     </div>
                     <div className="stat-card bg-yellow-50 p-4 rounded-lg">
                         <div className="text-2xl font-bold text-yellow-600">{stats.pending_sources}</div>
