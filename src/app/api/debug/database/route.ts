@@ -50,7 +50,7 @@ export async function GET() {
       'hebrew_nlp_analytics'
     ];
 
-    const tableTests = {};
+    const tableTests: Record<string, any> = {};
     for (const table of tables) {
       try {
         const { data, error } = await supabase
