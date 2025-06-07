@@ -1,12 +1,24 @@
 {
-  "name": "v3",
-  "version": "0.1.0",
+  "name": "basarometer-enhanced-intelligence",
+  "version": "5.2.0",
   "private": true,
+  "description": "🇮🇱 Israel's Most Advanced Food Intelligence Platform - מערכת אינטליגנציה מתקדמת למזון",
+  "keywords": ["israeli-market", "meat-prices", "hebrew-excellence", "enhanced-intelligence", "food-tech", "market-analysis"],
+  "author": "Basarometer Team",
+  "homepage": "https://v3.basarometer.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yohananof/basarometer.git"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "npm run build && vercel --prod",
+    "db:reset": "psql $DATABASE_URL -f basarometer_production_data_complete.sql",
+    "test:api": "node api-tester.js",
+    "intelligence:audit": "node db-audit.js"
   },
   "dependencies": {
     "@supabase/ssr": "^0.6.1",

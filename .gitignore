@@ -67,3 +67,44 @@ backup_*
 
 # OS files
 Thumbs.db
+
+# Enhanced Intelligence System - Sensitive Data
+auth.json
+cookies.json
+user-data-dir/
+downloads/
+temp/
+**/screenshots/
+**/debug*/
+error-*.png
+debug-*.png
+
+# Database dumps and backups
+*.sql.backup*
+*_backup_*.sql
+backup*/
+backups/
+
+# Personal notes and development files
+claude*.md
+*.md.backup
+prompts.txt
+test-*.js
+analysis_*.json
+
+# Browser automation data
+user-data-dir/
+.chrome/
+chrome-profile/
+browser-profile/
+
+# Logs and monitoring
+logs/
+*.log
+logging.log
+
+# Build artifacts and cache
+.next/
+tsconfig.tsbuildinfo
+node_modules/
+.cache/

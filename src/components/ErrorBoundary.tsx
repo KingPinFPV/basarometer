@@ -44,23 +44,33 @@ export class ErrorBoundary extends Component<Props, State> {
             </p>
             <div className="space-y-3">
               <button
-                onClick={() => window.location.reload()}
+                onClick={() => {
+                  if (typeof window !== 'undefined') {
+                    window.location.reload()
+                  }
+                }}
                 className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 transition-colors"
               >
                 🔄 רענן דף
               </button>
               <button
                 onClick={() => {
-                  // Clear all cookies and localStorage
-                  document.cookie.split(";").forEach(c => {
-                    const eqPos = c.indexOf("=")
-                    const name = eqPos > -1 ? c.substr(0, eqPos) : c
-                    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=" + window.location.hostname
-                    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/"
-                  })
-                  localStorage.clear()
-                  sessionStorage.clear()
-                  window.location.reload()
+                  if (typeof window !== 'undefined') {
+                    try {
+                      // Clear all cookies and localStorage
+                      document.cookie.split(";").forEach(c => {
+                        const eqPos = c.indexOf("=")
+                        const name = eqPos > -1 ? c.substr(0, eqPos) : c
+                        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=" + window.location.hostname
+                        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/"
+                      })
+                      localStorage.clear()
+                      sessionStorage.clear()
+                    } catch (e) {
+                      console.error('Error clearing storage:', e)
+                    }
+                    window.location.reload()
+                  }
                 }}
                 className="w-full bg-orange-600 text-white py-3 px-4 rounded-md hover:bg-orange-700 transition-colors"
               >
@@ -114,7 +124,11 @@ export function AuthError({ error, onRetry }: { error: string; onRetry?: () => v
             </button>
           )}
           <button
-            onClick={() => window.location.reload()}
+            onClick={() => {
+              if (typeof window !== 'undefined') {
+                window.location.reload()
+              }
+            }}
             className="w-full bg-gray-600 text-white py-2 px-4 rounded-md hover:bg-gray-700 transition-colors"
           >
             רענן דף

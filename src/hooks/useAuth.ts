@@ -84,7 +84,7 @@ export function useAuth() {
       setAuthError(null)
 
       const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
-        redirectTo: `${window.location.origin}/reset-password`
+        redirectTo: `${typeof window !== 'undefined' ? window.location.origin : 'https://basarometer.com'}/reset-password`
       })
 
       if (error) {

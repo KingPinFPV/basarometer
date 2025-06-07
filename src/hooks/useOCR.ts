@@ -215,7 +215,7 @@ export function useOCR() {
     // Try exact matches first
     for (const cut of meatCuts) {
       if (textLower.includes(cut.name_hebrew.toLowerCase()) ||
-          textLower.includes(cut.name_english.toLowerCase())) {
+          (cut.name_english && textLower.includes(cut.name_english.toLowerCase()))) {
         return cut
       }
     }
@@ -223,7 +223,7 @@ export function useOCR() {
     // Try partial matches
     for (const cut of meatCuts) {
       const hebrewWords = cut.name_hebrew.split(' ')
-      const englishWords = cut.name_english.split(' ')
+      const englishWords = cut.name_english ? cut.name_english.split(' ') : []
       
       for (const word of [...hebrewWords, ...englishWords]) {
         if (word.length > 2 && textLower.includes(word.toLowerCase())) {

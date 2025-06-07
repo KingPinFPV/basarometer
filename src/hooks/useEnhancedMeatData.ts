@@ -60,9 +60,10 @@ export function useEnhancedMeatData(categoryFilter?: string) {
   const [marketInsights, setMarketInsights] = useState<MarketInsights | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [retryCount, setRetryCount] = useState(0)
 
   // Fetch enhanced meat data with intelligence
-  const fetchEnhancedMeatData = async () => {
+  const fetchEnhancedMeatData = useCallback(async () => {
     try {
       setLoading(true)
       setError(null)
@@ -83,7 +84,24 @@ export function useEnhancedMeatData(categoryFilter?: string) {
 
       const { data: meatCuts, error: cutsError } = await query
 
-      if (cutsError) throw cutsError
+      if (cutsError) {
+        if (cutsError.code === 'PGRST116' || cutsError.message?.includes('does not exist')) {
+          console.warn('Table structure issue, using fallback data')
+          setEnhancedMeatData([])
+          setQualityBreakdown({ total_variations: 0, by_quality: {}, most_common_grade: 'regular', premium_percentage: 0 })
+          setMarketInsights({
+            total_products: 0,
+            active_retailers: 0,
+            avg_confidence: 0,
+            avg_price_per_kg: 0,
+            coverage_percentage: 0,
+            last_updated: new Date().toISOString(),
+            trend_indicators: { price_direction: 'stable', availability_trend: 'stable', quality_trend: 'stable' }
+          })
+          return
+        }
+        throw cutsError
+      }
 
       // Fetch quality mappings and variations (fallback if table doesn't exist)
       let qualityMappings: any[] = []
@@ -117,15 +135,20 @@ export function useEnhancedMeatData(categoryFilter?: string) {
         }
       } catch (error) {
         // Fallback to price_reports table
-        const { data: fallbackData, error: fallbackError } = await supabase
-          .from('price_reports')
-          .select('*')
-          .eq('is_active', true)
-          .gte('created_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString())
-        
-        if (!fallbackError && fallbackData) {
-          priceData = fallbackData
-        } else {
+        try {
+          const { data: fallbackData, error: fallbackError } = await supabase
+            .from('price_reports')
+            .select('*')
+            .eq('is_active', true)
+            .gte('created_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString())
+          
+          if (!fallbackError && fallbackData) {
+            priceData = fallbackData
+          } else {
+            priceData = []
+          }
+        } catch (fallbackError) {
+          console.warn('Price reports table access failed, continuing without price data')
           priceData = []
         }
       }
@@ -169,24 +192,38 @@ export function useEnhancedMeatData(categoryFilter?: string) {
       )
       setMarketInsights(insights)
 
+      // Reset retry count on success
+      setRetryCount(0)
+
     } catch (err) {
       console.error('Error fetching enhanced meat data:', err)
-      setError(err instanceof Error ? err.message : 'Unknown error occurred')
+      const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred'
+      
+      // Only set error state for non-400 errors or after multiple retries
+      if (retryCount >= 2 || !errorMessage.includes('400')) {
+        setError(errorMessage)
+      } else {
+        // Retry with exponential backoff
+        const delay = Math.pow(2, retryCount) * 1000
+        setTimeout(() => {
+          setRetryCount(prev => prev + 1)
+          fetchEnhancedMeatData()
+        }, delay)
+        return
+      }
     } finally {
       setLoading(false)
     }
-  }
+  }, [categoryFilter, retryCount])
 
-  const memoizedFetch = useCallback(() => {
+  useEffect(() => {
     fetchEnhancedMeatData()
-  }, [categoryFilter])
+  }, [fetchEnhancedMeatData])
 
+  // Real-time subscriptions for live updates (with error handling)
   useEffect(() => {
-    memoizedFetch()
-  }, [memoizedFetch])
+    if (error) return // Don't subscribe if there are errors
 
-  // Real-time subscriptions for live updates
-  useEffect(() => {
     const channel = supabase
       .channel('enhanced-meat-updates')
       .on('postgres_changes', {
@@ -194,21 +231,33 @@ export function useEnhancedMeatData(categoryFilter?: string) {
         schema: 'public',
         table: 'meat_name_mappings'
       }, () => {
-        memoizedFetch()
+        // Debounce the refetch to prevent flooding
+        const timeoutId = setTimeout(() => {
+          fetchEnhancedMeatData()
+        }, 2000)
+        return () => clearTimeout(timeoutId)
       })
       .on('postgres_changes', {
         event: '*',
         schema: 'public',
         table: 'scanner_products'
       }, () => {
-        memoizedFetch()
+        // Debounce the refetch to prevent flooding
+        const timeoutId = setTimeout(() => {
+          fetchEnhancedMeatData()
+        }, 2000)
+        return () => clearTimeout(timeoutId)
       })
-      .subscribe()
+      .subscribe((status) => {
+        if (status === 'SUBSCRIPTION_ERROR') {
+          console.warn('Real-time subscription failed, continuing without live updates')
+        }
+      })
 
     return () => {
       supabase.removeChannel(channel)
     }
-  }, [memoizedFetch])
+  }, [fetchEnhancedMeatData, error])
 
   return {
     enhancedMeatData,

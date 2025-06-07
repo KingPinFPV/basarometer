@@ -255,9 +255,9 @@ export default function MeatIntelligenceMatrix() {
           ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
           : 'grid-cols-1'
       }`}>
-        {(filteredMeatCuts || []).map((cut) => (
+        {(filteredMeatCuts || []).map((cut, index) => (
           <EnhancedMeatCutCard 
-            key={cut?.id || Math.random()}
+            key={cut?.id || `cut-${index}`}
             cut={cut}
             priceData={priceMatrix || {}}
             viewMode={viewMode}
@@ -341,11 +341,11 @@ function EnhancedMeatCutCard({
             
             {/* Quality Grades */}
             <div className="flex flex-wrap gap-1">
-              {(cut?.quality_grades || []).map((grade) => {
+              {(cut?.quality_grades || []).map((grade, gradeIndex) => {
                 const config = QUALITY_TIERS[grade?.tier] || QUALITY_TIERS.regular
                 return (
                   <span 
-                    key={grade?.id || Math.random()}
+                    key={grade?.id || `grade-${gradeIndex}`}
                     className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${config.bgColor} ${config.color}`}
                   >
                     {config.label}

@@ -97,9 +97,11 @@ export function ToastContainer({ toasts, onClose }: ToastContainerProps) {
 // Hook for managing toasts
 export function useToast() {
   const [toasts, setToasts] = useState<ToastData[]>([])
+  const [counter, setCounter] = useState(0)
 
   const addToast = (toast: Omit<ToastData, 'id'>) => {
-    const id = Math.random().toString(36).substring(2, 9)
+    const id = `toast-${Date.now()}-${counter}`
+    setCounter(prev => prev + 1)
     setToasts((prev) => [...prev, { ...toast, id }])
   }
 

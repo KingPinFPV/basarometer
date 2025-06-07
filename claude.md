@@ -1,11 +1,11 @@
 # 🧠 Basarometer V5.2 - AI Assistant Memory & Production Documentation
 
-## 🎯 **PROJECT OVERVIEW - Current Production State**
+## 🎯 **PROJECT OVERVIEW - V6.0 Eight Networks Production State**
 
 ### **מה זה Basarometer:**
 פלטפורמת אינטליגנציה ישראלית מתקדמת למחירי בשר עם אוטומציה מלאה באמצעות Browser-Use AI ועיבוד עברית מושלם.
 
-### **Status נוכחי: Production Ready V5.2**
+### **Status נוכחי: Production Ready V6.0 - Eight Networks**
 - ✅ **Scanner Automation**: 40+ מוצרים אוטומטיים, 97.5% דיוק  
 - ✅ **Database Integration**: Schema מותאם UUID בפרודקשן
 - ✅ **UI Components**: Enhanced Product Cards פעילים
@@ -14,12 +14,12 @@
 
 ---
 
-## 🏗️ **ARCHITECTURE V5.2 - תשתית נוכחית**
+## 🏗️ **ARCHITECTURE V6.0 - תשתית שמונה רשתות**
 
 ### **🔄 Pipeline אוטומטי:**
 ```
 Browser-Use AI Scanner → API Endpoint → Supabase DB → Next.js UI → Users
-✅ 6+ networks ready    ✅ Optimized   ✅ Auto-link  ✅ Hebrew RTL ✅ Real-time
+✅ 8 networks live     ✅ Optimized   ✅ Auto-link  ✅ Hebrew RTL ✅ Real-time
 ```
 
 ### **🛠️ Tech Stack פעיל:**
@@ -49,7 +49,7 @@ retailers           -- Store information (preserved)
 ```typescript
 // Current Production Features:
 ✅ 40+ products per scan (97.5% accuracy)
-✅ 6+ Israeli retail networks supported
+✅ 8 Israeli retail networks supported (רמי לוי, שופרסל, מגא, יוחננוף, ויקטורי, יינות ביתן, חצי חינם, טיב טעם)
 ✅ Auto-linking to existing meat cuts
 ✅ Real-time confidence scoring
 ✅ Hebrew product name processing
@@ -170,7 +170,7 @@ retailers (8)           → Complete store information
 user_profiles (6+)      → Enhanced with reputation system
 ```
 
-### **V5.2 Advanced Tables:**
+### **V6.0 Advanced Tables:**
 ```sql
 -- Community System:
 shopping_lists          → User shopping management

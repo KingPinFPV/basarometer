@@ -1,4 +1,4 @@
-# 📊 Basarometer V5.2 - Complete Database Schema Documentation
+# 📊 Basarometer V5.2 - Complete Database Schema Documentation - V6.0 Eight Network System
 
 ## 🎯 **Database Overview - Production V5.2**
 - **System**: PostgreSQL via Supabase
@@ -1168,9 +1168,88 @@ ORDER BY success_rate DESC, avg_products_per_scan DESC;
 **Status: ✅ Production V5.2+ Enhanced Intelligence Complete - All database systems operational with comprehensive schema supporting Israel's most advanced social shopping intelligence platform with full scanner automation + Real Market Data Intelligence (54+ normalized cuts, 1000+ variations, auto-discovery system)!** 🇮🇱📊🤖🧠
 
 
-//##-- WARNING: This schema is for context only and is not meant to be run.
+-- WARNING: This schema is for context only and is not meant to be run.
 -- Table order and constraints may not be valid for execution.
 
+CREATE TABLE public.advanced_conflicts (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  conflict_type character varying NOT NULL,
+  primary_item_name character varying NOT NULL,
+  secondary_item_name character varying,
+  primary_source character varying,
+  secondary_source character varying,
+  conflict_data jsonb NOT NULL DEFAULT '{}'::jsonb,
+  confidence_score numeric,
+  auto_resolution_attempted boolean DEFAULT false,
+  auto_resolution_success boolean DEFAULT false,
+  resolution_method character varying,
+  resolution_confidence numeric,
+  human_intervention_required boolean DEFAULT false,
+  resolution_time_ms integer,
+  learning_applied boolean DEFAULT false,
+  hebrew_processing_involved boolean DEFAULT false,
+  market_impact_score numeric,
+  resolution_notes text,
+  created_at timestamp with time zone DEFAULT now(),
+  resolved_at timestamp with time zone,
+  CONSTRAINT advanced_conflicts_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.hebrew_nlp_analytics (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  text_sample text NOT NULL,
+  original_source character varying,
+  processing_type character varying NOT NULL,
+  detected_patterns ARRAY,
+  quality_indicators ARRAY,
+  meat_terms_found ARRAY,
+  location_terms_found ARRAY,
+  business_type_indicators ARRAY,
+  confidence_scores jsonb DEFAULT '{}'::jsonb,
+  processing_time_ms integer,
+  hebrew_complexity_score numeric,
+  processing_accuracy numeric,
+  learning_feedback text,
+  created_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT hebrew_nlp_analytics_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.learning_patterns (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  pattern_type character varying NOT NULL,
+  pattern_category character varying NOT NULL,
+  pattern_value text NOT NULL,
+  pattern_regex character varying,
+  context_data jsonb DEFAULT '{}'::jsonb,
+  confidence_score numeric DEFAULT 50.0 CHECK (confidence_score >= 0::numeric AND confidence_score <= 100::numeric),
+  success_rate numeric DEFAULT 0.0 CHECK (success_rate >= 0::numeric AND success_rate <= 100::numeric),
+  sample_size integer DEFAULT 0,
+  hebrew_specific boolean DEFAULT false,
+  quality_indicators ARRAY,
+  business_context character varying,
+  geographic_relevance ARRAY,
+  is_active boolean DEFAULT true,
+  created_at timestamp with time zone DEFAULT now(),
+  last_updated timestamp with time zone DEFAULT now(),
+  CONSTRAINT learning_patterns_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.market_intelligence (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  intelligence_type character varying NOT NULL,
+  market_segment character varying NOT NULL,
+  geographic_scope ARRAY,
+  time_period character varying,
+  data_points integer,
+  trend_direction character varying,
+  trend_strength numeric,
+  confidence_level numeric,
+  insights jsonb DEFAULT '{}'::jsonb,
+  actionable_recommendations ARRAY,
+  hebrew_analysis text,
+  supporting_data jsonb DEFAULT '{}'::jsonb,
+  generated_at timestamp with time zone DEFAULT now(),
+  valid_until timestamp with time zone,
+  is_active boolean DEFAULT true,
+  CONSTRAINT market_intelligence_pkey PRIMARY KEY (id)
+);
 CREATE TABLE public.meat_categories (
   id uuid NOT NULL DEFAULT uuid_generate_v4(),
   name_hebrew text NOT NULL UNIQUE,
@@ -1199,8 +1278,8 @@ CREATE TABLE public.meat_cuts (
   quality_grade character varying DEFAULT 'regular'::character varying,
   auto_detected boolean DEFAULT false,
   CONSTRAINT meat_cuts_pkey PRIMARY KEY (id),
-  CONSTRAINT meat_cuts_category_id_fkey FOREIGN KEY (category_id) REFERENCES public.meat_categories(id),
-  CONSTRAINT meat_cuts_sub_category_id_fkey FOREIGN KEY (sub_category_id) REFERENCES public.meat_sub_categories(id)
+  CONSTRAINT meat_cuts_sub_category_id_fkey FOREIGN KEY (sub_category_id) REFERENCES public.meat_sub_categories(id),
+  CONSTRAINT meat_cuts_category_id_fkey FOREIGN KEY (category_id) REFERENCES public.meat_categories(id)
 );
 CREATE TABLE public.meat_discovery_queue (
   id uuid NOT NULL DEFAULT gen_random_uuid(),
@@ -1258,6 +1337,30 @@ CREATE TABLE public.meat_sub_categories (
   CONSTRAINT meat_sub_categories_pkey PRIMARY KEY (id),
   CONSTRAINT meat_sub_categories_category_id_fkey FOREIGN KEY (category_id) REFERENCES public.meat_categories(id)
 );
+CREATE TABLE public.migration_log (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  migration_name character varying NOT NULL,
+  migration_description text,
+  tables_created integer DEFAULT 0,
+  migration_status character varying DEFAULT 'completed'::character varying,
+  executed_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT migration_log_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.pattern_learning_sessions (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  session_type character varying NOT NULL,
+  patterns_learned integer DEFAULT 0,
+  patterns_updated integer DEFAULT 0,
+  patterns_deprecated integer DEFAULT 0,
+  session_accuracy numeric,
+  hebrew_patterns_count integer DEFAULT 0,
+  execution_time_ms integer,
+  session_data jsonb DEFAULT '{}'::jsonb,
+  session_date timestamp with time zone DEFAULT now(),
+  trigger_event character varying,
+  success boolean DEFAULT true,
+  CONSTRAINT pattern_learning_sessions_pkey PRIMARY KEY (id)
+);
 CREATE TABLE public.price_history (
   id uuid NOT NULL DEFAULT uuid_generate_v4(),
   price_report_id uuid NOT NULL,
@@ -1299,10 +1402,32 @@ CREATE TABLE public.price_reports (
   scanner_product_id uuid,
   scan_timestamp timestamp with time zone,
   CONSTRAINT price_reports_pkey PRIMARY KEY (id),
-  CONSTRAINT price_reports_scanner_product_id_fkey FOREIGN KEY (scanner_product_id) REFERENCES public.scanner_products(id),
-  CONSTRAINT price_reports_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id),
+  CONSTRAINT price_reports_meat_cut_id_fkey FOREIGN KEY (meat_cut_id) REFERENCES public.meat_cuts(id),
   CONSTRAINT price_reports_retailer_id_fkey FOREIGN KEY (retailer_id) REFERENCES public.retailers(id),
-  CONSTRAINT price_reports_meat_cut_id_fkey FOREIGN KEY (meat_cut_id) REFERENCES public.meat_cuts(id)
+  CONSTRAINT price_reports_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id),
+  CONSTRAINT price_reports_scanner_product_id_fkey FOREIGN KEY (scanner_product_id) REFERENCES public.scanner_products(id)
+);
+CREATE TABLE public.quality_predictions (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  target_name character varying NOT NULL,
+  target_url text,
+  target_type character varying NOT NULL,
+  predicted_reliability numeric,
+  predicted_categories ARRAY,
+  prediction_confidence numeric,
+  prediction_factors jsonb DEFAULT '{}'::jsonb,
+  hebrew_quality_prediction numeric,
+  meat_relevance_prediction numeric,
+  business_legitimacy_prediction numeric,
+  actual_reliability numeric,
+  prediction_accuracy numeric,
+  model_version character varying DEFAULT 'v1.0'::character varying,
+  features_used ARRAY,
+  prediction_method character varying DEFAULT 'pattern_matching'::character varying,
+  validated boolean DEFAULT false,
+  validation_date timestamp with time zone,
+  created_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT quality_predictions_pkey PRIMARY KEY (id)
 );
 CREATE TABLE public.retailers (
   id uuid NOT NULL DEFAULT uuid_generate_v4(),
@@ -1376,8 +1501,8 @@ CREATE TABLE public.scanner_products (
   validation_notes text,
   product_hash character varying,
   CONSTRAINT scanner_products_pkey PRIMARY KEY (id),
-  CONSTRAINT scanner_products_retailer_id_fkey FOREIGN KEY (retailer_id) REFERENCES public.retailers(id),
-  CONSTRAINT scanner_products_meat_cut_id_fkey FOREIGN KEY (meat_cut_id) REFERENCES public.meat_cuts(id)
+  CONSTRAINT scanner_products_meat_cut_id_fkey FOREIGN KEY (meat_cut_id) REFERENCES public.meat_cuts(id),
+  CONSTRAINT scanner_products_retailer_id_fkey FOREIGN KEY (retailer_id) REFERENCES public.retailers(id)
 );
 CREATE TABLE public.scanner_quality_metrics (
   id uuid NOT NULL DEFAULT gen_random_uuid(),
@@ -1403,8 +1528,8 @@ CREATE TABLE public.shopping_list_items (
   notes text,
   created_at timestamp with time zone DEFAULT now(),
   CONSTRAINT shopping_list_items_pkey PRIMARY KEY (id),
-  CONSTRAINT shopping_list_items_list_id_fkey FOREIGN KEY (list_id) REFERENCES public.shopping_lists(id),
-  CONSTRAINT shopping_list_items_meat_cut_id_fkey FOREIGN KEY (meat_cut_id) REFERENCES public.meat_cuts(id)
+  CONSTRAINT shopping_list_items_meat_cut_id_fkey FOREIGN KEY (meat_cut_id) REFERENCES public.meat_cuts(id),
+  CONSTRAINT shopping_list_items_list_id_fkey FOREIGN KEY (list_id) REFERENCES public.shopping_lists(id)
 );
 CREATE TABLE public.shopping_lists (
   id uuid NOT NULL DEFAULT uuid_generate_v4(),
@@ -1450,4 +1575,3 @@ CREATE TABLE public.user_profiles (
   CONSTRAINT user_profiles_pkey PRIMARY KEY (id),
   CONSTRAINT user_profiles_id_fkey FOREIGN KEY (id) REFERENCES auth.users(id)
 );
-##//

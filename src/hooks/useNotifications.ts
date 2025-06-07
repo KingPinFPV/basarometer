@@ -341,7 +341,7 @@ export function useNotifications() {
 
       // Simple scoring based on user's recent reports
       const userReports = priceReports.filter(report => 
-        report.user_id === user.id && report.meat_cut_id === deal.meatCutId
+        report.reported_by === user.id && report.meat_cut_id === deal.meatCutId
       )
 
       let relevanceScore = 0.5 // Base score
@@ -398,17 +398,21 @@ export function useNotifications() {
     }
   }, [user, fetchNotifications])
 
-  // Check for new alerts periodically
+  // Check for new alerts periodically (reduced frequency)
   useEffect(() => {
     if (!user) return
 
     const interval = setInterval(async () => {
-      const newDeals = await getPersonalizedDeals()
-      setPersonalizedDeals(newDeals)
+      try {
+        const newDeals = await getPersonalizedDeals()
+        setPersonalizedDeals(newDeals)
 
-      const shoppingAlerts = await checkShoppingListAlerts()
-      setShoppingAlerts(shoppingAlerts)
-    }, 5 * 60 * 1000) // Check every 5 minutes
+        const shoppingAlerts = await checkShoppingListAlerts()
+        setShoppingAlerts(shoppingAlerts)
+      } catch (error) {
+        console.warn('Failed to update notifications:', error)
+      }
+    }, 15 * 60 * 1000) // Check every 15 minutes (reduced from 5)
 
     return () => clearInterval(interval)
   }, [user, getPersonalizedDeals, checkShoppingListAlerts])

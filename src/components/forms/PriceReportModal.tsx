@@ -48,12 +48,16 @@ export function PriceReportModal({
       
       // Also clear any cached data in browser
       if (typeof window !== 'undefined') {
-        // Clear any potential cached responses
-        const cacheKeys = ['lastPriceReportError', 'priceReportState']
-        cacheKeys.forEach(key => {
-          sessionStorage.removeItem(key)
-          localStorage.removeItem(key)
-        })
+        try {
+          // Clear any potential cached responses
+          const cacheKeys = ['lastPriceReportError', 'priceReportState']
+          cacheKeys.forEach(key => {
+            sessionStorage.removeItem(key)
+            localStorage.removeItem(key)
+          })
+        } catch (e) {
+          console.error('Error clearing cache:', e)
+        }
       }
     }
   }, [isOpen, clearLastResponse])

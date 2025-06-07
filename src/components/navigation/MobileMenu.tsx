@@ -14,6 +14,9 @@ interface MobileMenuProps {
 export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   // Prevent body scroll when menu is open
   useEffect(() => {
+    // Only run on client side
+    if (typeof window === 'undefined') return
+
     if (isOpen) {
       document.body.style.overflow = 'hidden'
     } else {
@@ -28,6 +31,9 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
   // Handle escape key
   useEffect(() => {
+    // Only run on client side
+    if (typeof window === 'undefined') return
+
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose()

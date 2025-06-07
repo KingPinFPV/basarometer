@@ -54,6 +54,17 @@ export function usePriceMatrix() {
       const { data, error: matrixError } = await supabase.rpc('get_price_matrix')
       
       if (matrixError) {
+        // Handle specific RPC function errors
+        if (matrixError.code === 'PGRST202' || matrixError.message?.includes('does not exist')) {
+          console.warn('get_price_matrix RPC function not found, using fallback')
+          setMatrixData([])
+          return
+        }
+        if (matrixError.message?.includes('400') || matrixError.message?.includes('unauthorized')) {
+          console.warn('Price matrix access denied')
+          setMatrixData([])
+          return
+        }
         throw new Error(`שגיאה בטעינת מטריקס המחירים: ${matrixError.message}`)
       }
 
@@ -61,6 +72,7 @@ export function usePriceMatrix() {
     } catch (err) {
       console.error('Error loading price matrix:', err)
       setError(err instanceof Error ? err.message : 'שגיאה בטעינת נתונים')
+      setMatrixData([]) // Set empty data on error
     } finally {
       setIsLoading(false)
     }
@@ -71,12 +83,18 @@ export function usePriceMatrix() {
       const { data, error: cutsError } = await supabase.rpc('get_meat_cuts')
       
       if (cutsError) {
+        if (cutsError.code === 'PGRST202' || cutsError.message?.includes('does not exist')) {
+          console.warn('get_meat_cuts RPC function not found, using fallback')
+          setMeatCuts([])
+          return
+        }
         throw new Error(`שגיאה בטעינת רשימת חתכי בשר: ${cutsError.message}`)
       }
 
       setMeatCuts(data || [])
     } catch (err) {
       console.error('Error loading meat cuts:', err)
+      setMeatCuts([])
     }
   }, [])
 
@@ -85,12 +103,18 @@ export function usePriceMatrix() {
       const { data, error: retailersError } = await supabase.rpc('get_retailers')
       
       if (retailersError) {
+        if (retailersError.code === 'PGRST202' || retailersError.message?.includes('does not exist')) {
+          console.warn('get_retailers RPC function not found, using fallback')
+          setRetailers([])
+          return
+        }
         throw new Error(`שגיאה בטעינת רשימת רשתות: ${retailersError.message}`)
       }
 
       setRetailers(data || [])
     } catch (err) {
       console.error('Error loading retailers:', err)
+      setRetailers([])
     }
   }, [])
 
