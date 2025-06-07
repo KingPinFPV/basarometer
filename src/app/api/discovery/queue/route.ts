@@ -119,10 +119,19 @@ export async function POST(request: Request) {
             
         } else if (action === 'prioritize' && source_id) {
             // Prioritize a source for processing
+            // First get current reliability score
+            const { data: sourceData } = await supabase
+                .from('discovered_sources')
+                .select('reliability_score')
+                .eq('id', source_id)
+                .single()
+            
+            const currentScore = sourceData?.reliability_score || 0
+            
             const { error } = await supabase
                 .from('discovered_sources')
                 .update({
-                    reliability_score: supabase.raw('reliability_score + 10'),
+                    reliability_score: currentScore + 10,
                     admin_notes: admin_notes || 'Prioritized by admin'
                 })
                 .eq('id', source_id)

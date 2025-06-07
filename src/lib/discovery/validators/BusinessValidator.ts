@@ -12,8 +12,8 @@ interface WebContent {
 
 export class BusinessValidator {
     private hebrewProcessor: HebrewProcessor
-    private meatPatterns: RegExp[]
-    private nonMeatPatterns: RegExp[]
+    private meatPatterns!: RegExp[]
+    private nonMeatPatterns!: RegExp[]
     private logger: Logger
 
     constructor() {

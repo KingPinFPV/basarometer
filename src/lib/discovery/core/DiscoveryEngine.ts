@@ -5,7 +5,8 @@ import {
   DiscoveryResult, 
   DiscoverySession, 
   BusinessCandidate,
-  DiscoveredSource 
+  DiscoveredSource,
+  ValidationResult 
 } from '@/lib/database.types'
 import { IsraeliDirectoriesScraper } from '../scrapers/IsraeliDirectoriesScraper'
 import { BusinessValidator } from '../validators/BusinessValidator'
@@ -16,11 +17,11 @@ import { Logger } from '../utils/Logger'
 import { RateLimiter } from '../utils/RateLimiter'
 
 export class DiscoveryEngine {
-    private scrapers: Map<string, any>
-    private validator: BusinessValidator
-    private reliabilityEngine: ReliabilityEngine
-    private conflictResolver: ConflictResolver
-    private patternLearner: PatternLearner
+    private scrapers!: Map<string, any>
+    private validator!: BusinessValidator
+    private reliabilityEngine!: ReliabilityEngine
+    private conflictResolver!: ConflictResolver
+    private patternLearner!: PatternLearner
     private logger: Logger
     private rateLimiter: RateLimiter
 

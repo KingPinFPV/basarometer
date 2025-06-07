@@ -113,7 +113,7 @@ function analyzeLocationCoverage(sources: any[]): any {
     return {
         unique_cities: Array.from(uniqueCities),
         location_distribution: locationCounts,
-        major_cities_coverage: citycoverage,
+        major_cities_coverage: cityCoverage,
         coverage_rate: Math.round(coverageRate * 100) / 100
     }
 }
