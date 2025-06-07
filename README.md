@@ -56,6 +56,13 @@ Revolutionary social shopping platform combining AI-powered scanner automation, 
 - Regional pricing analysis and proximity intelligence
 - Store mapping with geographic context
 
+#### **🔐 Production Authentication System**
+- Complete admin authentication with Hebrew RTL interface
+- API protection middleware for Enhanced Intelligence endpoints
+- Scanner API key authentication for automation systems
+- Row Level Security (RLS) integration with Supabase
+- Real-time admin verification and permission management
+
 ## ✅ V5.2 Production Status - UI POLISH COMPLETE (June 2025)
 
 ### **🎨 UI Polish Achievements:**
@@ -146,10 +153,21 @@ npm run dev
 
 ### **Required Environment Variables:**
 ```env
+# Core Supabase Configuration
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+
+# Authentication & Security
 SCANNER_API_KEY=basarometer-scanner-v5-2025
+API_SECRET_KEY=your-secret-key-for-internal-apis
+NEXTAUTH_URL=https://v3.basarometer.org
+NEXTAUTH_SECRET=your-nextauth-secret-here
+
+# Enhanced Intelligence Features
+ENABLE_AUTO_DISCOVERY=true
+ENABLE_QUALITY_GRADING=true
+ENABLE_CONFIDENCE_SCORING=true
 ```
 
 ---
@@ -178,6 +196,8 @@ src/
 │   ├── scanner/                # Scanner components & monitoring
 │   ├── matrix/                 # Core price matrix system
 │   ├── navigation/             # Professional navigation
+│   ├── enhanced/               # Enhanced Intelligence System components
+│   ├── admin/                  # Admin dashboard components
 │   └── forms/                  # Data entry components
 ├── hooks/                      # Advanced business logic
 │   ├── useCommunity.ts         # 411 lines of community management
@@ -384,12 +404,25 @@ GET /api/scanner/ingest
 
 ## 🔒 **Security & Privacy Excellence**
 
-### **Authentication & Authorization:**
-- Supabase Auth with Row Level Security (RLS)
-- Admin route protection with role-based access
-- Scanner API key authentication
-- Environment variable security (no hardcoded secrets)
-- Comprehensive data protection policies
+### **Production Authentication System:**
+```typescript
+// Complete authentication stack:
+├── Supabase Auth (SSO Provider)
+├── NextAuth.js (Session Management)
+├── Row Level Security (Database Protection)
+├── JWT Token Validation (API Security)
+├── Admin Role Verification (Enhanced Intelligence Access)
+├── Rate Limiting (DDoS Protection)
+└── Scanner API Key Protection (Automation Security)
+```
+
+### **Authentication Features:**
+- Complete admin login interface with Hebrew RTL support
+- API protection middleware for Enhanced Intelligence endpoints
+- Scanner API key validation for automation systems
+- Real-time admin verification and permission management
+- Environment-based security configuration
+- Comprehensive error handling in Hebrew
 
 ### **Anti-Spam & Quality Control:**
 ```typescript
@@ -553,6 +586,7 @@ This represents a revolutionary leap in social commerce technology, positioning 
 3. **README.md** (this file) - Project overview and setup
 4. **API-docs.md** - Complete API endpoint documentation including scanner endpoints
 5. **USER-GUIDE.md** - Hebrew user guide for all features
+6. **auth/README.md** - Complete authentication system documentation
 
 ---
 
