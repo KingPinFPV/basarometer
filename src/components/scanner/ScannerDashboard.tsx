@@ -55,23 +55,47 @@ export default function ScannerDashboard() {
 
   const fetchScannerData = async () => {
     try {
-      // Fetch scanner status
-      const { data: statusData, error: statusError } = await supabase
-        .rpc('get_scanner_dashboard_data');
-      
-      if (!statusError && statusData) {
-        setStatus(statusData);
+      // Fetch scanner status with error handling
+      try {
+        const { data: statusData, error: statusError } = await supabase
+          .rpc('get_scanner_dashboard_data');
+        
+        if (statusError) {
+          if (statusError.code === 'PGRST202' || statusError.message?.includes('does not exist')) {
+            console.warn('get_scanner_dashboard_data RPC function not found, using empty data');
+            setStatus([]);
+          } else {
+            throw statusError;
+          }
+        } else if (statusData) {
+          setStatus(statusData);
+        }
+      } catch (rpcError) {
+        console.warn('Scanner dashboard RPC failed, using empty data');
+        setStatus([]);
       }
 
-      // Fetch recent logs
-      const { data: logsData, error: logsError } = await supabase
-        .from('scanner_ingestion_logs')
-        .select('*')
-        .order('timestamp', { ascending: false })
-        .limit(10);
-        
-      if (!logsError && logsData) {
-        setLogs(logsData);
+      // Fetch recent logs with error handling
+      try {
+        const { data: logsData, error: logsError } = await supabase
+          .from('scanner_ingestion_logs')
+          .select('*')
+          .order('timestamp', { ascending: false })
+          .limit(10);
+          
+        if (logsError) {
+          if (logsError.code === 'PGRST116' || logsError.message?.includes('does not exist')) {
+            console.warn('scanner_ingestion_logs table not found, using empty logs');
+            setLogs([]);
+          } else {
+            throw logsError;
+          }
+        } else if (logsData) {
+          setLogs(logsData);
+        }
+      } catch (logsError) {
+        console.warn('Scanner logs fetch failed, using empty logs');
+        setLogs([]);
       }
       
     } catch (error) {

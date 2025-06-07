@@ -13,6 +13,8 @@ export default function CategoryManager() {
   const [categories, setCategories] = useState<CategoryWithSubs[]>([])
   const [loading, setLoading] = useState(true)
   const [showAddForm, setShowAddForm] = useState(false)
+  const [showAddSubForm, setShowAddSubForm] = useState(false)
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string>('')
   // Future: Add editing functionality
   // const [editingCategory, setEditingCategory] = useState<MeatCategory | null>(null)
   // const [editingSubCategory, setEditingSubCategory] = useState<MeatSubCategory | null>(null)
@@ -91,6 +93,8 @@ export default function CategoryManager() {
 
       if (error) throw error
 
+      setShowAddSubForm(false)
+      setSelectedCategoryId('')
       fetchCategories()
     } catch (error) {
       console.error('Error adding sub-category:', error)
@@ -275,36 +279,8 @@ export default function CategoryManager() {
                 </h4>
                 <button
                   onClick={() => {
-                    const form = document.createElement('form')
-                    form.innerHTML = `
-                      <div class="grid grid-cols-2 gap-4 mb-4">
-                        <input type="text" name="name_hebrew" placeholder="שם בעברית" required class="px-3 py-2 border rounded-md" />
-                        <input type="text" name="name_english" placeholder="שם באנגלית" required class="px-3 py-2 border rounded-md" />
-                        <input type="text" name="icon" placeholder="אייקון (אופציונלי)" class="px-3 py-2 border rounded-md" />
-                        <input type="number" name="display_order" placeholder="סדר תצוגה" required class="px-3 py-2 border rounded-md" />
-                      </div>
-                      <div class="flex justify-end space-x-2">
-                        <button type="button" onclick="this.closest('.fixed').remove()" class="px-4 py-2 text-gray-600 border border-gray-300 rounded-md">ביטול</button>
-                        <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-md">הוסף</button>
-                      </div>
-                    `
-                    
-                    const modal = document.createElement('div')
-                    modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'
-                    modal.innerHTML = `
-                      <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4" dir="rtl">
-                        <h3 class="text-lg font-medium mb-4">הוסף תת-קטגוריה</h3>
-                        ${form.innerHTML}
-                      </div>
-                    `
-                    
-                    modal.querySelector('form')?.addEventListener('submit', (e) => {
-                      e.preventDefault()
-                      handleAddSubCategory(category.id, new FormData(e.currentTarget as HTMLFormElement))
-                      modal.remove()
-                    })
-                    
-                    document.body.appendChild(modal)
+                    setSelectedCategoryId(category.id)
+                    setShowAddSubForm(true)
                   }}
                   className="text-sm px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700"
                 >
@@ -359,6 +335,75 @@ export default function CategoryManager() {
           </div>
         ))}
       </div>
+
+      {/* Add Sub-Category Modal */}
+      {showAddSubForm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" dir="rtl">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <h3 className="text-lg font-medium mb-4">הוסף תת-קטגוריה</h3>
+            <form onSubmit={(e) => {
+              e.preventDefault()
+              handleAddSubCategory(selectedCategoryId, new FormData(e.currentTarget))
+            }}>
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                  <input 
+                    type="text" 
+                    name="name_hebrew" 
+                    placeholder="שם בעברית" 
+                    required 
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" 
+                  />
+                </div>
+                <div>
+                  <input 
+                    type="text" 
+                    name="name_english" 
+                    placeholder="שם באנגלית" 
+                    required 
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" 
+                  />
+                </div>
+                <div>
+                  <input 
+                    type="text" 
+                    name="icon" 
+                    placeholder="אייקון (אופציונלי)" 
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" 
+                  />
+                </div>
+                <div>
+                  <input 
+                    type="number" 
+                    name="display_order" 
+                    placeholder="סדר תצוגה" 
+                    required 
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" 
+                  />
+                </div>
+              </div>
+              <div className="flex justify-end space-x-2 rtl:space-x-reverse">
+                <button 
+                  type="button" 
+                  onClick={() => {
+                    setShowAddSubForm(false)
+                    setSelectedCategoryId('')
+                  }}
+                  className="px-4 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50"
+                >
+                  ביטול
+                </button>
+                <button 
+                  type="submit" 
+                  className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+                >
+                  הוסף
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -22,7 +22,22 @@ export default function AdminLayout({
 
       try {
         const { data, error } = await supabase.rpc('check_user_admin')
-        if (error) throw error
+        if (error) {
+          // Handle specific RPC function errors
+          if (error.code === 'PGRST202' || error.message?.includes('does not exist')) {
+            console.warn('check_user_admin RPC function not found, denying admin access')
+            setIsAdmin(false)
+            setAdminLoading(false)
+            return
+          }
+          if (error.message?.includes('400') || error.message?.includes('unauthorized')) {
+            console.warn('Admin check unauthorized, denying access')
+            setIsAdmin(false)
+            setAdminLoading(false)
+            return
+          }
+          throw error
+        }
         setIsAdmin(data || false)
       } catch (error) {
         console.error('Error checking admin status:', error)
@@ -32,8 +47,11 @@ export default function AdminLayout({
       }
     }
 
-    checkAdmin()
-  }, [isAuthenticated])
+    // Only check admin status once per authentication session
+    if (isAuthenticated && adminLoading) {
+      checkAdmin()
+    }
+  }, [isAuthenticated, adminLoading])
 
   if (loading || adminLoading) {
     return (

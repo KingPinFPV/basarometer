@@ -24,26 +24,35 @@ export default function LiveScannerStatus() {
   useEffect(() => {
     fetchQuickStatus();
     
-    // Subscribe to real-time updates
+    // Subscribe to real-time updates with error handling
     const subscription = supabase
       .channel('scanner-live-status')
       .on('postgres_changes', 
         { event: 'INSERT', schema: 'public', table: 'price_reports' },
         handleRealtimeUpdate
       )
-      .subscribe();
-
-    setIsLive(true);
+      .subscribe((status) => {
+        if (status === 'SUBSCRIBED') {
+          setIsLive(true);
+        } else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
+          console.warn('Scanner status subscription failed, continuing with polling only');
+          setIsLive(false);
+        }
+      });
     
-    // Refresh status every 30 seconds
-    const interval = setInterval(fetchQuickStatus, 30000);
+    // Refresh status every 2 minutes (reduced from 30 seconds)
+    const interval = setInterval(() => {
+      if (!loading) { // Only fetch if not already loading
+        fetchQuickStatus();
+      }
+    }, 120000);
 
     return () => {
       subscription.unsubscribe();
       clearInterval(interval);
       setIsLive(false);
     };
-  }, []);
+  }, [loading]);
 
   const fetchQuickStatus = async () => {
     try {
@@ -54,7 +63,20 @@ export default function LiveScannerStatus() {
         .not('scanner_source', 'is', null)
         .gte('created_at', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString());
       
-      if (!error && data) {
+      if (error) {
+        // Handle specific error cases
+        if (error.code === 'PGRST116' || error.message?.includes('does not exist')) {
+          console.warn('Scanner status table not accessible, hiding component');
+          return;
+        }
+        if (error.message?.includes('400') || error.message?.includes('unauthorized')) {
+          console.warn('Scanner status access denied, retrying later');
+          return;
+        }
+        throw error;
+      }
+      
+      if (data) {
         const totalProducts = data.length;
         const avgConfidence = data && data.length > 0 
           ? (data || []).reduce((sum, item) => sum + (item?.scanner_confidence || 0), 0) / data.length 
@@ -73,6 +95,10 @@ export default function LiveScannerStatus() {
       }
     } catch (error) {
       console.error('Error fetching scanner status:', error);
+      // Don't show the component if there are persistent errors
+      if (status.totalProductsToday === 0) {
+        return;
+      }
     } finally {
       setLoading(false);
     }
@@ -88,14 +114,31 @@ export default function LiveScannerStatus() {
   const formatLastUpdate = (timestamp: string | null): string => {
     if (!timestamp) return 'אין נתונים';
     
-    const now = new Date();
-    const lastUpdate = new Date(timestamp);
-    const diffInMinutes = Math.floor((now.getTime() - lastUpdate.getTime()) / (1000 * 60));
-    
-    if (diffInMinutes < 1) return 'זה עתה';
-    if (diffInMinutes < 60) return `לפני ${diffInMinutes} דקות`;
-    if (diffInMinutes < 1440) return `לפני ${Math.floor(diffInMinutes / 60)} שעות`;
-    return lastUpdate.toLocaleDateString('he-IL');
+    try {
+      const now = new Date();
+      const lastUpdate = new Date(timestamp);
+      
+      // Ensure valid dates
+      if (isNaN(lastUpdate.getTime()) || isNaN(now.getTime())) {
+        return 'אין נתונים';
+      }
+      
+      const diffInMinutes = Math.floor((now.getTime() - lastUpdate.getTime()) / (1000 * 60));
+      
+      if (diffInMinutes < 1) return 'זה עתה';
+      if (diffInMinutes < 60) return `לפני ${diffInMinutes} דקות`;
+      if (diffInMinutes < 1440) return `לפני ${Math.floor(diffInMinutes / 60)} שעות`;
+      
+      // Use consistent date formatting
+      return lastUpdate.toLocaleDateString('he-IL', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      });
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return 'אין נתונים';
+    }
   };
 
   if (loading) {
