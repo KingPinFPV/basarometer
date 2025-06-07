@@ -254,36 +254,36 @@ export function calculateUserTrustLevel(profile: UserProfile | null): {
     }
   }
   
-  const { reputation_score, total_reports, verified_reports } = profile
-  const verificationRate = total_reports > 0 ? verified_reports / total_reports : 0
+  const { reputation_score } = profile
+  const score = reputation_score || 0
   
-  if (reputation_score >= 500 && verificationRate >= 0.9) {
+  if (score >= 500) {
     return {
       level: 'expert',
-      score: reputation_score,
+      score,
       permissions: ['read', 'write', 'moderate', 'verify']
     }
   }
   
-  if (reputation_score >= 200 && verificationRate >= 0.7) {
+  if (score >= 200) {
     return {
       level: 'verified',
-      score: reputation_score,
+      score,
       permissions: ['read', 'write', 'verify']
     }
   }
   
-  if (reputation_score >= 50 && total_reports >= 5) {
+  if (score >= 50) {
     return {
       level: 'trusted',
-      score: reputation_score,
+      score,
       permissions: ['read', 'write']
     }
   }
   
   return {
     level: 'new',
-    score: reputation_score,
+    score,
     permissions: ['read', 'write_limited']
   }
 }
