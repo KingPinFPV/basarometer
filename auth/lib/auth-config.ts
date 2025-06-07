@@ -6,7 +6,8 @@
 // Security: Production-ready authentication patterns
 // =============================================================================
 
-import { createClientComponentClient, createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { createBrowserClient } from '@supabase/ssr'
+import { createServerClient as createSSRServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import type { Database } from '@/lib/database.types'
 
@@ -33,18 +34,18 @@ export const AuthConfig = {
   // Enhanced Intelligence API permissions
   enhancedIntelligence: {
     matrix: {
-      read: 'public',
-      write: 'admin',
-      admin: 'admin'
+      read: 'public' as const,
+      write: 'admin' as const,
+      admin: 'admin' as const
     },
     queue: {
-      read: 'admin',
-      write: 'admin',
-      approve: 'admin'
+      read: 'admin' as const,
+      write: 'admin' as const,
+      approve: 'admin' as const
     },
     analytics: {
-      read: 'admin',
-      generate: 'admin'
+      read: 'admin' as const,
+      generate: 'admin' as const
     }
   },
   
@@ -82,12 +83,41 @@ export const AuthConfig = {
 
 // Client-side Supabase client (for components)
 export function createClient() {
-  return createClientComponentClient<Database>()
+  return createBrowserClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
 }
 
 // Server-side Supabase client (for API routes)
-export function createServerClient() {
-  return createServerComponentClient<Database>({ cookies })
+export async function createServerClient() {
+  const cookieStore = await cookies()
+  
+  return createSSRServerClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value
+        },
+        set(name: string, value: string, options: any) {
+          try {
+            cookieStore.set({ name, value, ...options })
+          } catch (error) {
+            // Handle cookie setting errors
+          }
+        },
+        remove(name: string, options: any) {
+          try {
+            cookieStore.set({ name, value: '', ...options })
+          } catch (error) {
+            // Handle cookie removal errors
+          }
+        },
+      },
+    }
+  )
 }
 
 // Service role client (for admin operations)
@@ -97,7 +127,7 @@ export function createServiceClient() {
   }
   
   const { createClient } = require('@supabase/supabase-js')
-  return createClient<Database>(
+  return createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY,
     {
@@ -115,7 +145,7 @@ export function createServiceClient() {
 
 export async function getSession() {
   try {
-    const supabase = createServerClient()
+    const supabase = await createServerClient()
     const { data: { session }, error } = await supabase.auth.getSession()
     
     if (error) {
@@ -135,7 +165,7 @@ export async function getCurrentUser() {
     const session = await getSession()
     if (!session?.user) return null
     
-    const supabase = createServerClient()
+    const supabase = await createServerClient()
     const { data: profile, error } = await supabase
       .from('user_profiles')
       .select('*')
@@ -161,7 +191,7 @@ export async function checkAdminStatus(userId?: string) {
     
     if (!targetUserId) return false
     
-    const supabase = createServerClient()
+    const supabase = await createServerClient()
     const { data: isAdmin, error } = await supabase
       .rpc('check_user_admin')
     
@@ -225,7 +255,7 @@ export async function updateUserProfile(userId: string, updates: {
   preferences?: Record<string, any>
 }) {
   try {
-    const supabase = createServerClient()
+    const supabase = await createServerClient()
     
     const { data, error } = await supabase
       .from('user_profiles')
@@ -267,9 +297,6 @@ export async function checkEnhancedIntelligencePermission(
     switch (requiredRole) {
       case 'public':
         return true
-      case 'authenticated':
-        const session = await getSession()
-        return Boolean(session?.user)
       case 'admin':
         return isAdmin
       default:

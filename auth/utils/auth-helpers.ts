@@ -6,7 +6,7 @@
 // Security: Production-ready with proper error handling
 // =============================================================================
 
-import type { User } from '@supabase/auth-helpers-nextjs'
+import type { User } from '@supabase/supabase-js'
 import type { Database } from '@/lib/database.types'
 
 // =============================================================================

@@ -7,8 +7,7 @@
 // =============================================================================
 
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
+import { createServerClient } from '../lib/auth-config'
 
 // =============================================================================
 // AUTHENTICATION MIDDLEWARE FOR ENHANCED INTELLIGENCE APIs
@@ -16,7 +15,7 @@ import { cookies } from 'next/headers'
 
 export async function withAuth(request: NextRequest) {
   try {
-    const supabase = createServerComponentClient({ cookies })
+    const supabase = await createServerClient()
     
     // Get session from request
     const { data: { session }, error: sessionError } = await supabase.auth.getSession()
@@ -141,7 +140,7 @@ export async function withCombinedAuth(
     if (options.allowApiKey) {
       const apiKeyResult = withApiKeyAuth(request, options.apiKey)
       if (!(apiKeyResult instanceof NextResponse)) {
-        return { authenticated: true, authType: 'api_key', ...apiKeyResult }
+        return { authType: 'api_key', ...apiKeyResult }
       }
     }
 
@@ -180,7 +179,7 @@ export function withRateLimit(request: NextRequest, options: RateLimitOptions) {
   try {
     const key = options.keyGenerator 
       ? options.keyGenerator(request)
-      : request.ip || request.headers.get('x-forwarded-for') || 'unknown'
+      : getClientIP(request)
 
     const now = Date.now()
     const record = rateLimitStore.get(key)
@@ -252,7 +251,6 @@ export function getClientIP(request: NextRequest): string {
   return (
     request.headers.get('x-forwarded-for') ||
     request.headers.get('x-real-ip') ||
-    request.ip ||
     'unknown'
   )
 }
