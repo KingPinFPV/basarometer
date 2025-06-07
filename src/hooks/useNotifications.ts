@@ -341,7 +341,7 @@ export function useNotifications() {
 
       // Simple scoring based on user's recent reports
       const userReports = priceReports.filter(report => 
-        report.user_id === user.id && report.meat_cut_id === deal.meatCutId
+        report.reported_by === user.id && report.meat_cut_id === deal.meatCutId
       )
 
       let relevanceScore = 0.5 // Base score

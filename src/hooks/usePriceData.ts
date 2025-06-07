@@ -2,11 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
-import type { Database } from '@/lib/supabase'
-
-type MeatCut = Database['public']['Tables']['meat_cuts']['Row']
-type Retailer = Database['public']['Tables']['retailers']['Row']
-type PriceReport = Database['public']['Tables']['price_reports']['Row']
+import type { MeatCut, Retailer, PriceReport } from '@/lib/database.types'
 
 export function usePriceData() {
   const [priceReports, setPriceReports] = useState<PriceReport[]>([])
