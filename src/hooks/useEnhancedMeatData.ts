@@ -62,135 +62,53 @@ export function useEnhancedMeatData(categoryFilter?: string) {
   const [error, setError] = useState<string | null>(null)
   const [retryCount, setRetryCount] = useState(0)
 
-  // Fetch enhanced meat data with intelligence
+  // Fetch enhanced meat data with intelligence using API endpoint
   const fetchEnhancedMeatData = useCallback(async () => {
     try {
       setLoading(true)
       setError(null)
 
-      // Fetch base meat cuts with categories
-      let query = supabase
-        .from('meat_cuts')
-        .select(`
-          *,
-          category:meat_categories(*),
-          sub_category:meat_sub_categories(*)
-        `)
-        .eq('is_active', true)
-
-      if (categoryFilter) {
-        query = query.eq('meat_categories.name_hebrew', categoryFilter)
+      // Fetch from the enhanced matrix API endpoint that includes ALL products
+      const apiUrl = `/api/products/enhanced/matrix${categoryFilter ? `?category=${encodeURIComponent(categoryFilter)}` : ''}`
+      const response = await fetch(apiUrl)
+      
+      if (!response.ok) {
+        throw new Error(`API request failed: ${response.status} ${response.statusText}`)
       }
-
-      const { data: meatCuts, error: cutsError } = await query
-
-      if (cutsError) {
-        if (cutsError.code === 'PGRST116' || cutsError.message?.includes('does not exist')) {
-          console.warn('Table structure issue, using fallback data')
-          setEnhancedMeatData([])
-          setQualityBreakdown({ total_variations: 0, by_quality: {}, most_common_grade: 'regular', premium_percentage: 0 })
-          setMarketInsights({
-            total_products: 0,
-            active_retailers: 0,
-            avg_confidence: 0,
-            avg_price_per_kg: 0,
-            coverage_percentage: 0,
-            last_updated: new Date().toISOString(),
-            trend_indicators: { price_direction: 'stable', availability_trend: 'stable', quality_trend: 'stable' }
-          })
-          return
-        }
-        throw cutsError
+      
+      const result = await response.json()
+      
+      if (!result.success) {
+        throw new Error(result.error || 'API request failed')
       }
-
-      // Fetch quality mappings and variations (fallback if table doesn't exist)
-      let qualityMappings: any[] = []
-      try {
-        const { data: mappings, error: mappingsError } = await supabase
-          .from('meat_name_mappings')
-          .select('*')
-          .gte('confidence_score', 0.7)
-        
-        if (!mappingsError && mappings) {
-          qualityMappings = mappings
-        }
-      } catch (error) {
-        console.warn('meat_name_mappings table not found, using fallback data')
-        qualityMappings = []
+      
+      // FIXED: Extract data from correct nested structure
+      const enhancedCuts = result.data?.enhanced_cuts || []
+      const qualityBreakdown = result.data?.quality_breakdown || {
+        total_variations: 0,
+        by_quality: {},
+        most_common_grade: 'regular',
+        premium_percentage: 0
       }
-
-      // Fetch current price data for market coverage analysis
-      let priceData: any[] = []
-      try {
-        const { data: integratedData, error: integratedError } = await supabase
-          .from('integrated_price_view')
-          .select('*')
-          .eq('is_active', true)
-          .gte('created_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString())
-        
-        if (!integratedError && integratedData) {
-          priceData = integratedData
-        } else {
-          throw new Error('Fallback to price_reports')
-        }
-      } catch (error) {
-        // Fallback to price_reports table
-        try {
-          const { data: fallbackData, error: fallbackError } = await supabase
-            .from('price_reports')
-            .select('*')
-            .eq('is_active', true)
-            .gte('created_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString())
-          
-          if (!fallbackError && fallbackData) {
-            priceData = fallbackData
-          } else {
-            priceData = []
-          }
-        } catch (fallbackError) {
-          console.warn('Price reports table access failed, continuing without price data')
-          priceData = []
-        }
+      const marketInsights = result.data?.market_insights || {
+        total_products: 0,
+        active_retailers: 0,
+        avg_confidence: 0,
+        avg_price_per_kg: 0,
+        coverage_percentage: 0,
+        last_updated: new Date().toISOString(),
+        trend_indicators: { price_direction: 'stable', availability_trend: 'stable', quality_trend: 'stable' }
       }
-
-      // Fetch scanner data for trend analysis (graceful fallback)
-      let scannerData: any[] = []
-      try {
-        const { data: scanData, error: scannerError } = await supabase
-          .from('scanner_products')
-          .select('*')
-          .eq('is_active', true)
-          .gte('scan_timestamp', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString())
-
-        if (!scannerError && scanData) {
-          scannerData = scanData
-        }
-      } catch (error) {
-        console.warn('Scanner data not available, continuing without it')
-        scannerData = []
-      }
-
-      // Process and enhance the data
-      const enhancedCuts = await processEnhancedMeatData(
-        meatCuts || [],
-        qualityMappings || [],
-        priceData || [],
-        scannerData || []
-      )
+      
+      console.log('🔧 Fixed data extraction from API:', {
+        totalProducts: enhancedCuts.length,
+        apiStructure: Object.keys(result.data || {}),
+        enhancedCutsFound: enhancedCuts.length
+      })
 
       setEnhancedMeatData(enhancedCuts)
-
-      // Calculate quality breakdown
-      const breakdown = calculateQualityBreakdown(qualityMappings || [])
-      setQualityBreakdown(breakdown)
-
-      // Calculate market insights
-      const insights = calculateMarketInsights(
-        enhancedCuts,
-        priceData || [],
-        scannerData || []
-      )
-      setMarketInsights(insights)
+      setQualityBreakdown(qualityBreakdown)
+      setMarketInsights(marketInsights)
 
       // Reset retry count on success
       setRetryCount(0)

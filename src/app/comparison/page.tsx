@@ -145,53 +145,73 @@ export default function ComparisonPage() {
       ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window))
   }, [])
 
-  // Process data into comparison format
+  // Process data into comparison format - FIXED for enhanced API structure
   const comparisonProducts = useMemo(() => {
-    if (!enhancedMeatData || !priceMatrix || !retailers) return []
+    if (!enhancedMeatData) return []
     
     return enhancedMeatData.map(meat => {
       const networkPrices: Record<string, number> = {}
-      const priceData = priceMatrix[meat.id] || {}
       
-      NETWORKS.forEach(network => {
-        // Match retailer by exact database name
-        const matchingRetailer = retailers.find(retailer => 
-          retailer.name === network.dbName
-        )
+      // FIXED: Use enhanced API structure with retailer data
+      if (meat.retailers && Array.isArray(meat.retailers)) {
+        meat.retailers.forEach(retailerData => {
+          // Map retailer names to network IDs
+          NETWORKS.forEach(network => {
+            if (retailerData.retailer_name === network.dbName || 
+                retailerData.retailer_name.includes(network.name) ||
+                network.name.includes(retailerData.retailer_name)) {
+              const price = retailerData.current_price || 0
+              if (price > 0) {
+                networkPrices[network.id] = price
+              }
+            }
+          })
+        })
+      }
+      
+      // Fallback to price matrix if no retailer data from API
+      if (Object.keys(networkPrices).length === 0 && priceMatrix && retailers) {
+        const priceData = priceMatrix[meat.id] || {}
         
-        if (matchingRetailer) {
-          const priceReport = priceData[matchingRetailer.id]
-          if (priceReport && typeof priceReport === 'object' && 'price_per_kg' in priceReport) {
-            const price = priceReport.price_per_kg / 100 // Convert from agorot to shekels
-            if (typeof price === 'number' && !isNaN(price) && price > 0) {
-              networkPrices[network.id] = price
+        NETWORKS.forEach(network => {
+          const matchingRetailer = retailers.find(retailer => 
+            retailer.name === network.dbName
+          )
+          
+          if (matchingRetailer) {
+            const priceReport = priceData[matchingRetailer.id]
+            if (priceReport && typeof priceReport === 'object' && 'price_per_kg' in priceReport) {
+              const price = priceReport.price_per_kg / 100 // Convert from agorot to shekels
+              if (typeof price === 'number' && !isNaN(price) && price > 0) {
+                networkPrices[network.id] = price
+              }
             }
           }
-        }
-      })
+        })
+      }
       
       const prices = Object.values(networkPrices).filter(p => p > 0)
-      const bestPrice = prices.length > 0 ? Math.min(...prices) : 0
-      const worstPrice = prices.length > 0 ? Math.max(...prices) : 0
-      const avgPrice = prices.length > 0 ? prices.reduce((sum, p) => sum + p, 0) / prices.length : 0
+      const bestPrice = prices.length > 0 ? Math.min(...prices) : (meat.price_data?.min_price || 0)
+      const worstPrice = prices.length > 0 ? Math.max(...prices) : (meat.price_data?.max_price || 0)
+      const avgPrice = prices.length > 0 ? prices.reduce((sum, p) => sum + p, 0) / prices.length : (meat.price_data?.avg_price || 0)
       const savingsPotential = worstPrice > 0 ? ((worstPrice - bestPrice) / worstPrice) * 100 : 0
       
       return {
         id: meat.id,
         name_hebrew: meat.name_hebrew,
         name_english: meat.name_english,
-        category: 'בקר', // Default category since enhanced data doesn't include category
+        category: meat.category?.name_hebrew || 'בקר',
         quality_tier: meat.quality_grades?.[0]?.tier || 'regular',
         network_prices: networkPrices,
         best_price: bestPrice,
         worst_price: worstPrice,
         avg_price: avgPrice,
         savings_potential: savingsPotential,
-        trend: meat.trending_direction || 'stable',
-        availability_count: Object.keys(networkPrices).length,
-        is_popular: meat.is_popular || false
+        trend: meat.price_data?.price_trend || 'stable',
+        availability_count: Object.keys(networkPrices).length || (meat.market_metrics?.coverage_percentage || 0) / 12.5, // ~8 networks
+        is_popular: meat.market_metrics?.popularity_rank <= 3 || false
       } as ComparisonProduct
-    }).filter(product => product.availability_count > 0)
+    }).filter(product => product.best_price > 0 || product.availability_count > 0)
   }, [enhancedMeatData, priceMatrix, retailers])
 
   // Apply filters and sorting
