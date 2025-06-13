@@ -163,24 +163,26 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // Fetch scanner data if requested (graceful fallback)
+    // Fetch scanner data if requested (graceful fallback) - ENABLED BY DEFAULT
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let scannerData: any[] = []
-    if (include_scanner) {
-      try {
-        const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
-        const { data: scanData, error: scanError } = await supabase
-          .from('scanner_products')
-          .select('*')
-          .eq('is_active', true)
-          .gte('scan_timestamp', sevenDaysAgo)
+    let scannerProducts: any[] = []
+    try {
+      const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+      const { data: scanData, error: scanError } = await supabase
+        .from('scanner_products')
+        .select('*')
+        .eq('is_valid', true)
+        .gte('scan_timestamp', sevenDaysAgo)
 
-        if (!scanError && scanData) {
-          scannerData = scanData
-        }
-      } catch (error) {
-        console.warn('Scanner data not available, continuing without it')
+      if (!scanError && scanData) {
+        scannerData = scanData
+        // Convert scanner products to enhanced meat cut format
+        scannerProducts = convertScannerToEnhancedCuts(scanData)
+        console.log(`✅ Fetched ${scanData.length} scanner products, converted to ${scannerProducts.length} enhanced cuts`)
       }
+    } catch (error) {
+      console.warn('Scanner data not available, continuing without it')
     }
 
     // Fetch retailers for context
@@ -191,7 +193,7 @@ export async function GET(request: NextRequest) {
 
     if (retailersError) throw retailersError
 
-    // Process and enhance the data
+    // Process and enhance the data - COMBINE MEAT CUTS + SCANNER PRODUCTS
     const enhancedCuts = await processEnhancedMatrixData(
       meatCuts || [],
       qualityMappings || [],
@@ -201,12 +203,16 @@ export async function GET(request: NextRequest) {
       quality_filter
     )
 
+    // ADD SCANNER PRODUCTS AS ADDITIONAL ENHANCED CUTS
+    const combinedEnhancedCuts = [...enhancedCuts, ...scannerProducts]
+    console.log(`✅ Combined data: ${enhancedCuts.length} meat cuts + ${scannerProducts.length} scanner products = ${combinedEnhancedCuts.length} total`)
+
     // Calculate comprehensive quality breakdown
-    const qualityBreakdown = calculateQualityBreakdown(qualityMappings || [], enhancedCuts)
+    const qualityBreakdown = calculateQualityBreakdown(qualityMappings || [], combinedEnhancedCuts)
 
     // Calculate market insights
     const marketInsights = calculateMarketInsights(
-      enhancedCuts,
+      combinedEnhancedCuts,
       priceData || [],
       scannerData,
       retailers || []
@@ -224,14 +230,14 @@ export async function GET(request: NextRequest) {
     const response: EnhancedMatrixData = {
       success: true,
       data: {
-        enhanced_cuts: enhancedCuts,
+        enhanced_cuts: combinedEnhancedCuts,
         quality_breakdown: qualityBreakdown,
         market_insights: marketInsights,
         performance_metrics: performanceMetrics
       },
       metadata: {
         last_updated: new Date().toISOString(),
-        data_sources: ['meat_cuts', 'meat_name_mappings', 'integrated_price_view', ...(include_scanner ? ['scanner_products'] : [])],
+        data_sources: ['meat_cuts', 'meat_name_mappings', 'integrated_price_view', 'scanner_products'],
         query_time_ms: queryTime
       }
     }
@@ -605,4 +611,131 @@ function calculateDataCompleteness(priceData: any[], scannerData: any[]): number
   
   const totalRecords = priceData.length + scannerData.length
   return totalRecords > 0 ? Math.round((completeRecords / totalRecords) * 100) : 0
+}
+
+// Convert scanner products to enhanced meat cut format
+function convertScannerToEnhancedCuts(scannerData: any[]): EnhancedMeatCut[] {
+  if (!Array.isArray(scannerData)) return []
+  
+  // Group scanner products by normalized name
+  const productGroups = new Map<string, any[]>()
+  
+  scannerData.forEach(product => {
+    const normalizedName = product?.normalized_name || product?.product_name || 'Unknown'
+    if (!productGroups.has(normalizedName)) {
+      productGroups.set(normalizedName, [])
+    }
+    productGroups.get(normalizedName)!.push(product)
+  })
+  
+  // Convert each group to an enhanced meat cut
+  return Array.from(productGroups.entries()).map(([normalizedName, products]) => {
+    const firstProduct = products[0]
+    const prices = products
+      .map(p => parseFloat(p?.price_per_kg || p?.price || '0'))
+      .filter(price => !isNaN(price) && price > 0)
+    
+    const minPrice = prices.length > 0 ? Math.min(...prices) : 0
+    const maxPrice = prices.length > 0 ? Math.max(...prices) : 0
+    const avgPrice = prices.length > 0 ? prices.reduce((sum, p) => sum + p, 0) / prices.length : 0
+    
+    // Map store names to network prices
+    const networkPrices: Record<string, number> = {}
+    const retailers: RetailerPriceData[] = []
+    
+    products.forEach(product => {
+      const storeName = product?.store_name || product?.store_site || 'Unknown'
+      const price = parseFloat(product?.price_per_kg || product?.price || '0')
+      
+      if (!isNaN(price) && price > 0) {
+        // Map store names to network IDs
+        const networkId = mapStoreNameToNetworkId(storeName)
+        if (networkId) {
+          networkPrices[networkId] = price
+        }
+        
+        retailers.push({
+          retailer_id: generateRetailerId(storeName),
+          retailer_name: storeName,
+          current_price: price,
+          price_confidence: parseFloat(product?.scanner_confidence || '1'),
+          last_updated: product?.scan_timestamp || new Date().toISOString(),
+          is_available: true
+        })
+      }
+    })
+    
+    const uniqueStores = new Set(products.map(p => p?.store_name).filter(Boolean)).size
+    
+    return {
+      id: `scanner_${generateProductId(normalizedName)}`,
+      name_hebrew: firstProduct?.product_name || normalizedName,
+      name_english: firstProduct?.product_name || normalizedName,
+      normalized_cut_id: normalizedName.toLowerCase().replace(/\s+/g, '_'),
+      category: {
+        id: 'scanner_category',
+        name_hebrew: firstProduct?.category || 'מוצרי סקנר',
+        name_english: firstProduct?.category || 'Scanner Products'
+      },
+      quality_grades: [{
+        tier: 'regular' as const,
+        count: products.length,
+        avg_price: avgPrice,
+        market_share: 100
+      }],
+      variations_count: products.length,
+      price_data: {
+        min_price: minPrice,
+        max_price: maxPrice,
+        avg_price: avgPrice,
+        price_trend: 'stable' as const
+      },
+      market_metrics: {
+        coverage_percentage: Math.min(100, (uniqueStores / 8) * 100), // 8 networks max
+        availability_score: Math.min(100, uniqueStores * 25),
+        popularity_rank: Math.min(5, Math.ceil(products.length / 5))
+      },
+      retailers: retailers
+    }
+  })
+}
+
+// Helper function to map store names to network IDs
+function mapStoreNameToNetworkId(storeName: string): string | null {
+  const storeMapping: Record<string, string> = {
+    'SHUFERSAL': 'shufersal',
+    'שופרסל': 'shufersal',
+    'RAMI_LEVY': 'rami-levy',
+    'רמי לוי': 'rami-levy',
+    'MEGA': 'mega',
+    'מגא': 'mega',
+    'מגא בעש': 'mega',
+    'VICTORY': 'victory',
+    'ויקטורי': 'victory',
+    'YOHANANOF': 'yohananof',
+    'יוחננוף': 'yohananof',
+    'YEINOT_BITAN': 'yeinot-bitan',
+    'יינות ביתן': 'yeinot-bitan',
+    'HAZI_HINAM': 'hazi-hinam',
+    'חצי חינם': 'hazi-hinam',
+    'CARREFOUR': 'carrefour',
+    'קרפור': 'carrefour'
+  }
+  
+  const normalizedStoreName = storeName.toUpperCase().trim()
+  return storeMapping[normalizedStoreName] || null
+}
+
+// Helper function to generate consistent product IDs
+function generateProductId(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^\u0590-\u05FFa-zA-Z0-9\s]/g, '')
+    .replace(/\s+/g, '_')
+    .substring(0, 32)
+}
+
+// Helper function to generate retailer IDs
+function generateRetailerId(storeName: string): string {
+  return `scanner_${storeName.toLowerCase().replace(/\s+/g, '_')}`
 }
