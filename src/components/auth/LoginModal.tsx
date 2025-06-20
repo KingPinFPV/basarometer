@@ -13,6 +13,7 @@ interface LoginModalProps {
 }
 
 export function LoginModal({ isOpen, onClose, onSwitchToSignup, onSuccess }: LoginModalProps) {
+  console.log('🔑 LoginModal render - isOpen:', isOpen)
   const { signIn, isSubmitting, authError, clearError } = useAuth()
   
   const [formData, setFormData] = useState({
@@ -89,7 +90,20 @@ export function LoginModal({ isOpen, onClose, onSwitchToSignup, onSuccess }: Log
     <ModalPortal isOpen={isOpen}>
       <div 
         className="card max-w-md w-full mx-auto animate-fade-in"
-        onClick={(e) => e.stopPropagation()}
+        style={{
+          backgroundColor: 'white',
+          borderRadius: '12px',
+          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.3)',
+          maxWidth: '28rem',
+          width: '100%',
+          margin: '0 auto',
+          position: 'relative',
+          zIndex: 10000
+        }}
+        onClick={(e) => {
+          console.log('🎯 Login modal card clicked')
+          e.stopPropagation()
+        }}
       >
         {/* Header */}
         <div className="bg-gradient-primary text-white p-6 rounded-t-xl">
