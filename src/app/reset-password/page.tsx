@@ -1,11 +1,26 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { Suspense, useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { Lock, Eye, EyeOff, CheckCircle, AlertCircle, Loader2 } from 'lucide-react'
 
-export default function ResetPasswordPage() {
+// Loading component for Suspense fallback
+function ResetPasswordLoading() {
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-6">
+        <div className="flex items-center justify-center mb-4">
+          <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+        </div>
+        <p className="text-center text-gray-600">טוען...</p>
+      </div>
+    </div>
+  )
+}
+
+// Separate component that uses useSearchParams
+function ResetPasswordForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [password, setPassword] = useState('')
@@ -249,5 +264,14 @@ export default function ResetPasswordPage() {
         )}
       </div>
     </div>
+  )
+}
+
+// Main page component with Suspense wrapper
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={<ResetPasswordLoading />}>
+      <ResetPasswordForm />
+    </Suspense>
   )
 }

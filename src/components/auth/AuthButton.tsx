@@ -18,11 +18,8 @@ export function AuthButton({
   size = 'md' 
 }: AuthButtonProps) {
   const { user, isAuthenticated, signOut, loading } = useAuth()
-  console.log('🔍 AuthButton render - isAuthenticated:', isAuthenticated, 'loading:', loading, 'user:', user)
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [showSignupModal, setShowSignupModal] = useState(false)
-  
-  console.log('📊 Current modal states - login:', showLoginModal, 'signup:', showSignupModal)
 
   // Size classes
   const sizeClasses = {
@@ -54,13 +51,11 @@ export function AuthButton({
   }
 
   const switchToSignup = () => {
-    console.log('🔄 Switching to signup modal')
     setShowLoginModal(false)
     setShowSignupModal(true)
   }
 
   const switchToLogin = () => {
-    console.log('🔄 Switching to login modal')
     setShowSignupModal(false)
     setShowLoginModal(true)
   }
@@ -128,11 +123,7 @@ export function AuthButton({
       <div className={`flex items-center space-x-2 rtl:space-x-reverse ${className}`}>
         {/* Login Button */}
         <button
-          onClick={() => {
-            console.log('🔑 Login button clicked! Setting showLoginModal to true')
-            console.log('Current showLoginModal state:', showLoginModal)
-            setShowLoginModal(true)
-          }}
+          onClick={() => setShowLoginModal(true)}
           className={`
             flex items-center space-x-1 rtl:space-x-reverse ${sizeClasses[size]}
             text-blue-600 hover:text-blue-800 hover:bg-blue-50 
@@ -146,11 +137,7 @@ export function AuthButton({
 
         {/* Signup Button */}
         <button
-          onClick={() => {
-            console.log('📝 Signup button clicked! Setting showSignupModal to true')
-            console.log('Current showSignupModal state:', showSignupModal)
-            setShowSignupModal(true)
-          }}
+          onClick={() => setShowSignupModal(true)}
           className={`
             flex items-center space-x-1 rtl:space-x-reverse ${sizeClasses[size]}
             text-green-600 hover:text-green-800 hover:bg-green-50 
@@ -166,10 +153,7 @@ export function AuthButton({
       {/* Login Modal */}
       <LoginModal
         isOpen={showLoginModal}
-        onClose={() => {
-          console.log('🚪 Closing login modal')
-          setShowLoginModal(false)
-        }}
+        onClose={() => setShowLoginModal(false)}
         onSwitchToSignup={switchToSignup}
         onSuccess={handleLoginSuccess}
       />
@@ -177,10 +161,7 @@ export function AuthButton({
       {/* Signup Modal */}
       <SignupModal
         isOpen={showSignupModal}
-        onClose={() => {
-          console.log('🚪 Closing signup modal')
-          setShowSignupModal(false)
-        }}
+        onClose={() => setShowSignupModal(false)}
         onSwitchToLogin={switchToLogin}
         onSuccess={handleSignupSuccess}
       />

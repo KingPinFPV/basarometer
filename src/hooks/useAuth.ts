@@ -15,8 +15,6 @@ export function useAuth() {
   const { user, profile, loading, signOut } = useAuthProfile()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [authError, setAuthError] = useState<string | null>(null)
-  
-  console.log('🔍 useAuth hook - user:', user, 'loading:', loading, 'authError:', authError)
 
   const signIn = useCallback(async ({ email, password }: AuthCredentials) => {
     try {
