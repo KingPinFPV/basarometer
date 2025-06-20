@@ -47,21 +47,24 @@ export function NavBar({ className = '' }: NavBarProps) {
             </div>
 
             {/* Desktop Navigation - Stable Layout Like BrandLogo */}
-            <div className="hidden lg:flex items-center space-x-4 rtl:space-x-reverse">
-              {navigationItems.map((item) => (
-                <NavItem
-                  key={item.href}
-                  href={item.href}
-                  icon={item.icon}
-                  label={item.label}
-                  description={item.description}
-                  showDescription={false}
-                  className="flex-shrink-0 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 text-sm whitespace-nowrap"
-                />
-              ))}
+            <div className="hidden lg:flex items-center space-x-4 rtl:space-x-reverse flex-1 justify-between">
+              {/* Navigation Items */}
+              <div className="flex items-center space-x-4 rtl:space-x-reverse">
+                {navigationItems.map((item) => (
+                  <NavItem
+                    key={item.href}
+                    href={item.href}
+                    icon={item.icon}
+                    label={item.label}
+                    description={item.description}
+                    showDescription={false}
+                    className="flex-shrink-0 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 text-sm whitespace-nowrap"
+                  />
+                ))}
+              </div>
               
-              {/* Auth Button */}
-              <div className="flex-shrink-0 border-l border-gray-200 pl-4 ml-4">
+              {/* Auth Button - Always Visible */}
+              <div className="flex-shrink-0 border-l border-gray-200 pl-4">
                 <AuthButton size="sm" showText={true} />
               </div>
             </div>
@@ -93,10 +96,10 @@ export function NavBar({ className = '' }: NavBarProps) {
         <div className="hidden md:block lg:hidden border-t border-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between py-2 min-h-[48px]">
-              <div className="flex items-center space-x-3 rtl:space-x-reverse">
-                {navigationItems.map((item) => (
+              <div className="flex items-center space-x-3 rtl:space-x-reverse overflow-x-auto flex-1">
+                {navigationItems.slice(0, 4).map((item) => (
                   <NavItem
-                    key={`${item.href}-desktop`}
+                    key={`${item.href}-medium`}
                     href={item.href}
                     icon={item.icon}
                     label={item.label}
@@ -107,7 +110,7 @@ export function NavBar({ className = '' }: NavBarProps) {
                 ))}
               </div>
               
-              {/* Auth Button for Medium Screens */}
+              {/* Auth Button for Medium Screens - Always Visible */}
               <div className="flex-shrink-0 border-l border-gray-200 pl-3 ml-3">
                 <AuthButton size="sm" showText={true} />
               </div>
