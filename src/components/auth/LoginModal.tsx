@@ -14,7 +14,7 @@ interface LoginModalProps {
 
 export function LoginModal({ isOpen, onClose, onSwitchToSignup, onSuccess }: LoginModalProps) {
   console.log('🔑 LoginModal render - isOpen:', isOpen)
-  const { signIn, isSubmitting, authError, clearError } = useAuth()
+  const { signIn, resetPassword, isSubmitting, authError, clearError } = useAuth()
   
   const [formData, setFormData] = useState({
     email: '',
@@ -22,6 +22,7 @@ export function LoginModal({ isOpen, onClose, onSwitchToSignup, onSuccess }: Log
   })
   const [showPassword, setShowPassword] = useState(false)
   const [validationErrors, setValidationErrors] = useState<string[]>([])
+  const [resetEmailSent, setResetEmailSent] = useState(false)
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
@@ -86,6 +87,30 @@ export function LoginModal({ isOpen, onClose, onSwitchToSignup, onSuccess }: Log
     onSwitchToSignup()
   }
 
+  const handleForgotPassword = async () => {
+    if (!formData.email.trim()) {
+      setValidationErrors(['אנא הזן כתובת מייל כדי לאפס את הסיסמה'])
+      return
+    }
+
+    if (!isValidEmail(formData.email)) {
+      setValidationErrors(['אנא הזן כתובת מייל תקינה'])
+      return
+    }
+
+    try {
+      const result = await resetPassword(formData.email)
+      if (result.error) {
+        setValidationErrors([result.error])
+      } else {
+        setResetEmailSent(true)
+        setValidationErrors([])
+      }
+    } catch (error) {
+      setValidationErrors(['שגיאה בשליחת איפוס סיסמה'])
+    }
+  }
+
   return (
     <ModalPortal isOpen={isOpen}>
       <div 
@@ -140,6 +165,24 @@ export function LoginModal({ isOpen, onClose, onSwitchToSignup, onSuccess }: Log
                     ))}
                     {authError && <li>• {authError}</li>}
                   </ul>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Reset Password Success */}
+          {resetEmailSent && (
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+              <div className="flex items-start space-x-3 rtl:space-x-reverse">
+                <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                <div>
+                  <h4 className="text-sm font-semibold text-green-800">קישור איפוס נשלח!</h4>
+                  <p className="text-sm text-green-700 mt-1">
+                    נשלח קישור לאיפוס סיסמה לכתובת המייל <strong>{formData.email}</strong>
+                  </p>
+                  <p className="text-xs text-green-600 mt-2">
+                    בדוק את תיבת המייל (כולל ספאם) ולחץ על הקישור כדי לאפס את הסיסמה
+                  </p>
                 </div>
               </div>
             </div>
@@ -223,6 +266,7 @@ export function LoginModal({ isOpen, onClose, onSwitchToSignup, onSuccess }: Log
             <div className="text-center">
               <button
                 type="button"
+                onClick={handleForgotPassword}
                 className="text-gray-600 hover:text-gray-800 text-sm"
                 disabled={isSubmitting}
               >
