@@ -344,7 +344,6 @@ audit-report.json
 # =============================================
 
 # Basarometer Specific Files
-BASAROMETER_MASTER_CONTEXT.md
 deploy-eight-networks.js
 documentation_audit_v6.js
 documentation_validation_v6.js
@@ -353,7 +352,6 @@ documentation_validation_v6.js
 "scan bot/"
 "test bot/"
 v3/supabase/
-temp/
 
 # Specific Auth Documentation (potentially sensitive)
 v3/auth/README.md
@@ -361,6 +359,26 @@ v3/auth/README.md
 # =============================================
 # ✅ IMPORTANT FILES TO INCLUDE
 # =============================================
+
+# Documentation Management
+# Allow organized documentation but protect sensitive content
+!*.md
+!temp/
+temp/old-docs/sensitive/
+temp/credentials/
+
+# Development Documentation
+!README.md
+!CHANGELOG.md
+!CONTRIBUTING.md
+
+# Project Documentation Files
+!BASAROMETER_MASTER_CONTEXT.md
+!CURRENT_PROJECT_STATUS.md
+!BASAROMETER_WEBSITE_MAP.md
+!DEPLOYMENT_READY_REPORT.md
+!DEVELOPMENT_HANDOVER.md
+!SECURITY_AUDIT_REPORT.md
 
 # Force include important configuration templates
 !.env.example
@@ -371,8 +389,6 @@ v3/auth/README.md
 !next.config.ts
 !tailwind.config.ts
 !eslint.config.mjs
-!README.md
-!CHANGELOG.md
 !LICENSE
 
 # Force include important source directories
