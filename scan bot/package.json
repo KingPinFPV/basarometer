@@ -1,0 +1,41 @@
+{
+  "name": "basarometer-scanner",
+  "version": "2.0.0",
+  "type": "module",
+  "main": "basarometer-scanner.js",
+  "scripts": {
+    "start": "node basarometer-scanner.js",
+    "test": "node basarometer-scanner.js --test",
+    "scan-rami": "node basarometer-scanner.js --site rami-levy",
+    "scan-carrefour": "node basarometer-scanner.js --site carrefour",
+    "scan-hazi": "node basarometer-scanner.js --site hazi-hinam",
+    "mcp-web": "node mcp/servers/web-analyzer.js",
+    "mcp-file": "node mcp/servers/file-manager.js",
+    "mcp-monitor": "node mcp/servers/site-monitor.js",
+    "test-shufersal": "node test-mcp-shufersal.js",
+    "legacy-chat": "node sendPrompt.js",
+    "login": "node login.js"
+  },
+  "keywords": [
+    "meat",
+    "prices",
+    "israel",
+    "grocery",
+    "scraper",
+    "basarometer"
+  ],
+  "author": "",
+  "license": "ISC",
+  "description": "Basarometer - Israeli meat price comparison scanner",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "axios": "^1.9.0",
+    "cheerio": "^1.0.0",
+    "csv-writer": "^1.6.0",
+    "playwright": "^1.52.0",
+    "puppeteer": "^24.8.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "url-parse": "^1.5.10"
+  }
+}

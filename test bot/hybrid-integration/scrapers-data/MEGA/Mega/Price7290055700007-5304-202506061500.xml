@@ -1,0 +1,29 @@
+﻿<Root>
+  <XmlDocVersion>19</XmlDocVersion>
+  <ChainId>7290055700007</ChainId>
+  <SubChainId>1</SubChainId>
+  <StoreId>5304</StoreId>
+  <BikoretNo>1</BikoretNo>
+  <DllVerNo>9.4.0.53</DllVerNo>
+  <Items Count="1">
+    <Item>
+      <PriceUpdateDate>2021-12-03 07:19:22</PriceUpdateDate>
+      <ItemCode>12910033</ItemCode>
+      <ItemType>1</ItemType>
+      <ItemName>סט 3 מגשים שקוף/שקוף</ItemName>
+      <ManufacturerName>לא ידוע</ManufacturerName>
+      <ManufactureCountry>לא ידוע</ManufactureCountry>
+      <ManufacturerItemDescription>סט 3 מגשים שקוף/שקוף</ManufacturerItemDescription>
+      <UnitQty>אין</UnitQty>
+      <Quantity>0.00</Quantity>
+      <UnitOfMeasure>יחידה   </UnitOfMeasure>
+      <bIsWeighted>0</bIsWeighted>
+      <QtyInPackage>לא ידוע</QtyInPackage>
+      <ItemPrice>21.00</ItemPrice>
+      <UnitOfMeasurePrice>0.0000</UnitOfMeasurePrice>
+      <AllowDiscount>1</AllowDiscount>
+      <ItemStatus>1</ItemStatus>
+      <ItemId>61008</ItemId>
+    </Item>
+  </Items>
+</Root>

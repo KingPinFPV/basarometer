@@ -1,0 +1,103 @@
+{
+  "rami-levy": {
+    "name": "רמי לוי",
+    "baseUrl": "https://www.rami-levy.co.il",
+    "meatCategories": [
+      "/he/online/market/בשר-ודגים/בשר-בקר-וכבש-טרי",
+      "/he/online/market/בשר-ודגים/עוף-טרי",
+      "/he/online/market/בשר-ודגים/דגים-טריים"
+    ],
+    "selectors": {
+      "productContainer": ".product-flex",
+      "productName": ".online-product-name, .product-name, h3.text-dark",
+      "productPrice": ".product-price, .price-val, .text-primary",
+      "productImage": ".product-img img, img.w-100",
+      "nextPage": ".pagination-next, button[aria-label*='next'], .next-page",
+      "loadMore": ".btn-load-more, .load-more-btn, button:contains('טען עוד')"
+    },
+    "waitSelectors": [
+      ".product-flex",
+      ".focus-item",
+      ".product-img-wrap"
+    ],
+    "rateLimit": 3000
+  },
+  "carrefour": {
+    "name": "קרפור",
+    "baseUrl": "https://www.carrefour.co.il",
+    "meatCategories": [
+      "/categories/79821/products"
+    ],
+    "selectors": {
+      "productContainer": ".product-item, .item-cell, .grid-item, .product",
+      "productName": ".item-title, .product-title, .name, h3, .product-name",
+      "productPrice": ".price, .item-price, .product-price, .current-price, .price-new",
+      "productImage": "img, .item-image img",
+      "nextPage": ".next, .pagination-next",
+      "loadMore": ".load-more, .load-more-btn"
+    },
+    "waitSelectors": [
+      ".product-item",
+      ".item-cell",
+      ".grid-item",
+      ".products-grid"
+    ],
+    "rateLimit": 4000
+  },
+  "hazi-hinam": {
+    "name": "חצי חינם",
+    "baseUrl": "https://shop.hazi-hinam.co.il",
+    "meatCategories": [
+      "/catalog/46/%D7%A7%D7%A6%D7%91%D7%99%D7%94",
+      "/catalog/46/קצביה",
+      "/catalog/46/קצביה/10890/בשר-בקר-וכבש"
+    ],
+    "selectors": {
+      "productContainer": ".product-item, .item, .catalog-item, .product-card, .product, .grid-item, [data-product], .product-box, .product-tile",
+      "productName": ".product-name, .item-name, .title, .name, h3, h4, .product-title, [data-product-name], .item-title",
+      "productPrice": ".price, .product-price, .item-price, .current-price, .price-current, [data-price], .sale-price, .price-value",
+      "productImage": "img, .product-img img, .item-img img",
+      "nextPage": ".next, .pagination-next, .load-more",
+      "loadMore": ".more, .load-more, .btn-load-more"
+    },
+    "waitSelectors": [
+      ".product-item",
+      ".catalog-item",
+      ".item",
+      ".product",
+      ".catalog-items",
+      ".products-grid",
+      ".product-list",
+      "body"
+    ],
+    "rateLimit": 7000,
+    "cloudflareWait": 25000,
+    "maxRetries": 3,
+    "disabled": true
+  },
+  "shufersal": {
+    "name": "שופרסל",
+    "baseUrl": "https://www.shufersal.co.il",
+    "meatCategories": [
+      "/online/he/A07"
+    ],
+    "selectors": {
+      "productContainer": ".miglog-prod, .product-tile, .product-card, .item, .grid-item, [class*='prod'], .prodItem",
+      "productName": ".miglog-prod-name, .prod-name, .title, h3, h4, .name, [class*='name'], [class*='title']",
+      "productPrice": ".miglog-price, .price, .prod-price, [class*='price'], .sale-price, .current-price",
+      "productImage": "img.miglog-image, img.prod-image, img",
+      "nextPage": ".pagination-next, .next, button[aria-label*='הבא'], .load-more",
+      "loadMore": ".load-more, .btn-load-more, button:contains('טען עוד'), .more-products"
+    },
+    "waitSelectors": [
+      ".miglog-prod",
+      ".product-tile",
+      ".item",
+      "[class*='prod']",
+      ".grid-container",
+      "body"
+    ],
+    "rateLimit": 3000,
+    "cloudflareWait": 8000
+  }
+}

@@ -1,0 +1,31 @@
+[
+  {
+    "_comment": "Template for browser cookies configuration",
+    "_instructions": "Copy this file to cookies.json and replace placeholder values",
+    "_security_warning": "NEVER commit the actual cookies.json file to git!",
+    
+    "name": "example_cookie_name",
+    "value": "REPLACE_WITH_ACTUAL_COOKIE_VALUE",
+    "domain": ".example.com",
+    "path": "/",
+    "expires": 1234567890,
+    "size": 100,
+    "httpOnly": true,
+    "secure": true,
+    "session": false,
+    "sameSite": "None",
+    "priority": "Medium",
+    "sameParty": false,
+    "sourceScheme": "Secure"
+  },
+  
+  {
+    "_setup_instructions": [
+      "1. Copy this file to cookies.json",
+      "2. Replace all REPLACE_WITH_* placeholders with actual cookie values",
+      "3. Remove this instruction object from the actual file",
+      "4. Ensure cookies.json is listed in .gitignore",
+      "5. Never share or commit the actual cookies.json file"
+    ]
+  }
+]

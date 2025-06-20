@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Prices>
+  <ChainID>7290696200003</ChainID>
+  <SubChainID>001</SubChainID>
+  <StoreID>089</StoreID>
+  <BikoretNo>000</BikoretNo>
+  <Products>
+    <Product>
+      <PriceUpdateDate>2025/06/06 07:52</PriceUpdateDate>
+      <ItemCode>4135324</ItemCode>
+      <ItemType>0</ItemType>
+      <ItemName>פיראוס בולגרית 5% מעודנת</ItemName>
+      <ManufactureName>תנובה - חלב</ManufactureName>
+      <ManufactureCountry />
+      <ManufactureItemDescription />
+      <UnitQty>ק"ג</UnitQty>
+      <Quantity>10</Quantity>
+      <UnitMeasure>100 גרם</UnitMeasure>
+      <BisWeighted>1</BisWeighted>
+      <QtyInPackage>1</QtyInPackage>
+      <ItemPrice>29</ItemPrice>
+      <UnitOfMeasurePrice>2.90</UnitOfMeasurePrice>
+      <AllowDiscount>0</AllowDiscount>
+      <itemStatus>1</itemStatus>
+      <LastUpdateDate />
+      <LastUpdateTime />
+    </Product>
+  </Products>
+</Prices>

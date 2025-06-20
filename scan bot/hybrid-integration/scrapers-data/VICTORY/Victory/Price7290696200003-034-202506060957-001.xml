@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Prices>
+  <ChainID>7290696200003</ChainID>
+  <SubChainID>001</SubChainID>
+  <StoreID>034</StoreID>
+  <BikoretNo>000</BikoretNo>
+  <Products>
+    <Product>
+      <PriceUpdateDate>2025/06/06 09:18</PriceUpdateDate>
+      <ItemCode>4135324</ItemCode>
+      <ItemType>0</ItemType>
+      <ItemName>פיראוס בולגרית 5% מעודנת</ItemName>
+      <ManufactureName>תנובה - חלב</ManufactureName>
+      <ManufactureCountry />
+      <ManufactureItemDescription />
+      <UnitQty>ק"ג</UnitQty>
+      <Quantity>1000</Quantity>
+      <UnitMeasure>גרם</UnitMeasure>
+      <BisWeighted>1</BisWeighted>
+      <QtyInPackage>1</QtyInPackage>
+      <ItemPrice>29</ItemPrice>
+      <UnitOfMeasurePrice>2.90</UnitOfMeasurePrice>
+      <AllowDiscount>0</AllowDiscount>
+      <itemStatus>1</itemStatus>
+      <LastUpdateDate />
+      <LastUpdateTime />
+    </Product>
+    <Product>
+      <PriceUpdateDate>2025/06/06 09:17</PriceUpdateDate>
+      <ItemCode>7290000134550</ItemCode>
+      <ItemType>1</ItemType>
+      <ItemName>עלי דפנה 20 גר`</ItemName>
+      <ManufactureName>תבליני טעם וריח בעמ</ManufactureName>
+      <ManufactureCountry />
+      <ManufactureItemDescription />
+      <UnitQty>יח`</UnitQty>
+      <Quantity>20</Quantity>
+      <UnitMeasure>גרם</UnitMeasure>
+      <BisWeighted>0</BisWeighted>
+      <QtyInPackage>1</QtyInPackage>
+      <ItemPrice>8.90</ItemPrice>
+      <UnitOfMeasurePrice>44.50</UnitOfMeasurePrice>
+      <AllowDiscount>0</AllowDiscount>
+      <itemStatus>1</itemStatus>
+      <LastUpdateDate />
+      <LastUpdateTime />
+    </Product>
+    <Product>
+      <PriceUpdateDate>2025/06/06 09:17</PriceUpdateDate>
+      <ItemCode>7290000134871</ItemCode>
+      <ItemType>1</ItemType>
+      <ItemName>פלפל שחור טחון 100 גר`</ItemName>
+      <ManufactureName>תבליני טעם וריח בעמ</ManufactureName>
+      <ManufactureCountry />
+      <ManufactureItemDescription />
+      <UnitQty>יח`</UnitQty>
+      <Quantity>100</Quantity>
+      <UnitMeasure>גרם</UnitMeasure>
+      <BisWeighted>0</BisWeighted>
+      <QtyInPackage>1</QtyInPackage>
+      <ItemPrice>17.90</ItemPrice>
+      <UnitOfMeasurePrice>17.90</UnitOfMeasurePrice>
+      <AllowDiscount>0</AllowDiscount>
+      <itemStatus>1</itemStatus>
+      <LastUpdateDate />
+      <LastUpdateTime />
+    </Product>
+    <Product>
+      <PriceUpdateDate>2025/06/06 09:17</PriceUpdateDate>
+      <ItemCode>7290000134970</ItemCode>
+      <ItemType>1</ItemType>
+      <ItemName> חוואיג`100 גר`</ItemName>
+      <ManufactureName>תבליני טעם וריח בעמ</ManufactureName>
+      <ManufactureCountry />
+      <ManufactureItemDescription />
+      <UnitQty>יח`</UnitQty>
+      <Quantity>100</Quantity>
+      <UnitMeasure>גרם</UnitMeasure>
+      <BisWeighted>0</BisWeighted>
+      <QtyInPackage>1</QtyInPackage>
+      <ItemPrice>12.90</ItemPrice>
+      <UnitOfMeasurePrice>12.90</UnitOfMeasurePrice>
+      <AllowDiscount>0</AllowDiscount>
+      <itemStatus>1</itemStatus>
+      <LastUpdateDate />
+      <LastUpdateTime />
+    </Product>
+    <Product>
+      <PriceUpdateDate>2025/06/06 09:17</PriceUpdateDate>
+      <ItemCode>7290000134987</ItemCode>
+      <ItemType>1</ItemType>
+      <ItemName>פלפל שחור גרוס 90 גר`</ItemName>
+      <ManufactureName>תבליני טעם וריח בעמ</ManufactureName>
+      <ManufactureCountry />
+      <ManufactureItemDescription />
+      <UnitQty>יח`</UnitQty>
+      <Quantity>90</Quantity>
+      <UnitMeasure>גרם</UnitMeasure>
+      <BisWeighted>0</BisWeighted>
+      <QtyInPackage>1</QtyInPackage>
+      <ItemPrice>17.90</ItemPrice>
+      <UnitOfMeasurePrice>19.89</UnitOfMeasurePrice>
+      <AllowDiscount>0</AllowDiscount>
+      <itemStatus>1</itemStatus>
+      <LastUpdateDate />
+      <LastUpdateTime />
+    </Product>
+    <Product>
+      <PriceUpdateDate>2025/06/06 09:17</PriceUpdateDate>
+      <ItemCode>7290002517825</ItemCode>
+      <ItemType>1</ItemType>
+      <ItemName>פלפל לבן טחון 40 גר`</ItemName>
+      <ManufactureName>תבליני טעם וריח בעמ</ManufactureName>
+      <ManufactureCountry />
+      <ManufactureItemDescription />
+      <UnitQty>יח`</UnitQty>
+      <Quantity>40</Quantity>
+      <UnitMeasure>גרם</UnitMeasure>
+      <BisWeighted>0</BisWeighted>
+      <QtyInPackage>1</QtyInPackage>
+      <ItemPrice>11.90</ItemPrice>
+      <UnitOfMeasurePrice>29.75</UnitOfMeasurePrice>
+      <AllowDiscount>0</AllowDiscount>
+      <itemStatus>1</itemStatus>
+      <LastUpdateDate />
+      <LastUpdateTime />
+    </Product>
+    <Product>
+      <PriceUpdateDate>2025/06/06 09:17</PriceUpdateDate>
+      <ItemCode>7290011964344</ItemCode>
+      <ItemType>1</ItemType>
+      <ItemName>שום גבישי 120 גר`</ItemName>
+      <ManufactureName>תבליני טעם וריח בעמ</ManufactureName>
+      <ManufactureCountry />
+      <ManufactureItemDescription />
+      <UnitQty>יח`</UnitQty>
+      <Quantity>120</Quantity>
+      <UnitMeasure>גרם</UnitMeasure>
+      <BisWeighted>0</BisWeighted>
+      <QtyInPackage>1</QtyInPackage>
+      <ItemPrice>12.90</ItemPrice>
+      <UnitOfMeasurePrice>10.75</UnitOfMeasurePrice>
+      <AllowDiscount>0</AllowDiscount>
+      <itemStatus>1</itemStatus>
+      <LastUpdateDate />
+      <LastUpdateTime />
+    </Product>
+    <Product>
+      <PriceUpdateDate>2025/06/06 09:17</PriceUpdateDate>
+      <ItemCode>7290014217201</ItemCode>
+      <ItemType>1</ItemType>
+      <ItemName>סומק 45 גר`</ItemName>
+      <ManufactureName>תבליני טעם וריח בעמ</ManufactureName>
+      <ManufactureCountry />
+      <ManufactureItemDescription />
+      <UnitQty>יח`</UnitQty>
+      <Quantity>45</Quantity>
+      <UnitMeasure>גרם</UnitMeasure>
+      <BisWeighted>0</BisWeighted>
+      <QtyInPackage>1</QtyInPackage>
+      <ItemPrice>9.90</ItemPrice>
+      <UnitOfMeasurePrice>22</UnitOfMeasurePrice>
+      <AllowDiscount>0</AllowDiscount>
+      <itemStatus>1</itemStatus>
+      <LastUpdateDate />
+      <LastUpdateTime />
+    </Product>
+    <Product>
+      <PriceUpdateDate>2025/06/06 09:17</PriceUpdateDate>
+      <ItemCode>7290014217522</ItemCode>
+      <ItemType>1</ItemType>
+      <ItemName>לחם שום תערובת מיכל 100  גר`טעם וריח</ItemName>
+      <ManufactureName>תבליני טעם וריח בעמ</ManufactureName>
+      <ManufactureCountry />
+      <ManufactureItemDescription />
+      <UnitQty>יח`</UnitQty>
+      <Quantity>100</Quantity>
+      <UnitMeasure>גרם</UnitMeasure>
+      <BisWeighted>0</BisWeighted>
+      <QtyInPackage>1</QtyInPackage>
+      <ItemPrice>12.90</ItemPrice>
+      <UnitOfMeasurePrice>12.90</UnitOfMeasurePrice>
+      <AllowDiscount>0</AllowDiscount>
+      <itemStatus>1</itemStatus>
+      <LastUpdateDate />
+      <LastUpdateTime />
+    </Product>
+    <Product>
+      <PriceUpdateDate>2025/06/06 09:17</PriceUpdateDate>
+      <ItemCode>7290015324007</ItemCode>
+      <ItemType>1</ItemType>
+      <ItemName>פלפל שחור גרוס 80 גר`</ItemName>
+      <ManufactureName>תבליני טעם וריח בעמ</ManufactureName>
+      <ManufactureCountry />
+      <ManufactureItemDescription />
+      <UnitQty>יח`</UnitQty>
+      <Quantity>80</Quantity>
+      <UnitMeasure>גרם</UnitMeasure>
+      <BisWeighted>0</BisWeighted>
+      <QtyInPackage>1</QtyInPackage>
+      <ItemPrice>12.90</ItemPrice>
+      <UnitOfMeasurePrice>16.13</UnitOfMeasurePrice>
+      <AllowDiscount>0</AllowDiscount>
+      <itemStatus>1</itemStatus>
+      <LastUpdateDate />
+      <LastUpdateTime />
+    </Product>
+    <Product>
+      <PriceUpdateDate>2025/06/06 09:17</PriceUpdateDate>
+      <ItemCode>7290015324014</ItemCode>
+      <ItemType>1</ItemType>
+      <ItemName>פלפל שחור טחון 80 גר`</ItemName>
+      <ManufactureName>תבליני טעם וריח בעמ</ManufactureName>
+      <ManufactureCountry />
+      <ManufactureItemDescription />
+      <UnitQty>יח`</UnitQty>
+      <Quantity>80</Quantity>
+      <UnitMeasure>גרם</UnitMeasure>
+      <BisWeighted>0</BisWeighted>
+      <QtyInPackage>1</QtyInPackage>
+      <ItemPrice>12.90</ItemPrice>
+      <UnitOfMeasurePrice>16.13</UnitOfMeasurePrice>
+      <AllowDiscount>0</AllowDiscount>
+      <itemStatus>1</itemStatus>
+      <LastUpdateDate />
+      <LastUpdateTime />
+    </Product>
+    <Product>
+      <PriceUpdateDate>2025/06/06 09:17</PriceUpdateDate>
+      <ItemCode>7290015324076</ItemCode>
+      <ItemType>1</ItemType>
+      <ItemName>זעתר מעורב 80 גר`</ItemName>
+      <ManufactureName>תבליני טעם וריח בעמ</ManufactureName>
+      <ManufactureCountry />
+      <ManufactureItemDescription />
+      <UnitQty>יח`</UnitQty>
+      <Quantity>80</Quantity>
+      <UnitMeasure>גרם</UnitMeasure>
+      <BisWeighted>0</BisWeighted>
+      <QtyInPackage>1</QtyInPackage>
+      <ItemPrice>8.90</ItemPrice>
+      <UnitOfMeasurePrice>11.13</UnitOfMeasurePrice>
+      <AllowDiscount>0</AllowDiscount>
+      <itemStatus>1</itemStatus>
+      <LastUpdateDate />
+      <LastUpdateTime />
+    </Product>
+    <Product>
+      <PriceUpdateDate>2025/06/06 09:17</PriceUpdateDate>
+      <ItemCode>7290015324106</ItemCode>
+      <ItemType>1</ItemType>
+      <ItemName>כורכום טחון 80 גר`</ItemName>
+      <ManufactureName>תבליני טעם וריח בעמ</ManufactureName>
+      <ManufactureCountry />
+      <ManufactureItemDescription />
+      <UnitQty>יח`</UnitQty>
+      <Quantity>80</Quantity>
+      <UnitMeasure>גרם</UnitMeasure>
+      <BisWeighted>0</BisWeighted>
+      <QtyInPackage>1</QtyInPackage>
+      <ItemPrice>8.90</ItemPrice>
+      <UnitOfMeasurePrice>11.13</UnitOfMeasurePrice>
+      <AllowDiscount>0</AllowDiscount>
+      <itemStatus>1</itemStatus>
+      <LastUpdateDate />
+      <LastUpdateTime />
+    </Product>
+    <Product>
+      <PriceUpdateDate>2025/06/06 09:17</PriceUpdateDate>
+      <ItemCode>7290015324120</ItemCode>
+      <ItemType>1</ItemType>
+      <ItemName>שום גבישי 80 גר`</ItemName>
+      <ManufactureName>תבליני טעם וריח בעמ</ManufactureName>
+      <ManufactureCountry />
+      <ManufactureItemDescription />
+      <UnitQty>יח`</UnitQty>
+      <Quantity>80</Quantity>
+      <UnitMeasure>גרם</UnitMeasure>
+      <BisWeighted>0</BisWeighted>
+      <QtyInPackage>1</QtyInPackage>
+      <ItemPrice>8.90</ItemPrice>
+      <UnitOfMeasurePrice>11.13</UnitOfMeasurePrice>
+      <AllowDiscount>0</AllowDiscount>
+      <itemStatus>1</itemStatus>
+      <LastUpdateDate />
+      <LastUpdateTime />
+    </Product>
+    <Product>
+      <PriceUpdateDate>2025/06/06 09:17</PriceUpdateDate>
+      <ItemCode>7290015324571</ItemCode>
+      <ItemType>1</ItemType>
+      <ItemName>פפריקה מתוקה בשמן בסגנון מרוקאי 400 גר`</ItemName>
+      <ManufactureName>תבליני טעם וריח בעמ</ManufactureName>
+      <ManufactureCountry />
+      <ManufactureItemDescription />
+      <UnitQty>יח`</UnitQty>
+      <Quantity>400</Quantity>
+      <UnitMeasure>גרם</UnitMeasure>
+      <BisWeighted>0</BisWeighted>
+      <QtyInPackage>1</QtyInPackage>
+      <ItemPrice>19.90</ItemPrice>
+      <UnitOfMeasurePrice>4.98</UnitOfMeasurePrice>
+      <AllowDiscount>0</AllowDiscount>
+      <itemStatus>1</itemStatus>
+      <LastUpdateDate />
+      <LastUpdateTime />
+    </Product>
+  </Products>
+</Prices>

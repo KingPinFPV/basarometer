@@ -1,0 +1,48 @@
+﻿<Root>
+  <XmlDocVersion>19</XmlDocVersion>
+  <ChainId>7290055700007</ChainId>
+  <SubChainId>1</SubChainId>
+  <StoreId>0121</StoreId>
+  <BikoretNo>9</BikoretNo>
+  <DllVerNo>9.4.0.53</DllVerNo>
+  <Items Count="2">
+    <Item>
+      <PriceUpdateDate>2025-05-14 12:31:46</PriceUpdateDate>
+      <ItemCode>7290000009350</ItemCode>
+      <ItemType>1</ItemType>
+      <ItemName>בשר טחון טרי לה מרשה</ItemName>
+      <ManufacturerName>לא ידוע</ManufacturerName>
+      <ManufactureCountry>לא ידוע</ManufactureCountry>
+      <ManufacturerItemDescription>בשר טחון טרי לה מרשה</ManufacturerItemDescription>
+      <UnitQty>קילוגרמים</UnitQty>
+      <Quantity>1.00</Quantity>
+      <UnitOfMeasure>ק"ג</UnitOfMeasure>
+      <bIsWeighted>1</bIsWeighted>
+      <QtyInPackage>לא ידוע</QtyInPackage>
+      <ItemPrice>69.90</ItemPrice>
+      <UnitOfMeasurePrice>69.9000</UnitOfMeasurePrice>
+      <AllowDiscount>1</AllowDiscount>
+      <ItemStatus>1</ItemStatus>
+      <ItemId>41007</ItemId>
+    </Item>
+    <Item>
+      <PriceUpdateDate>2025-05-14 12:31:46</PriceUpdateDate>
+      <ItemCode>7290000009362</ItemCode>
+      <ItemType>1</ItemType>
+      <ItemName>צלי כתף טרי לה מרשה</ItemName>
+      <ManufacturerName>לא ידוע</ManufacturerName>
+      <ManufactureCountry>לא ידוע</ManufactureCountry>
+      <ManufacturerItemDescription>צלי כתף טרי לה מרשה</ManufacturerItemDescription>
+      <UnitQty>קילוגרמים</UnitQty>
+      <Quantity>1.00</Quantity>
+      <UnitOfMeasure>ק"ג</UnitOfMeasure>
+      <bIsWeighted>1</bIsWeighted>
+      <QtyInPackage>לא ידוע</QtyInPackage>
+      <ItemPrice>119.90</ItemPrice>
+      <UnitOfMeasurePrice>119.9000</UnitOfMeasurePrice>
+      <AllowDiscount>1</AllowDiscount>
+      <ItemStatus>1</ItemStatus>
+      <ItemId>48726</ItemId>
+    </Item>
+  </Items>
+</Root>

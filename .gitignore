@@ -1,0 +1,439 @@
+# 🔐 Basarometer Security .gitignore
+# Created: June 20, 2025
+# Purpose: Protect sensitive data before Git initialization
+
+# =============================================
+# 🚨 CRITICAL SECURITY FILES - NEVER COMMIT
+# =============================================
+
+# Environment Variables & Configuration
+.env*
+!.env.example
+!.env.auth.example
+*.env
+*.env.*
+
+# Authentication & Session Data
+auth.json
+cookies.json
+**/auth.json
+**/cookies.json
+
+# Browser Session Data
+user-data-dir/
+**/user-data-dir/
+Default/
+**/Default/
+BrowserMetrics/
+**/BrowserMetrics/
+GrShaderCache/
+**/GrShaderCache/
+GraphiteDawnCache/
+**/GraphiteDawnCache/
+ShaderCache/
+**/ShaderCache/
+
+# API Keys & Secrets
+*secret*
+*key*
+*password*
+*token*
+*credential*
+*auth*
+**/*secret*
+**/*key*
+**/*password*
+**/*token*
+**/*credential*
+**/*auth*
+
+# Supabase & Database Credentials
+supabase/config.toml
+**/.supabase/
+**/supabase/config.toml
+
+# =============================================
+# 📱 SCANNER SYSTEM SENSITIVE DATA
+# =============================================
+
+# Scanner Configuration
+**/config/*secret*
+**/config/*key*
+**/config/*auth*
+**/config/*password*
+
+# Scanner Output & Debug Data
+**/debug/
+**/screenshots/
+debug-*.png
+error-*.png
+**/debug-*.png
+**/error-*.png
+
+# Scanner Backup Data
+**/backup/
+**/backups/
+backup*/
+backups*/
+
+# Browser Automation Data
+**/downloads/
+downloads/
+**/temp/
+temp/
+tmp/
+
+# =============================================
+# 🔧 DEVELOPMENT & BUILD FILES
+# =============================================
+
+# Dependencies
+node_modules/
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build Outputs
+.next/
+out/
+dist/
+build/
+**/dist/
+**/build/
+**/.next/
+
+# TypeScript
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+**/tsconfig.tsbuildinfo
+
+# =============================================
+# 📊 LOGS & MONITORING
+# =============================================
+
+# Log Files
+logs/
+**/logs/
+*.log
+**/*.log
+logging.log
+**/logging.log
+
+# Debug & Error Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime Logs
+api_fix_upload.log
+final_upload.log
+**/api_fix_upload.log
+**/final_upload.log
+
+# =============================================
+# 🗃️ DATABASE & DATA FILES
+# =============================================
+
+# Database Files
+*.db
+*.sqlite
+*.sqlite3
+**/*.db
+**/*.sqlite
+**/*.sqlite3
+
+# Data Dumps & Exports
+*.sql
+dumps/
+**/dumps/
+*.csv
+*.json
+!package.json
+!package-lock.json
+!**/package.json
+!**/package-lock.json
+
+# Exclude specific output files
+output/
+**/output/
+analysis-results/
+**/analysis-results/
+
+# =============================================
+# 🖥️ SYSTEM & OS FILES
+# =============================================
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+
+# =============================================
+# 🛠️ IDE & EDITOR FILES
+# =============================================
+
+# VSCode
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# =============================================
+# 🧪 TESTING & COVERAGE
+# =============================================
+
+# Test Coverage
+coverage/
+**/coverage/
+.nyc_output/
+**/.nyc_output/
+
+# Test Results
+test-results/
+**/test-results/
+junit.xml
+**/junit.xml
+
+# =============================================
+# 📦 PACKAGE MANAGERS
+# =============================================
+
+# Yarn
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# PNPM
+.pnpm-store/
+**/pnpm-lock.yaml
+
+# =============================================
+# 🏭 DEPLOYMENT & CI/CD
+# =============================================
+
+# Vercel
+.vercel/
+
+# Netlify
+.netlify/
+
+# Docker
+Dockerfile.local
+docker-compose.override.yml
+
+# =============================================
+# 🔬 ANALYSIS & REPORTS
+# =============================================
+
+# Documentation Reports
+documentation-audit-*.json
+documentation-validation-report-*.json
+eight-network-deployment-report.json
+**/documentation-audit-*.json
+**/documentation-validation-report-*.json
+**/eight-network-deployment-report.json
+
+# Analysis Results
+analysis_results.json
+enhanced_system_validation_report.json
+**/analysis_results.json
+**/enhanced_system_validation_report.json
+
+# =============================================
+# 🌐 WEB & BROWSER AUTOMATION
+# =============================================
+
+# Browser Cache & Data
+chromium/
+**/chromium/
+chrome/
+**/chrome/
+firefox/
+**/firefox/
+
+# Browser Extensions & Cache
+extensions_crx_cache/
+component_crx_cache/
+**/extensions_crx_cache/
+**/component_crx_cache/
+
+# =============================================
+# 🐍 PYTHON VIRTUAL ENVIRONMENTS
+# =============================================
+
+# Virtual Environments
+venv/
+**/venv/
+.venv/
+**/.venv/
+env/
+**/env/
+.env/
+**/.env/
+
+# Python Cache
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+**/*.pyc
+**/*.pyo
+**/*.pyd
+
+# =============================================
+# 📱 MOBILE & HYBRID DEVELOPMENT
+# =============================================
+
+# React Native
+.expo/
+.expo-shared/
+
+# Capacitor
+.capacitor/
+capacitor.config.json.backup
+
+# =============================================
+# 🔐 SECURITY SCANNERS & TOOLS
+# =============================================
+
+# Security Tools
+.snyk
+security-report.json
+**/security-report.json
+
+# Dependency Vulnerability Reports
+audit-report.json
+**/audit-report.json
+
+# =============================================
+# 🎯 PROJECT SPECIFIC EXCLUSIONS
+# =============================================
+
+# Basarometer Specific Files
+BASAROMETER_MASTER_CONTEXT.md
+deploy-eight-networks.js
+documentation_audit_v6.js
+documentation_validation_v6.js
+
+# Temporary Project Directories
+"scan bot/"
+"test bot/"
+v3/supabase/
+temp/
+
+# Specific Auth Documentation (potentially sensitive)
+v3/auth/README.md
+
+# =============================================
+# ✅ IMPORTANT FILES TO INCLUDE
+# =============================================
+
+# Force include important configuration templates
+!.env.example
+!.env.auth.example
+!package.json
+!package-lock.json
+!tsconfig.json
+!next.config.ts
+!tailwind.config.ts
+!eslint.config.mjs
+!README.md
+!CHANGELOG.md
+!LICENSE
+
+# Force include important source directories
+!src/
+!components/
+!pages/
+!public/
+!styles/
+!utils/
+!hooks/
+!lib/
+!types/
+
+# =============================================
+# 🚨 EMERGENCY PATTERNS - HIGH RISK
+# =============================================
+
+# Patterns that indicate leaked secrets
+*eyJ*
+*sk_*
+*pk_*
+*AKIA*
+*ASIA*
+*ghp_*
+*gho_*
+*github_pat_*
+*glpat-*
+*xoxb-*
+*xoxp-*
+*xapp-*
+*xoxs-*
+
+# Database Connection Strings
+*postgresql://*
+*postgres://*
+*mongodb://*
+*mysql://*
+*redis://*
+*sqlite://*
+
+# =============================================
+# 📝 NOTES FOR DEVELOPERS
+# =============================================
+
+# This .gitignore is designed to protect against:
+# 1. Accidental commit of API keys and secrets
+# 2. Browser session data and authentication tokens
+# 3. Scanner output that may contain sensitive data
+# 4. Database credentials and connection strings
+# 5. Environment-specific configuration files
+# 6. Large binary files and generated content
+# 7. Personal development files and IDE settings
+
+# Before committing, always:
+# 1. Check 'git status' carefully
+# 2. Review 'git diff --cached' before commit
+# 3. Use 'git add -i' for selective staging
+# 4. Never use 'git add .' or 'git add -A' blindly
+
+# To add exceptions, use '!' prefix in this file
+# Example: !important-config.json
+
+# Last Updated: June 20, 2025
+# Basarometer Security Team
