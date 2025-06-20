@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useAuth } from '@/hooks/useAuth'
 import { LoginModal } from './LoginModal'
 import { SignupModal } from './SignupModal'
-import { User, LogIn, UserPlus, LogOut, Loader2 } from 'lucide-react'
+import { User, LogIn, UserPlus, LogOut, Loader2, Settings } from 'lucide-react'
 
 interface AuthButtonProps {
   className?: string
@@ -90,6 +90,20 @@ export function AuthButton({
             </span>
           )}
         </div>
+
+        {/* Change Password Link */}
+        <a
+          href="/change-password"
+          className={`
+            flex items-center space-x-1 rtl:space-x-reverse ${sizeClasses[size]}
+            text-gray-600 hover:text-gray-800 hover:bg-gray-50 
+            rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500
+          `}
+          title="שנה סיסמה"
+        >
+          <Settings className={iconSizeClasses[size]} />
+          {showText && <span>שנה סיסמה</span>}
+        </a>
 
         {/* Logout Button */}
         <button
