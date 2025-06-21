@@ -168,12 +168,12 @@ export async function GET(request: NextRequest) {
     let scannerData: any[] = []
     let scannerProducts: any[] = []
     try {
-      const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+      const sixtyDaysAgo = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString()
       const { data: scanData, error: scanError } = await supabase
         .from('scanner_products')
         .select('*')
         .eq('is_valid', true)
-        .gte('scan_timestamp', sevenDaysAgo)
+        .gte('scan_timestamp', sixtyDaysAgo)
 
       if (!scanError && scanData) {
         scannerData = scanData

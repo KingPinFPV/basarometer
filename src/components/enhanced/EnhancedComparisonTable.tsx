@@ -133,16 +133,19 @@ export default function EnhancedComparisonTable() {
         name_hebrew: meat.name_hebrew,
         name_english: meat.name_english,
         quality_tier: meat.quality_grades?.[0]?.tier || 'regular',
-        best_price: bestPrice,
-        worst_price: worstPrice,
-        avg_price: avgPrice,
-        trend: meat.trending_direction || 'stable',
-        availability: Object.keys(networkPrices).length,
+        best_price: bestPrice || meat.price_data?.avg_price || 0,
+        worst_price: worstPrice || meat.price_data?.max_price || 0,
+        avg_price: avgPrice || meat.price_data?.avg_price || 0,
+        trend: meat.trending_direction || meat.price_data?.price_trend || 'stable',
+        availability: Math.max(Object.keys(networkPrices).length, meat.market_metrics?.coverage_percentage || 0),
         is_popular: meat.is_popular,
         network_prices: networkPrices,
         savings_potential: savingsPotential
       } as EnhancedProduct
-    }).filter(product => product.availability > 0)
+    })
+    // FIXED: Show all products, including those without network prices (scanner products)
+    // Only filter out products with no price data at all
+    .filter(product => product.best_price > 0 || product.avg_price > 0 || Object.keys(product.network_prices).length > 0)
   }, [enhancedMeatData, priceMatrix])
 
   // Filter and sort products
