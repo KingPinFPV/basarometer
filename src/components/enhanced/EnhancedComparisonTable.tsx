@@ -22,8 +22,7 @@ import {
   Mic,
   MicOff
 } from 'lucide-react'
-import { useEnhancedMeatData } from '@/hooks/useEnhancedMeatData'
-import { usePriceMatrixData } from '@/hooks/usePriceMatrixData'
+import { useUnifiedComparisonData } from '@/hooks/useUnifiedComparisonData'
 
 interface FilterState {
   search: string
@@ -40,6 +39,7 @@ interface EnhancedProduct {
   id: string
   name_hebrew: string
   name_english: string
+  category: string
   quality_tier: string
   best_price: number
   worst_price: number
@@ -49,6 +49,9 @@ interface EnhancedProduct {
   is_popular: boolean
   network_prices: Record<string, number>
   savings_potential: number
+  confidence_score: number
+  matched_products: number
+  networks_available: string[]
 }
 
 const NETWORKS = [
@@ -89,17 +92,14 @@ export default function EnhancedComparisonTable() {
   const [voiceSupported, setVoiceSupported] = useState(false)
   const searchInputRef = useRef<HTMLInputElement>(null)
 
-  // Enhanced hooks for real market data
+  // Unified comparison data with intelligent product matching
   const { 
-    enhancedMeatData, 
+    unifiedProducts,
+    unificationStats, 
     marketInsights,
-    loading: meatLoading 
-  } = useEnhancedMeatData()
-  
-  const { 
-    priceMatrix, 
-    loading: priceLoading 
-  } = usePriceMatrixData()
+    loading,
+    error: unificationError
+  } = useUnifiedComparisonData()
 
   // Check for voice recognition support
   useEffect(() => {
@@ -107,46 +107,17 @@ export default function EnhancedComparisonTable() {
       ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window))
   }, [])
 
-  // Process data into enhanced product format
+  // Use unified products that are already processed and grouped
   const enhancedProducts = useMemo(() => {
-    if (!enhancedMeatData || !priceMatrix) return []
+    if (!unifiedProducts) return []
     
-    return enhancedMeatData.map(meat => {
-      const networkPrices: Record<string, number> = {}
-      const priceData = priceMatrix[meat.id] || {}
-      
-      NETWORKS.forEach(network => {
-        const price = priceData[network.id]
-        if (typeof price === 'number' && !isNaN(price)) {
-          networkPrices[network.id] = price
-        }
-      })
-      
-      const prices = Object.values(networkPrices).filter(p => p > 0)
-      const bestPrice = prices.length > 0 ? Math.min(...prices) : 0
-      const worstPrice = prices.length > 0 ? Math.max(...prices) : 0
-      const avgPrice = prices.length > 0 ? prices.reduce((sum, p) => sum + p, 0) / prices.length : 0
-      const savingsPotential = worstPrice > 0 ? ((worstPrice - bestPrice) / worstPrice) * 100 : 0
-      
-      return {
-        id: meat.id,
-        name_hebrew: meat.name_hebrew,
-        name_english: meat.name_english,
-        quality_tier: meat.quality_grades?.[0]?.tier || 'regular',
-        best_price: bestPrice || meat.price_data?.avg_price || 0,
-        worst_price: worstPrice || meat.price_data?.max_price || 0,
-        avg_price: avgPrice || meat.price_data?.avg_price || 0,
-        trend: meat.trending_direction || meat.price_data?.price_trend || 'stable',
-        availability: Math.max(Object.keys(networkPrices).length, meat.market_metrics?.coverage_percentage || 0),
-        is_popular: meat.is_popular,
-        network_prices: networkPrices,
-        savings_potential: savingsPotential
-      } as EnhancedProduct
-    })
-    // FIXED: Show all products, including those without network prices (scanner products)
-    // Only filter out products with no price data at all
-    .filter(product => product.best_price > 0 || product.avg_price > 0 || Object.keys(product.network_prices).length > 0)
-  }, [enhancedMeatData, priceMatrix])
+    // Convert unified products to match the expected interface
+    return unifiedProducts.map(product => ({
+      ...product,
+      // Ensure compatibility with existing interface
+      quality_tier: product.quality_tier || 'regular'
+    }))
+  }, [unifiedProducts])
 
   // Filter and sort products
   const filteredProducts = useMemo(() => {
@@ -287,14 +258,20 @@ export default function EnhancedComparisonTable() {
     }
   }
 
-  const loading = meatLoading || priceLoading
+  // Error handling for unification process
+  useEffect(() => {
+    if (unificationError) {
+      console.error('Product unification error:', unificationError)
+    }
+  }, [unificationError])
 
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64" dir="rtl">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">טוען מטריצת השוואה חכמה...</p>
+          <p className="text-gray-600">מקבץ מוצרים זהים ויוצר השוואה מאוחדת...</p>
+          <p className="text-sm text-gray-500 mt-2">מעבד נתונים בעברית עם אלגוריתם התאמה חכם</p>
         </div>
       </div>
     )
@@ -307,13 +284,18 @@ export default function EnhancedComparisonTable() {
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-gray-900 mb-2">
-              מטריצת השוואה חכמה
+              מטריצת השוואה מאוחדת חכמה
             </h1>
             <p className="text-gray-600">
-              {filteredProducts.length} מוצרים זמינים • 
-              {marketInsights?.active_retailers || 8} רשתות • 
-              עדכון אחרון: כעת
+              {filteredProducts.length} מוצרים מאוחדים • 
+              {unificationStats?.networks_covered || 8} רשתות • 
+              {unificationStats?.duplication_reduction || 0}% צמצום כפילויות
             </p>
+            {unificationStats && (
+              <p className="text-sm text-blue-600 mt-1">
+                ⚡ קיבצנו {unificationStats.total_raw_products} מוצרים ל-{unificationStats.unified_products} קבוצות השוואה
+              </p>
+            )}
           </div>
           
           {/* Quick Stats */}
@@ -650,11 +632,31 @@ function EnhancedProductCard({
           </div>
         </div>
 
-        {/* Network Availability */}
+        {/* Network Availability & Matching Info */}
         <div className="flex justify-between items-center mb-3">
-          <span className="text-sm text-gray-600">
-            זמין ב-{product.availability} רשתות
-          </span>
+          <div className="text-sm">
+            <span className="text-gray-600">
+              זמין ב-{product.availability} רשתות
+            </span>
+            {product.matched_products > 1 && (
+              <span className="text-blue-600 mr-2 font-medium">
+                • קיבוץ {product.matched_products} מוצרים
+              </span>
+            )}
+            {product.confidence_score && (
+              <span 
+                className={`text-xs px-2 py-1 rounded-full mr-2 ${
+                  product.confidence_score > 0.8 
+                    ? 'bg-green-100 text-green-700' 
+                    : product.confidence_score > 0.6
+                    ? 'bg-yellow-100 text-yellow-700'
+                    : 'bg-gray-100 text-gray-600'
+                }`}
+              >
+                {Math.round(product.confidence_score * 100)}% דיוק
+              </span>
+            )}
+          </div>
           <button
             onClick={onToggleExpand}
             className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
