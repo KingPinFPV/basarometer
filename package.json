@@ -3,7 +3,14 @@
   "version": "5.2.0",
   "private": true,
   "description": "🇮🇱 Israel's Most Advanced Food Intelligence Platform - מערכת אינטליגנציה מתקדמת למזון",
-  "keywords": ["israeli-market", "meat-prices", "hebrew-excellence", "enhanced-intelligence", "food-tech", "market-analysis"],
+  "keywords": [
+    "israeli-market",
+    "meat-prices",
+    "hebrew-excellence",
+    "enhanced-intelligence",
+    "food-tech",
+    "market-analysis"
+  ],
   "author": "Basarometer Team",
   "homepage": "https://v3.basarometer.org",
   "repository": {
@@ -23,6 +30,7 @@
   "dependencies": {
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.49.9",
+    "autoprefixer": "^10.4.21",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.511.0",
     "next": "15.3.3",
