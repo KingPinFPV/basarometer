@@ -9,7 +9,12 @@ interface ModalPortalProps {
 }
 
 const ModalPortal = React.memo(function ModalPortal({ children, isOpen }: ModalPortalProps) {
-  // Don't render anything if modal is closed
+  // ✅ ALL HOOKS MUST BE CALLED FIRST, UNCONDITIONALLY
+  const handleClick = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation()
+  }, [])
+  
+  // ✅ Early returns AFTER all hooks
   if (!isOpen) {
     return null
   }
@@ -18,10 +23,6 @@ const ModalPortal = React.memo(function ModalPortal({ children, isOpen }: ModalP
   if (typeof window === 'undefined') {
     return null
   }
-  
-  const handleClick = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation()
-  }, [])
   
   // Render directly to document.body - escapes any container constraints
   return createPortal(

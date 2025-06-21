@@ -28,7 +28,7 @@ const getSupabaseClient = (): SupabaseClient => {
       }
     })
     
-    console.log('🔧 Supabase client initialized (singleton)')
+    // Client initialized successfully
   }
   
   return supabaseInstance

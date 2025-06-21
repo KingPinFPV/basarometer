@@ -21,18 +21,18 @@ const AuthButton = React.memo(function AuthButton({
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [showSignupModal, setShowSignupModal] = useState(false)
 
-  // Memoized size classes
-  const sizeClasses = useMemo(() => ({
+  // ✅ Static objects outside component or as constants
+  const sizeClasses = {
     sm: 'px-2 py-1 text-xs',
     md: 'px-3 py-2 text-sm',
     lg: 'px-4 py-3 text-base'
-  }), [])
+  }
 
-  const iconSizeClasses = useMemo(() => ({
+  const iconSizeClasses = {
     sm: 'w-3 h-3',
     md: 'w-4 h-4',
     lg: 'w-5 h-5'
-  }), [])
+  }
 
   const handleSignOut = useCallback(async () => {
     try {
@@ -60,6 +60,14 @@ const AuthButton = React.memo(function AuthButton({
     setShowLoginModal(true)
   }, [])
 
+  // ✅ ALL HOOKS MUST BE CALLED FIRST, UNCONDITIONALLY
+  // Memoized display name
+  const displayName = useMemo(() => {
+    if (!user) return 'משתמש'
+    return user.user_metadata?.full_name || user.email?.split('@')[0] || 'משתמש'
+  }, [user])
+
+  // ✅ Early returns AFTER all hooks
   // Loading state
   if (loading) {
     return (
@@ -69,12 +77,6 @@ const AuthButton = React.memo(function AuthButton({
       </div>
     )
   }
-
-  // Memoized display name
-  const displayName = useMemo(() => {
-    if (!user) return 'משתמש'
-    return user.user_metadata?.full_name || user.email?.split('@')[0] || 'משתמש'
-  }, [user])
 
   // Authenticated state
   if (isAuthenticated && user) {
