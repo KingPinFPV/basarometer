@@ -1,7 +1,7 @@
 'use client'
 
+import React, { useMemo, useCallback } from 'react'
 import { usePriceData } from '@/hooks/usePriceData'
-import { useMemo } from 'react'
 
 interface PriceCell {
   price: number | null
@@ -11,10 +11,10 @@ interface PriceCell {
   confidence: number
 }
 
-export default function ColorfulPriceMatrix() {
+const ColorfulPriceMatrix = React.memo(function ColorfulPriceMatrix() {
   const { priceReports, meatCuts, retailers, loading, error } = usePriceData()
 
-  // יצירת מטריצה עם צבעים
+  // יצירת מטריצה עם צבעים - optimized calculation
   const matrix = useMemo(() => {
     if (!priceReports.length || !meatCuts.length || !retailers.length) {
       return { grid: {}, allPrices: [], minPrice: 0, maxPrice: 0 }
@@ -50,8 +50,8 @@ export default function ColorfulPriceMatrix() {
     return { grid, allPrices, minPrice, maxPrice }
   }, [priceReports, meatCuts, retailers])
 
-  // פונקציית צבע לפי מחיר
-  const getPriceColor = (price: number | null): string => {
+  // Memoized color functions for better performance
+  const getPriceColor = useCallback((price: number | null): string => {
     if (!price || matrix.allPrices.length === 0) return 'bg-gray-50'
     
     const { minPrice, maxPrice } = matrix
@@ -61,9 +61,9 @@ export default function ColorfulPriceMatrix() {
     if (normalized <= 0.33) return 'bg-green-100 border-green-200' // זול
     if (normalized <= 0.66) return 'bg-yellow-100 border-yellow-200' // בינוני  
     return 'bg-red-100 border-red-200' // יקר
-  }
+  }, [matrix])
 
-  const getTextColor = (price: number | null): string => {
+  const getTextColor = useCallback((price: number | null): string => {
     if (!price || matrix.allPrices.length === 0) return 'text-gray-400'
     
     const { minPrice, maxPrice } = matrix
@@ -73,7 +73,7 @@ export default function ColorfulPriceMatrix() {
     if (normalized <= 0.33) return 'text-green-800'
     if (normalized <= 0.66) return 'text-yellow-800'
     return 'text-red-800'
-  }
+  }, [matrix])
 
   if (loading) {
     return (
@@ -244,4 +244,7 @@ export default function ColorfulPriceMatrix() {
       </div>
     </div>
   )
-}
+})
+
+export { ColorfulPriceMatrix }
+export default ColorfulPriceMatrix

@@ -262,7 +262,6 @@ export default function CategoryManager() {
                 <button
                   onClick={() => {
                     // TODO: Implement editing functionality
-                    console.log('Edit category:', category.name_hebrew)
                   }}
                   className="p-2 text-blue-600 hover:bg-blue-50 rounded-md"
                 >
@@ -321,7 +320,6 @@ export default function CategoryManager() {
                       <button
                         onClick={() => {
                           // TODO: Implement sub-category editing
-                          console.log('Edit sub-category:', subCategory.name_hebrew)
                         }}
                         className="p-1 text-blue-600 hover:bg-blue-50 rounded"
                       >

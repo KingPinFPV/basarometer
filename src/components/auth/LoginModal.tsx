@@ -13,7 +13,6 @@ interface LoginModalProps {
 }
 
 export function LoginModal({ isOpen, onClose, onSwitchToSignup, onSuccess }: LoginModalProps) {
-  console.log('🔑 LoginModal render - isOpen:', isOpen)
   const { signIn, resetPassword, isSubmitting, authError, clearError } = useAuth()
   
   const [formData, setFormData] = useState({
@@ -126,7 +125,6 @@ export function LoginModal({ isOpen, onClose, onSwitchToSignup, onSuccess }: Log
           zIndex: 10000
         }}
         onClick={(e) => {
-          console.log('🎯 Login modal card clicked')
           e.stopPropagation()
         }}
       >
@@ -190,7 +188,7 @@ export function LoginModal({ isOpen, onClose, onSwitchToSignup, onSuccess }: Log
 
           {/* Email Field */}
           <div className="space-y-2">
-            <label className="flex items-center space-x-2 rtl:space-x-reverse text-sm font-semibold text-gray-900">
+            <label className="block text-sm font-medium text-gray-700 mb-2 text-right flex items-center space-x-2 rtl:space-x-reverse">
               <Mail className="w-4 h-4" />
               <span>כתובת מייל</span>
             </label>
@@ -199,7 +197,7 @@ export function LoginModal({ isOpen, onClose, onSwitchToSignup, onSuccess }: Log
               value={formData.email}
               onChange={(e) => handleInputChange('email', e.target.value)}
               placeholder="your@email.com"
-              className="focus-ring w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
               required
               autoComplete="email"
             />
@@ -207,7 +205,7 @@ export function LoginModal({ isOpen, onClose, onSwitchToSignup, onSuccess }: Log
 
           {/* Password Field */}
           <div className="space-y-2">
-            <label className="flex items-center space-x-2 rtl:space-x-reverse text-sm font-semibold text-gray-900">
+            <label className="block text-sm font-medium text-gray-700 mb-2 text-right flex items-center space-x-2 rtl:space-x-reverse">
               <Lock className="w-4 h-4" />
               <span>סיסמה</span>
             </label>
@@ -217,7 +215,7 @@ export function LoginModal({ isOpen, onClose, onSwitchToSignup, onSuccess }: Log
                 value={formData.password}
                 onChange={(e) => handleInputChange('password', e.target.value)}
                 placeholder="הזן סיסמה"
-                className="focus-ring w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 pl-12"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 pl-12"
                 required
                 autoComplete="current-password"
               />
@@ -235,7 +233,7 @@ export function LoginModal({ isOpen, onClose, onSwitchToSignup, onSuccess }: Log
           <button
             type="submit"
             disabled={isSubmitting}
-            className="btn-primary w-full px-6 py-3 rounded-lg flex items-center justify-center space-x-2 rtl:space-x-reverse disabled:opacity-50 disabled:cursor-not-allowed"
+            className="min-h-[44px] w-full bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500 active:bg-blue-800 font-medium rounded-lg flex items-center justify-center space-x-2 rtl:space-x-reverse disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200"
           >
             {isSubmitting ? (
               <>

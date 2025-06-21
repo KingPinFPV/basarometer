@@ -29,10 +29,12 @@ export function NavBar({ className = '' }: NavBarProps) {
       {/* Main Navigation Bar */}
       <nav 
         className={`
-          sticky top-0 z-40 w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 
-          shadow-sm transition-all duration-200 min-h-[64px] ${className}
+          sticky top-0 z-navigation w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 
+          shadow-sm transition-all duration-200 min-h-[64px] responsive-container ${className}
         `}
         dir="rtl"
+        role="navigation"
+        aria-label="ניווט ראשי"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 min-h-[64px]">
@@ -58,7 +60,7 @@ export function NavBar({ className = '' }: NavBarProps) {
                     label={item.label}
                     description={item.description}
                     showDescription={false}
-                    className="flex-shrink-0 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 text-sm whitespace-nowrap"
+                    className="flex-shrink-0"
                   />
                 ))}
               </div>
@@ -73,9 +75,11 @@ export function NavBar({ className = '' }: NavBarProps) {
             <div className="lg:hidden">
               <button
                 onClick={toggleMobileMenu}
-                className="p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="min-h-[44px] min-w-[44px] inline-flex items-center justify-center p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 aria-label="פתח תפריט ראשי"
                 aria-expanded={isMobileMenuOpen}
+                aria-controls="mobile-menu"
+                type="button"
               >
                 <Menu className="w-6 h-6" />
               </button>
@@ -93,7 +97,7 @@ export function NavBar({ className = '' }: NavBarProps) {
         </div>
 
         {/* Medium Screen Navigation - Stable Layout */}
-        <div className="hidden md:block lg:hidden border-t border-gray-100">
+        <div className="hidden md:block lg:hidden border-t border-gray-100 tablet-layout">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between py-2 min-h-[48px]">
               <div className="flex items-center space-x-3 rtl:space-x-reverse overflow-x-auto flex-1">
@@ -105,7 +109,7 @@ export function NavBar({ className = '' }: NavBarProps) {
                     label={item.label}
                     description={item.description}
                     showDescription={false}
-                    className="flex-shrink-0 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 text-sm whitespace-nowrap"
+                    className="flex-shrink-0"
                   />
                 ))}
               </div>

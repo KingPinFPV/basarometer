@@ -31,7 +31,6 @@ export function EnhancedPriceCell({
           className="text-xs bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition-colors"
           onClick={() => {
             // TODO: Open price report modal
-            console.log('Report price for:', meatCut.name_hebrew, 'at', retailer.name)
           }}
         >
           דווח מחיר

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState, useCallback, useMemo } from 'react'
 import { useAuth } from '@/hooks/useAuth'
 import { LoginModal } from './LoginModal'
 import { SignupModal } from './SignupModal'
@@ -12,7 +12,7 @@ interface AuthButtonProps {
   size?: 'sm' | 'md' | 'lg'
 }
 
-export function AuthButton({ 
+const AuthButton = React.memo(function AuthButton({ 
   className = '', 
   showText = true, 
   size = 'md' 
@@ -21,44 +21,44 @@ export function AuthButton({
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [showSignupModal, setShowSignupModal] = useState(false)
 
-  // Size classes
-  const sizeClasses = {
+  // Memoized size classes
+  const sizeClasses = useMemo(() => ({
     sm: 'px-2 py-1 text-xs',
     md: 'px-3 py-2 text-sm',
     lg: 'px-4 py-3 text-base'
-  }
+  }), [])
 
-  const iconSizeClasses = {
+  const iconSizeClasses = useMemo(() => ({
     sm: 'w-3 h-3',
     md: 'w-4 h-4',
     lg: 'w-5 h-5'
-  }
+  }), [])
 
-  const handleSignOut = async () => {
+  const handleSignOut = useCallback(async () => {
     try {
       await signOut()
     } catch (error) {
       console.error('Sign out error:', error)
     }
-  }
+  }, [signOut])
 
-  const handleLoginSuccess = () => {
+  const handleLoginSuccess = useCallback(() => {
     setShowLoginModal(false)
-  }
+  }, [])
 
-  const handleSignupSuccess = () => {
+  const handleSignupSuccess = useCallback(() => {
     setShowSignupModal(false)
-  }
+  }, [])
 
-  const switchToSignup = () => {
+  const switchToSignup = useCallback(() => {
     setShowLoginModal(false)
     setShowSignupModal(true)
-  }
+  }, [])
 
-  const switchToLogin = () => {
+  const switchToLogin = useCallback(() => {
     setShowSignupModal(false)
     setShowLoginModal(true)
-  }
+  }, [])
 
   // Loading state
   if (loading) {
@@ -70,9 +70,14 @@ export function AuthButton({
     )
   }
 
+  // Memoized display name
+  const displayName = useMemo(() => {
+    if (!user) return 'משתמש'
+    return user.user_metadata?.full_name || user.email?.split('@')[0] || 'משתמש'
+  }, [user])
+
   // Authenticated state
   if (isAuthenticated && user) {
-    const displayName = user.user_metadata?.full_name || user.email?.split('@')[0] || 'משתמש'
     
     return (
       <div className={`flex items-center space-x-2 rtl:space-x-reverse ${className}`}>
@@ -90,9 +95,8 @@ export function AuthButton({
         <a
           href="/change-password"
           className={`
-            flex items-center space-x-1 rtl:space-x-reverse ${sizeClasses[size]}
+            nav-item-enhanced ${sizeClasses[size]}
             text-gray-600 hover:text-gray-800 hover:bg-gray-50 
-            rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500
           `}
           title="שנה סיסמה"
         >
@@ -104,9 +108,8 @@ export function AuthButton({
         <button
           onClick={handleSignOut}
           className={`
-            flex items-center space-x-1 rtl:space-x-reverse ${sizeClasses[size]}
+            nav-item-enhanced ${sizeClasses[size]}
             text-red-600 hover:text-red-800 hover:bg-red-50 
-            rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-red-500
           `}
           title="התנתק"
         >
@@ -125,9 +128,8 @@ export function AuthButton({
         <button
           onClick={() => setShowLoginModal(true)}
           className={`
-            flex items-center space-x-1 rtl:space-x-reverse ${sizeClasses[size]}
+            nav-item-enhanced ${sizeClasses[size]}
             text-blue-600 hover:text-blue-800 hover:bg-blue-50 
-            rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500
           `}
           title="התחבר"
         >
@@ -139,9 +141,8 @@ export function AuthButton({
         <button
           onClick={() => setShowSignupModal(true)}
           className={`
-            flex items-center space-x-1 rtl:space-x-reverse ${sizeClasses[size]}
+            nav-item-enhanced ${sizeClasses[size]}
             text-green-600 hover:text-green-800 hover:bg-green-50 
-            rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-green-500
           `}
           title="הירשם"
         >
@@ -167,6 +168,7 @@ export function AuthButton({
       />
     </>
   )
-}
+})
 
+export { AuthButton }
 export default AuthButton

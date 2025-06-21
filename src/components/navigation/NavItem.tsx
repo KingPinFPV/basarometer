@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { LucideIcon } from 'lucide-react'
@@ -14,7 +15,7 @@ interface NavItemProps {
   showDescription?: boolean
 }
 
-export function NavItem({ 
+const NavItem = React.memo(function NavItem({ 
   href, 
   icon: Icon, 
   label, 
@@ -31,8 +32,7 @@ export function NavItem({
       href={href}
       onClick={onClick}
       className={`
-        group relative flex items-center space-x-3 rtl:space-x-reverse px-4 py-3 rounded-lg
-        transition-all duration-200 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500
+        nav-item-enhanced group relative 
         ${isActive 
           ? 'text-blue-600 bg-blue-50 border-b-2 border-blue-500' 
           : 'text-gray-700 hover:text-gray-900'
@@ -72,6 +72,7 @@ export function NavItem({
       <div className="absolute inset-0 bg-gradient-to-r from-transparent to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg" />
     </Link>
   )
-}
+})
 
+export { NavItem }
 export default NavItem

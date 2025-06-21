@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
+import { ModalPortal } from '@/components/ui/ModalPortal'
 
 interface Category {
   id: string
@@ -76,11 +77,13 @@ export default function AddProductForm({ isOpen, onClose, onSuccess }: AddProduc
     setLoading(false)
   }
 
-  if (!isOpen) return null
-
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4" dir="rtl">
+    <ModalPortal isOpen={isOpen}>
+      <div 
+        className="bg-white rounded-lg p-6 w-full max-w-md mx-4" 
+        dir="rtl"
+        onClick={(e) => e.stopPropagation()}
+      >
         <h2 className="text-xl font-bold mb-4 text-right">הוספת מוצר חדש</h2>
         
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -143,6 +146,6 @@ export default function AddProductForm({ isOpen, onClose, onSuccess }: AddProduc
           </div>
         </form>
       </div>
-    </div>
+    </ModalPortal>
   )
 } 

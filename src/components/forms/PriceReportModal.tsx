@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { usePriceReport } from '@/hooks/usePriceReport'
 import { usePriceMatrix } from '@/hooks/usePriceMatrix'
 import { useAuth } from '@/hooks/useAuth'
+import { ModalPortal } from '@/components/ui/ModalPortal'
 import { X, DollarSign, MapPin, Calendar, Tag, CheckCircle, AlertCircle, Loader2, User } from 'lucide-react'
 
 interface PriceReportModalProps {
@@ -143,13 +144,15 @@ export function PriceReportModal({
   }
 
   // Don't render if not open
-  if (!isOpen) return null
-
   // Check authentication
   if (!isAuthenticated) {
     return (
-      <div className="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-50" dir="rtl">
-        <div className="card max-w-md w-full p-8 text-center animate-fade-in">
+      <ModalPortal isOpen={isOpen}>
+        <div 
+          className="card max-w-md w-full p-8 text-center animate-fade-in" 
+          dir="rtl"
+          onClick={(e) => e.stopPropagation()}
+        >
           <User className="w-16 h-16 text-blue-500 mx-auto mb-4" />
           <h3 className="text-xl font-bold text-gray-900 mb-2">נדרשת התחברות</h3>
           <p className="text-gray-600 mb-6">
@@ -162,14 +165,18 @@ export function PriceReportModal({
             סגור
           </button>
         </div>
-      </div>
+      </ModalPortal>
     )
   }
 
 
   return (
-    <div className="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-50" dir="rtl">
-      <div className="card max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-fade-in">
+    <ModalPortal isOpen={isOpen}>
+      <div 
+        className="card max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-fade-in" 
+        dir="rtl"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
         <div className="bg-gradient-primary text-white p-6 rounded-t-xl">
           <div className="flex items-center justify-between">
@@ -390,6 +397,6 @@ export function PriceReportModal({
           </div>
         </form>
       </div>
-    </div>
+    </ModalPortal>
   )
 }

@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from 'react'
 import { X, MapPin, Store, CheckCircle, AlertTriangle, Package } from 'lucide-react'
+import { ModalPortal } from '@/components/ui/ModalPortal'
 import type { ValidationResult } from '@/hooks/useOCR'
 import { usePriceData } from '@/hooks/usePriceData'
 
@@ -72,11 +73,13 @@ export function BulkSubmitModal({
 
   const selectedRetailer = retailers.find(r => r.id === selectedRetailerId)
 
-  if (!isOpen) return null
-
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50" dir="rtl">
-      <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
+    <ModalPortal isOpen={isOpen}>
+      <div 
+        className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-hidden" 
+        dir="rtl"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <h2 className="text-xl font-semibold text-gray-900">שליחת דיווחי מחיר</h2>
@@ -269,7 +272,7 @@ export function BulkSubmitModal({
           </form>
         </div>
       </div>
-    </div>
+    </ModalPortal>
   )
 }
 
