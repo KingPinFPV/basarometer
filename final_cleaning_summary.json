@@ -1,0 +1,30 @@
+{
+  "timestamp": "2025-06-27T18:07:03.809Z",
+  "second_wave_cleaning": {
+    "removed_clearly_non_meat": 10,
+    "products_removed": [
+      "4 כסאות מרופדים הרכבה עצמית ב- ש ח",
+      "קו קופות מחבת 20סמ רון יוחננוף ב",
+      "פיניש טבליות למדיח 30יח' ב-34.90 ש\"ח",
+      "דאודורנט רולאון 50מל 2 יח' ב-16.90 ש\"ח",
+      "סט מצעים 3 חלקים מיקרופייבר ב29.90",
+      "נוזל כלים פלמוליב 750מל ב",
+      "משקה קפה קר בסגנון קלאסי   (230 גר )",
+      "משקה קפה קר בסגנון חזק   (230 גר ) י",
+      "עגבניות שרי 3 יח' ב-9.90 ש\"ח",
+      "סוכר 1 ק\"ג רמי לוי ב-2.90 ש\"ח"
+    ]
+  },
+  "final_database_state": {
+    "total_products": 51,
+    "clear_meat_products": 32,
+    "meat_like_products": 13,
+    "suspicious_remaining": 6,
+    "quality_score": "62.7% clearly meat"
+  },
+  "recommended_actions": [
+    "Manual review of 6 suspicious products",
+    "Database ready with 45 meat/meat-like products",
+    "Consider running additional cleanup if needed"
+  ]
+}

@@ -1,0 +1,812 @@
+{
+  "total": 73,
+  "meat": [
+    {
+      "id": "996b9b4f-0fdb-4c9a-a9f9-bf18e876db1d",
+      "name": "שניצל עוף טרי שופרסל 500 גרם",
+      "vendor": "SHUFERSAL",
+      "category": "עוף",
+      "classification": {
+        "classification": "meat",
+        "confidence": "high",
+        "reason": "Contains meat terminology"
+      }
+    },
+    {
+      "id": "a150fc5f-1ee9-4bce-afd1-bf39fed03f25",
+      "name": "אנטריקוט בקר אנגוס שופרסל קילו",
+      "vendor": "SHUFERSAL",
+      "category": "בקר",
+      "classification": {
+        "classification": "meat",
+        "confidence": "high",
+        "reason": "Contains meat terminology"
+      }
+    },
+    {
+      "id": "ef41a7bd-7d23-4932-9800-8816e8907106",
+      "name": "פרגית עוף טרי שופרסל ללא עצם",
+      "vendor": "SHUFERSAL",
+      "category": "עוף",
+      "classification": {
+        "classification": "meat",
+        "confidence": "high",
+        "reason": "Contains meat terminology"
+      }
+    },
+    {
+      "id": "b6c26363-c3b8-4ae3-a555-e499be519d4f",
+      "name": "כתף כבש טרי שופרסל קילו",
+      "vendor": "SHUFERSAL",
+      "category": "כבש",
+      "classification": {
+        "classification": "meat",
+        "confidence": "high",
+        "reason": "Contains meat terminology"
+      }
+    },
+    {
+      "id": "6cc3ab89-2421-466a-8eda-4bce3d026bba",
+      "name": "שניצל עוף טרי רמי לוי 600 גרם",
+      "vendor": "RAMI_LEVY",
+      "category": "עוף",
+      "classification": {
+        "classification": "meat",
+        "confidence": "high",
+        "reason": "Contains meat terminology"
+      }
+    },
+    {
+      "id": "9f0bd556-6c8d-4b89-ac2d-e16c7fa3d516",
+      "name": "אנטריקוט בקר רמי לוי קילו",
+      "vendor": "RAMI_LEVY",
+      "category": "בקר",
+      "classification": {
+        "classification": "meat",
+        "confidence": "high",
+        "reason": "Contains meat terminology"
+      }
+    },
+    {
+      "id": "ee850f73-a450-45ad-ae27-a51137b96d5c",
+      "name": "כבד עוף טרי רמי לוי 500 גרם",
+      "vendor": "RAMI_LEVY",
+      "category": "עוף",
+      "classification": {
+        "classification": "meat",
+        "confidence": "high",
+        "reason": "Contains meat terminology"
+      }
+    },
+    {
+      "id": "764188ae-cf14-484b-8f64-ef4cb921bd33",
+      "name": "שניצל עוף טרי מגא 500 גרם",
+      "vendor": "MEGA",
+      "category": "עוף",
+      "classification": {
+        "classification": "meat",
+        "confidence": "high",
+        "reason": "Contains meat terminology"
+      }
+    },
+    {
+      "id": "6476b71e-eb51-4f79-83c1-b39f43920260",
+      "name": "חזה עוף טרי מגא ללא עצם",
+      "vendor": "MEGA",
+      "category": "עוף",
+      "classification": {
+        "classification": "meat",
+        "confidence": "high",
+        "reason": "Contains meat terminology"
+      }
+    },
+    {
+      "id": "9c11f0ba-04e5-4a33-8b39-122f73647936",
+      "name": "כתף טלה טרי מגא קילו",
+      "vendor": "MEGA",
+      "category": "כבש",
+      "classification": {
+        "classification": "meat",
+        "confidence": "high",
+        "reason": "Contains meat terminology"
+      }
+    },
+    {
+      "id": "89a5c66d-d2c6-4e1d-a673-b787f1f7f402",
+      "name": "שניצל עוף ויקטורי פרימיום 500 גרם",
+      "vendor": "VICTORY",
+      "category": "עוף",
+      "classification": {
+        "classification": "meat",
+        "confidence": "high",
+        "reason": "Contains meat terminology"
+      }
+    },
+    {
+      "id": "9849cd5c-0cf9-42f9-9fcf-33ed931cb3cc",
+      "name": "אנטריקוט בקר אנגוס ויקטורי קילו",
+      "vendor": "VICTORY",
+      "category": "בקר",
+      "classification": {
+        "classification": "meat",
+        "confidence": "high",
+        "reason": "Contains meat terminology"
+      }
+    },
+    {
+      "id": "5108bde8-10f8-486f-bf69-d1ab3f80a535",
+      "name": "פרגית עוף ויקטורי אורגני קילו",
+      "vendor": "VICTORY",
+      "category": "עוף",
+      "classification": {
+        "classification": "meat",
+        "confidence": "high",
+        "reason": "Contains meat terminology"
+      }
+    },
+    {
+      "id": "fefead61-b404-4af9-a565-63d354fcf4e3",
+      "name": "כבד עוף טרי ויקטורי 400 גרם",
+      "vendor": "VICTORY",
+      "category": "עוף",
+      "classification": {
+        "classification": "meat",
+        "confidence": "high",
+        "reason": "Contains meat terminology"
+      }
+    },
+    {
+      "id": "ed550d89-8a96-4419-805c-d0797d1e446c",
+      "name": "שניצל עוף יוחננוף 450 גרם",
+      "vendor": "YOHANANOF",
+      "category": "עוף",
+      "classification": {
+        "classification": "meat",
+        "confidence": "high",
+        "reason": "Contains meat terminology"
+      }
+    },
+    {
+      "id": "7617909b-2050-4b56-83b3-b304209b03e8",
+      "name": "חזה עוף טרי יוחננוף קילו",
+      "vendor": "YOHANANOF",
+      "category": "עוף",
+      "classification": {
+        "classification": "meat",
+        "confidence": "high",
+        "reason": "Contains meat terminology"
+      }
+    },
+    {
+      "id": "cfb649df-b819-4776-aa80-5a8f353af40f",
+      "name": "בשר טחון בקר יוחננוף 500 גרם",
+      "vendor": "YOHANANOF",
+      "category": "בקר",
+      "classification": {
+        "classification": "meat",
+        "confidence": "high",
+        "reason": "Contains meat terminology"
+      }
+    },
+    {
+      "id": "2a01c2f1-c4be-4ed9-b373-1b91a38f079f",
+      "name": "פילה סלמון טרי ארוז ב109.90 מעל 75 מו3",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "meat",
+        "confidence": "high",
+        "reason": "Contains meat terminology"
+      }
+    },
+    {
+      "id": "8d6e6bcd-299a-4211-b84c-ccce6680d38d",
+      "name": "אנטריקוט טרי ב159.90 מעל 75 מו3",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "meat",
+        "confidence": "high",
+        "reason": "Contains meat terminology"
+      }
+    }
+  ],
+  "nonMeat": [
+    {
+      "id": "7a9d9d2b-4aa8-4ef8-b585-4087b85eea69",
+      "name": "קנה ב ממגון תנובה קבל דמי משלוח מתנה",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "non-meat",
+        "confidence": "high",
+        "reason": "Contains non-meat indicators"
+      }
+    },
+    {
+      "id": "b529595c-ec0e-4471-8485-2b6cef59e195",
+      "name": "גבינה צהובה עמק 28  ב- ש ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "non-meat",
+        "confidence": "high",
+        "reason": "Contains non-meat indicators"
+      }
+    },
+    {
+      "id": "edf350c9-1a7e-4c70-a839-c2fc402ea7cf",
+      "name": "פופקורן פופסטאר 2 יח' ב-28.90 ש\"ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "non-meat",
+        "confidence": "high",
+        "reason": "Contains non-meat indicators"
+      }
+    },
+    {
+      "id": "3f17a794-dfbb-4137-a193-5e8388d91335",
+      "name": "יין הסדרה האזורית 750מל 2 יח' ב-110 שח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "non-meat",
+        "confidence": "high",
+        "reason": "Contains non-meat indicators"
+      }
+    },
+    {
+      "id": "f38ce724-23b7-42d7-8ae4-52c9f6dcd89d",
+      "name": "קינדר שוקולד 300 גרם ב-19.90 ש\"ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "non-meat",
+        "confidence": "high",
+        "reason": "Contains non-meat indicators"
+      }
+    },
+    {
+      "id": "c0c126f0-9c68-4d8c-8a05-4a95d95faad7",
+      "name": "יוגורט ביו   דנונה (200 גרם)",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "non-meat",
+        "confidence": "high",
+        "reason": "Contains non-meat indicators"
+      }
+    },
+    {
+      "id": "81d36817-5ad9-49a7-84cf-cffa57d905cf",
+      "name": "אקטיביה יוגורט   דנונה (150x8 גרם)",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "non-meat",
+        "confidence": "high",
+        "reason": "Contains non-meat indicators"
+      }
+    },
+    {
+      "id": "25f4673c-fec5-454e-aab5-b464e1f0a8a3",
+      "name": "בייבי מוצרלה/צמות/קשקבל/אצבעות ב12.90 שח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "non-meat",
+        "confidence": "high",
+        "reason": "Contains non-meat indicators"
+      }
+    },
+    {
+      "id": "e9161bf0-abaa-48e6-8dee-5787966a0d48",
+      "name": "חלב רמת הגולן ב-8.5 ש\"ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "non-meat",
+        "confidence": "high",
+        "reason": "Contains non-meat indicators"
+      }
+    },
+    {
+      "id": "102fe680-04a4-4a7f-aeb8-3f568f7baa68",
+      "name": "מיני ניוקי תפוחאדמה 2 יח' ב-11.90 ש\"ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "non-meat",
+        "confidence": "high",
+        "reason": "Contains non-meat indicators"
+      }
+    },
+    {
+      "id": "dc28af89-e911-460d-a19a-7045e93c0691",
+      "name": "שוקולד חלב/מריר 100 גרם ב-2.90 ש\"ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "non-meat",
+        "confidence": "high",
+        "reason": "Contains non-meat indicators"
+      }
+    },
+    {
+      "id": "e2d94b9f-90e2-43fc-94f8-267ad023e319",
+      "name": "חלב טבעי 3.6% יטבתה (1 ליטר)",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "non-meat",
+        "confidence": "high",
+        "reason": "Contains non-meat indicators"
+      }
+    }
+  ],
+  "uncertain": [
+    {
+      "id": "a27f34c6-de7d-4d1e-a532-a7857a18e468",
+      "name": "קציצות בקר קפואות שופרסל 1 ק״ג",
+      "vendor": "SHUFERSAL",
+      "category": "בקר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "21008cb0-0d91-49fd-a606-6b8e23415062",
+      "name": "כנפיים עוף טרי רמי לוי קילו",
+      "vendor": "RAMI_LEVY",
+      "category": "עוף",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "ae637591-1415-42b1-9fd5-e6bf55fd2f15",
+      "name": "נקניקיות עוף רמי לוי 400 גרם",
+      "vendor": "RAMI_LEVY",
+      "category": "עוף",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "be5a9bba-9758-45b2-9980-1ff3070d62af",
+      "name": "סטייק בקר מגא קילו",
+      "vendor": "MEGA",
+      "category": "בקר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "97d6126d-40d9-4b49-8048-402cfc5eb808",
+      "name": "המבורגר בקר מגא 500 גרם",
+      "vendor": "MEGA",
+      "category": "בקר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "4be96049-017e-411c-940c-0dfc8213eb96",
+      "name": "קציצות טלה ויקטורי 600 גרם",
+      "vendor": "VICTORY",
+      "category": "כבש",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "d02467f3-473f-4788-9e63-5c4067a3c585",
+      "name": "כנפיים עוף יוחננוף קילו",
+      "vendor": "YOHANANOF",
+      "category": "עוף",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "0bb389af-f3c7-486b-88be-23aa27b8b7be",
+      "name": "קנה מוצרי גד ב- ש ח קבל מוצרלה מתנה",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "c64c0264-3f51-4854-b70d-d1232e34d2bc",
+      "name": "רביעיית טונה רמי לוי ב- ש ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "5c43e3f3-0847-4e05-85eb-ff8ccc4049ab",
+      "name": "תה הגן הקסום ויסוצקי 25שק ב- ש ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "8bbbd70b-9c62-4ce0-b425-fbf5651bba09",
+      "name": "משמש במעל75מוג2-נתניה",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "9e7fbaa2-c5dc-4cb5-b3fb-8255cf01c681",
+      "name": "4 כסאות מרופדים הרכבה עצמית ב- ש ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "e769bec4-f1f1-481c-835e-21fa3e3f4e35",
+      "name": "פררו רושה 200 גרם ב- ש ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "bb351d64-d24c-4386-b524-f05804330633",
+      "name": "פררו קולקשיון ב- ש ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "1f029912-3697-44d9-9d00-e71b28b441aa",
+      "name": "קו קופות מחבת 20סמ רון יוחננוף ב",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "5b45b85f-2490-4e52-a722-9cdf8592fade",
+      "name": "שוקיים עוף טרי מחפוד ב37.90 מעל 75 מו3",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "b56a0696-b711-44f3-a796-130e6747a88f",
+      "name": "ירכיים עוף טרי מחפוד ב34.90 מעל 75 מו3",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "ec095053-137c-443a-8688-e4b3094719ee",
+      "name": "לבבות עוף טרי ב24.90 מעל 75 מו3",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "d5143bc4-660b-40bd-b1da-ebd8031d20b0",
+      "name": "מנות סלמון טרי ארוז ב119.90 מעל 75 מו3",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "fb4daa8d-f86e-4ab6-b248-3a3079a2c0b3",
+      "name": "לבבות עוף טרי מהדרין ב26.90 מעל 75 מו3",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "90e76e62-9130-485a-9562-f5f7c4328bd4",
+      "name": "פיניש טבליות למדיח 30יח' ב-34.90 ש\"ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "6d6ba16f-e924-4b81-9be3-c034184c3edf",
+      "name": "אורביט בקבוקון 64ג' 2 יח' ב-16.90 ש\"ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "71f9c0cb-bd65-493b-a83f-0d086c26f786",
+      "name": "פיניש אולטימייט פלוס 50יח' ב-52.90 ש\"ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "b729dfd7-da07-48fd-a569-838a3c5fa87a",
+      "name": "סוד מרכך מרוכז 900מל 2 יח' ב-16.90 ש\"ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "e68c803e-e19c-4128-a1f1-500e1bc9541a",
+      "name": "דאודורנט רולאון 50מל 2 יח' ב-16.90 ש\"ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "fd2bad2e-2e61-4032-a744-e8c5b9065689",
+      "name": "סט מצעים 3 חלקים מיקרופייבר ב29.90",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "4d1536d1-46ba-48d0-ba9c-360f305dea51",
+      "name": "פתיתי פרמז ן מגורד 100ג  ב- ש ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "8809b88b-4366-4495-8ec4-fa63d65d3c03",
+      "name": "גבינת שמנת נפוליאון ב- ש ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "b03b912f-3ec4-40ca-be3a-154c2c2fd79e",
+      "name": "מתבל היינץ 700גר ב- ש ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "9f0f51e3-74a5-4d04-b429-d114e21388fa",
+      "name": "פתיבר 500 גרם רמי לוי ב- ש ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "b8a0e8ba-cba0-410b-8a91-192f9228972d",
+      "name": "עלים לקרמשניט מוכנים רמי לוי ב- ש ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "bb314147-8e19-4722-8411-eab1dcf3eb50",
+      "name": "קינדר בואנו שלישייה ב- ש ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "d32f0c7c-8a09-4831-b61d-e37d1da7bef6",
+      "name": "סירופ דיאט 1 לי יכין ב מו2",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "6e52df0c-2e79-4db5-a783-e3c46369c9b5",
+      "name": "נוזל כלים פלמוליב 750מל ב",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "f98c4bbc-fcbe-403f-8cb9-7bac1b05010e",
+      "name": "משקה קפה קר בסגנון קלאסי   (230 גר )",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "158fb5fe-014f-4c80-a557-d2b7f43349d3",
+      "name": "משקה קפה קר בסגנון חזק   (230 גר ) י",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "037ed443-30b0-4e6e-8c12-4a36acdb778e",
+      "name": "בקבוק פרמיום משנה צבעים ב5.90",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "6b56188e-e1a1-4cf6-964a-a31675e0d60c",
+      "name": "ניקוי רמי לוי 500גר 2 יח' ב-7.90 ש\"ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "c66bd7fa-20f0-4e80-9e4b-e1d08a3f9075",
+      "name": "עגבניות שרי 3 יח' ב-9.90 ש\"ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "d3e3c0ea-d695-4d34-a38b-be5433070840",
+      "name": "שימורים סוגת 240גר 2 יח' ב-12.90 ש\"ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "f28a648a-41ec-42ce-9b0f-69c5b1fa14cf",
+      "name": "סוכר 1 ק\"ג רמי לוי ב-2.90 ש\"ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    },
+    {
+      "id": "79e8e33c-a8db-45ef-b760-2ff8681a440b",
+      "name": "פרוסות לבבות דקל 220 גרם טעים ב9.90",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "classification": {
+        "classification": "uncertain",
+        "confidence": "low",
+        "reason": "No clear meat or non-meat indicators"
+      }
+    }
+  ]
+}
