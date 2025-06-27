@@ -108,3 +108,9 @@ logging.log
 tsconfig.tsbuildinfo
 node_modules/
 .cache/
+
+# Testing and reports (additional)
+test_*.json
+*_report.json
+deployment_*.json
+website_test_report.json
