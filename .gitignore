@@ -147,3 +147,10 @@ Desktop.ini
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
+# Bot files (belong in separate repository)
+*extractor*.py
+*bot*.py
+meat_names_mapping.json
+scan_bot/
+extraction/
+*_extraction_*
