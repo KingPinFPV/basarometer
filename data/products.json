@@ -1,626 +1,5617 @@
-[
-  {
-    "id": "1751043908614-v53zclz2i",
-    "name": "אנטריקוט פרוס טרי 250 גרם ליח",
-    "price": 188.8,
-    "vendor": "רמי לוי",
-    "category": "בקר",
-    "unit": "250 גר",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/2083085/422050/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.9,
-    "price_per_kg": 755.2,
-    "weight": 0.25,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.614Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-442d4x44l",
-    "name": "חזה בקר טרי",
-    "price": 59.9,
-    "vendor": "רמי לוי",
-    "category": "בקר",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/8202039/362367/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7000000000000001,
-    "price_per_kg": 59.9,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-fiq21dtkd",
-    "name": "כתף בקר טרי",
-    "price": 79.9,
-    "vendor": "רמי לוי",
-    "category": "בקר",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/8202046/362368/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7000000000000001,
-    "price_per_kg": 79.9,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-y0d2dz59d",
-    "name": "סטייק אנטריקוט בקר טרי",
-    "price": 162.1,
-    "vendor": "רמי לוי",
-    "category": "בקר",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/8202015/362365/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7000000000000001,
-    "price_per_kg": 162.1,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-fojm75p8h",
-    "name": "סינטה בקר טרי",
-    "price": 139.9,
-    "vendor": "רמי לוי",
-    "category": "בקר",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/8202121/362377/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7000000000000001,
-    "price_per_kg": 139.9,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-s8bnuv0aq",
-    "name": "פילה מדומה בקר טרי",
-    "price": 89.9,
-    "vendor": "רמי לוי",
-    "category": "בקר",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/8202060/362372/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7000000000000001,
-    "price_per_kg": 89.9,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-g155lct7k",
-    "name": "פרוסות צלי כתף טרי",
-    "price": 103.8,
-    "vendor": "רמי לוי",
-    "category": "אחר",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/2083092/422058/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.55,
-    "price_per_kg": 103.8,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-92chfce00",
-    "name": "צלי כתף בקר טרי",
-    "price": 98.9,
-    "vendor": "רמי לוי",
-    "category": "בקר",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/8202053/362370/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7000000000000001,
-    "price_per_kg": 98.9,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-tej3v1aj2",
-    "name": "צלעות בקר טרי",
-    "price": 69.9,
-    "vendor": "רמי לוי",
-    "category": "בקר",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/8202022/362366/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7000000000000001,
-    "price_per_kg": 69.9,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-dn93v6nzp",
-    "name": "קוביות צלעות בקר טרי",
-    "price": 84.9,
-    "vendor": "רמי לוי",
-    "category": "בקר",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/2083115/422052/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7000000000000001,
-    "price_per_kg": 84.9,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-f2flntdct",
-    "name": "קשתית אסאדו ללא עצם טרי",
-    "price": 79.9,
-    "vendor": "רמי לוי",
-    "category": "בקר",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/8202084/362374/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7000000000000001,
-    "price_per_kg": 79.9,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-z05as6a89",
-    "name": "חזה שלם טרי מהדרין",
-    "price": 39.9,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/2680369/349598/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7000000000000001,
-    "price_per_kg": 39.9,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-hjpiz23tj",
-    "name": "ירכיים עוף טרי מהדרין",
-    "price": 29.9,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/2680345/349596/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7000000000000001,
-    "price_per_kg": 29.9,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-enqr01wpm",
-    "name": "כבד עוף טרי לצלייה בלבד מהדרין",
-    "price": 26.9,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/2680413/349601/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7000000000000001,
-    "price_per_kg": 26.9,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-omeuuah3w",
-    "name": "כנפיים עוף טרי מהדרין 1 ב 9 9 מוגבל ל3",
-    "price": 12.9,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/2680406/5598/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.6,
-    "price_per_kg": 12.9,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-o0uiuwr9e",
-    "name": "כרעיים עוף טרי מהדרין 1 ב 22 9 מוגבל ל3",
-    "price": 29.9,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/2680321/349593/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7000000000000001,
-    "price_per_kg": 29.9,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-hxfyk42z2",
-    "name": "לב עוף טרי מהד 1 ב 26 9 מוגבל ל3",
-    "price": 27.9,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/2680383/349600/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7000000000000001,
-    "price_per_kg": 27.9,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-h9j2n7plx",
-    "name": "עוף טרי מהדרין",
-    "price": 22.9,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/2680314/17644/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7000000000000001,
-    "price_per_kg": 22.9,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-xl7wc14z8",
-    "name": "פילה עוף טרי מהדרין",
-    "price": 39.9,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/2680376/349599/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7000000000000001,
-    "price_per_kg": 39.9,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-5sz67rdm1",
-    "name": "שווארמה עוף טרי מהדרין",
-    "price": 69.9,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/2680390/142746/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7000000000000001,
-    "price_per_kg": 69.9,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-pzvkwbhau",
-    "name": "שוקיים עוף טרי מהדרין",
-    "price": 34.9,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/2680338/349595/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7000000000000001,
-    "price_per_kg": 34.9,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-f7g0ew99l",
-    "name": "שניצל עוף טרי מהדרין",
-    "price": 38.6,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/2680352/349597/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7000000000000001,
-    "price_per_kg": 38.6,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-r4n5ehqnw",
-    "name": "חזה עוף פרימיום",
-    "price": 38.2,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/2683728/369877/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7000000000000001,
-    "price_per_kg": 38.2,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-tcj7286jc",
-    "name": "סטייק פרגית פרמיום",
-    "price": 63.7,
-    "vendor": "רמי לוי",
-    "category": "בקר",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/2681120/349634/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7000000000000001,
-    "price_per_kg": 63.7,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-udxuee6fo",
-    "name": "שיפודי שווארמה  מעדני הטלה 600 גרם",
-    "price": 62.5,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "600 גר",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/7290005041402/small.jpg",
-    "source": "web_scraper",
-    "confidence": 1,
-    "price_per_kg": 104.17,
-    "weight": 0.6,
-    "brand": "פרגית",
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-106ip5yrn",
-    "name": "שווארמה פרגית מעדני הטלה 500 גרם",
-    "price": 39.1,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "500 גר",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/7290001915011/small.jpg",
-    "source": "web_scraper",
-    "confidence": 0.9,
-    "price_per_kg": 78.2,
-    "weight": 0.5,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-mnoelj81q",
-    "name": "מעדני הטלה שיפודי שווארמה",
-    "price": 62.5,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/7290005041402/small.jpg",
-    "source": "web_scraper",
-    "confidence": 0.8,
-    "price_per_kg": 62.5,
-    "weight": null,
-    "brand": "פרגית",
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-kama7iwrg",
-    "name": "חזה עוף",
-    "price": 41.2,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/4194239/107888/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.8,
-    "price_per_kg": 41.2,
-    "weight": null,
-    "brand": "מחפוד",
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-158pj215a",
-    "name": "ירכיים עוף",
-    "price": 39.1,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/4194277/107889/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.8,
-    "price_per_kg": 39.1,
-    "weight": null,
-    "brand": "מחפוד",
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-vqx8jdun6",
-    "name": "כבד עוף קפוא",
-    "price": 19.9,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/4194307/107890/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.8,
-    "price_per_kg": 19.9,
-    "weight": null,
-    "brand": "מחפוד",
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-f6rxjj0aj",
-    "name": "כנפיים עוף",
-    "price": 11.9,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/4194253/107762/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7,
-    "price_per_kg": 11.9,
-    "weight": null,
-    "brand": "מחפוד",
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-do4nqt4ko",
-    "name": "כרעיים עוף",
-    "price": 39.1,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/4194208/107887/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.8,
-    "price_per_kg": 39.1,
-    "weight": null,
-    "brand": "מחפוד",
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-trqf5og38",
-    "name": "לבבות עוף",
-    "price": 25.8,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/4194314/297510/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.8,
-    "price_per_kg": 25.8,
-    "weight": null,
-    "brand": "מחפוד",
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-l2132c144",
-    "name": "עוף מספר 2",
-    "price": 28.5,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/4194185/107701/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.8,
-    "price_per_kg": 28.5,
-    "weight": null,
-    "brand": "מחפוד",
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-uei971nba",
-    "name": "עוף מפורק ברוטב טריאקי  300 גרם",
-    "price": 36.6,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "300 גר",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/7290109581286/small.jpg",
-    "source": "web_scraper",
-    "confidence": 1,
-    "price_per_kg": 122,
-    "weight": 0.3,
-    "brand": "זוגלובק",
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-2vvt4aevx",
-    "name": "פרגיות עוף ארוז קפוא חתם סופר",
-    "price": 64.1,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/2610229/335842/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7000000000000001,
-    "price_per_kg": 64.1,
-    "weight": null,
-    "brand": null,
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-kkjly6fk4",
-    "name": "פרגיות עוף קפוא",
-    "price": 86.9,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/4194284/128706/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.7,
-    "price_per_kg": 86.9,
-    "weight": null,
-    "brand": "מחפוד",
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-vkq1v02j9",
-    "name": "שוקיים עוף",
-    "price": 41.2,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/4194260/108512/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.8,
-    "price_per_kg": 41.2,
-    "weight": null,
-    "brand": "מחפוד",
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
-  },
-  {
-    "id": "1751043908615-y5c5non7w",
-    "name": "שניצל עוף פרוס",
-    "price": 43.4,
-    "vendor": "רמי לוי",
-    "category": "עוף",
-    "unit": "יחידה",
-    "image_url": "https://www.rami-levy.co.il/_ipx/w_245,f_webp/https://img.rami-levy.co.il/product/4194345/107702/medium.jpg",
-    "source": "web_scraper",
-    "confidence": 0.8,
-    "price_per_kg": 43.4,
-    "weight": null,
-    "brand": "מחפוד",
-    "last_updated": "2025-06-27T17:05:08.615Z",
-    "created_at": "2025-06-27T17:05:08.615Z"
+{
+  "products": [
+    {
+      "id": "unified_58328",
+      "name": "פרגית עוף טרי שופרסל ללא עצם",
+      "normalized_name": "עוף עוף ללא עצם",
+      "category": "עוף",
+      "network_prices": {
+        "government": 32.5
+      },
+      "networks_available": [
+        "government"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 32.5,
+        "max_price": 32.5,
+        "avg_price": 32.5,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פרגית עוף טרי שופרסל ללא עצם"
+        ],
+        "created_at": "2025-06-27T22:17:52.261702",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_72565",
+      "name": "כתף כבש טרי שופרסל קילו",
+      "normalized_name": "כתף כבש קילו",
+      "category": "בקר",
+      "network_prices": {
+        "government": 78.9
+      },
+      "networks_available": [
+        "government"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 78.9,
+        "max_price": 78.9,
+        "avg_price": 78.9,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "כתף כבש טרי שופרסל קילו"
+        ],
+        "created_at": "2025-06-27T22:17:52.261723",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_88801",
+      "name": "קציצות בקר קפואות שופרסל 1 ק״ג",
+      "normalized_name": "קציצות בקר קפואות שופרסל",
+      "category": "בקר",
+      "network_prices": {
+        "government": 45.9
+      },
+      "networks_available": [
+        "government"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 45.9,
+        "max_price": 45.9,
+        "avg_price": 45.9,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "קציצות בקר קפואות שופרסל 1 ק״ג"
+        ],
+        "created_at": "2025-06-27T22:17:52.261729",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_21606",
+      "name": "אנטריקוט בקר רמי לוי קילו",
+      "normalized_name": "אנ לוי קילו",
+      "category": "אחר",
+      "network_prices": {
+        "government": 89.9
+      },
+      "networks_available": [
+        "government"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 89.9,
+        "max_price": 89.9,
+        "avg_price": 89.9,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "אנטריקוט בקר רמי לוי קילו"
+        ],
+        "created_at": "2025-06-27T22:17:52.261736",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_98992",
+      "name": "פרגית עוף טרי",
+      "normalized_name": "עוף עוף טרי",
+      "category": "עוף",
+      "network_prices": {
+        "government": 32.5
+      },
+      "networks_available": [
+        "government"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 32.5,
+        "max_price": 32.5,
+        "avg_price": 32.5,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פרגית עוף טרי"
+        ],
+        "created_at": "2025-06-27T22:17:52.261741",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_80113",
+      "name": "אנטריקוט בקר אנגוס טרי קילו זוגלובק",
+      "normalized_name": "אנטריקוט בקר אנגוס טרי קילו זוגלובק",
+      "category": "בקר",
+      "network_prices": {
+        "government": 89.9
+      },
+      "networks_available": [
+        "government"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 89.9,
+        "max_price": 89.9,
+        "avg_price": 89.9,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "אנטריקוט בקר אנגוס טרי קילו זוגלובק"
+        ],
+        "created_at": "2025-06-27T22:17:52.261746",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_40138",
+      "name": "כתף כבש טרי קילו מעולה",
+      "normalized_name": "כתף כבש טרי קילו מעולה",
+      "category": "בקר",
+      "network_prices": {
+        "government": 78.9
+      },
+      "networks_available": [
+        "government"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 78.9,
+        "max_price": 78.9,
+        "avg_price": 78.9,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "כתף כבש טרי קילו מעולה"
+        ],
+        "created_at": "2025-06-27T22:17:52.261752",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_7850",
+      "name": "צלי כתף טרי יבוא מוכשר ארגנטיני",
+      "normalized_name": "צלי כתף טרי יבוא מוכשר ארגנטיני",
+      "category": "בקר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060745.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060745.0,
+        "max_price": 202506060745.0,
+        "avg_price": 202506060745.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "צלי כתף טרי יבוא מוכשר ארגנטיני"
+        ],
+        "created_at": "2025-06-27T22:17:52.261842",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_17799",
+      "name": "נקניקיות עוף 400 גרם",
+      "normalized_name": "נקניקיות עוף",
+      "category": "עוף",
+      "network_prices": {
+        "government": 18.9
+      },
+      "networks_available": [
+        "government"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 18.9,
+        "max_price": 18.9,
+        "avg_price": 18.9,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "נקניקיות עוף 400 גרם"
+        ],
+        "created_at": "2025-06-27T22:17:52.261846",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_6109",
+      "name": "פילה דניס טרי",
+      "normalized_name": "פילה דניס טרי",
+      "category": "בקר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061005.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061005.0,
+        "max_price": 202506061005.0,
+        "avg_price": 202506061005.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פילה דניס טרי"
+        ],
+        "created_at": "2025-06-27T22:17:52.261875",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_95231",
+      "name": "אסאדו עם עצם nebraska",
+      "normalized_name": "אסאדו עם עצם nebraska",
+      "category": "בקר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061006.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061006.0,
+        "max_price": 202506061006.0,
+        "avg_price": 202506061006.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "אסאדו עם עצם nebraska"
+        ],
+        "created_at": "2025-06-27T22:17:52.261907",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_32928",
+      "name": "קנה מוצרי גד ב- ש ח קבל מוצרלה מתנה",
+      "normalized_name": "קנה מוצרי גד ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 69.9,
+        "נתונים ממשלתיים": 69.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 69.9,
+        "max_price": 69.9,
+        "avg_price": 69.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "קנה מוצרי גד ב- ש ח קבל מוצרלה מתנה"
+        ],
+        "created_at": "2025-06-27T22:17:52.261920",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_78638",
+      "name": "רביעיית טונה רמי לוי ב- ש ח",
+      "normalized_name": "רביעיית טונה רמי לוי ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 15.9,
+        "נתונים ממשלתיים": 15.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 15.9,
+        "max_price": 15.9,
+        "avg_price": 15.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "רביעיית טונה רמי לוי ב- ש ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.261932",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_99793",
+      "name": "תה הגן הקסום ויסוצקי 25שק ב- ש ח",
+      "normalized_name": "תה הגן הקסום ויסוצקי 25שק ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 16.9,
+        "נתונים ממשלתיים": 16.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 16.9,
+        "max_price": 16.9,
+        "avg_price": 16.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "תה הגן הקסום ויסוצקי 25שק ב- ש ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.261944",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_88964",
+      "name": "קנה ב ממגון תנובה קבל דמי משלוח מתנה",
+      "normalized_name": "קנה ב ממגון תנובה קבל דמי משלוח מתנה",
+      "category": "אחר",
+      "network_prices": {
+        "government": 99.9,
+        "נתונים ממשלתיים": 99.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 99.9,
+        "max_price": 99.9,
+        "avg_price": 99.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "קנה ב ממגון תנובה קבל דמי משלוח מתנה"
+        ],
+        "created_at": "2025-06-27T22:17:52.261955",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_11076",
+      "name": "משמש במעל75מוג2-נתניה",
+      "normalized_name": "משמש במעל75מוג2",
+      "category": "אחר",
+      "network_prices": {
+        "government": 19.9,
+        "נתונים ממשלתיים": 19.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 19.9,
+        "max_price": 19.9,
+        "avg_price": 19.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "משמש במעל75מוג2-נתניה"
+        ],
+        "created_at": "2025-06-27T22:17:52.261965",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_67526",
+      "name": "4 כסאות מרופדים הרכבה עצמית ב- ש ח",
+      "normalized_name": "4 כסאות מרופדים הרכבה עצמית ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 299.9,
+        "נתונים ממשלתיים": 299.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 299.9,
+        "max_price": 299.9,
+        "avg_price": 299.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "4 כסאות מרופדים הרכבה עצמית ב- ש ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.261975",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_29494",
+      "name": "פררו רושה 200 גרם ב- ש ח",
+      "normalized_name": "פררו רושה ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 27.9,
+        "נתונים ממשלתיים": 27.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 27.9,
+        "max_price": 27.9,
+        "avg_price": 27.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "פררו רושה 200 גרם ב- ש ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.261986",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_64916",
+      "name": "גבינה צהובה עמק 28  ב- ש ח",
+      "normalized_name": "גבינה צהובה עמק 28 ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 27.9,
+        "נתונים ממשלתיים": 27.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 27.9,
+        "max_price": 27.9,
+        "avg_price": 27.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "גבינה צהובה עמק 28  ב- ש ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.261996",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_10429",
+      "name": "קו קופות מחבת 20סמ רון יוחננוף ב",
+      "normalized_name": "קו קופות מחבת 20סמ רון יוחננוף ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 39.9,
+        "נתונים ממשלתיים": 39.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 39.9,
+        "max_price": 39.9,
+        "avg_price": 39.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "קו קופות מחבת 20סמ רון יוחננוף ב"
+        ],
+        "created_at": "2025-06-27T22:17:52.262007",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_1752",
+      "name": "פילה סלמון טרי ארוז ב109.90 מעל 75 מו3",
+      "normalized_name": "פילה סלמון טרי ארוז ב109.90 מעל 75 מו3",
+      "category": "בקר",
+      "network_prices": {
+        "government": 109.9,
+        "נתונים ממשלתיים": 109.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 109.9,
+        "max_price": 109.9,
+        "avg_price": 109.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "פילה סלמון טרי ארוז ב109.90 מעל 75 מו3"
+        ],
+        "created_at": "2025-06-27T22:17:52.262016",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_11187",
+      "name": "אנטריקוט טרי ב159.90 מעל 75 מו3",
+      "normalized_name": "אנטריקוט טרי ב159.90 מעל 75 מו3",
+      "category": "בקר",
+      "network_prices": {
+        "government": 159.9,
+        "נתונים ממשלתיים": 159.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 159.9,
+        "max_price": 159.9,
+        "avg_price": 159.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "אנטריקוט טרי ב159.90 מעל 75 מו3"
+        ],
+        "created_at": "2025-06-27T22:17:52.262025",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_63643",
+      "name": "שוקיים עוף טרי מחפוד ב37.90 מעל 75 מו3",
+      "normalized_name": "שוקיים עוף טרי מחפוד ב37.90 מעל 75 מו3",
+      "category": "עוף",
+      "network_prices": {
+        "government": 37.9,
+        "נתונים ממשלתיים": 37.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 37.9,
+        "max_price": 37.9,
+        "avg_price": 37.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "שוקיים עוף טרי מחפוד ב37.90 מעל 75 מו3"
+        ],
+        "created_at": "2025-06-27T22:17:52.262033",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_35096",
+      "name": "לבבות עוף טרי ב24.90 מעל 75 מו3",
+      "normalized_name": "לבבות עוף טרי ב24.90 מעל 75 מו3",
+      "category": "עוף",
+      "network_prices": {
+        "government": 24.9,
+        "נתונים ממשלתיים": 24.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 24.9,
+        "max_price": 24.9,
+        "avg_price": 24.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "לבבות עוף טרי ב24.90 מעל 75 מו3"
+        ],
+        "created_at": "2025-06-27T22:17:52.262041",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_82361",
+      "name": "פופקורן פופסטאר 2 יח' ב-28.90 ש\"ח",
+      "normalized_name": "פופקורן פופסטאר ' ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 28.9,
+        "נתונים ממשלתיים": 28.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 28.9,
+        "max_price": 28.9,
+        "avg_price": 28.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "פופקורן פופסטאר 2 יח' ב-28.90 ש\"ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.262054",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_27487",
+      "name": "יין הסדרה האזורית 750מל 2 יח' ב-110 שח",
+      "normalized_name": "יין הסדרה האזורית ' ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 110.0,
+        "נתונים ממשלתיים": 110.0
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 110.0,
+        "max_price": 110.0,
+        "avg_price": 110.0,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "יין הסדרה האזורית 750מל 2 יח' ב-110 שח"
+        ],
+        "created_at": "2025-06-27T22:17:52.262065",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_43639",
+      "name": "פיניש טבליות למדיח 40יח' ב-35.90 ש\"ח",
+      "normalized_name": "פיניש טבליות למדיח ' ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 34.9,
+        "נתונים ממשלתיים": 35.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 34.9,
+        "max_price": 35.9,
+        "avg_price": 35.4,
+        "price_range": 1.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 1.0,
+        "max_savings_percentage": 2.8,
+        "cheapest_network": "government",
+        "most_expensive_network": "נתונים ממשלתיים",
+        "savings_opportunities": "חסוך ₪1.0 (2.8%) בבחירת government על פני נתונים ממשלתיים"
+      },
+      "metadata": {
+        "original_names": [
+          "פיניש טבליות למדיח 40יח' ב-35.90 ש\"ח",
+          "פיניש טבליות למדיח 30יח' ב-34.90 ש\"ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.262078",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_71074",
+      "name": "אורביט בקבוקון 64ג' 2 יח' ב-16.90 ש\"ח",
+      "normalized_name": "אורביט בקבוקון 64ג' ' ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 16.9,
+        "נתונים ממשלתיים": 16.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 16.9,
+        "max_price": 16.9,
+        "avg_price": 16.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "אורביט בקבוקון 64ג' 2 יח' ב-16.90 ש\"ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.262089",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_50404",
+      "name": "פיניש אולטימייט פלוס 50יח' ב-52.90 ש\"ח",
+      "normalized_name": "פיניש אולטימייט פלוס ' ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 52.9,
+        "נתונים ממשלתיים": 52.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 52.9,
+        "max_price": 52.9,
+        "avg_price": 52.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "פיניש אולטימייט פלוס 50יח' ב-52.90 ש\"ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.262099",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_14779",
+      "name": "סוד מרכך מרוכז 900מל 2 יח' ב-16.90 ש\"ח",
+      "normalized_name": "סוד מרכך מרוכז ' ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 16.9,
+        "נתונים ממשלתיים": 16.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 16.9,
+        "max_price": 16.9,
+        "avg_price": 16.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "סוד מרכך מרוכז 900מל 2 יח' ב-16.90 ש\"ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.262109",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_10836",
+      "name": "דאודורנט רולאון 50מל 2 יח' ב-16.90 ש\"ח",
+      "normalized_name": "דאודורנט רולאון ' ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 16.9,
+        "נתונים ממשלתיים": 16.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 16.9,
+        "max_price": 16.9,
+        "avg_price": 16.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "דאודורנט רולאון 50מל 2 יח' ב-16.90 ש\"ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.262120",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_97484",
+      "name": "קינדר שוקולד 300 גרם ב-19.90 ש\"ח",
+      "normalized_name": "קינדר שוקולד ב",
+      "category": "עוף",
+      "network_prices": {
+        "government": 19.9,
+        "נתונים ממשלתיים": 19.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 19.9,
+        "max_price": 19.9,
+        "avg_price": 19.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "קינדר שוקולד 300 גרם ב-19.90 ש\"ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.262128",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_51474",
+      "name": "סט מצעים 3 חלקים מיקרופייבר ב29.90",
+      "normalized_name": "סט מצעים 3 חלקים מיקרופייבר ב29.90",
+      "category": "אחר",
+      "network_prices": {
+        "government": 29.9,
+        "נתונים ממשלתיים": 29.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 29.9,
+        "max_price": 29.9,
+        "avg_price": 29.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "סט מצעים 3 חלקים מיקרופייבר ב29.90"
+        ],
+        "created_at": "2025-06-27T22:17:52.262140",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_15898",
+      "name": "פתיתי פרמז ן מגורד 100ג  ב- ש ח",
+      "normalized_name": "פתיתי פרמז ן מגורד 100ג ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 5.8,
+        "נתונים ממשלתיים": 5.8
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 5.8,
+        "max_price": 5.8,
+        "avg_price": 5.8,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "פתיתי פרמז ן מגורד 100ג  ב- ש ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.262151",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_77933",
+      "name": "גבינת שמנת נפוליאון ב- ש ח",
+      "normalized_name": "גבינת שמנת נפוליאון ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 5.8,
+        "נתונים ממשלתיים": 5.8
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 5.8,
+        "max_price": 5.8,
+        "avg_price": 5.8,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "גבינת שמנת נפוליאון ב- ש ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.262161",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_98176",
+      "name": "מתבל היינץ 700גר ב- ש ח",
+      "normalized_name": "מתבל היינץ ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 10.9,
+        "נתונים ממשלתיים": 10.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 10.9,
+        "max_price": 10.9,
+        "avg_price": 10.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "מתבל היינץ 700גר ב- ש ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.262171",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_87217",
+      "name": "פתיבר 500 גרם רמי לוי ב- ש ח",
+      "normalized_name": "פתיבר רמי לוי ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 6.8,
+        "נתונים ממשלתיים": 6.8
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 6.8,
+        "max_price": 6.8,
+        "avg_price": 6.8,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "פתיבר 500 גרם רמי לוי ב- ש ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.262181",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_86235",
+      "name": "עלים לקרמשניט מוכנים רמי לוי ב- ש ח",
+      "normalized_name": "עלים לקרמשניט מוכנים רמי לוי ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 13.5,
+        "נתונים ממשלתיים": 13.5
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 13.5,
+        "max_price": 13.5,
+        "avg_price": 13.5,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "עלים לקרמשניט מוכנים רמי לוי ב- ש ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.262192",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_3215",
+      "name": "קינדר בואנו שלישייה ב- ש ח",
+      "normalized_name": "קינדר בואנו שלישייה ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 12.9,
+        "נתונים ממשלתיים": 12.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 12.9,
+        "max_price": 12.9,
+        "avg_price": 12.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "קינדר בואנו שלישייה ב- ש ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.262202",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_66274",
+      "name": "סירופ דיאט 1 לי יכין ב מו2",
+      "normalized_name": "סירופ דיאט 1 לי יכין ב מו2",
+      "category": "אחר",
+      "network_prices": {
+        "government": 6.9,
+        "נתונים ממשלתיים": 6.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 6.9,
+        "max_price": 6.9,
+        "avg_price": 6.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "סירופ דיאט 1 לי יכין ב מו2"
+        ],
+        "created_at": "2025-06-27T22:17:52.262212",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_56695",
+      "name": "נוזל כלים פלמוליב 750מל ב",
+      "normalized_name": "נוזל כלים פלמוליב ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 8.9,
+        "נתונים ממשלתיים": 8.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 8.9,
+        "max_price": 8.9,
+        "avg_price": 8.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "נוזל כלים פלמוליב 750מל ב"
+        ],
+        "created_at": "2025-06-27T22:17:52.262222",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_17115",
+      "name": "יוגורט ביו   דנונה (200 גרם)",
+      "normalized_name": "יוגורט ביו דנונה",
+      "category": "אחר",
+      "network_prices": {
+        "government": 1.7,
+        "נתונים ממשלתיים": 1.7
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 1.7,
+        "max_price": 1.7,
+        "avg_price": 1.7,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "יוגורט ביו   דנונה (200 גרם)"
+        ],
+        "created_at": "2025-06-27T22:17:52.262233",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_74837",
+      "name": "אקטיביה יוגורט   דנונה (150x8 גרם)",
+      "normalized_name": "אקטיביה יוגורט דנונה",
+      "category": "אחר",
+      "network_prices": {
+        "government": 1.5,
+        "נתונים ממשלתיים": 1.5
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 1.5,
+        "max_price": 1.5,
+        "avg_price": 1.5,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "אקטיביה יוגורט   דנונה (150x8 גרם)"
+        ],
+        "created_at": "2025-06-27T22:17:52.262244",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_43282",
+      "name": "משקה קפה קר בסגנון קלאסי   (230 גר )",
+      "normalized_name": "משקה קפה קר בסגנון קלאסי",
+      "category": "אחר",
+      "network_prices": {
+        "government": 1.6,
+        "נתונים ממשלתיים": 1.6
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 1.6,
+        "max_price": 1.6,
+        "avg_price": 1.6,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "משקה קפה קר בסגנון קלאסי   (230 גר )"
+        ],
+        "created_at": "2025-06-27T22:17:52.262254",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_74722",
+      "name": "בקבוק פרמיום משנה צבעים ב5.90",
+      "normalized_name": "בקבוק פרמיום משנה צבעים ב5.90",
+      "category": "אחר",
+      "network_prices": {
+        "government": 5.9,
+        "נתונים ממשלתיים": 5.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 5.9,
+        "max_price": 5.9,
+        "avg_price": 5.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "בקבוק פרמיום משנה צבעים ב5.90"
+        ],
+        "created_at": "2025-06-27T22:17:52.262264",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_62652",
+      "name": "בייבי מוצרלה/צמות/קשקבל/אצבעות ב12.90 שח",
+      "normalized_name": "בייבי מוצרלה/צמות/קשקבל/אצבעות ב12.90 שח",
+      "category": "אחר",
+      "network_prices": {
+        "government": 12.9,
+        "נתונים ממשלתיים": 12.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 12.9,
+        "max_price": 12.9,
+        "avg_price": 12.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "בייבי מוצרלה/צמות/קשקבל/אצבעות ב12.90 שח"
+        ],
+        "created_at": "2025-06-27T22:17:52.262275",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_62534",
+      "name": "ניקוי רמי לוי 500גר 2 יח' ב-7.90 ש\"ח",
+      "normalized_name": "ניקוי רמי לוי ' ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 7.9,
+        "נתונים ממשלתיים": 7.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 7.9,
+        "max_price": 7.9,
+        "avg_price": 7.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "ניקוי רמי לוי 500גר 2 יח' ב-7.90 ש\"ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.262285",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_75625",
+      "name": "עגבניות שרי 3 יח' ב-9.90 ש\"ח",
+      "normalized_name": "עגבניות שרי ' ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 9.9,
+        "נתונים ממשלתיים": 9.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 9.9,
+        "max_price": 9.9,
+        "avg_price": 9.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "עגבניות שרי 3 יח' ב-",
+          "עגבניות שרי 3 יח' ב-9.90 ש\"ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.262297",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_23222",
+      "name": "שימורים סוגת 240גר 2 יח' ב-12.90 ש\"ח",
+      "normalized_name": "שימורים סוגת ' ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 12.9,
+        "נתונים ממשלתיים": 12.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 12.9,
+        "max_price": 12.9,
+        "avg_price": 12.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "שימורים סוגת 240גר 2 יח' ב-12.90 ש\"ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.262309",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_22015",
+      "name": "חלב רמת הגולן ב-8.5 ש\"ח",
+      "normalized_name": "חלב רמת הגולן ב",
+      "category": "פנימיות",
+      "network_prices": {
+        "government": 8.5,
+        "נתונים ממשלתיים": 8.5
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 8.5,
+        "max_price": 8.5,
+        "avg_price": 8.5,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "חלב רמת הגולן ב-8.5 ש\"ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.262319",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_79015",
+      "name": "סוכר 1 ק\"ג רמי לוי ב-2.90 ש\"ח",
+      "normalized_name": "סוכר רמי לוי ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 2.9,
+        "נתונים ממשלתיים": 2.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 2.9,
+        "max_price": 2.9,
+        "avg_price": 2.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "סוכר 1 ק\"ג רמי לוי ב",
+          "סוכר 1 ק\"ג רמי לוי ב-2.90 ש\"ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.262331",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_32288",
+      "name": "מיני ניוקי תפוחאדמה 2 יח' ב-11.90 ש\"ח",
+      "normalized_name": "מיני ניוקי תפוחאדמה ' ב",
+      "category": "אחר",
+      "network_prices": {
+        "government": 11.9,
+        "נתונים ממשלתיים": 11.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 11.9,
+        "max_price": 11.9,
+        "avg_price": 11.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "מיני ניוקי תפוחאדמה 2 יח' ב-11.90 ש\"ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.262341",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_70446",
+      "name": "שוקולד חלב/מריר 100 גרם ב-2.90 ש\"ח",
+      "normalized_name": "שוקולד חלב/מריר ב",
+      "category": "עוף",
+      "network_prices": {
+        "government": 2.9,
+        "נתונים ממשלתיים": 2.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 2.9,
+        "max_price": 2.9,
+        "avg_price": 2.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "שוקולד חלב/מריר 100 גרם ב-2.90 ש\"ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.262349",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_67337",
+      "name": "חלב טבעי 3.6% יטבתה (1 ליטר)",
+      "normalized_name": "חלב טבעי 3.6% יטבתה",
+      "category": "פנימיות",
+      "network_prices": {
+        "government": 3.6,
+        "נתונים ממשלתיים": 3.6
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 3.6,
+        "max_price": 3.6,
+        "avg_price": 3.6,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "חלב טבעי 3.6% יטבתה (1 ליטר)"
+        ],
+        "created_at": "2025-06-27T22:17:52.262359",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_49651",
+      "name": "פרוסות לבבות דקל 220 גרם טעים ב9.90",
+      "normalized_name": "פרוסות לבבות דקל טעים ב9.90",
+      "category": "פנימיות",
+      "network_prices": {
+        "government": 9.9,
+        "נתונים ממשלתיים": 9.9
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 9.9,
+        "max_price": 9.9,
+        "avg_price": 9.9,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "פרוסות לבבות דקל 220 גרם טעים ב9.90",
+          "פרוסות לבבות דקל טעים ב9.90"
+        ],
+        "created_at": "2025-06-27T22:17:52.262371",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_29578",
+      "name": "מיץ אורגני תפוח אננס 750 מל",
+      "normalized_name": "מיץ אורגני תפוח אננס",
+      "category": "אחר",
+      "network_prices": {
+        "government": 202506060923.0,
+        "נתונים ממשלתיים": 202506060923.0
+      },
+      "networks_available": [
+        "government",
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 2,
+      "price_statistics": {
+        "min_price": 202506060923.0,
+        "max_price": 202506060923.0,
+        "avg_price": 202506060923.0,
+        "price_range": 0.0
+      },
+      "savings_analysis": {
+        "max_savings_amount": 0.0,
+        "max_savings_percentage": 0.0,
+        "cheapest_network": "government",
+        "most_expensive_network": "government",
+        "savings_opportunities": "חסוך ₪0.0 (0.0%) בבחירת government על פני government"
+      },
+      "metadata": {
+        "original_names": [
+          "מיץ אורגני תפוח אננס 750 מל"
+        ],
+        "created_at": "2025-06-27T22:17:52.262381",
+        "data_quality": "high"
+      }
+    },
+    {
+      "id": "unified_66568",
+      "name": "ירכיים עוף טרי מחפוד ב34.90 מעל 75 מו3",
+      "normalized_name": "ירכיים עוף טרי מחפוד ב34.90 מעל 75 מו3",
+      "category": "עוף",
+      "network_prices": {
+        "נתונים ממשלתיים": 34.9
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 34.9,
+        "max_price": 34.9,
+        "avg_price": 34.9,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "ירכיים עוף טרי מחפוד ב34.90 מעל 75 מו3"
+        ],
+        "created_at": "2025-06-27T22:17:52.262401",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_56267",
+      "name": "אונטריב nebraska",
+      "normalized_name": "אונטריב nebraska",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061006.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061006.0,
+        "max_price": 202506061006.0,
+        "avg_price": 202506061006.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "אונטריב nebraska"
+        ],
+        "created_at": "2025-06-27T22:17:52.262410",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_20289",
+      "name": "סטייק Azul אנטריקוט טרי ארגנטיני פרימיו",
+      "normalized_name": "סטייק azul אנטריקוט טרי ארגנטיני פרימיו",
+      "category": "בקר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061006.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061006.0,
+        "max_price": 202506061006.0,
+        "avg_price": 202506061006.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "סטייק Azul אנטריקוט טרי ארגנטיני פרימיו"
+        ],
+        "created_at": "2025-06-27T22:17:52.262418",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_74509",
+      "name": "מנות סלמון טרי ארוז ב119.90 מעל 75 מו3",
+      "normalized_name": "מנות סלמון טרי ארוז ב119.90 מעל 75 מו3",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 119.9
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 119.9,
+        "max_price": 119.9,
+        "avg_price": 119.9,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "מנות סלמון טרי ארוז ב119.90 מעל 75 מו3"
+        ],
+        "created_at": "2025-06-27T22:17:52.262427",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_72312",
+      "name": "לבבות עוף טרי מהדרין ב26.90 מעל 75 מו3",
+      "normalized_name": "לבבות עוף טרי",
+      "category": "עוף",
+      "network_prices": {
+        "נתונים ממשלתיים": 26.9
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 26.9,
+        "max_price": 26.9,
+        "avg_price": 26.9,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "לבבות עוף טרי מהדרין ב26.90",
+          "לבבות עוף טרי מהדרין ב26.90 מעל 75 מו3"
+        ],
+        "created_at": "2025-06-27T22:17:52.262434",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_83388",
+      "name": "פטריות מלך היער בייבי מרינה",
+      "normalized_name": "פטריות מלך היער בייבי מרינה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061005.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061005.0,
+        "max_price": 202506061005.0,
+        "avg_price": 202506061005.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פטריות מלך היער בייבי מרינה"
+        ],
+        "created_at": "2025-06-27T22:17:52.262443",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_4507",
+      "name": "כפפות ניטריל ורודות s ללא אבקה EASY TO",
+      "normalized_name": "כפפות ניטריל ורודות s ללא אבקה easy to",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060834.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060834.0,
+        "max_price": 202506060834.0,
+        "avg_price": 202506060834.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "כפפות ניטריל ורודות s ללא אבקה EASY TO"
+        ],
+        "created_at": "2025-06-27T22:17:52.262454",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_3736",
+      "name": "צ`דר  טריפל- מעדנייה",
+      "normalized_name": "צ`דר טריפל",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "צ`דר  טריפל- מעדנייה"
+        ],
+        "created_at": "2025-06-27T22:17:52.262462",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_58225",
+      "name": "פלין פטריות בטעם כמהין",
+      "normalized_name": "פלין פטריות בטעם כמהין",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פלין פטריות בטעם כמהין"
+        ],
+        "created_at": "2025-06-27T22:17:52.262471",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_80077",
+      "name": "טריו מיקס מוצרלה סקנדינבית וגאודה",
+      "normalized_name": "טריו מיקס מוצרלה סקנדינבית וגאודה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "טריו מיקס מוצרלה סקנדינבית וגאודה"
+        ],
+        "created_at": "2025-06-27T22:17:52.262480",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_29724",
+      "name": "חזה בריסקט nebraska",
+      "normalized_name": "חזה בריסקט nebraska",
+      "category": "עוף",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061006.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061006.0,
+        "max_price": 202506061006.0,
+        "avg_price": 202506061006.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "חזה בריסקט nebraska"
+        ],
+        "created_at": "2025-06-27T22:17:52.262488",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_20802",
+      "name": "לאגו-וופל קוביות במילוי אגוזי לוז מצופה",
+      "normalized_name": "לאגו",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060834.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060834.0,
+        "max_price": 202506060834.0,
+        "avg_price": 202506060834.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "לאגו-וופל במילוי קרם קקאו מצופה שוקולד",
+          "לאגו-וופל קוביות במילוי אגוזי לוז מצופה"
+        ],
+        "created_at": "2025-06-27T22:17:52.262498",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_99827",
+      "name": "פילה מדומה nebraska",
+      "normalized_name": "פילה מדומה nebraska",
+      "category": "בקר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061006.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061006.0,
+        "max_price": 202506061006.0,
+        "avg_price": 202506061006.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פילה מדומה nebraska"
+        ],
+        "created_at": "2025-06-27T22:17:52.262505",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_77248",
+      "name": "42.5",
+      "normalized_name": "42.5",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 42.5
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 42.5,
+        "max_price": 42.5,
+        "avg_price": 42.5,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "42.5"
+        ],
+        "created_at": "2025-06-27T22:17:52.262517",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_95249",
+      "name": "12.5",
+      "normalized_name": "12.5",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 12.5
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 12.5,
+        "max_price": 12.5,
+        "avg_price": 12.5,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "12.5"
+        ],
+        "created_at": "2025-06-27T22:17:52.262524",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_66998",
+      "name": "2.50",
+      "normalized_name": "2.50",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 2.5
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 2.5,
+        "max_price": 2.5,
+        "avg_price": 2.5,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "2.50"
+        ],
+        "created_at": "2025-06-27T22:17:52.262531",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_90627",
+      "name": "2.55",
+      "normalized_name": "2.55",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 2.55
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 2.55,
+        "max_price": 2.55,
+        "avg_price": 2.55,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "2.55"
+        ],
+        "created_at": "2025-06-27T22:17:52.262537",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_44265",
+      "name": "12.56",
+      "normalized_name": "12.56",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 12.56
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 12.56,
+        "max_price": 12.56,
+        "avg_price": 12.56,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "12.56"
+        ],
+        "created_at": "2025-06-27T22:17:52.262544",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_2459",
+      "name": "12.50",
+      "normalized_name": "12.50",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 12.5
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 12.5,
+        "max_price": 12.5,
+        "avg_price": 12.5,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "12.50"
+        ],
+        "created_at": "2025-06-27T22:17:52.262550",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_58127",
+      "name": "2.56",
+      "normalized_name": "2.56",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 2.56
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 2.56,
+        "max_price": 2.56,
+        "avg_price": 2.56,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "2.56"
+        ],
+        "created_at": "2025-06-27T22:17:52.262556",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_9554",
+      "name": "2.58",
+      "normalized_name": "2.58",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 2.58
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 2.58,
+        "max_price": 2.58,
+        "avg_price": 2.58,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "2.58"
+        ],
+        "created_at": "2025-06-27T22:17:52.262562",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_71949",
+      "name": "0.0120",
+      "normalized_name": "0.0120",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 0.012
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 0.012,
+        "max_price": 0.012,
+        "avg_price": 0.01,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "0.0120"
+        ],
+        "created_at": "2025-06-27T22:17:52.262569",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_33725",
+      "name": "שריר בקר nebraska",
+      "normalized_name": "שריר בקר nebraska",
+      "category": "בקר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061006.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061006.0,
+        "max_price": 202506061006.0,
+        "avg_price": 202506061006.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "שריר בקר nebraska"
+        ],
+        "created_at": "2025-06-27T22:17:52.262603",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_57307",
+      "name": "ניוקי תפאאיטלקית 500  גר`לה מוליסנה",
+      "normalized_name": "ניוקי תפאאיטלקית `לה מוליסנה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061007.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061007.0,
+        "max_price": 202506061007.0,
+        "avg_price": 202506061007.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "ניוקי תפאאיטלקית 500  גר`לה מוליסנה"
+        ],
+        "created_at": "2025-06-27T22:17:52.262612",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_69957",
+      "name": "מרגרינה שמן קוקוס 200  גר`בלובנד",
+      "normalized_name": "מרגרינה שמן קוקוס `בלובנד",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061003.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061003.0,
+        "max_price": 202506061003.0,
+        "avg_price": 202506061003.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "מרגרינה שמן קוקוס 200  גר`בלובנד"
+        ],
+        "created_at": "2025-06-27T22:17:52.262621",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_22193",
+      "name": "משקה חלב צמר גפן מתוק 250 מל",
+      "normalized_name": "משקה חלב צמר גפן מתוק",
+      "category": "פנימיות",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061004.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061004.0,
+        "max_price": 202506061004.0,
+        "avg_price": 202506061004.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "משקה חלב צמר גפן מתוק 250 מל"
+        ],
+        "created_at": "2025-06-27T22:17:52.262634",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_53306",
+      "name": "זעתר מעורב 80 גר`",
+      "normalized_name": "זעתר מעורב `",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060917.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060917.0,
+        "max_price": 202506060917.0,
+        "avg_price": 202506060917.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "זעתר מעורב 80 גר`"
+        ],
+        "created_at": "2025-06-27T22:17:52.262647",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_3068",
+      "name": "פפריקה מתוקה בשמן בסגנון מרוקאי 400 גר`",
+      "normalized_name": "פפריקה מתוקה בשמן בסגנון מרוקאי `",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060917.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060917.0,
+        "max_price": 202506060917.0,
+        "avg_price": 202506060917.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פפריקה מתוקה בשמן בסגנון מרוקאי 400 גר`"
+        ],
+        "created_at": "2025-06-27T22:17:52.262656",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_20507",
+      "name": "שום גבישי 120 גר`",
+      "normalized_name": "שום גבישי `",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "שום גבישי 80 גר`",
+          "שום גבישי 120 גר`"
+        ],
+        "created_at": "2025-06-27T22:17:52.262668",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_69921",
+      "name": "כורכום טחון 80 גר`",
+      "normalized_name": "כורכום טחון `",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060917.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060917.0,
+        "max_price": 202506060917.0,
+        "avg_price": 202506060917.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "כורכום טחון 80 גר`"
+        ],
+        "created_at": "2025-06-27T22:17:52.262679",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_47721",
+      "name": "קלאסיק בית יצחק גאודה פרוס 30% 150ג",
+      "normalized_name": "קלאסיק בית יצחק גאודה פרוס 30% 150ג",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "קלאסיק בית יצחק גאודה פרוס 30% 150ג"
+        ],
+        "created_at": "2025-06-27T22:17:52.262718",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_39900",
+      "name": "ג.גאודה מעושנת פרוסה 150ג",
+      "normalized_name": "ג.גאודה מעושנת פרוסה 150ג",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "ג.גאודה מעושנת פרוסה 150ג"
+        ],
+        "created_at": "2025-06-27T22:17:52.262727",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_4991",
+      "name": "פרוסות מוצרלה מעושנת 200  גר`גד",
+      "normalized_name": "פרוסות מוצרלה מעושנת `גד",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פרוסות מוצרלה מעושנת 200  גר`גד"
+        ],
+        "created_at": "2025-06-27T22:17:52.262739",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_54841",
+      "name": "טבק באלי נטורל 40  גר`בודד",
+      "normalized_name": "טבק באלי נטורל `בודד",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "טבק באלי נטורל 40  גר`בודד"
+        ],
+        "created_at": "2025-06-27T22:17:52.262749",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_98690",
+      "name": "קממבר צרפתי גד מעדנייה",
+      "normalized_name": "קממבר צרפתי גד מעדנייה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "קממבר צרפתי גד מעדנייה"
+        ],
+        "created_at": "2025-06-27T22:17:52.262759",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_89790",
+      "name": "משולש ברי צרפתי מעדנייה",
+      "normalized_name": "משולש ברי צרפתי מעדנייה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "משולש ברי צרפתי מעדנייה"
+        ],
+        "created_at": "2025-06-27T22:17:52.262768",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_73085",
+      "name": "שוקו 2% בבקבוק יטבתה (1 ליטר)",
+      "normalized_name": "שוקו 2% בבקבוק יטבתה",
+      "category": "עוף",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "שוקו 2% בבקבוק יטבתה (1 ליטר)"
+        ],
+        "created_at": "2025-06-27T22:17:52.262779",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_97498",
+      "name": "פרו קראנצ` במתיקות מעודנת עם שוקולד.",
+      "normalized_name": "פרו קראנצ` במתיקות מעודנת עם שוקולד.",
+      "category": "עוף",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פרו קראנצ` במתיקות מעודנת עם שוקולד."
+        ],
+        "created_at": "2025-06-27T22:17:52.262786",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_63065",
+      "name": "מארז 6 שקיות מוקה",
+      "normalized_name": "מארז 6 שקיות מוקה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "מארז 6 שקיות מוקה"
+        ],
+        "created_at": "2025-06-27T22:17:52.262794",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_30468",
+      "name": "מיץ תפוזים סחוט טבעי פרימור (1 ליטר)",
+      "normalized_name": "מיץ תפוזים סחוט טבעי פרימור",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "מיץ תפוזים סחוט טבעי פרימור (1 ליטר)"
+        ],
+        "created_at": "2025-06-27T22:17:52.262807",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_73828",
+      "name": "קולקשן קממבר עין גדי 24% שומן",
+      "normalized_name": "קולקשן קממבר עין גדי 24% שומן",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "קולקשן קממבר עין גדי 24% שומן"
+        ],
+        "created_at": "2025-06-27T22:17:52.262819",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_48707",
+      "name": "פרומעז גבינת עזים 23% שומן",
+      "normalized_name": "פרומעז גבינת עזים 23% שומן",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פרומעז גבינת עזים 23% שומן"
+        ],
+        "created_at": "2025-06-27T22:17:52.262828",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_83252",
+      "name": "פתיתי מוצרלה 20% שומן 200גרם",
+      "normalized_name": "פתיתי מוצרלה 20% שומן",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פתיתי מוצרלה 20% שומן 200גרם"
+        ],
+        "created_at": "2025-06-27T22:17:52.262837",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_46465",
+      "name": "לבנה בשמן  זית-גד- מדף",
+      "normalized_name": "לבנה בשמן זית",
+      "category": "פנימיות",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "לבנה בשמן  זית-גד- מדף"
+        ],
+        "created_at": "2025-06-27T22:17:52.262847",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_65593",
+      "name": "דנאבלו גבינה+עובש משקל",
+      "normalized_name": "דנאבלו גבינה+עובש משקל",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "דנאבלו גבינה+עובש משקל"
+        ],
+        "created_at": "2025-06-27T22:17:52.262857",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_30549",
+      "name": "סחלב גד 150 גר`",
+      "normalized_name": "סחלב גד `",
+      "category": "פנימיות",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "סחלב גד 150 גר`"
+        ],
+        "created_at": "2025-06-27T22:17:52.262869",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_15680",
+      "name": "מולר פרוטאין משקה חלבון טעם וניל",
+      "normalized_name": "מולר פרוטאין משקה חלבון טעם וניל",
+      "category": "פנימיות",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060923.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060923.0,
+        "max_price": 202506060923.0,
+        "avg_price": 202506060923.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "מולר פרוטאין משקה חלבון טעם וניל"
+        ],
+        "created_at": "2025-06-27T22:17:52.262881",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_19793",
+      "name": "קמח אורז דביק 500 גר`",
+      "normalized_name": "קמח אורז דביק `",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060923.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060923.0,
+        "max_price": 202506060923.0,
+        "avg_price": 202506060923.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "קמח אורז דביק 500 גר`"
+        ],
+        "created_at": "2025-06-27T22:17:52.262888",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_47301",
+      "name": "פיראוס בולגרית 5% מעודנת",
+      "normalized_name": "פיראוס בולגרית 5% מעודנת",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060746.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060746.0,
+        "max_price": 202506060746.0,
+        "avg_price": 202506060746.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פיראוס בולגרית 5% מעודנת"
+        ],
+        "created_at": "2025-06-27T22:17:52.262897",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_98123",
+      "name": "מיץ אורגני תפוח 750 מל",
+      "normalized_name": "מיץ אורגני תפוח",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060842.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060842.0,
+        "max_price": 202506060842.0,
+        "avg_price": 202506060842.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "מיץ אורגני תפוח 750 מל",
+          "מיץ אורגני תפוח 250 מל"
+        ],
+        "created_at": "2025-06-27T22:17:52.262906",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_1284",
+      "name": "מיץ אורגני תפוח גזר תפוז 750 מל",
+      "normalized_name": "מיץ אורגני תפוח גזר תפוז",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060956.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060956.0,
+        "max_price": 202506060956.0,
+        "avg_price": 202506060956.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "מיץ אורגני תפוח גזר תפוז 750 מל"
+        ],
+        "created_at": "2025-06-27T22:17:52.262917",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_1053",
+      "name": "צלי כתף nebraska",
+      "normalized_name": "צלי כתף nebraska",
+      "category": "בקר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061006.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061006.0,
+        "max_price": 202506061006.0,
+        "avg_price": 202506061006.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "צלי כתף nebraska"
+        ],
+        "created_at": "2025-06-27T22:17:52.262924",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_87407",
+      "name": "חמצוצים רחב צבעוני רחב בטעמים 115 גרם",
+      "normalized_name": "חמצוצים רחב צבעוני רחב בטעמים",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061003.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061003.0,
+        "max_price": 202506061003.0,
+        "avg_price": 202506061003.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "חמצוצים רחב צבעוני רחב בטעמים 115 גרם"
+        ],
+        "created_at": "2025-06-27T22:17:52.262932",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_62574",
+      "name": "מקלוני תירס בטעם גבינת צ`דר",
+      "normalized_name": "מקלוני תירס בטעם גבינת צ`דר",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061005.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061005.0,
+        "max_price": 202506061005.0,
+        "avg_price": 202506061005.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "מקלוני תירס בטעם גבינת צ`דר"
+        ],
+        "created_at": "2025-06-27T22:17:52.262939",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_18150",
+      "name": "קרם גבינה 5% סקי (125 גרם)",
+      "normalized_name": "קרם גבינה 5% סקי",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061007.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061007.0,
+        "max_price": 202506061007.0,
+        "avg_price": 202506061007.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "קרם גבינה 5% סקי (125 גרם)"
+        ],
+        "created_at": "2025-06-27T22:17:52.262946",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_20197",
+      "name": "צ`יפס בטטה 500 גר`",
+      "normalized_name": "צ`יפס בטטה `",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061008.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061008.0,
+        "max_price": 202506061008.0,
+        "avg_price": 202506061008.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "צ`יפס בטטה 500 גר`"
+        ],
+        "created_at": "2025-06-27T22:17:52.262953",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_94438",
+      "name": "לחם פרו 500 גר`",
+      "normalized_name": "לחם פרו `",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061007.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061007.0,
+        "max_price": 202506061007.0,
+        "avg_price": 202506061007.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "לחם פרו 500 גר`"
+        ],
+        "created_at": "2025-06-27T22:17:52.262960",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_50734",
+      "name": "מקסימה ג`ל  כביסה+מרכך 3 ליטר",
+      "normalized_name": "מקסימה ג`ל כביסה+מרכך",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061004.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061004.0,
+        "max_price": 202506061004.0,
+        "avg_price": 202506061004.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "מקסימה ג`ל  כביסה+מרכך 3 ליטר"
+        ],
+        "created_at": "2025-06-27T22:17:52.262968",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_51319",
+      "name": "ביסקוויט עד חצות דאבל 200 גר`",
+      "normalized_name": "ביסקוויט עד חצות דאבל `",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061006.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061006.0,
+        "max_price": 202506061006.0,
+        "avg_price": 202506061006.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "ביסקוויט עד חצות דאבל 200 גר`"
+        ],
+        "created_at": "2025-06-27T22:17:52.262976",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_48937",
+      "name": "יוגורט מולר פרופ 3% קציפת ליצ`י קוקוס (1",
+      "normalized_name": "יוגורט מולר פרופ 3% קציפת ליצ`י קוקוס (1",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061004.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061004.0,
+        "max_price": 202506061004.0,
+        "avg_price": 202506061004.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "יוגורט מולר פרופ 3% קציפת ליצ`י קוקוס (1"
+        ],
+        "created_at": "2025-06-27T22:17:52.262984",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_35084",
+      "name": "קפה טורקי  עלית+פנס (85x3 גרם)",
+      "normalized_name": "קפה טורקי עלית+פנס",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061006.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061006.0,
+        "max_price": 202506061006.0,
+        "avg_price": 202506061006.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "קפה טורקי  עלית+פנס (85x3 גרם)"
+        ],
+        "created_at": "2025-06-27T22:17:52.262991",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_72166",
+      "name": "פרימיטיבו רוזה טיאמו 750 מל",
+      "normalized_name": "פרימיטיבו רוזה טיאמו",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061004.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061004.0,
+        "max_price": 202506061004.0,
+        "avg_price": 202506061004.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פרימיטיבו רוזה טיאמו 750 מל"
+        ],
+        "created_at": "2025-06-27T22:17:52.262998",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_76810",
+      "name": "קמח חיטה מנופה לחלה 1 קג PIVETTI",
+      "normalized_name": "קמח חיטה מנופה לחלה pivetti",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061007.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061007.0,
+        "max_price": 202506061007.0,
+        "avg_price": 202506061007.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "קמח חיטה מנופה לחלה 1 קג PIVETTI"
+        ],
+        "created_at": "2025-06-27T22:17:52.263006",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_31547",
+      "name": "סקנדינבית 31% תנובה",
+      "normalized_name": "סקנדינבית 31% תנובה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060834.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060834.0,
+        "max_price": 202506060834.0,
+        "avg_price": 202506060834.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "סקנדינבית 31% תנובה"
+        ],
+        "created_at": "2025-06-27T22:17:52.263013",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_70290",
+      "name": "קאשקבל משולש מעדנייה גד",
+      "normalized_name": "קאשקבל משולש מעדנייה גד",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060834.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060834.0,
+        "max_price": 202506060834.0,
+        "avg_price": 202506060834.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "קאשקבל משולש מעדנייה גד"
+        ],
+        "created_at": "2025-06-27T22:17:52.263020",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_16041",
+      "name": "חמצוצים רחב 115 גר`",
+      "normalized_name": "חמצוצים רחב `",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060834.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060834.0,
+        "max_price": 202506060834.0,
+        "avg_price": 202506060834.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "חמצוצים רחב 115 גר`"
+        ],
+        "created_at": "2025-06-27T22:17:52.263027",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_5418",
+      "name": "כוסברה פרחים א.אדמה",
+      "normalized_name": "כוסברה פרחים א.אדמה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060834.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060834.0,
+        "max_price": 202506060834.0,
+        "avg_price": 202506060834.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "כוסברה פרחים א.אדמה"
+        ],
+        "created_at": "2025-06-27T22:17:52.263034",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_12658",
+      "name": "קמח חיטה מנופה לעוגה 1 קג PIVETTI",
+      "normalized_name": "קמח חיטה מנופה לעוגה pivetti",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060834.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060834.0,
+        "max_price": 202506060834.0,
+        "avg_price": 202506060834.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "קמח חיטה מנופה לעוגה 1 קג PIVETTI"
+        ],
+        "created_at": "2025-06-27T22:17:52.263042",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_30337",
+      "name": "עלי דפנה 20 גר`",
+      "normalized_name": "עלי דפנה `",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060917.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060917.0,
+        "max_price": 202506060917.0,
+        "avg_price": 202506060917.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "עלי דפנה 20 גר`"
+        ],
+        "created_at": "2025-06-27T22:17:52.263048",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_51032",
+      "name": "פלפל שחור טחון 100 גר`",
+      "normalized_name": "פלפל שחור טחון `",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060917.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060917.0,
+        "max_price": 202506060917.0,
+        "avg_price": 202506060917.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פלפל שחור טחון 100 גר`"
+        ],
+        "created_at": "2025-06-27T22:17:52.263055",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_89595",
+      "name": " חוואיג`100 גר`",
+      "normalized_name": "חוואיג``",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060917.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060917.0,
+        "max_price": 202506060917.0,
+        "avg_price": 202506060917.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          " חוואיג`100 גר`"
+        ],
+        "created_at": "2025-06-27T22:17:52.263062",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_7650",
+      "name": "סומק 45 גר`",
+      "normalized_name": "סומק `",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060917.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060917.0,
+        "max_price": 202506060917.0,
+        "avg_price": 202506060917.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "סומק 45 גר`"
+        ],
+        "created_at": "2025-06-27T22:17:52.263069",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_28740",
+      "name": "לחם שום תערובת מיכל 100  גר`טעם וריח",
+      "normalized_name": "לחם שום תערובת מיכל `טעם וריח",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060917.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060917.0,
+        "max_price": 202506060917.0,
+        "avg_price": 202506060917.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "לחם שום תערובת מיכל 100  גר`טעם וריח"
+        ],
+        "created_at": "2025-06-27T22:17:52.263076",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_97204",
+      "name": "פררו קולקשיון ב- ש ח",
+      "normalized_name": "פררו קולקשיון ב",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 29.9
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 29.9,
+        "max_price": 29.9,
+        "avg_price": 29.9,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פררו קולקשיון ב- ש ח"
+        ],
+        "created_at": "2025-06-27T22:17:52.263084",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_23505",
+      "name": "מוצרלה חריץ תנובה",
+      "normalized_name": "מוצרלה חריץ תנובה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "מוצרלה חריץ תנובה"
+        ],
+        "created_at": "2025-06-27T22:17:52.263092",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_17753",
+      "name": "קולאג 23% פרמזן חריץ תנובה",
+      "normalized_name": "קולאג 23% פרמזן חריץ תנובה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "קולאג 23% פרמזן חריץ תנובה"
+        ],
+        "created_at": "2025-06-27T22:17:52.263100",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_74020",
+      "name": "קשקבל (27% גלעד) תנובה",
+      "normalized_name": "קשקבל תנובה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "קשקבל (27% גלעד) תנובה"
+        ],
+        "created_at": "2025-06-27T22:17:52.263107",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_80652",
+      "name": "רוקפור (26% גליל) חריץ תנובה",
+      "normalized_name": "רוקפור חריץ תנובה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "רוקפור (26% גליל) חריץ תנובה"
+        ],
+        "created_at": "2025-06-27T22:17:52.263115",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_65965",
+      "name": "בולגרית פיראוס 24% פח 3  קג`תנובה",
+      "normalized_name": "בולגרית פיראוס 24% פח `תנובה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "בולגרית פיראוס 24% פח 3  קג`תנובה"
+        ],
+        "created_at": "2025-06-27T22:17:52.263123",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_59033",
+      "name": "טל העמק 32% צהובה",
+      "normalized_name": "טל העמק 32% צהובה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "טל העמק 32% צהובה"
+        ],
+        "created_at": "2025-06-27T22:17:52.263130",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_21606",
+      "name": "צפתית מלבנית 5% פיראוס מעודנת",
+      "normalized_name": "צפתית מלבנית 5% פיראוס מעודנת",
+      "category": "פנימיות",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "צפתית מלבנית 5% פיראוס מעודנת"
+        ],
+        "created_at": "2025-06-27T22:17:52.263137",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_35723",
+      "name": "גבינת מוצרלה נקניק מעדנייה גד",
+      "normalized_name": "גבינת מוצרלה נקניק מעדנייה גד",
+      "category": "מעובד",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "גבינת מוצרלה נקניק מעדנייה גד"
+        ],
+        "created_at": "2025-06-27T22:17:52.263144",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_78939",
+      "name": "גבינה צפתית רכה 5% מעדנייה גד",
+      "normalized_name": "גבינה צפתית רכה 5% מעדנייה גד",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "גבינה צפתית רכה 5% מעדנייה גד"
+        ],
+        "created_at": "2025-06-27T22:17:52.263153",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_48444",
+      "name": "ריקוטה מעדנייה גד",
+      "normalized_name": "ריקוטה מעדנייה גד",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "ריקוטה מעדנייה גד"
+        ],
+        "created_at": "2025-06-27T22:17:52.263160",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_1766",
+      "name": "שמנות 30% גד",
+      "normalized_name": "שמנות 30% גד",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "שמנות 30% גד"
+        ],
+        "created_at": "2025-06-27T22:17:52.263167",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_41699",
+      "name": "לאבנה גד",
+      "normalized_name": "לאבנה גד",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "לאבנה גד"
+        ],
+        "created_at": "2025-06-27T22:17:52.263174",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_51255",
+      "name": "כדורי מוצרלה במים גד פרסקה מעדניה",
+      "normalized_name": "כדורי מוצרלה במים גד פרסקה מעדניה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "כדורי מוצרלה במים גד פרסקה מעדניה"
+        ],
+        "created_at": "2025-06-27T22:17:52.263181",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_67938",
+      "name": "גאודה 30% חריץ מעדניה",
+      "normalized_name": "גאודה 30% חריץ מעדניה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "גאודה 30% חריץ מעדניה"
+        ],
+        "created_at": "2025-06-27T22:17:52.263189",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_21291",
+      "name": "ברי פקאן בלוק מעדנייה גד",
+      "normalized_name": "ברי פקאן בלוק מעדנייה גד",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "ברי פקאן בלוק מעדנייה גד"
+        ],
+        "created_at": "2025-06-27T22:17:52.263196",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_26478",
+      "name": "פקורינו משולשים מעדנייה גד",
+      "normalized_name": "פקורינו משולשים מעדנייה גד",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פקורינו משולשים מעדנייה גד"
+        ],
+        "created_at": "2025-06-27T22:17:52.263203",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_61410",
+      "name": "גרנה פדנו מעדנייה-גד ",
+      "normalized_name": "גרנה פדנו מעדנייה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "גרנה פדנו מעדנייה-גד "
+        ],
+        "created_at": "2025-06-27T22:17:52.263210",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_93056",
+      "name": "פטה פיראוס 20%",
+      "normalized_name": "פטה פיראוס 20%",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פטה פיראוס 20%"
+        ],
+        "created_at": "2025-06-27T22:17:52.263218",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_82371",
+      "name": "צפתית/מעודנת 5%",
+      "normalized_name": "צפתית/מעודנת 5%",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "צפתית/מעודנת 5%"
+        ],
+        "created_at": "2025-06-27T22:17:52.263225",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_62355",
+      "name": "חריץ גאודה קולקשן תנובה",
+      "normalized_name": "חריץ גאודה קולקשן תנובה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "חריץ גאודה קולקשן תנובה"
+        ],
+        "created_at": "2025-06-27T22:17:52.263232",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_42196",
+      "name": "חלומי 24% מעדנייה גד",
+      "normalized_name": "חלומי 24% מעדנייה גד",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "חלומי 24% מעדנייה גד"
+        ],
+        "created_at": "2025-06-27T22:17:52.263239",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_7370",
+      "name": "מילקי וניל",
+      "normalized_name": "מילקי וניל",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "מילקי וניל"
+        ],
+        "created_at": "2025-06-27T22:17:52.263246",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_93951",
+      "name": "מוסטנג רד",
+      "normalized_name": "מוסטנג רד",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "מוסטנג רד"
+        ],
+        "created_at": "2025-06-27T22:17:52.263255",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_26365",
+      "name": "ממרח לורפק עם מלח 250 גר`",
+      "normalized_name": "ממרח לורפק עם מלח `",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "ממרח לורפק עם מלח 250 גר`"
+        ],
+        "created_at": "2025-06-27T22:17:52.263262",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_90903",
+      "name": "שמנת חמוצה מעושר 15% יטבתה (200 מל)",
+      "normalized_name": "שמנת חמוצה מעושר 15% יטבתה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "שמנת חמוצה מעושר 15% יטבתה (200 מל)"
+        ],
+        "created_at": "2025-06-27T22:17:52.263269",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_59205",
+      "name": "פיראוס פטה עזים 16% 250 גרם",
+      "normalized_name": "פיראוס פטה עזים 16%",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פיראוס פטה עזים 16% 250 גרם"
+        ],
+        "created_at": "2025-06-27T22:17:52.263276",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_59089",
+      "name": "פלפל שחור גרוס 90 גר`",
+      "normalized_name": "פלפל שחור גרוס `",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פלפל שחור גרוס 90 גר`"
+        ],
+        "created_at": "2025-06-27T22:17:52.263283",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_36968",
+      "name": "פאקט מוסטנג רד",
+      "normalized_name": "פאקט מוסטנג רד",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פאקט מוסטנג רד"
+        ],
+        "created_at": "2025-06-27T22:17:52.263290",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_70214",
+      "name": "יוגורט ביו 3% דנונה (200 גרם)",
+      "normalized_name": "יוגורט ביו 3% דנונה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "יוגורט ביו 3% דנונה (200 גרם)"
+        ],
+        "created_at": "2025-06-27T22:17:52.263297",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_8718",
+      "name": "מעדן חלב מלבי גד (160 גרם)",
+      "normalized_name": "מעדן חלב מלבי גד",
+      "category": "פנימיות",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "מעדן חלב מלבי גד (160 גרם)"
+        ],
+        "created_at": "2025-06-27T22:17:52.263304",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_18084",
+      "name": "ירח מתוק-גד",
+      "normalized_name": "ירח מתוק",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "ירח מתוק-גד"
+        ],
+        "created_at": "2025-06-27T22:17:52.263311",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_80375",
+      "name": "יוגורמה בית יצחק",
+      "normalized_name": "יוגורמה בית יצחק",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "יוגורמה בית יצחק"
+        ],
+        "created_at": "2025-06-27T22:17:52.263318",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_88302",
+      "name": "סחוט תפוחים 1 ליטר פרימור",
+      "normalized_name": "סחוט תפוחים פרימור",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "סחוט תפוחים 1 ליטר פרימור"
+        ],
+        "created_at": "2025-06-27T22:17:52.263325",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_77966",
+      "name": "משקה קל לימונענע 400 מל פרימור",
+      "normalized_name": "משקה קל לימונענע פרימור",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "משקה קל לימונענע 400 מל פרימור"
+        ],
+        "created_at": "2025-06-27T22:17:52.263332",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_58264",
+      "name": "חלב מועשר 3% בכד יטבתה 2 ליטר",
+      "normalized_name": "חלב מועשר 3% בכד יטבתה",
+      "category": "פנימיות",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "חלב מועשר 3% בכד יטבתה 2 ליטר"
+        ],
+        "created_at": "2025-06-27T22:17:52.263341",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_51459",
+      "name": "דני שמיניה",
+      "normalized_name": "דני שמיניה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "דני שמיניה"
+        ],
+        "created_at": "2025-06-27T22:17:52.263348",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_32385",
+      "name": "רביולי במילוי גבינות",
+      "normalized_name": "רביולי במילוי גבינות",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "רביולי במילוי גבינות"
+        ],
+        "created_at": "2025-06-27T22:17:52.263355",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_95189",
+      "name": "פלח פרמזן גבע 23% 200 גרם",
+      "normalized_name": "פלח פרמזן גבע 23%",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פלח פרמזן גבע 23% 200 גרם"
+        ],
+        "created_at": "2025-06-27T22:17:52.263362",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_74817",
+      "name": "קוואטרו פורמאדי 300  גר`גד",
+      "normalized_name": "קוואטרו פורמאדי `גד",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "קוואטרו פורמאדי 300  גר`גד"
+        ],
+        "created_at": "2025-06-27T22:17:52.263369",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_61971",
+      "name": "גד פרוסות צ`דר 150 גר",
+      "normalized_name": "גד פרוסות צ`דר",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "גד פרוסות צ`דר 150 גר"
+        ],
+        "created_at": "2025-06-27T22:17:52.263376",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_18950",
+      "name": "לימונענע 1 ליטר פרימור",
+      "normalized_name": "לימונענע פרימור",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "לימונענע 1 ליטר פרימור"
+        ],
+        "created_at": "2025-06-27T22:17:52.263383",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_55601",
+      "name": "פרמז`ן מגורד (100 גרם)",
+      "normalized_name": "פרמז`ן מגורד",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פרמז`ן מגורד (100 גרם)"
+        ],
+        "created_at": "2025-06-27T22:17:52.263390",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_85874",
+      "name": "דנונה פרו 20 גר` אפרסק",
+      "normalized_name": "דנונה פרו ` אפרסק",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "דנונה פרו 20 גר` אפרסק"
+        ],
+        "created_at": "2025-06-27T22:17:52.263397",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_31359",
+      "name": "עוגה אישית מילקי  -CAKE בודד",
+      "normalized_name": "עוגה אישית מילקי",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "עוגה אישית מילקי  -CAKE בודד"
+        ],
+        "created_at": "2025-06-27T22:17:52.263405",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_14021",
+      "name": "אקטיביה יוגורט 1.5% דנונה (150x8 גרם)",
+      "normalized_name": "אקטיביה יוגורט 1.5% דנונה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "אקטיביה יוגורט 1.5% דנונה (150x8 גרם)"
+        ],
+        "created_at": "2025-06-27T22:17:52.263412",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_70667",
+      "name": "מליקי בטעם פסק זמן",
+      "normalized_name": "מליקי בטעם פסק זמן",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "מליקי בטעם פסק זמן"
+        ],
+        "created_at": "2025-06-27T22:17:52.263421",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_49381",
+      "name": "יטבתה משקה בטעם בננה 6יח",
+      "normalized_name": "יטבתה משקה בטעם בננה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "יטבתה משקה בטעם בננה 6יח"
+        ],
+        "created_at": "2025-06-27T22:17:52.263429",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_72091",
+      "name": "קרם גבינה 9% סקי (500 גרם)",
+      "normalized_name": "קרם גבינה 9% סקי",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "קרם גבינה 9% סקי (500 גרם)"
+        ],
+        "created_at": "2025-06-27T22:17:52.263436",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_57198",
+      "name": "קמח חיטה לבן מנופה 1 קג PIVETTI",
+      "normalized_name": "קמח חיטה לבן מנופה pivetti",
+      "category": "פנימיות",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506061106.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506061106.0,
+        "max_price": 202506061106.0,
+        "avg_price": 202506061106.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "קמח חיטה לבן מנופה 1 קג PIVETTI"
+        ],
+        "created_at": "2025-06-27T22:17:52.263443",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_34804",
+      "name": "משקה קפה קר בסגנון חזק   (230 גר ) י",
+      "normalized_name": "משקה קפה קר בסגנון חזק י",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 1.2
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 1.2,
+        "max_price": 1.2,
+        "avg_price": 1.2,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "משקה קפה קר בסגנון חזק   (230 גר ) י"
+        ],
+        "created_at": "2025-06-27T22:17:52.263450",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_12808",
+      "name": "בולגרית פיראוס %16למעדניה",
+      "normalized_name": "בולגרית פיראוס %16למעדניה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060743.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060743.0,
+        "max_price": 202506060743.0,
+        "avg_price": 202506060743.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "בולגרית פיראוס %16למעדניה"
+        ],
+        "created_at": "2025-06-27T22:17:52.263458",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_81869",
+      "name": "מוצרלה נעם רכיבים מעדנייה",
+      "normalized_name": "מוצרלה נעם רכיבים מעדנייה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060742.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060742.0,
+        "max_price": 202506060742.0,
+        "avg_price": 202506060742.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "מוצרלה נעם רכיבים מעדנייה"
+        ],
+        "created_at": "2025-06-27T22:17:52.263465",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_36171",
+      "name": "קולקשן ברי עדי 24% שומן 125 גרם",
+      "normalized_name": "קולקשן ברי עדי 24% שומן",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060743.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060743.0,
+        "max_price": 202506060743.0,
+        "avg_price": 202506060743.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "קולקשן ברי עדי 24% שומן 125 גרם"
+        ],
+        "created_at": "2025-06-27T22:17:52.263472",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_82640",
+      "name": "פיראוס לאבנה 9% עם שמן זית וזעתר 263 גרם",
+      "normalized_name": "פיראוס לאבנה 9% עם שמן זית וזעתר",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060743.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060743.0,
+        "max_price": 202506060743.0,
+        "avg_price": 202506060743.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פיראוס לאבנה 9% עם שמן זית וזעתר 263 גרם"
+        ],
+        "created_at": "2025-06-27T22:17:52.263480",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_12335",
+      "name": "רביולי בטטה",
+      "normalized_name": "רביולי בטטה",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060743.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060743.0,
+        "max_price": 202506060743.0,
+        "avg_price": 202506060743.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "רביולי בטטה"
+        ],
+        "created_at": "2025-06-27T22:17:52.263487",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_30384",
+      "name": "פטה עיזים 5% פיראוס גביע 250 גרם",
+      "normalized_name": "פטה עיזים 5% פיראוס גביע",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060743.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060743.0,
+        "max_price": 202506060743.0,
+        "avg_price": 202506060743.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פטה עיזים 5% פיראוס גביע 250 גרם"
+        ],
+        "created_at": "2025-06-27T22:17:52.263494",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_33298",
+      "name": "פלח רוקפור גליל 26% 140 גרם",
+      "normalized_name": "פלח רוקפור גליל 26%",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060743.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060743.0,
+        "max_price": 202506060743.0,
+        "avg_price": 202506060743.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פלח רוקפור גליל 26% 140 גרם"
+        ],
+        "created_at": "2025-06-27T22:17:52.263502",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_36299",
+      "name": "גבינת חלומי מחלב בקר 30% שומן",
+      "normalized_name": "גבינת חלומי מחלב בקר 30% שומן",
+      "category": "בקר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060743.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060743.0,
+        "max_price": 202506060743.0,
+        "avg_price": 202506060743.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "גבינת חלומי מחלב בקר 30% שומן"
+        ],
+        "created_at": "2025-06-27T22:17:52.263508",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_57970",
+      "name": "פרוסות גבינה סקנדינבית 170 גרם",
+      "normalized_name": "פרוסות גבינה סקנדינבית",
+      "category": "אחר",
+      "network_prices": {
+        "נתונים ממשלתיים": 202506060743.0
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 202506060743.0,
+        "max_price": 202506060743.0,
+        "avg_price": 202506060743.0,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פרוסות גבינה סקנדינבית 170 גרם"
+        ],
+        "created_at": "2025-06-27T22:17:52.263515",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_57673",
+      "name": "אנטריקוט טרי ב159.90",
+      "normalized_name": "אנטריקוט טרי ב159.90",
+      "category": "בקר",
+      "network_prices": {
+        "נתונים ממשלתיים": 159.9
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 159.9,
+        "max_price": 159.9,
+        "avg_price": 159.9,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "אנטריקוט טרי ב159.90"
+        ],
+        "created_at": "2025-06-27T22:17:52.263521",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_43013",
+      "name": "פילה סלמון טרי ארוז ב109.90",
+      "normalized_name": "פילה סלמון טרי ארוז ב109.90",
+      "category": "בקר",
+      "network_prices": {
+        "נתונים ממשלתיים": 109.9
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 109.9,
+        "max_price": 109.9,
+        "avg_price": 109.9,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "פילה סלמון טרי ארוז ב109.90"
+        ],
+        "created_at": "2025-06-27T22:17:52.263527",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_40602",
+      "name": "שוקיים עוף טרי מחפוד ב37.90",
+      "normalized_name": "שוקיים עוף טרי מחפוד ב37.90",
+      "category": "עוף",
+      "network_prices": {
+        "נתונים ממשלתיים": 37.9
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 37.9,
+        "max_price": 37.9,
+        "avg_price": 37.9,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "שוקיים עוף טרי מחפוד ב37.90"
+        ],
+        "created_at": "2025-06-27T22:17:52.263532",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_73738",
+      "name": "לבבות עוף טרי ב24.90",
+      "normalized_name": "לבבות עוף טרי ב24.90",
+      "category": "עוף",
+      "network_prices": {
+        "נתונים ממשלתיים": 24.9
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 24.9,
+        "max_price": 24.9,
+        "avg_price": 24.9,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "לבבות עוף טרי ב24.90"
+        ],
+        "created_at": "2025-06-27T22:17:52.263538",
+        "data_quality": "medium"
+      }
+    },
+    {
+      "id": "unified_84836",
+      "name": "ירכיים עוף טרי מחפוד ב34.90",
+      "normalized_name": "ירכיים עוף טרי מחפוד ב34.90",
+      "category": "עוף",
+      "network_prices": {
+        "נתונים ממשלתיים": 34.9
+      },
+      "networks_available": [
+        "נתונים ממשלתיים"
+      ],
+      "network_count": 1,
+      "price_statistics": {
+        "min_price": 34.9,
+        "max_price": 34.9,
+        "avg_price": 34.9,
+        "price_range": 0
+      },
+      "savings_analysis": null,
+      "metadata": {
+        "original_names": [
+          "ירכיים עוף טרי מחפוד ב34.90"
+        ],
+        "created_at": "2025-06-27T22:17:52.263543",
+        "data_quality": "medium"
+      }
+    }
+  ],
+  "metadata": {
+    "total_products": 194,
+    "creation_date": "2025-06-27T22:17:52.263549",
+    "data_type": "unified_cross_network_comparison",
+    "networks_covered": 2,
+    "version": "V6.0_Website_Compatible"
   }
-]
+}

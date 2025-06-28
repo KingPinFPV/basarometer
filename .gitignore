@@ -1,116 +1,149 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
+# Production builds
+.next/
+out/
+build/
+dist/
 
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-
-# env files (can opt-in for committing if needed)
-.env*
+# Environment variables (CRITICAL - contains Supabase keys!)
+.env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-# vercel
-.vercel
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-
-# Migration files (temporary/sensitive)
-migration_*.js
-migrate_*.js
-*_migration.js
-*_migration.sql
-populate_*.js
-execute_*.js
-check_*.js
-
-# Logs and temporary files
-*.log
-temp_*
-debug_*
-backup_*
+# Local development
+.DS_Store
+*.local
 
 # IDE files
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
-# OS files
-Thumbs.db
+# Testing
+coverage/
+.nyc_output
+.jest
 
-# Enhanced Intelligence System - Sensitive Data
-auth.json
-cookies.json
+# Temporary files
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Development databases and data files
+*.db
+*.sqlite
+*.sqlite3
+
+# Backup files
+*.backup
+*.bak
+*_backup.*
+*backup*
+
+# Development testing files
+test-*.js
+test-*.json
+*test-output*
+
+# Claude Code generated files (development only)
+supabase_*.sql
+*_deployment.sql
+*_clean.*
+*_backup.*
+*_report.*
+enhanced_government_meat_products.json
+basarometer_*_database.json
+website_unified_products_backup.json
+deployment_*.json
+
+# Development data files (exclude from production)
+final_cleaning_summary.json
+website_deployment_report.json
+mission_success_report.json
+simple_deployment_report.json
+meat_database_cleaning_summary.json
+
+# SQL files (development artifacts)
+ENHANCED_SCHEMA_PROPOSAL_FIXED.sql
+REAL_MARKET_DATA_RESET.sql
+*_RESET.sql
+*_PROPOSAL*.sql
+
+# Local data files (not for production)
+data/products_clean.json
+data/test_*.json
+
+# Development scripts
+verify-*.js
+test-*.js
+debug-*.js
+migrate_*.js
+migration_*.js
+populate_*.js
+execute_*.js
+check_*.js
+
+# Development documentation (exclude internal notes)
+PHASE_*.md
+CSS_CRISIS_*.md
+*_analysis.md
+*_debug.md
+*_notes.md
+*_internal.md
+temp*.md
+draft*.md
+TODO*.md
+NOTES*.md
+DEVELOPMENT*.md
+ANALYSIS*.md
+DEBUG*.md
+claude*.md
+
+# Browser automation artifacts
 user-data-dir/
 downloads/
-temp/
-**/screenshots/
-**/debug*/
-error-*.png
-debug-*.png
-
-# Database dumps and backups
-*.sql.backup*
-*_backup_*.sql
-backup*/
-backups/
-
-# Personal notes and development files
-claude*.md
-*.md.backup
-prompts.txt
-test-*.js
-analysis_*.json
-
-# Browser automation data
-user-data-dir/
-.chrome/
-chrome-profile/
+screenshots/
+*.png
 browser-profile/
+.chrome/
 
-# Logs and monitoring
-logs/
-*.log
-logging.log
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
 
-# Build artifacts and cache
-.next/
-tsconfig.tsbuildinfo
-node_modules/
-.cache/
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
 
-# Testing and reports (additional)
-test_*.json
-*_report.json
-deployment_*.json
-website_test_report.json
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# Vercel
+.vercel
+
+# Supabase (keep config, ignore secrets)
+.supabase
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
