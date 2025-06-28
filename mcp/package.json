@@ -1,0 +1,25 @@
+{
+  "name": "basarometer-mcp-servers",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "basarometer-filesystem-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:filesystem": "node basarometer-filesystem-server.js",
+    "start:puppeteer": "node puppeteer-mcp-server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.6.1"
+  },
+  "keywords": [
+    "mcp",
+    "basarometer",
+    "hebrew",
+    "israel",
+    "meat",
+    "intelligence"
+  ],
+  "author": "Basarometer Team",
+  "license": "ISC",
+  "description": "Specialized MCP servers for Basarometer V6.0 Israeli meat intelligence platform"
+}

@@ -452,4 +452,20 @@ temp/credentials/
 # Example: !important-config.json
 
 # Last Updated: June 20, 2025
-# Basarometer Security Team
+# Basarometer Security Team# Documentation and backup management
+*.md.bak
+*.md.backup.*
+backups/
+docs_archive/
+temp/docs_archive/
+
+# Development logs and temporary files
+logs/
+*.log
+temp/
+output/temp/
+
+# Bot-specific files (for main repo)
+scan bot/node_modules/
+scan bot/output/
+scan bot/logs/
