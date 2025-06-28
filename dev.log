@@ -1,0 +1,126 @@
+
+> basarometer-enhanced-intelligence@5.2.0 dev
+> next dev --turbopack
+
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://10.0.0.2:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 775ms
+ ○ Compiling /comparison ...
+ ✓ Compiled /comparison in 1325ms
+🔄 Processing 0 products for display
+📊 After processing: 0 products displayed
+📋 Available categories: []
+🔍 COMPARISON PAGE STATE:
+   Loading: true
+   Error: null
+   Products: 0
+   Filtered: 0
+   Stats: { total: 0, stores: 0, categories: 0, avgPrice: '0' }
+   Product IDs: []
+   Search term: ""
+   Selected category: "all"
+   Sort by: "name"
+ GET /comparison 200 in 1551ms
+🔄 Processing 0 products for display
+📊 After processing: 0 products displayed
+📋 Available categories: []
+🔍 COMPARISON PAGE STATE:
+   Loading: true
+   Error: null
+   Products: 0
+   Filtered: 0
+   Stats: { total: 0, stores: 0, categories: 0, avgPrice: '0' }
+   Product IDs: []
+   Search term: ""
+   Selected category: "all"
+   Sort by: "name"
+ GET /comparison 200 in 70ms
+🔄 Processing 0 products for display
+📊 After processing: 0 products displayed
+📋 Available categories: []
+🔍 COMPARISON PAGE STATE:
+   Loading: true
+   Error: null
+   Products: 0
+   Filtered: 0
+   Stats: { total: 0, stores: 0, categories: 0, avgPrice: '0' }
+   Product IDs: []
+   Search term: ""
+   Selected category: "all"
+   Sort by: "name"
+ GET /comparison 200 in 58ms
+🔄 Processing 0 products for display
+📊 After processing: 0 products displayed
+📋 Available categories: []
+🔍 COMPARISON PAGE STATE:
+   Loading: true
+   Error: null
+   Products: 0
+   Filtered: 0
+   Stats: { total: 0, stores: 0, categories: 0, avgPrice: '0' }
+   Product IDs: []
+   Search term: ""
+   Selected category: "all"
+   Sort by: "name"
+ GET /comparison 200 in 227ms
+🔄 Processing 0 products for display
+📊 After processing: 0 products displayed
+📋 Available categories: []
+🔍 COMPARISON PAGE STATE:
+   Loading: true
+   Error: null
+   Products: 0
+   Filtered: 0
+   Stats: { total: 0, stores: 0, categories: 0, avgPrice: '0' }
+   Product IDs: []
+   Search term: ""
+   Selected category: "all"
+   Sort by: "name"
+ GET /comparison 200 in 184ms
+🔄 Processing 0 products for display
+📊 After processing: 0 products displayed
+📋 Available categories: []
+🔍 COMPARISON PAGE STATE:
+   Loading: true
+   Error: null
+   Products: 0
+   Filtered: 0
+   Stats: { total: 0, stores: 0, categories: 0, avgPrice: '0' }
+   Product IDs: []
+   Search term: ""
+   Selected category: "all"
+   Sort by: "name"
+ GET /comparison 200 in 63ms
+🔄 Processing 0 products for display
+📊 After processing: 0 products displayed
+📋 Available categories: []
+🔍 COMPARISON PAGE STATE:
+   Loading: true
+   Error: null
+   Products: 0
+   Filtered: 0
+   Stats: { total: 0, stores: 0, categories: 0, avgPrice: '0' }
+   Product IDs: []
+   Search term: ""
+   Selected category: "all"
+   Sort by: "name"
+ GET /comparison 200 in 62ms
+🔄 Processing 0 products for display
+📊 After processing: 0 products displayed
+📋 Available categories: []
+🔍 COMPARISON PAGE STATE:
+   Loading: true
+   Error: null
+   Products: 0
+   Filtered: 0
+   Stats: { total: 0, stores: 0, categories: 0, avgPrice: '0' }
+   Product IDs: []
+   Search term: ""
+   Selected category: "all"
+   Sort by: "name"
+ GET /comparison 200 in 59ms
+[?25h

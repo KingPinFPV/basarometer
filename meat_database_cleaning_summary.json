@@ -1,15 +1,14 @@
 {
-  "cleaning_timestamp": "2025-06-27T18:06:12.469Z",
-  "original_count": 73,
-  "removed_count": 12,
-  "final_count": 61,
-  "meat_products_remaining": 61,
-  "quality_improvement": "83.6% products remain after filtering",
-  "cleaning_effectiveness": "Removed 12 non-meat products successfully",
+  "cleaning_timestamp": "2025-06-28T12:05:39.076Z",
+  "original_count": 32,
+  "removed_count": 0,
+  "final_count": 32,
+  "meat_products_remaining": 32,
+  "quality_improvement": "100.0% מהמוצרים הם כעת בשר אמיתי",
+  "success_rate": "לא בוצעו שינויים",
   "next_steps": [
-    "Review uncertain products in uncertain_products_review.json",
-    "Manual classification of meat-like uncertain products",
-    "Test website with clean meat-only database",
-    "Deploy to production"
+    "בדוק מוצרים לא ברורים ב-uncertain_products_review.json",
+    "בדוק אתר עם database נקי של מוצרי בשר בלבד",
+    "פרוס לסביבת ייצור"
   ]
 }

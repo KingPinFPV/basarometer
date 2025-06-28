@@ -1,0 +1,109 @@
+{
+  "timestamp": "2025-06-28T12:05:38.964Z",
+  "uncertain_products": [
+    {
+      "id": "21008cb0-0d91-49fd-a606-6b8e23415062",
+      "name": "כנפיים עוף טרי רמי לוי קילו",
+      "vendor": "RAMI_LEVY",
+      "category": "עוף",
+      "action_needed": "REVIEW - סווג כבשר או לא-בשר",
+      "suggested_action": "KEEP (ככל הנראה בשר)"
+    },
+    {
+      "id": "4be96049-017e-411c-940c-0dfc8213eb96",
+      "name": "קציצות טלה ויקטורי 600 גרם",
+      "vendor": "VICTORY",
+      "category": "כבש",
+      "action_needed": "REVIEW - סווג כבשר או לא-בשר",
+      "suggested_action": "REVIEW (יכול להיות בשר מעובד)"
+    },
+    {
+      "id": "5b45b85f-2490-4e52-a722-9cdf8592fade",
+      "name": "שוקיים עוף טרי מחפוד ב37.90 מעל 75 מו3",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "action_needed": "REVIEW - סווג כבשר או לא-בשר",
+      "suggested_action": "KEEP (ככל הנראה בשר)"
+    },
+    {
+      "id": "97d6126d-40d9-4b49-8048-402cfc5eb808",
+      "name": "המבורגר בקר מגא 500 גרם",
+      "vendor": "MEGA",
+      "category": "בקר",
+      "action_needed": "REVIEW - סווג כבשר או לא-בשר",
+      "suggested_action": "KEEP (ככל הנראה בשר)"
+    },
+    {
+      "id": "a27f34c6-de7d-4d1e-a532-a7857a18e468",
+      "name": "קציצות בקר קפואות שופרסל 1 ק״ג",
+      "vendor": "SHUFERSAL",
+      "category": "בקר",
+      "action_needed": "REVIEW - סווג כבשר או לא-בשר",
+      "suggested_action": "KEEP (ככל הנראה בשר)"
+    },
+    {
+      "id": "ae637591-1415-42b1-9fd5-e6bf55fd2f15",
+      "name": "נקניקיות עוף רמי לוי 400 גרם",
+      "vendor": "RAMI_LEVY",
+      "category": "עוף",
+      "action_needed": "REVIEW - סווג כבשר או לא-בשר",
+      "suggested_action": "KEEP (ככל הנראה בשר)"
+    },
+    {
+      "id": "b56a0696-b711-44f3-a796-130e6747a88f",
+      "name": "ירכיים עוף טרי מחפוד ב34.90 מעל 75 מו3",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "action_needed": "REVIEW - סווג כבשר או לא-בשר",
+      "suggested_action": "KEEP (ככל הנראה בשר)"
+    },
+    {
+      "id": "be5a9bba-9758-45b2-9980-1ff3070d62af",
+      "name": "סטייק בקר מגא קילו",
+      "vendor": "MEGA",
+      "category": "בקר",
+      "action_needed": "REVIEW - סווג כבשר או לא-בשר",
+      "suggested_action": "KEEP (ככל הנראה בשר)"
+    },
+    {
+      "id": "c64c0264-3f51-4854-b70d-d1232e34d2bc",
+      "name": "רביעיית טונה רמי לוי ב- ש ח",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "action_needed": "REVIEW - סווג כבשר או לא-בשר",
+      "suggested_action": "REVIEW NEEDED (בדיקה נדרשת)"
+    },
+    {
+      "id": "d02467f3-473f-4788-9e63-5c4067a3c585",
+      "name": "כנפיים עוף יוחננוף קילו",
+      "vendor": "YOHANANOF",
+      "category": "עוף",
+      "action_needed": "REVIEW - סווג כבשר או לא-בשר",
+      "suggested_action": "KEEP (ככל הנראה בשר)"
+    },
+    {
+      "id": "d5143bc4-660b-40bd-b1da-ebd8031d20b0",
+      "name": "מנות סלמון טרי ארוז ב119.90 מעל 75 מו3",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "action_needed": "REVIEW - סווג כבשר או לא-בשר",
+      "suggested_action": "REVIEW NEEDED (בדיקה נדרשת)"
+    },
+    {
+      "id": "ec095053-137c-443a-8688-e4b3094719ee",
+      "name": "לבבות עוף טרי ב24.90 מעל 75 מו3",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "action_needed": "REVIEW - סווג כבשר או לא-בשר",
+      "suggested_action": "KEEP (ככל הנראה בשר)"
+    },
+    {
+      "id": "fb4daa8d-f86e-4ab6-b248-3a3079a2c0b3",
+      "name": "לבבות עוף טרי מהדרין ב26.90 מעל 75 מו3",
+      "vendor": "Unknown",
+      "category": "בשר",
+      "action_needed": "REVIEW - סווג כבשר או לא-בשר",
+      "suggested_action": "KEEP (ככל הנראה בשר)"
+    }
+  ]
+}
