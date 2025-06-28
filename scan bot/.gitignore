@@ -1,8 +1,3 @@
-# Dependencies
-node_modules/
-/.pnp
-.pnp.js
-
 # Python
 __pycache__/
 *.py[cod]
@@ -14,85 +9,122 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Environment variables
 .env
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
-config.json
-credentials.json
 
-# IDEs and editors
+# Data files (don't commit large datasets)
+*.csv
+*.xlsx
+*.xls
+data/
+output/
+extracted_data/
+government_data/
+*.json.large
+*_large.json
+
+# Development and testing outputs
+test_output/
+debug_output/
+temp_files/
+*.tmp
+*.temp
+*_test.*
+*_debug.*
+temp/
+
+# Logs
+*.log
+logs/
+*.out
+api_fix_upload.log
+
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
 
-# OS generated files
+# OS
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
 
-# Logs and debug files
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-debug/
-logs/
+# Backup files
+*.backup
+*.bak
+*_backup.*
 
-# Output and temporary files
-output/
-temp/
-tmp/
-backup/
-old/
-*.tmp
-*.temp
+# Generated SQL files (development only)
+supabase_*.sql
+*_deployment.sql
+*_clean_deployment.sql
+database/expanded-schema.sql
 
-# Screenshots and debug images
+# Large JSON files (development artifacts)
+basarometer_production_database.json
+basarometer_expanded_unified_database.json
+basarometer_unified_comparisons.json
+website_unified_products_backup.json
+basarometer_corrected_unified_database.json
+enhanced_government_meat_products.json
+top_50_government_products_*.json
+enhanced_system_validation_report.json
+
+# Development reports
+*_report.json
+deployment_report.json
+cross_network_analysis_report.json
+meat_database_cleaning_summary.json
+
+# Browser automation artifacts
 screenshots/
+debug-*.png
 debug_screenshots/
 *.png
 *.jpg
-*.jpeg
+browser_cache/
 
-# Extraction results (keep structure, not data)
-*_products_*.json
+# Network extraction outputs
+*_products.json
+*_extracted.json
+network_data/
 *_results_*.json
 *_analysis_*.json
-enhanced_government_products_*.json
-top_50_*.json
-unified_*.json
-website_*.json
-government_data_*.json
 extraction_terms.json
 
-# CSV outputs
-*.csv
+# Configuration and sensitive files
+claude_desktop_config.json
+config.json
+credentials.json
+prompts.txt
 
-# XML cache
-*.xml
+# Node.js (if any)
+node_modules/
+*.js.log
 
-# Reports and summaries
-*_report.json
-*_summary.json
-deployment_*.json
-test_*.json
+# Development documentation (exclude internal notes)
+*_analysis.md
+*_debug.md
+*_notes.md
+*_internal.md
+*_development.md
+*_process.md
+temp*.md
+draft*.md
+TODO*.md
+NOTES*.md
+DEVELOPMENT*.md
+ANALYSIS*.md
+DEBUG*.md
+PROCESS*.md
+EXTRACTION_*.md
+CLAUDE_CODE_*.md
 
-# Browser automation
+# Browser automation data
+userdata/
 .cache/
 .tmp/
-userdata/
 
-# Documentation build
-docs/_build/
+# XML cache and temporary processing
+*.xml
+xml_cache/
