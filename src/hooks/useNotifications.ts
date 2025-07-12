@@ -86,28 +86,8 @@ export function useNotifications() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  // Fetch user notifications
-  const fetchNotifications = useCallback(async () => {
-    if (!user) return
-
-    setLoading(true)
-    setError(null)
-
-    try {
-      // In a real implementation, this would fetch from a notifications table
-      // For now, we'll generate notifications based on current data
-      const generatedNotifications = await generateNotifications()
-      setNotifications(generatedNotifications)
-
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'שגיאה בטעינת התראות')
-    } finally {
-      setLoading(false)
-    }
-  }, [user, generateNotifications])
-
   // Generate notifications based on current data
-  const generateNotifications = async (): Promise<Notification[]> => {
+  const generateNotifications = useCallback(async (): Promise<Notification[]> => {
     const notifications: Notification[] = []
 
     // Price alerts
@@ -197,10 +177,10 @@ export function useNotifications() {
     }
 
     return notifications.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-  }
+  }, [indexAlerts, currentIndex, shoppingLists, priceReports])
 
   // Generate current deals
-  const generateDeals = async (): Promise<Deal[]> => {
+  const generateDeals = useCallback(async (): Promise<Deal[]> => {
     const deals: Deal[] = []
 
     // Simulate finding deals by looking for price variations
@@ -244,7 +224,27 @@ export function useNotifications() {
     })
 
     return deals.slice(0, 10) // Limit to 10 deals
-  }
+  }, [priceReports])
+
+  // Fetch user notifications
+  const fetchNotifications = useCallback(async () => {
+    if (!user) return
+
+    setLoading(true)
+    setError(null)
+
+    try {
+      // In a real implementation, this would fetch from a notifications table
+      // For now, we'll generate notifications based on current data
+      const generatedNotifications = await generateNotifications()
+      setNotifications(generatedNotifications)
+
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'שגיאה בטעינת התראות')
+    } finally {
+      setLoading(false)
+    }
+  }, [user, generateNotifications])
 
   // Create price alert
   const createPriceAlert = useCallback(async (
@@ -389,7 +389,7 @@ export function useNotifications() {
     // }
 
     return alerts
-  }, [priceReports, meatCuts])
+  }, [])
 
   // Initialize data
   useEffect(() => {

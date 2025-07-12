@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useAuth } from '@/hooks/useAuth'
 import type { MeatCut, Retailer, PriceReport } from '@/lib/database.types'
@@ -41,7 +41,7 @@ export function useShoppingList() {
   const [error, setError] = useState<string | null>(null)
 
   // Fetch user's shopping lists
-  const fetchLists = async () => {
+  const fetchLists = useCallback(async () => {
     if (!user) {
       setLists([])
       return
@@ -71,7 +71,7 @@ export function useShoppingList() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [user, currentList])
 
   // Fetch items for current list
   const fetchListItems = async (listId: string) => {

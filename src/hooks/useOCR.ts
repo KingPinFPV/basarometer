@@ -58,6 +58,112 @@ export function useOCR() {
     setProcessing(true)
     setError(null)
     
+    // Extract store information from OCR text
+    const extractStoreInfo = (text: string): OCRResult['storeInfo'] => {
+      const storePatterns = [
+        { pattern: /(שופרסל|supersol)/i, name: 'שופרסל', retailerId: 'shufersal' },
+        { pattern: /(רמי לוי|rami levy)/i, name: 'רמי לוי', retailerId: 'rami-levy' },
+        { pattern: /(קופיקס|co.?fix)/i, name: 'קופיקס', retailerId: 'cofix' },
+        { pattern: /(מחסני השוק|machsani hashuk)/i, name: 'מחסני השוק', retailerId: 'machsani-hashuk' },
+        { pattern: /(ויקטורי|victory)/i, name: 'ויקטורי', retailerId: 'victory' },
+        { pattern: /(תל נוף|tel nof)/i, name: 'תל נוף', retailerId: 'tel-nof' },
+        { pattern: /(יוחננוף|yohananof)/i, name: 'יוחננוף', retailerId: 'yohananof' },
+        { pattern: /(מגה ספורט|mega sport)/i, name: 'מגה ספורט', retailerId: 'mega-sport' }
+      ]
+
+      for (const store of storePatterns) {
+        const match = text.match(store.pattern)
+        if (match) {
+          // Find the actual retailer ID from the database
+          const retailer = retailers.find(r => 
+            r.name.includes(store.name) || 
+            r.name.toLowerCase().includes(store.name.toLowerCase())
+          )
+          
+          return {
+            name: store.name,
+            confidence: 0.9,
+            retailerId: retailer?.id || store.retailerId
+          }
+        }
+      }
+
+      return null
+    }
+
+    // Extract meat items and prices from text
+    const extractMeatItems = (text: string): ExtractedItem[] => {
+      const items: ExtractedItem[] = []
+      const lines = text.split('\n').filter(line => line.trim().length > 0)
+
+      // Hebrew meat terms for pattern matching
+      const meatTerms = [
+        'בקר', 'עוף', 'כבש', 'הודו', 'חזיר', 'בשר', 'שניצל', 'נקניק', 'המבורגר',
+        'פרגית', 'כנפיים', 'שוק', 'ירך', 'חזה', 'עצם', 'טחון', 'קבב', 'מרקחת',
+        'אנטריקוט', 'פילה', 'סטייק', 'רוסט', 'צלעות', 'כתף', 'צוואר'
+      ]
+
+      // Price patterns: ₪XX.XX, XX.XX ש"ח, XX.XX שח
+      const pricePatterns = [
+        /₪\s*(\d+\.?\d*)/g,
+        /(\d+\.?\d*)\s*ש["\']?ח/g,
+        /(\d+\.?\d*)\s*שח/g,
+        /(\d+\.?\d*)\s*nis/gi
+      ]
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i]
+        
+        // Check if line contains meat terms
+        const containsMeat = meatTerms.some(term => 
+          line.includes(term) || line.toLowerCase().includes(term.toLowerCase())
+        )
+
+        if (!containsMeat) continue
+
+        // Extract prices from this line and nearby lines
+        const prices: number[] = []
+        
+        // Check current line and next 2 lines for prices
+        for (let j = i; j < Math.min(i + 3, lines.length); j++) {
+          const checkLine = lines[j]
+          
+          for (const pattern of pricePatterns) {
+            const matches = Array.from(checkLine.matchAll(pattern))
+            for (const match of matches) {
+              const price = parseFloat(match[1])
+              if (price > 0 && price < 1000) { // Reasonable price range
+                prices.push(price)
+              }
+            }
+          }
+        }
+
+        // If we found prices, create items
+        if (prices.length > 0) {
+          const mainPrice = prices[0] // Take the first/main price
+          
+          // Try to match with existing meat cuts
+          const matchedCut = findBestMeatCutMatch(line)
+          
+          const item: ExtractedItem = {
+            text: line.trim(),
+            price: mainPrice,
+            confidence: calculateItemConfidence(line, mainPrice, matchedCut),
+            meatCutId: matchedCut?.id,
+            suggestedCategory: matchedCut ? getCategoryName(matchedCut.category_id) : undefined,
+            isValidated: false,
+            quantity: extractQuantity(line),
+            unit: extractUnit(line)
+          }
+
+          items.push(item)
+        }
+      }
+
+      return items.slice(0, 20) // Limit to 20 items to prevent spam
+    }
+    
     try {
       const startTime = Date.now()
       
@@ -98,113 +204,8 @@ export function useOCR() {
     } finally {
       setProcessing(false)
     }
-  }, [extractMeatItems, extractStoreInfo])
+  }, [retailers, meatCuts])
 
-  // Extract store information from OCR text
-  const extractStoreInfo = (text: string): OCRResult['storeInfo'] => {
-    const storePatterns = [
-      { pattern: /(שופרסל|supersol)/i, name: 'שופרסל', retailerId: 'shufersal' },
-      { pattern: /(רמי לוי|rami levy)/i, name: 'רמי לוי', retailerId: 'rami-levy' },
-      { pattern: /(קופיקס|co.?fix)/i, name: 'קופיקס', retailerId: 'cofix' },
-      { pattern: /(מחסני השוק|machsani hashuk)/i, name: 'מחסני השוק', retailerId: 'machsani-hashuk' },
-      { pattern: /(ויקטורי|victory)/i, name: 'ויקטורי', retailerId: 'victory' },
-      { pattern: /(תל נוף|tel nof)/i, name: 'תל נוף', retailerId: 'tel-nof' },
-      { pattern: /(יוחננוף|yohananof)/i, name: 'יוחננוף', retailerId: 'yohananof' },
-      { pattern: /(מגה ספורט|mega sport)/i, name: 'מגה ספורט', retailerId: 'mega-sport' }
-    ]
-
-    for (const store of storePatterns) {
-      const match = text.match(store.pattern)
-      if (match) {
-        // Find the actual retailer ID from the database
-        const retailer = retailers.find(r => 
-          r.name.includes(store.name) || 
-          r.name.toLowerCase().includes(store.name.toLowerCase())
-        )
-        
-        return {
-          name: store.name,
-          confidence: 0.9,
-          retailerId: retailer?.id || store.retailerId
-        }
-      }
-    }
-
-    return null
-  }
-
-  // Extract meat items and prices from text
-  const extractMeatItems = (text: string): ExtractedItem[] => {
-    const items: ExtractedItem[] = []
-    const lines = text.split('\n').filter(line => line.trim().length > 0)
-
-    // Hebrew meat terms for pattern matching
-    const meatTerms = [
-      'בקר', 'עוף', 'כבש', 'הודו', 'חזיר', 'בשר', 'שניצל', 'נקניק', 'המבורגר',
-      'פרגית', 'כנפיים', 'שוק', 'ירך', 'חזה', 'עצם', 'טחון', 'קבב', 'מרקחת',
-      'אנטריקוט', 'פילה', 'סטייק', 'רוסט', 'צלעות', 'כתף', 'צוואר'
-    ]
-
-    // Price patterns: ₪XX.XX, XX.XX ש"ח, XX.XX שח
-    const pricePatterns = [
-      /₪\s*(\d+\.?\d*)/g,
-      /(\d+\.?\d*)\s*ש["\']?ח/g,
-      /(\d+\.?\d*)\s*שח/g,
-      /(\d+\.?\d*)\s*nis/gi
-    ]
-
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i]
-      
-      // Check if line contains meat terms
-      const containsMeat = meatTerms.some(term => 
-        line.includes(term) || line.toLowerCase().includes(term.toLowerCase())
-      )
-
-      if (!containsMeat) continue
-
-      // Extract prices from this line and nearby lines
-      const prices: number[] = []
-      
-      // Check current line and next 2 lines for prices
-      for (let j = i; j < Math.min(i + 3, lines.length); j++) {
-        const checkLine = lines[j]
-        
-        for (const pattern of pricePatterns) {
-          const matches = Array.from(checkLine.matchAll(pattern))
-          for (const match of matches) {
-            const price = parseFloat(match[1])
-            if (price > 0 && price < 1000) { // Reasonable price range
-              prices.push(price)
-            }
-          }
-        }
-      }
-
-      // If we found prices, create items
-      if (prices.length > 0) {
-        const mainPrice = prices[0] // Take the first/main price
-        
-        // Try to match with existing meat cuts
-        const matchedCut = findBestMeatCutMatch(line)
-        
-        const item: ExtractedItem = {
-          text: line.trim(),
-          price: mainPrice,
-          confidence: calculateItemConfidence(line, mainPrice, matchedCut),
-          meatCutId: matchedCut?.id,
-          suggestedCategory: matchedCut ? getCategoryName(matchedCut.category_id) : undefined,
-          isValidated: false,
-          quantity: extractQuantity(line),
-          unit: extractUnit(line)
-        }
-
-        items.push(item)
-      }
-    }
-
-    return items.slice(0, 20) // Limit to 20 items to prevent spam
-  }
 
   // Find best matching meat cut from database
   const findBestMeatCutMatch = (text: string) => {
