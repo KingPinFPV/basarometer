@@ -454,7 +454,7 @@ export default function MobileOptimizedHomepage() {
             {homePageState.activeView === 'visualization' && enhancedMeatData && enhancedMeatData.length > 0 && (
               <PriceVisualization
                 productId={enhancedMeatData[0].id}
-                currentPrices={priceMatrix?.[enhancedMeatData[0].id] || {}}
+                currentPrices={priceMatrix?.[enhancedMeatData[0].id] as any || {}}
                 className="shadow-sm"
               />
             )}

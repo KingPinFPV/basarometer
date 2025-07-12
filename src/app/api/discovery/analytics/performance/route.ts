@@ -72,7 +72,7 @@ export async function GET(request: Request) {
             }
         })
     } catch (error) {
-        console.error('Discovery performance API error:', error)
+        // Discovery performance API error: error?.message
         return NextResponse.json(
             { success: false, error: 'Failed to fetch performance metrics' },
             { status: 500 }

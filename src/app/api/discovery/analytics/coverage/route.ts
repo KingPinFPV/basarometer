@@ -2,7 +2,7 @@
 import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
-export async function GET(request: Request) {
+export async function GET(_request: Request) {
     try {
         // Get all discovered sources
         const { data: sources, error: sourcesError } = await supabase
@@ -37,7 +37,7 @@ export async function GET(request: Request) {
             existing_retailers: existingRetailers?.length || 0
         })
     } catch (error) {
-        console.error('Discovery coverage API error:', error)
+        // Discovery coverage API error: error?.message
         return NextResponse.json(
             { success: false, error: 'Failed to fetch coverage metrics' },
             { status: 500 }

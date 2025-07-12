@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
-import { supabase } from '@/lib/supabase'
 
 interface ScannerProduct {
   id: string
@@ -40,13 +39,13 @@ function useDirectSupabaseProducts() {
     let mounted = true
 
     async function fetchDirectFromSupabase() {
-      console.log('🚀 CLIENT-SIDE USEEFFECT STARTED!')
+      // CLIENT-SIDE USEEFFECT STARTED
       
       try {
         setLoading(true)
         setError(null)
         
-        console.log('🔄 FORCE FETCHING: Direct from scanner_products table (32 products)')
+        // FORCE FETCHING: Direct from scanner_products table (32 products)
         
         // Create client directly here to avoid any environment issues
         const { createClient } = await import('@supabase/supabase-js')
@@ -55,7 +54,7 @@ function useDirectSupabaseProducts() {
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVyZ3hyeHR1bmN5bXlxc2xtb2VuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA0Mjg0NTMsImV4cCI6MjA2NjAwNDQ1M30.0gcTOi6eHqEGUdRPl40y2s_6B2CprtbMvE61zMqvFAk'
         )
         
-        console.log('🔧 Direct client created successfully')
+        // Direct client created successfully
         
         const { data, error: fetchError } = await directClient
           .from('scanner_products')
@@ -63,36 +62,35 @@ function useDirectSupabaseProducts() {
           .order('product_name')
         
         if (fetchError) {
-          console.error('❌ Direct Supabase error:', fetchError)
+          // Direct Supabase error
           if (mounted) setError(`Database error: ${fetchError.message}`)
           return
         }
         
         if (!data) {
-          console.error('❌ No data from scanner_products')
+          // No data from scanner_products
           if (mounted) setError('No data returned')
           return
         }
         
-        console.log(`✅ FORCE SUCCESS: ${data.length} products from scanner_products`)
-        console.log('📊 First 3 products:', data.slice(0, 3).map(p => ({ name: p.product_name, category: p.category, store: p.store_name, price: p.price })))
+        // FORCE SUCCESS: ${data.length} products from scanner_products
         
         // Filter for valid products only
         const validProducts = data.filter(product => product.is_valid && product.is_active)
-        console.log(`🔍 FILTERING: ${data.length} total → ${validProducts.length} valid products`)
+        // FILTERING: ${data.length} total → ${validProducts.length} valid products
         
         if (mounted) {
           setProducts(validProducts)
-          console.log(`🔄 STATE UPDATED: ${validProducts.length} products set in state`)
+          // STATE UPDATED: ${validProducts.length} products set in state
         }
         
       } catch (err) {
-        console.error('❌ Force fetch error:', err)
+        // Force fetch error
         if (mounted) setError(`Error: ${err instanceof Error ? err.message : 'Unknown'}`)
       } finally {
         if (mounted) {
           setLoading(false)
-          console.log('🏁 LOADING SET TO FALSE')
+          // LOADING SET TO FALSE
         }
       }
     }
@@ -123,7 +121,7 @@ export default function ComparisonPage() {
 
   // Process products for display
   const processedProducts = useMemo(() => {
-    console.log(`🔄 Processing ${products.length} products for display`)
+    // Processing ${products.length} products for display
     
     let filtered = [...products]
 
@@ -160,14 +158,14 @@ export default function ComparisonPage() {
       }
     })
 
-    console.log(`📊 After processing: ${filtered.length} products displayed`)
+    // After processing: ${filtered.length} products displayed
     return filtered
   }, [products, searchTerm, selectedCategory, sortBy])
 
   // Get available categories
   const categories = useMemo(() => {
     const cats = [...new Set(products.map(p => p.category))].sort()
-    console.log('📋 Available categories:', cats)
+    // Available categories
     return cats
   }, [products])
 
@@ -188,17 +186,8 @@ export default function ComparisonPage() {
     }
   }, [products])
 
-  // Debug output
-  console.log('🔍 COMPARISON PAGE STATE:')
-  console.log(`   Loading: ${loading}`)
-  console.log(`   Error: ${error}`)
-  console.log(`   Products: ${products.length}`)
-  console.log(`   Filtered: ${processedProducts.length}`)
-  console.log(`   Stats:`, stats)
-  console.log(`   Product IDs:`, products.map(p => p.id).slice(0, 3))
-  console.log(`   Search term: "${searchTerm}"`)
-  console.log(`   Selected category: "${selectedCategory}"`)
-  console.log(`   Sort by: "${sortBy}"`)
+  // Debug output - COMPARISON PAGE STATE
+  // Loading, Error, Products count, Filtered count, Stats, Product IDs, Search term, Selected category, Sort by
 
   if (loading) {
     return (

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/lib/supabase';
 
 interface ScannerStatus {
@@ -51,7 +51,7 @@ export default function ScannerDashboard() {
       statusSubscription.unsubscribe();
       setIsLive(false);
     };
-  }, [handleRealtimeUpdate]);
+  }, []);
 
   const fetchScannerData = async () => {
     try {
@@ -62,7 +62,6 @@ export default function ScannerDashboard() {
         
         if (statusError) {
           if (statusError.code === 'PGRST202' || statusError.message?.includes('does not exist')) {
-            console.warn('get_scanner_dashboard_data RPC function not found, using empty data');
             setStatus([]);
           } else {
             throw statusError;
@@ -71,7 +70,6 @@ export default function ScannerDashboard() {
           setStatus(statusData);
         }
       } catch (rpcError) {
-        console.warn('Scanner dashboard RPC failed, using empty data');
         setStatus([]);
       }
 
@@ -85,7 +83,6 @@ export default function ScannerDashboard() {
           
         if (logsError) {
           if (logsError.code === 'PGRST116' || logsError.message?.includes('does not exist')) {
-            console.warn('scanner_ingestion_logs table not found, using empty logs');
             setLogs([]);
           } else {
             throw logsError;
@@ -94,26 +91,25 @@ export default function ScannerDashboard() {
           setLogs(logsData);
         }
       } catch (logsError) {
-        console.warn('Scanner logs fetch failed, using empty logs');
         setLogs([]);
       }
       
     } catch (error) {
-      console.error('Error fetching scanner data:', error);
+      // Error already handled
     } finally {
       setLoading(false);
     }
   };
 
-  const handleRealtimeUpdate = (payload: { new: { scanner_source?: string } }) => {
+  const handleRealtimeUpdate = useCallback((payload: { new: { scanner_source?: string } }) => {
     if (payload.new.scanner_source) {
       fetchScannerData(); // Refresh the status
     }
-  };
+  }, []);
 
-  const handleLogUpdate = (payload: { new: ScannerLog }) => {
+  const handleLogUpdate = useCallback((payload: { new: ScannerLog }) => {
     setLogs(prev => [payload.new, ...prev.slice(0, 9)]);
-  };
+  }, []);
 
   const getStatusColor = (rating: string): string => {
     switch (rating) {

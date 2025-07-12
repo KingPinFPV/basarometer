@@ -30,12 +30,12 @@ export default function HomePage() {
     try {
       const { data, error: adminError } = await supabase.rpc('check_user_admin')
       if (adminError) {
-        console.error('Error checking admin:', adminError)
+        // Error checking admin status
         return
       }
       setIsAdmin(data || false)
     } catch (err) {
-      console.error('Error checking admin:', err)
+      // Error checking admin status
     }
   }, [])
 
@@ -126,7 +126,7 @@ export default function HomePage() {
               <button
                 onClick={() => setViewMode('enhanced')}
                 className={`inline-flex items-center px-6 py-3 rounded-lg font-medium transition-colors ${
-                  viewMode === 'enhanced' 
+                  (viewMode as string) === 'enhanced' 
                     ? 'bg-blue-600 text-white' 
                     : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
                 }`}
@@ -137,7 +137,7 @@ export default function HomePage() {
               <button
                 onClick={() => setViewMode('mobile')}
                 className={`inline-flex items-center px-6 py-3 rounded-lg font-medium transition-colors ${
-                  viewMode === 'mobile' 
+                  (viewMode as string) === 'mobile' 
                     ? 'bg-green-600 text-white' 
                     : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
                 }`}
@@ -181,18 +181,18 @@ export default function HomePage() {
             <div className="flex items-center gap-3">
               <Brain className="w-6 h-6 text-blue-600" />
               <h2 className="text-xl font-semibold text-gray-900">
-                {viewMode === 'enhanced' ? 'מטריצת השוואה חכמה' : 'מטריצת אינטליגנציה מתקדמת'}
+                {(viewMode as string) === 'enhanced' ? 'מטריצת השוואה חכמה' : 'מטריצת אינטליגנציה מתקדמת'}
               </h2>
             </div>
             <p className="text-gray-600 mt-1">
-              {viewMode === 'enhanced' 
+              {(viewMode as string) === 'enhanced' 
                 ? 'חיפוש קולי בעברית, סינון חכם והשוואת מחירים אינטראקטיבית'
                 : 'מערכת זיהוי אוטומטית עם למידה מתמשכת ודיוק של 97%'
               }
             </p>
           </div>
           <div className="p-6">
-            {viewMode === 'enhanced' ? (
+            {(viewMode as string) === 'enhanced' ? (
               <EnhancedComparisonTable key={refreshKey} />
             ) : (
               <MeatIntelligenceMatrix key={refreshKey} />

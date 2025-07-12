@@ -2,7 +2,6 @@
 
 import { useAuth } from '@/hooks/useAuth'
 import { useEffect, useState } from 'react'
-import { supabase } from '@/lib/supabase'
 
 export default function AdminLayout({
   children,
@@ -23,10 +22,10 @@ export default function AdminLayout({
       try {
         // For now, allow admin access for testing purposes
         // TODO: Implement proper admin authentication check
-        console.log('Bypassing admin check for development/testing')
+        // Bypassing admin check for development/testing
         setIsAdmin(true)
-      } catch (error) {
-        console.error('Error checking admin status:', error)
+      } catch {
+        // Error checking admin status - setting to false
         setIsAdmin(false)
       } finally {
         setAdminLoading(false)

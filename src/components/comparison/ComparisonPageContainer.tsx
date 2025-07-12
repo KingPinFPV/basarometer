@@ -53,7 +53,7 @@ export function ComparisonPageContainer() {
       const networkPricesArray = Object.entries(product.network_prices || {})
         .map(([network, price]) => ({
           network,
-          price: typeof price === 'number' ? price : price.price || 0,
+          price: typeof price === 'number' ? price : (price as any)?.price || 0,
           weight: '1 ק״ג', // Default weight unit
           unit: 'ק״ג'
         }))

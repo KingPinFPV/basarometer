@@ -55,7 +55,7 @@ export default function AdminDashboard() {
           totalUsers: usersResult.count || 0
         })
       } catch (error) {
-        console.error('Error fetching admin stats:', error)
+        // Error fetching admin stats
       } finally {
         setLoading(false)
       }

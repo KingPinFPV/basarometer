@@ -70,7 +70,7 @@ export function ComparisonFilters({
       setIsVoiceRecording(true)
     }
 
-    recognition.onresult = (event) => {
+    recognition.onresult = (event: SpeechRecognitionEvent) => {
       const transcript = event.results[0][0].transcript
       onFiltersChange({ ...filters, search: transcript })
       if (searchInputRef.current) {

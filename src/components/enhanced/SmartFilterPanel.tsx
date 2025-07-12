@@ -212,7 +212,7 @@ export default function SmartFilterPanel({
     }
 
     recognition.onerror = (event) => {
-      console.error('Voice recognition error:', event.error)
+      // Voice recognition error
       setIsVoiceRecording(false)
       setVoiceTranscript('')
     }
