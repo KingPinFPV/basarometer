@@ -364,7 +364,7 @@ export function useShoppingList() {
   // Auto-fetch lists when user changes
   useEffect(() => {
     fetchLists()
-  }, [user]) // fetchLists is stable, no need to include
+  }, [user, fetchLists])
 
   // Auto-fetch items when current list changes
   useEffect(() => {

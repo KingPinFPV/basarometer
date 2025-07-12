@@ -98,7 +98,7 @@ export function useOCR() {
     } finally {
       setProcessing(false)
     }
-  }, [])
+  }, [extractMeatItems, extractStoreInfo])
 
   // Extract store information from OCR text
   const extractStoreInfo = (text: string): OCRResult['storeInfo'] => {

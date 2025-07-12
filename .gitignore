@@ -469,3 +469,18 @@ output/temp/
 scan bot/node_modules/
 scan bot/output/
 scan bot/logs/
+
+# Additional documentation and sensitive files
+*DEPLOYMENT_COMPLETE*.md
+*ACHIEVEMENTS_SUMMARY*.md
+*MISSION_COMPLETION*.md
+*GOVERNMENT_INTEGRATION*.md
+*PHASE_*_BREAKTHROUGH*.md
+*SECURITY_AUDIT*.md
+*CRISIS_RESOLUTION*.md
+*VALIDATION_REPORT*.md
+*MASTER_CONTEXT*.md
+*WEBSITE_MAP*.md
+
+# Temporary environment file created during build
+.env.local

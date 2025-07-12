@@ -75,7 +75,7 @@ export function useMeatIndex() {
   
   const [indexHistory, setIndexHistory] = useState<MeatIndexData[]>([])
   const [currentIndex, setCurrentIndex] = useState<MeatIndexData | null>(null)
-  const [categoryAverages] = useState<CategoryAverage[]>([])
+  const [categoryAverages, setCategoryAverages] = useState<CategoryAverage[]>([])
   // const [setCategoryAverages] = useState<CategoryAverage[]>([])
   const [predictions, setPredictions] = useState<Map<string, PricePrediction>>(new Map())
   const [inflationAnalysis, setInflationAnalysis] = useState<InflationAnalysis | null>(null)

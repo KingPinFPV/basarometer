@@ -70,7 +70,7 @@ export default function MeatIntelligenceAdmin() {
   // Filter states
   const [confidenceFilter, setConfidenceFilter] = useState('all')
   const [sourceFilter, setSourceFilter] = useState('all')
-  const [gradeFilter] = useState('all')
+  const [gradeFilter, setGradeFilter] = useState('all')
 
   useEffect(() => {
     if (isAdmin) {

@@ -77,11 +77,11 @@ export function useNotifications() {
 
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [priceAlerts, setPriceAlerts] = useState<PriceAlert[]>([])
-  const [deals] = useState<Deal[]>([])
+  const [deals, setDeals] = useState<Deal[]>([])
   // const [setDeals] = useState<Deal[]>([])
   const [personalizedDeals, setPersonalizedDeals] = useState<PersonalizedDeal[]>([])
   const [shoppingAlerts, setShoppingAlerts] = useState<ShoppingAlert[]>([])
-  const [marketAlerts] = useState<MarketAlert[]>([])
+  const [marketAlerts, setMarketAlerts] = useState<MarketAlert[]>([])
   // const [setMarketAlerts] = useState<MarketAlert[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -104,7 +104,7 @@ export function useNotifications() {
     } finally {
       setLoading(false)
     }
-  }, [user])
+  }, [user, generateNotifications])
 
   // Generate notifications based on current data
   const generateNotifications = async (): Promise<Notification[]> => {
@@ -377,7 +377,7 @@ export function useNotifications() {
     return personalized
       .sort((a, b) => b.relevanceScore - a.relevanceScore)
       .slice(0, 5) // Top 5 most relevant deals
-  }, [user, meatCuts, priceReports, shoppingLists, generateDeals])
+  }, [user, meatCuts, priceReports, generateDeals])
 
   // Check for price drops in shopping lists
   const checkShoppingListAlerts = useCallback(async (): Promise<ShoppingAlert[]> => {
@@ -389,7 +389,7 @@ export function useNotifications() {
     // }
 
     return alerts
-  }, [shoppingLists, priceReports, meatCuts])
+  }, [priceReports, meatCuts])
 
   // Initialize data
   useEffect(() => {

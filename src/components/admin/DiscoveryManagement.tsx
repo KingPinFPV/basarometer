@@ -46,7 +46,7 @@ const DiscoveryManagement: React.FC<DiscoveryManagementProps> = ({ isAdmin }) =>
         if (isAdmin) {
             loadDiscoveryData()
         }
-    }, [isAdmin, activeTab])
+    }, [isAdmin, activeTab, loadDiscoveryData])
 
     const loadDiscoveryData = async () => {
         setLoading(true)

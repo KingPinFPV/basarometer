@@ -178,7 +178,7 @@ export default function ReportsPage() {
           <div className="flex items-center">
             <BarChart3 className="h-8 w-8 text-blue-500" />
             <div className="mr-4">
-              <p className="text-sm font-medium text-gray-500">סה"כ דוחות</p>
+              <p className="text-sm font-medium text-gray-500">סה&quot;כ דוחות</p>
               <p className="text-2xl font-bold text-gray-900">{reports.length}</p>
             </div>
           </div>

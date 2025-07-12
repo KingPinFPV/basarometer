@@ -52,7 +52,7 @@ export default function LiveScannerStatus() {
       clearInterval(interval);
       setIsLive(false);
     };
-  }, [loading]);
+  }, [loading, fetchQuickStatus, handleRealtimeUpdate]);
 
   const fetchQuickStatus = async () => {
     try {

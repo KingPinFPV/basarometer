@@ -220,7 +220,7 @@ export default function RetailersPage() {
           <div className="flex items-center">
             <MapPin className="h-8 w-8 text-green-600" />
             <div className="mr-4">
-              <p className="text-sm font-medium text-gray-500">סה"כ חנויות</p>
+              <p className="text-sm font-medium text-gray-500">סה&quot;כ חנויות</p>
               <p className="text-2xl font-bold text-gray-900">
                 {retailers.reduce((sum, r) => sum + (r.store_count || 0), 0)}
               </p>

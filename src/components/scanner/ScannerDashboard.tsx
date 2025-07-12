@@ -51,7 +51,7 @@ export default function ScannerDashboard() {
       statusSubscription.unsubscribe();
       setIsLive(false);
     };
-  }, []);
+  }, [handleRealtimeUpdate]);
 
   const fetchScannerData = async () => {
     try {
