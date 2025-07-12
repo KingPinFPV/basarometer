@@ -467,10 +467,16 @@ logs/
 temp/
 output/temp/
 
-# Bot-specific files (for main repo)
-scan bot/node_modules/
-scan bot/output/
-scan bot/logs/
+# Bot-specific files (for main repo) - EXCLUDE ENTIRE DIRECTORIES
+"scan bot/"
+"test bot/"
+temp-bots-repo/
+
+# Bot specific patterns
+**/scan bot/
+**/test bot/
+*bot*/
+bot-*/
 
 # Additional documentation and sensitive files
 *DEPLOYMENT_COMPLETE*.md
