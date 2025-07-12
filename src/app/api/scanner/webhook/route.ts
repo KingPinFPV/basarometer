@@ -139,7 +139,6 @@ async function notifyClients(supabase: any, payload: WebhookPayload) {
       });
   } catch {
     // Table might not exist yet, that's ok
-    console.log('Scanner notifications table not yet created');
   }
 
   console.log(`Real-time notification sent: ${payload.event} for ${payload.site}`);

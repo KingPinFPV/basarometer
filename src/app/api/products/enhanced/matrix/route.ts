@@ -179,7 +179,7 @@ export async function GET(request: NextRequest) {
         scannerData = scanData
         // Convert scanner products to enhanced meat cut format
         scannerProducts = convertScannerToEnhancedCuts(scanData)
-        console.log(`✅ Fetched ${scanData.length} scanner products, converted to ${scannerProducts.length} enhanced cuts`)
+// Debug log removed for production
       }
     } catch (error) {
       console.warn('Scanner data not available, continuing without it')
@@ -205,7 +205,7 @@ export async function GET(request: NextRequest) {
 
     // ADD SCANNER PRODUCTS AS ADDITIONAL ENHANCED CUTS
     const combinedEnhancedCuts = [...enhancedCuts, ...scannerProducts]
-    console.log(`✅ Combined data: ${enhancedCuts.length} meat cuts + ${scannerProducts.length} scanner products = ${combinedEnhancedCuts.length} total`)
+// Debug log removed for production
 
     // Calculate comprehensive quality breakdown
     const qualityBreakdown = calculateQualityBreakdown(qualityMappings || [], combinedEnhancedCuts)

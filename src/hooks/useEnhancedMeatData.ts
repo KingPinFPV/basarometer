@@ -100,11 +100,7 @@ export function useEnhancedMeatData(categoryFilter?: string) {
         trend_indicators: { price_direction: 'stable', availability_trend: 'stable', quality_trend: 'stable' }
       }
       
-      console.log('🔧 Fixed data extraction from API:', {
-        totalProducts: enhancedCuts.length,
-        apiStructure: Object.keys(result.data || {}),
-        enhancedCutsFound: enhancedCuts.length
-      })
+      // Debug info for API data extraction (removed for production)
 
       setEnhancedMeatData(enhancedCuts)
       setQualityBreakdown(qualityBreakdown)

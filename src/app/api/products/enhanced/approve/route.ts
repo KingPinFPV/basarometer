@@ -383,10 +383,7 @@ async function logAdminAction(actionData: {
   try {
     // Create a simple audit log entry
     // Note: You might want to create an admin_audit_log table for this
-    console.log('Admin Action:', {
-      timestamp: new Date().toISOString(),
-      ...actionData
-    })
+    // Admin action logged (console.log removed for production)
 
     // For now, we'll just log to console
     // In a full implementation, you'd insert into an audit table
