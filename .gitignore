@@ -451,8 +451,10 @@ temp/credentials/
 # To add exceptions, use '!' prefix in this file
 # Example: !important-config.json
 
-# Last Updated: June 20, 2025
-# Basarometer Security Team# Documentation and backup management
+# Last Updated: July 12, 2025
+# Basarometer Security Team
+
+# Documentation and backup management
 *.md.bak
 *.md.backup.*
 backups/
@@ -481,6 +483,36 @@ scan bot/logs/
 *VALIDATION_REPORT*.md
 *MASTER_CONTEXT*.md
 *WEBSITE_MAP*.md
+*TECHNICAL_VALIDATION*.md
+*LOGIN_SYSTEM_TEST*.md
+*MCP_VALIDATION*.md
+*MEAT_FILTERING_SUCCESS*.md
+*CSS_CRISIS_RESOLUTION*.md
+*DEPLOYMENT_RECORD*.md
+*DEVELOPMENT_HANDOVER*.md
+
+# Additional sensitive documentation patterns
+*_COMPLETE_*.md
+*_SUCCESS_*.md
+*_REPORT_*.md
+*_SUMMARY_*.md
+*_BREAKTHROUGH_*.md
+*_CONTEXT_*.md
+*_MAP_*.md
 
 # Temporary environment file created during build
 .env.local
+
+# Additional temporary and sensitive files
+claudeDB.md
+*.credentials
+*.secrets
+*.private
+*_private_*
+*_internal_*
+*_confidential_*
+
+# Build and deployment artifacts
+deploy_to_production.sh
+*deploy*.sh
+*production*.sh
