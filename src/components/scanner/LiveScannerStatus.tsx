@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/lib/supabase';
 import { Bot, Activity } from 'lucide-react';
 
@@ -54,7 +54,7 @@ export default function LiveScannerStatus() {
     };
   }, [loading, fetchQuickStatus, handleRealtimeUpdate]);
 
-  const fetchQuickStatus = async () => {
+  const fetchQuickStatus = useCallback(async () => {
     try {
       // Quick aggregation for header display
       const { data, error } = await supabase
@@ -102,14 +102,14 @@ export default function LiveScannerStatus() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const handleRealtimeUpdate = (payload: { new: { scanner_source?: string } }) => {
+  const handleRealtimeUpdate = useCallback((payload: { new: { scanner_source?: string } }) => {
     if (payload.new.scanner_source) {
       // Quick refresh when new scanner data arrives
       fetchQuickStatus();
     }
-  };
+  }, [fetchQuickStatus]);
 
   const formatLastUpdate = (timestamp: string | null): string => {
     if (!timestamp) return 'אין נתונים';

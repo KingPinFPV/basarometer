@@ -1,7 +1,7 @@
 // Discovery Management Admin Interface
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { 
     DiscoveredSource, 
     PriceConflict, 
@@ -42,13 +42,7 @@ const DiscoveryManagement: React.FC<DiscoveryManagementProps> = ({ isAdmin }) =>
     const [learningStats, setLearningStats] = useState<LearningSystemStats | null>(null)
     const [runningLearning, setRunningLearning] = useState(false)
 
-    useEffect(() => {
-        if (isAdmin) {
-            loadDiscoveryData()
-        }
-    }, [isAdmin, activeTab, loadDiscoveryData])
-
-    const loadDiscoveryData = async () => {
+    const loadDiscoveryData = useCallback(async () => {
         setLoading(true)
         try {
             const loadPromises = [
@@ -75,7 +69,13 @@ const DiscoveryManagement: React.FC<DiscoveryManagementProps> = ({ isAdmin }) =>
         } finally {
             setLoading(false)
         }
-    }
+    }, [activeTab])
+
+    useEffect(() => {
+        if (isAdmin) {
+            loadDiscoveryData()
+        }
+    }, [isAdmin, loadDiscoveryData])
 
     const loadSources = async () => {
         try {

@@ -359,7 +359,7 @@ export default function ComparisonPage() {
                     מחיר
                   </th>
                   <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    מחיר לק"ג  
+                    מחיר לק&quot;ג  
                   </th>
                   <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     אמינות
