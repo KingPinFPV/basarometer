@@ -86,6 +86,53 @@ export function useNotifications() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  // Generate current deals
+  const generateDeals = useCallback(async (): Promise<Deal[]> => {
+    const deals: Deal[] = []
+
+    // Simulate finding deals by looking for price variations
+    const recentReports = priceReports.slice(-50)
+    const priceGroups = new Map<string, number[]>()
+
+    // Group prices by meat cut
+    recentReports.forEach(report => {
+      if (!priceGroups.has(report.meat_cut_id)) {
+        priceGroups.set(report.meat_cut_id, [])
+      }
+      priceGroups.get(report.meat_cut_id)!.push(report.price_per_kg)
+    })
+
+    // Find potential deals (prices significantly below average)
+    priceGroups.forEach((prices, meatCutId) => {
+      if (prices.length < 3) return
+
+      const avgPrice = prices && prices.length > 0 ? (prices || []).reduce((sum, price) => sum + price, 0) / prices.length : 0
+      const minPrice = Math.min(...prices)
+      const discountPercent = ((avgPrice - minPrice) / avgPrice) * 100
+
+      if (discountPercent > 20) { // 20% or more discount
+        const reportWithDeal = recentReports.find(r => 
+          r.meat_cut_id === meatCutId && r.price_per_kg === minPrice
+        )
+
+        if (reportWithDeal) {
+          deals.push({
+            id: `deal-${meatCutId}-${Date.now()}`,
+            meatCutId,
+            retailerId: reportWithDeal.retailer_id,
+            originalPrice: avgPrice,
+            salePrice: minPrice,
+            discountPercent: Math.round(discountPercent),
+            validUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(), // 7 days
+            isActive: true
+          })
+        }
+      }
+    })
+
+    return deals.slice(0, 10) // Limit to 10 deals
+  }, [priceReports])
+
   // Generate notifications based on current data
   const generateNotifications = useCallback(async (): Promise<Notification[]> => {
     const notifications: Notification[] = []
@@ -177,54 +224,8 @@ export function useNotifications() {
     }
 
     return notifications.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-  }, [indexAlerts, currentIndex, shoppingLists, priceReports])
+  }, [indexAlerts, currentIndex, shoppingLists, generateDeals])
 
-  // Generate current deals
-  const generateDeals = useCallback(async (): Promise<Deal[]> => {
-    const deals: Deal[] = []
-
-    // Simulate finding deals by looking for price variations
-    const recentReports = priceReports.slice(-50)
-    const priceGroups = new Map<string, number[]>()
-
-    // Group prices by meat cut
-    recentReports.forEach(report => {
-      if (!priceGroups.has(report.meat_cut_id)) {
-        priceGroups.set(report.meat_cut_id, [])
-      }
-      priceGroups.get(report.meat_cut_id)!.push(report.price_per_kg)
-    })
-
-    // Find potential deals (prices significantly below average)
-    priceGroups.forEach((prices, meatCutId) => {
-      if (prices.length < 3) return
-
-      const avgPrice = prices && prices.length > 0 ? (prices || []).reduce((sum, price) => sum + price, 0) / prices.length : 0
-      const minPrice = Math.min(...prices)
-      const discountPercent = ((avgPrice - minPrice) / avgPrice) * 100
-
-      if (discountPercent > 20) { // 20% or more discount
-        const reportWithDeal = recentReports.find(r => 
-          r.meat_cut_id === meatCutId && r.price_per_kg === minPrice
-        )
-
-        if (reportWithDeal) {
-          deals.push({
-            id: `deal-${meatCutId}-${Date.now()}`,
-            meatCutId,
-            retailerId: reportWithDeal.retailer_id,
-            originalPrice: avgPrice,
-            salePrice: minPrice,
-            discountPercent: Math.round(discountPercent),
-            validUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(), // 7 days
-            isActive: true
-          })
-        }
-      }
-    })
-
-    return deals.slice(0, 10) // Limit to 10 deals
-  }, [priceReports])
 
   // Fetch user notifications
   const fetchNotifications = useCallback(async () => {
