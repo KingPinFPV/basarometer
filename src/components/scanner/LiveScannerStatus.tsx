@@ -21,38 +21,6 @@ export default function LiveScannerStatus() {
   const [isLive, setIsLive] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchQuickStatus();
-    
-    // Subscribe to real-time updates with error handling
-    const subscription = supabase
-      .channel('scanner-live-status')
-      .on('postgres_changes', 
-        { event: 'INSERT', schema: 'public', table: 'price_reports' },
-        handleRealtimeUpdate
-      )
-      .subscribe((status) => {
-        if (status === 'SUBSCRIBED') {
-          setIsLive(true);
-        } else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
-          setIsLive(false);
-        }
-      });
-    
-    // Refresh status every 2 minutes (reduced from 30 seconds)
-    const interval = setInterval(() => {
-      if (!loading) { // Only fetch if not already loading
-        fetchQuickStatus();
-      }
-    }, 120000);
-
-    return () => {
-      subscription.unsubscribe();
-      clearInterval(interval);
-      setIsLive(false);
-    };
-  }, [loading, fetchQuickStatus, handleRealtimeUpdate]);
-
   const fetchQuickStatus = useCallback(async () => {
     try {
       // Quick aggregation for header display
@@ -106,6 +74,38 @@ export default function LiveScannerStatus() {
       fetchQuickStatus();
     }
   }, [fetchQuickStatus]);
+
+  useEffect(() => {
+    fetchQuickStatus();
+    
+    // Subscribe to real-time updates with error handling
+    const subscription = supabase
+      .channel('scanner-live-status')
+      .on('postgres_changes', 
+        { event: 'INSERT', schema: 'public', table: 'price_reports' },
+        handleRealtimeUpdate
+      )
+      .subscribe((status) => {
+        if (status === 'SUBSCRIBED') {
+          setIsLive(true);
+        } else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
+          setIsLive(false);
+        }
+      });
+    
+    // Refresh status every 2 minutes (reduced from 30 seconds)
+    const interval = setInterval(() => {
+      if (!loading) { // Only fetch if not already loading
+        fetchQuickStatus();
+      }
+    }, 120000);
+
+    return () => {
+      subscription.unsubscribe();
+      clearInterval(interval);
+      setIsLive(false);
+    };
+  }, [loading, fetchQuickStatus, handleRealtimeUpdate]);
 
   const formatLastUpdate = (timestamp: string | null): string => {
     if (!timestamp) return 'אין נתונים';
