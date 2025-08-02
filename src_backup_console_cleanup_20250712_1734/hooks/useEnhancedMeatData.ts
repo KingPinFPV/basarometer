@@ -6,9 +6,6 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
-import { Logger } from '@/lib/discovery/utils/Logger'
-
-const logger = new Logger('useEnhancedMeatData');
 
 interface QualityGrade {
   id: string
@@ -103,7 +100,7 @@ export function useEnhancedMeatData(categoryFilter?: string) {
         trend_indicators: { price_direction: 'stable', availability_trend: 'stable', quality_trend: 'stable' }
       }
       
-      logger.info('Fixed data extraction from API', {
+      console.log('🔧 Fixed data extraction from API:', {
         totalProducts: enhancedCuts.length,
         apiStructure: Object.keys(result.data || {}),
         enhancedCutsFound: enhancedCuts.length
@@ -117,7 +114,7 @@ export function useEnhancedMeatData(categoryFilter?: string) {
       setRetryCount(0)
 
     } catch (err) {
-      logger.error('Error fetching enhanced meat data:', err)
+      console.error('Error fetching enhanced meat data:', err)
       const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred'
       
       // Only set error state for non-400 errors or after multiple retries
@@ -170,8 +167,8 @@ export function useEnhancedMeatData(categoryFilter?: string) {
         return () => clearTimeout(timeoutId)
       })
       .subscribe((status) => {
-        if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
-          logger.warn('Real-time subscription failed, continuing without live updates')
+        if (status === 'SUBSCRIPTION_ERROR') {
+          console.warn('Real-time subscription failed, continuing without live updates')
         }
       })
 
@@ -412,17 +409,17 @@ function getLatestPriceUpdate(priceData: any[], cutId: string): string {
   return cutPrices[0]?.created_at || new Date().toISOString()
 }
 
-function calculateOverallPriceTrend(_priceData: any[]): 'up' | 'down' | 'stable' {
+function calculateOverallPriceTrend(priceData: any[]): 'up' | 'down' | 'stable' {
   // Implementation for overall price trend analysis
   return 'stable'
 }
 
-function calculateAvailabilityTrend(_scannerData: any[]): 'increasing' | 'decreasing' | 'stable' {
+function calculateAvailabilityTrend(scannerData: any[]): 'increasing' | 'decreasing' | 'stable' {
   // Implementation for availability trend analysis
   return 'stable'
 }
 
-function calculateQualityTrend(_scannerData: any[]): 'improving' | 'declining' | 'stable' {
+function calculateQualityTrend(scannerData: any[]): 'improving' | 'declining' | 'stable' {
   // Implementation for quality trend analysis
   return 'stable'
 }
