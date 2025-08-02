@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import { BarChart3, Eye, Check, X, AlertTriangle, Calendar, User, MapPin } from 'lucide-react'
+import { useUINotifications } from '@/hooks/useUINotifications'
+import { InputDialog } from '@/components/ui/InputDialog'
+import { ToastContainer } from '@/components/ui/Toast'
 
 interface PriceReport {
   id: number
@@ -18,6 +21,7 @@ interface PriceReport {
 }
 
 export default function ReportsPage() {
+  const { showInput, inputDialog, closeInput, toasts, removeToast } = useUINotifications()
   const [reports, setReports] = useState<PriceReport[]>([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<'all' | 'pending' | 'approved' | 'rejected'>('all')
@@ -196,7 +200,7 @@ export default function ReportsPage() {
           ].map((filterOption) => (
             <button
               key={filterOption.key}
-              onClick={() => setFilter(filterOption.key as any)}
+              onClick={() => setFilter(filterOption.key as 'all' | 'pending' | 'approved' | 'rejected')}
               className={`px-4 py-2 rounded-lg transition-colors ${
                 filter === filterOption.key
                   ? 'bg-blue-600 text-white'
@@ -440,10 +444,19 @@ export default function ReportsPage() {
                       אשר דוח
                     </button>
                     <button
-                      onClick={() => {
-                        const notes = prompt('הזן הערה (אופציונלי):')
-                        handleReject(selectedReport.id, notes || undefined)
-                        setSelectedReport(null)
+                      onClick={async () => {
+                        const notes = await showInput({
+                          title: 'דחיית דוח',
+                          message: 'הזן הערה (אופציונלי):',
+                          placeholder: 'סיבת הדחייה...',
+                          confirmText: 'דחה',
+                          cancelText: 'ביטול',
+                          required: false
+                        })
+                        if (notes !== null) {
+                          handleReject(selectedReport.id, notes || undefined)
+                          setSelectedReport(null)
+                        }
                       }}
                       className="flex-1 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors"
                     >
@@ -457,6 +470,22 @@ export default function ReportsPage() {
           </div>
         </div>
       )}
+
+      {/* Input Dialog */}
+      <InputDialog
+        isOpen={inputDialog.isOpen}
+        onClose={closeInput}
+        onConfirm={inputDialog.onConfirm}
+        title={inputDialog.options.title}
+        message={inputDialog.options.message}
+        placeholder={inputDialog.options.placeholder}
+        confirmText={inputDialog.options.confirmText}
+        cancelText={inputDialog.options.cancelText}
+        required={inputDialog.options.required}
+      />
+
+      {/* Toast Notifications */}
+      <ToastContainer toasts={toasts} onClose={removeToast} />
     </div>
   )
 }

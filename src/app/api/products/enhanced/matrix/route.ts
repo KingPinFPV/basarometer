@@ -4,6 +4,10 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
+import { QueryOptimizer } from '@/lib/performance/QueryOptimizer'
+import { Logger } from '@/lib/discovery/utils/Logger'
+
+const logger = new Logger('EnhancedMatrixAPI');
 
 interface QualityBreakdown {
   total_variations: number
@@ -100,98 +104,28 @@ export async function GET(request: NextRequest) {
     const quality_filter = searchParams.get('quality')
     const include_scanner = searchParams.get('include_scanner') !== 'false'
 
-    // Fetch enhanced meat cuts with comprehensive data
-    let baseQuery = supabase
-      .from('meat_cuts')
-      .select(`
-        *,
-        category:meat_categories(*),
-        sub_category:meat_sub_categories(*)
-      `)
-      .eq('is_active', true)
+    // PERFORMANCE OPTIMIZATION: Use optimized query consolidation
+    const optimizer = QueryOptimizer.getInstance()
+    const optimizedData = await optimizer.getOptimizedMatrixData(
+      category,
+      quality_filter,
+      include_scanner
+    )
 
-    if (category) {
-      baseQuery = baseQuery.eq('meat_categories.name_hebrew', category)
-    }
+    const {
+      enhanced_cuts: meatCuts,
+      quality_mappings: qualityMappings,
+      price_data: priceData,
+      scanner_data: scannerData,
+      retailers
+    } = optimizedData
 
-    const { data: meatCuts, error: cutsError } = await baseQuery
-
-    if (cutsError) throw cutsError
-
-    // Fetch quality mappings and name variations (fallback if table doesn't exist)
-    let qualityMappings: any[] = []
-    try {
-      const { data: mappings, error: mappingsError } = await supabase
-        .from('meat_name_mappings')
-        .select('*')
-        .gte('confidence_score', 0.7)
-      
-      if (!mappingsError && mappings) {
-        qualityMappings = mappings
-      }
-    } catch (error) {
-      console.warn('meat_name_mappings table not found, using fallback data')
-    }
-
-    // Fetch current price data from available tables
-    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
-    let priceData: any[] = []
-    
-    // Try integrated view first, fallback to price_reports
-    try {
-      const { data: integratedData, error: integratedError } = await supabase
-        .from('integrated_price_view')
-        .select('*')
-        .eq('is_active', true)
-        .gte('created_at', thirtyDaysAgo)
-      
-      if (!integratedError && integratedData) {
-        priceData = integratedData
-      } else {
-        throw new Error('Fallback to price_reports')
-      }
-    } catch (error) {
-      // Fallback to price_reports table
-      const { data: fallbackData, error: fallbackError } = await supabase
-        .from('price_reports')
-        .select('*')
-        .eq('is_active', true)
-        .gte('created_at', thirtyDaysAgo)
-      
-      if (!fallbackError && fallbackData) {
-        priceData = fallbackData
-      }
-    }
-
-    // Fetch scanner data if requested (graceful fallback) - ENABLED BY DEFAULT
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let scannerData: any[] = []
+    // Convert scanner products to enhanced meat cut format
     let scannerProducts: any[] = []
-    try {
-      const sixtyDaysAgo = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString()
-      const { data: scanData, error: scanError } = await supabase
-        .from('scanner_products')
-        .select('*')
-        .eq('is_valid', true)
-        .gte('scan_timestamp', sixtyDaysAgo)
-
-      if (!scanError && scanData) {
-        scannerData = scanData
-        // Convert scanner products to enhanced meat cut format
-        scannerProducts = convertScannerToEnhancedCuts(scanData)
-        console.log(`✅ Fetched ${scanData.length} scanner products, converted to ${scannerProducts.length} enhanced cuts`)
-      }
-    } catch (error) {
-      console.warn('Scanner data not available, continuing without it')
+    if (include_scanner && scannerData.length > 0) {
+      scannerProducts = convertScannerToEnhancedCuts(scannerData)
+      logger.info(`✅ Converted ${scannerData.length} scanner products to ${scannerProducts.length} enhanced cuts`)
     }
-
-    // Fetch retailers for context
-    const { data: retailers, error: retailersError } = await supabase
-      .from('retailers')
-      .select('id, name, type')
-      .eq('is_active', true)
-
-    if (retailersError) throw retailersError
 
     // Process and enhance the data - COMBINE MEAT CUTS + SCANNER PRODUCTS
     const enhancedCuts = await processEnhancedMatrixData(
@@ -205,7 +139,7 @@ export async function GET(request: NextRequest) {
 
     // ADD SCANNER PRODUCTS AS ADDITIONAL ENHANCED CUTS
     const combinedEnhancedCuts = [...enhancedCuts, ...scannerProducts]
-    console.log(`✅ Combined data: ${enhancedCuts.length} meat cuts + ${scannerProducts.length} scanner products = ${combinedEnhancedCuts.length} total`)
+    logger.info(`✅ Combined data: ${enhancedCuts.length} meat cuts + ${scannerProducts.length} scanner products = ${combinedEnhancedCuts.length} total`)
 
     // Calculate comprehensive quality breakdown
     const qualityBreakdown = calculateQualityBreakdown(qualityMappings || [], combinedEnhancedCuts)
@@ -245,7 +179,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(response)
 
   } catch (error) {
-    console.error('Enhanced Matrix API Error:', error)
+    logger.error('Enhanced Matrix API Error:', error)
     return NextResponse.json(
       { 
         success: false, 
@@ -258,7 +192,6 @@ export async function GET(request: NextRequest) {
 }
 
 // Process raw data into enhanced matrix format
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function processEnhancedMatrixData(
   meatCuts: any[],
   qualityMappings: any[],
@@ -561,19 +494,16 @@ function calculatePriceTrend(prices: number[]): 'up' | 'down' | 'stable' {
   return 'stable'
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
 function calculateOverallPriceTrend(_priceData: any[]): 'up' | 'down' | 'stable' {
   // Simplified implementation
   return 'stable'
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
 function calculateAvailabilityTrend(_scannerData: any[]): 'increasing' | 'decreasing' | 'stable' {
   // Simplified implementation
   return 'stable'
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
 function calculateQualityTrend(_scannerData: any[]): 'improving' | 'declining' | 'stable' {
   // Simplified implementation
   return 'stable'
@@ -639,8 +569,7 @@ function convertScannerToEnhancedCuts(scannerData: any[]): EnhancedMeatCut[] {
     const maxPrice = prices.length > 0 ? Math.max(...prices) : 0
     const avgPrice = prices.length > 0 ? prices.reduce((sum, p) => sum + p, 0) / prices.length : 0
     
-    // Map store names to network prices
-    const networkPrices: Record<string, number> = {}
+    // Map store names to retailer data
     const retailers: RetailerPriceData[] = []
     
     products.forEach(product => {
@@ -648,11 +577,6 @@ function convertScannerToEnhancedCuts(scannerData: any[]): EnhancedMeatCut[] {
       const price = parseFloat(product?.price_per_kg || product?.price || '0')
       
       if (!isNaN(price) && price > 0) {
-        // Map store names to network IDs
-        const networkId = mapStoreNameToNetworkId(storeName)
-        if (networkId) {
-          networkPrices[networkId] = price
-        }
         
         retailers.push({
           retailer_id: generateRetailerId(storeName),

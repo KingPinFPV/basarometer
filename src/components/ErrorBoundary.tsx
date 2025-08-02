@@ -1,6 +1,9 @@
 'use client'
 
 import { Component, ReactNode } from 'react'
+import { Logger } from '@/lib/discovery/utils/Logger'
+
+const logger = new Logger('ErrorBoundary');
 
 interface Props {
   children: ReactNode
@@ -23,7 +26,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: { componentStack: string }) {
-    console.error('ErrorBoundary caught an error:', error, errorInfo)
+    logger.error('ErrorBoundary caught an error', { error, componentStack: errorInfo.componentStack })
   }
 
   render() {
@@ -67,7 +70,7 @@ export class ErrorBoundary extends Component<Props, State> {
                       localStorage.clear()
                       sessionStorage.clear()
                     } catch (e) {
-                      console.error('Error clearing storage:', e)
+                      logger.error('Error clearing storage:', e)
                     }
                     window.location.reload()
                   }

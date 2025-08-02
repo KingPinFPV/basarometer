@@ -190,8 +190,8 @@ export function validateCategorization(categoryStats) {
   Object.entries(categoryStats).forEach(([key, stats]) => {
     if (key === 'other') return;
     
-    const expected = stats.expectedCount;
-    const actual = stats.count;
+    const expected = (stats as any).expectedCount || 0;
+    const actual = (stats as any).count || 0;
     
     totalExpected += expected;
     totalActual += actual;

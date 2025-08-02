@@ -29,31 +29,7 @@ export default function ScannerDashboard() {
   const [loading, setLoading] = useState(true);
   const [isLive, setIsLive] = useState(false);
 
-  useEffect(() => {
-    fetchScannerData();
-    
-    // Subscribe to real-time updates
-    const statusSubscription = supabase
-      .channel('scanner-status')
-      .on('postgres_changes', 
-        { event: 'INSERT', schema: 'public', table: 'price_reports' },
-        handleRealtimeUpdate
-      )
-      .on('postgres_changes',
-        { event: 'INSERT', schema: 'public', table: 'scanner_ingestion_logs' },
-        handleLogUpdate
-      )
-      .subscribe();
-
-    setIsLive(true);
-
-    return () => {
-      statusSubscription.unsubscribe();
-      setIsLive(false);
-    };
-  }, [handleLogUpdate, handleRealtimeUpdate]);
-
-  const fetchScannerData = async () => {
+  const fetchScannerData = useCallback(async () => {
     try {
       // Fetch scanner status with error handling
       try {
@@ -99,17 +75,41 @@ export default function ScannerDashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   const handleRealtimeUpdate = useCallback((payload: { new: { scanner_source?: string } }) => {
     if (payload.new.scanner_source) {
       fetchScannerData(); // Refresh the status
     }
-  }, []);
+  }, [fetchScannerData]);
 
   const handleLogUpdate = useCallback((payload: { new: ScannerLog }) => {
     setLogs(prev => [payload.new, ...prev.slice(0, 9)]);
   }, []);
+
+  useEffect(() => {
+    fetchScannerData();
+    
+    // Subscribe to real-time updates
+    const statusSubscription = supabase
+      .channel('scanner-status')
+      .on('postgres_changes', 
+        { event: 'INSERT', schema: 'public', table: 'price_reports' },
+        handleRealtimeUpdate
+      )
+      .on('postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'scanner_ingestion_logs' },
+        handleLogUpdate
+      )
+      .subscribe();
+
+    setIsLive(true);
+
+    return () => {
+      statusSubscription.unsubscribe();
+      setIsLive(false);
+    };
+  }, [handleLogUpdate, handleRealtimeUpdate, fetchScannerData]);
 
   const getStatusColor = (rating: string): string => {
     switch (rating) {

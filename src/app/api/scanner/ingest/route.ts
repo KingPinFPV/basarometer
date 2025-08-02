@@ -1,6 +1,9 @@
 // /src/app/api/scanner/ingest/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
+import { Logger } from '@/lib/discovery/utils/Logger';
+
+const logger = new Logger('ScannerIngestAPI');
 
 // Scanner data interfaces based on actual v5 output format
 interface ScannerProduct {
@@ -58,7 +61,7 @@ export async function POST(request: NextRequest) {
   try {
     const scannerData: ScannerPayload = await request.json();
     
-    console.log(`📥 Received scanner data: ${scannerData.products.length} products from ${scannerData.scanInfo.targetSite}`);
+    logger.info(`📥 Received scanner data: ${scannerData.products.length} products from ${scannerData.scanInfo.targetSite}`);
 
     // Validate API key
     const apiKey = request.headers.get('x-scanner-api-key');
@@ -91,7 +94,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (activityError) {
-      console.error('❌ Failed to log scanner activity:', activityError);
+      logger.error('❌ Failed to log scanner activity:', activityError);
     }
 
     // Process and prepare products for insertion into scanner_products table
@@ -130,7 +133,7 @@ export async function POST(request: NextRequest) {
       .select();
 
     if (insertError) {
-      console.error('❌ Database insertion error:', insertError);
+      logger.error('❌ Database insertion error:', insertError);
       return NextResponse.json(
         { error: 'Database insertion failed', details: insertError.message },
         { status: 500 }
@@ -148,7 +151,7 @@ export async function POST(request: NextRequest) {
         .eq('id', activityLog.id);
     }
 
-    console.log(`✅ Successfully processed ${insertedProducts?.length || 0} products from scanner`);
+    logger.info(`✅ Successfully processed ${insertedProducts?.length || 0} products from scanner`);
 
     return NextResponse.json({
       success: true,
@@ -162,7 +165,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error) {
-    console.error('❌ Scanner ingest API error:', error);
+    logger.error('❌ Scanner ingest API error:', error);
     return NextResponse.json(
       { 
         error: 'Internal server error', 

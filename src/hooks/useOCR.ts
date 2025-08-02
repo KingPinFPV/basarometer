@@ -204,7 +204,7 @@ export function useOCR() {
     } finally {
       setProcessing(false)
     }
-  }, [retailers, meatCuts, findBestMeatCutMatch])
+  }, [retailers, meatCuts])
 
 
   // Find best matching meat cut from database
@@ -294,7 +294,7 @@ export function useOCR() {
   }
 
   // Get category name by ID
-  const getCategoryName = (categoryId: string): string => {
+  const getCategoryName = (_categoryId: string): string => {
     // This is a simplified mapping - in real app would query categories table
     const categoryMap: Record<string, string> = {
       'beef': 'בקר',
@@ -303,7 +303,7 @@ export function useOCR() {
       'turkey': 'הודו',
       'pork': 'חזיר'
     }
-    return categoryMap[categoryId] || 'כללי'
+    return categoryMap[_categoryId] || 'כללי'
   }
 
   // Validate extracted items

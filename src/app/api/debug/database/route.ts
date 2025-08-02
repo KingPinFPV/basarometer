@@ -1,6 +1,12 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
+interface TableTestResult {
+  exists: boolean;
+  error: string | null;
+  recordCount: number;
+}
+
 export async function GET() {
   try {
     // Check environment variables first
@@ -50,7 +56,7 @@ export async function GET() {
       'hebrew_nlp_analytics'
     ];
 
-    const tableTests: Record<string, any> = {};
+    const tableTests: Record<string, TableTestResult> = {};
     for (const table of tables) {
       try {
         const { data, error } = await supabase

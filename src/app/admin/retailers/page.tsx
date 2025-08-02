@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import { Store, Plus, Edit2, Trash2, Save, X, MapPin, Globe, Phone } from 'lucide-react'
+import { useUINotifications } from '@/hooks/useUINotifications'
+import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
+import { ToastContainer } from '@/components/ui/Toast'
 
 interface Retailer {
   id: number
@@ -18,6 +21,7 @@ interface Retailer {
 }
 
 export default function RetailersPage() {
+  const { showConfirm, confirmDialog, closeConfirm, toasts, removeToast } = useUINotifications()
   const [retailers, setRetailers] = useState<Retailer[]>([])
   const [loading, setLoading] = useState(true)
   const [isAdding, setIsAdding] = useState(false)
@@ -167,8 +171,16 @@ export default function RetailersPage() {
     })
   }
 
-  const handleDelete = (id: number) => {
-    if (confirm('האם אתה בטוח שברצונך למחוק קמעונאי זה?')) {
+  const handleDelete = async (id: number) => {
+    const confirmed = await showConfirm({
+      title: 'מחיקת קמעונאי',
+      message: 'האם אתה בטוח שברצונך למחוק קמעונאי זה?',
+      confirmText: 'מחק',
+      cancelText: 'ביטול',
+      variant: 'danger'
+    })
+    
+    if (confirmed) {
       setRetailers(retailers.filter(retailer => retailer.id !== id))
     }
   }
@@ -521,6 +533,21 @@ export default function RetailersPage() {
           </button>
         </div>
       )}
+
+      {/* Confirmation Dialog */}
+      <ConfirmDialog
+        isOpen={confirmDialog.isOpen}
+        onClose={closeConfirm}
+        onConfirm={confirmDialog.onConfirm}
+        title={confirmDialog.options.title}
+        message={confirmDialog.options.message}
+        confirmText={confirmDialog.options.confirmText}
+        cancelText={confirmDialog.options.cancelText}
+        variant={confirmDialog.options.variant}
+      />
+
+      {/* Toast Notifications */}
+      <ToastContainer toasts={toasts} onClose={removeToast} />
     </div>
   )
 }

@@ -4,12 +4,14 @@ import { useState } from 'react'
 import { usePriceMatrixData } from '@/hooks/usePriceMatrixData'
 import { useShoppingList } from '@/hooks/useShoppingList'
 import { useAuth } from '@/hooks/useAuth'
+import { useUINotifications } from '@/hooks/useUINotifications'
 import { CategoryAccordion } from './CategoryAccordion'
 import { MatrixSearch } from './MatrixSearch'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import { ColorLegendV2 } from '@/components/ui/ColorLegendV2'
 import { StoreReviewModal } from '@/components/community/StoreReviewModal'
 import { PriceReportModal } from '@/components/forms/PriceReportModal'
+import { ToastContainer } from '@/components/ui/Toast'
 import { MessageSquare } from 'lucide-react'
 import type { Retailer } from '@/lib/database.types'
 
@@ -26,6 +28,7 @@ export default function AccordionMatrixContainer() {
 
   const { user } = useAuth()
   const { currentList, addItem, createList } = useShoppingList()
+  const { showInfo, showSuccess, showError, toasts, removeToast } = useUINotifications()
   
   const [searchTerm, setSearchTerm] = useState('')
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set())
@@ -41,7 +44,7 @@ export default function AccordionMatrixContainer() {
   // Handle adding items to shopping list
   const handleAddToShoppingList = async (cutId: string) => {
     if (!user) {
-      alert('התחבר כדי להשתמש ברשימות קניות')
+      showInfo('התחבר כדי להשתמש ברשימות קניות', 'נדרשת התחברות')
       return
     }
 
@@ -51,7 +54,7 @@ export default function AccordionMatrixContainer() {
     if (!listToUse) {
       listToUse = await createList('רשימת קניות ראשית')
       if (!listToUse) {
-        alert('שגיאה ביצירת רשימת קניות')
+        showError('שגיאה ביצירת רשימת קניות')
         return
       }
     }
@@ -59,9 +62,9 @@ export default function AccordionMatrixContainer() {
     const success = await addItem(listToUse.id, cutId, 1, 'kg')
     if (success) {
       const meatCut = meatCuts.find(cut => cut.id === cutId)
-      alert(`${meatCut?.name_hebrew || 'פריט'} נוסף לרשימת הקניות! 🛒`)
+      showSuccess(`${meatCut?.name_hebrew || 'פריט'} נוסף לרשימת הקניות!`, 'נוסף לרשימה')
     } else {
-      alert('שגיאה בהוספה לרשימת קניות')
+      showError('שגיאה בהוספה לרשימת קניות')
     }
   }
 
@@ -96,7 +99,7 @@ export default function AccordionMatrixContainer() {
   // Handle review modal
   const openReviewModal = (retailer: Retailer) => {
     if (!user) {
-      alert('התחבר כדי לכתוב ביקורת')
+      showInfo('התחבר כדי לכתוב ביקורת', 'נדרשת התחברות')
       return
     }
     setSelectedRetailer(retailer)
@@ -111,7 +114,7 @@ export default function AccordionMatrixContainer() {
   // Handle price report modal
   const openPriceReportModal = (cutId: string, retailerId: string) => {
     if (!user) {
-      alert('התחבר כדי לדווח מחירים')
+      showInfo('התחבר כדי לדווח מחירים', 'נדרשת התחברות')
       return
     }
     setSelectedMeatCutId(cutId)
@@ -324,6 +327,9 @@ export default function AccordionMatrixContainer() {
           onSuccess={handlePriceReportSuccess}
         />
       )}
+
+      {/* Toast Notifications */}
+      <ToastContainer toasts={toasts} onClose={removeToast} />
     </div>
   )
 }

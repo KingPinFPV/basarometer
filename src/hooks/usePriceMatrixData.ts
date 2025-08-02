@@ -1,6 +1,9 @@
 import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
 import type { MeatCut, Retailer, PriceReport, CategoryWithSubCategories } from '@/lib/database.types'
+import { Logger } from '@/lib/discovery/utils/Logger'
+
+const logger = new Logger('usePriceMatrixData');
 
 interface PriceMatrixData {
   categoriesWithSubCategories: CategoryWithSubCategories[]
@@ -82,7 +85,7 @@ export function usePriceMatrixData() {
       })
 
     } catch (err) {
-      console.error('Error fetching price matrix data:', err)
+      logger.error('Error fetching price matrix data:', err)
       setError(err instanceof Error ? err.message : 'שגיאה בטעינת נתוני המטריצה')
     } finally {
       setLoading(false)

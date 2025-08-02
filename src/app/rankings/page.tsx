@@ -4,8 +4,10 @@ import { useState } from 'react'
 import { useStoreRankings } from '@/hooks/useStoreRankings'
 import { useCommunity } from '@/hooks/useCommunity'
 import { useAuth } from '@/hooks/useAuth'
+import { useUINotifications } from '@/hooks/useUINotifications'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import { StoreReviewModal } from '@/components/community/StoreReviewModal'
+import { ToastContainer } from '@/components/ui/Toast'
 import { Trophy, TrendingUp, TrendingDown, Star, Medal, Crown, Award, Users, MessageSquare, Heart } from 'lucide-react'
 import type { Retailer } from '@/lib/database.types'
 
@@ -31,6 +33,7 @@ export default function RankingsPage() {
     // communityInsights, 
     getStoreInsights 
   } = useCommunity()
+  const { showInfo, toasts, removeToast } = useUINotifications()
 
   const [activeTab, setActiveTab] = useState<'stores' | 'users'>('stores')
   const [showReviewModal, setShowReviewModal] = useState(false)
@@ -64,7 +67,7 @@ export default function RankingsPage() {
   // Handle review modal
   const openReviewModal = (retailer: Retailer) => {
     if (!user) {
-      alert('התחבר כדי לכתוב ביקורת')
+      showInfo('התחבר כדי לכתוב ביקורת', 'נדרשת התחברות')
       return
     }
     setSelectedRetailer(retailer)
@@ -507,6 +510,9 @@ export default function RankingsPage() {
             onClose={closeReviewModal}
           />
         )}
+
+        {/* Toast Notifications */}
+        <ToastContainer toasts={toasts} onClose={removeToast} />
       </div>
     </div>
   )
