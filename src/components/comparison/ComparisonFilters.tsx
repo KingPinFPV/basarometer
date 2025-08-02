@@ -70,7 +70,7 @@ export function ComparisonFilters({
       setIsVoiceRecording(true)
     }
 
-    recognition.onresult = (event) => {
+    recognition.onresult = (event: SpeechRecognitionEvent) => {
       const transcript = event.results[0][0].transcript
       onFiltersChange({ ...filters, search: transcript })
       if (searchInputRef.current) {
@@ -295,7 +295,7 @@ export function ComparisonFilters({
             <div className="flex flex-wrap gap-2 text-xs">
               {filters.search && (
                 <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded">
-                  חיפוש: "{filters.search}"
+                  חיפוש: &quot;{filters.search}&quot;
                 </span>
               )}
               {filters.networks.length > 0 && (

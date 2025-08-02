@@ -6,10 +6,8 @@
 
 import { useState, useEffect, useMemo } from 'react'
 import { 
-  groupProductsBySemanticSimilarity, 
   createMasterComparisonData,
-  enhancedProductMatching,
-  normalizeHebrewProductName
+  enhancedProductMatching
 } from '@/utils/hebrewProductNormalization'
 import { useEnhancedMeatData } from './useEnhancedMeatData'
 import { usePriceMatrixData } from './usePriceMatrixData'

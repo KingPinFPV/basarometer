@@ -42,7 +42,7 @@ const QUALITY_TIERS: Record<string, { color: string; bgColor: string; label: str
 }
 
 export default function MeatIntelligenceMatrix() {
-  const [selectedCategory] = useState<string>('בקר')
+  const [selectedCategory, setSelectedCategory] = useState<string>('בקר')
   const [qualityFilter, setQualityFilter] = useState<string>('all')
   const [searchTerm, setSearchTerm] = useState('')
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')

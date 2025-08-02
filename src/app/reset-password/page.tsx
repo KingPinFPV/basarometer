@@ -34,9 +34,9 @@ function ResetPasswordForm() {
 
   useEffect(() => {
     // Check if we have a valid token from the URL
-    const accessToken = searchParams.get('access_token')
-    const refreshToken = searchParams.get('refresh_token')
-    const type = searchParams.get('type')
+    const accessToken = searchParams?.get('access_token')
+    const refreshToken = searchParams?.get('refresh_token')
+    const type = searchParams?.get('type')
 
     if (type === 'recovery' && accessToken && refreshToken) {
       setIsValidToken(true)

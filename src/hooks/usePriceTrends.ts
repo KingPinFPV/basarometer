@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
 import type { MeatCut } from '@/lib/database.types'
 
@@ -43,7 +43,7 @@ export function usePriceTrends() {
   const [error, setError] = useState<string | null>(null)
 
   // Fetch available meat cuts that have price data
-  const fetchAvailableCuts = async () => {
+  const fetchAvailableCuts = useCallback(async () => {
     try {
       const { data, error: fetchError } = await supabase
         .from('meat_cuts')
@@ -65,7 +65,7 @@ export function usePriceTrends() {
     } catch (err) {
       console.error('Failed to fetch available cuts:', err)
     }
-  }
+  }, [selectedMeatCut])
 
   // Calculate date range for filtering
   const getDateRange = (timeRange: string): Date => {
@@ -85,7 +85,7 @@ export function usePriceTrends() {
   }
 
   // Fetch price trends for a specific meat cut
-  const fetchPriceTrends = async (meatCutId: string, timeRange: '7d' | '30d' | '90d' | '1y') => {
+  const fetchPriceTrends = useCallback(async (meatCutId: string, timeRange: '7d' | '30d' | '90d' | '1y') => {
     if (!meatCutId) return
 
     setLoading(true)
@@ -175,7 +175,7 @@ export function usePriceTrends() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
 
   // Track price changes (to be called when price reports are added/updated)
   const trackPriceChange = async (
@@ -209,14 +209,14 @@ export function usePriceTrends() {
   // Initialize data
   useEffect(() => {
     fetchAvailableCuts()
-  }, []) // fetchAvailableCuts is stable, no need to include
+  }, [fetchAvailableCuts])
 
   // Fetch trends when selection changes
   useEffect(() => {
     if (selectedMeatCut) {
       fetchPriceTrends(selectedMeatCut, selectedTimeRange)
     }
-  }, [selectedMeatCut, selectedTimeRange]) // fetchPriceTrends is stable, no need to include
+  }, [selectedMeatCut, selectedTimeRange, fetchPriceTrends])
 
   return {
     // State

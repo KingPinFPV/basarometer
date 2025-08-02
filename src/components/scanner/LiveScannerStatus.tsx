@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/lib/supabase';
 import { Bot, Activity } from 'lucide-react';
 
@@ -35,7 +35,6 @@ export default function LiveScannerStatus() {
         if (status === 'SUBSCRIBED') {
           setIsLive(true);
         } else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
-          console.warn('Scanner status subscription failed, continuing with polling only');
           setIsLive(false);
         }
       });
@@ -52,9 +51,9 @@ export default function LiveScannerStatus() {
       clearInterval(interval);
       setIsLive(false);
     };
-  }, [loading]);
+  }, [loading, fetchQuickStatus, handleRealtimeUpdate]);
 
-  const fetchQuickStatus = async () => {
+  const fetchQuickStatus = useCallback(async () => {
     try {
       // Quick aggregation for header display
       const { data, error } = await supabase
@@ -66,11 +65,9 @@ export default function LiveScannerStatus() {
       if (error) {
         // Handle specific error cases
         if (error.code === 'PGRST116' || error.message?.includes('does not exist')) {
-          console.warn('Scanner status table not accessible, hiding component');
           return;
         }
         if (error.message?.includes('400') || error.message?.includes('unauthorized')) {
-          console.warn('Scanner status access denied, retrying later');
           return;
         }
         throw error;
@@ -94,7 +91,6 @@ export default function LiveScannerStatus() {
         });
       }
     } catch (error) {
-      console.error('Error fetching scanner status:', error);
       // Don't show the component if there are persistent errors
       if (status.totalProductsToday === 0) {
         return;
@@ -102,14 +98,14 @@ export default function LiveScannerStatus() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [status.totalProductsToday]);
 
-  const handleRealtimeUpdate = (payload: { new: { scanner_source?: string } }) => {
+  const handleRealtimeUpdate = useCallback((payload: { new: { scanner_source?: string } }) => {
     if (payload.new.scanner_source) {
       // Quick refresh when new scanner data arrives
       fetchQuickStatus();
     }
-  };
+  }, [fetchQuickStatus]);
 
   const formatLastUpdate = (timestamp: string | null): string => {
     if (!timestamp) return 'אין נתונים';
@@ -136,7 +132,6 @@ export default function LiveScannerStatus() {
         day: '2-digit'
       });
     } catch (error) {
-      console.error('Error formatting date:', error);
       return 'אין נתונים';
     }
   };

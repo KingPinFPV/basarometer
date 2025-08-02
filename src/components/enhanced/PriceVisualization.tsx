@@ -120,7 +120,6 @@ function MiniChart({ data, trend, height = 40, color = '#3B82F6' }: MiniChartPro
         height={height}
         viewBox={`0 0 100 ${height}`}
         className="overflow-visible"
-        dir="ltr"
       >
         {/* Background Grid */}
         <defs>

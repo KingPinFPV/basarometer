@@ -32,7 +32,7 @@ export function CategoryTabs({ categoryStats, activeCategory, onCategoryChange }
               <span className="text-lg">🍖</span>
               <div className="text-right">
                 <div className="font-bold">כל הקטגוריות</div>
-                <div className="text-xs opacity-75">{totalCount} מוצרים</div>
+                <div className="text-xs opacity-75">{totalCount as number} מוצרים</div>
               </div>
             </button>
 

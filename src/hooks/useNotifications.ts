@@ -77,37 +77,17 @@ export function useNotifications() {
 
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [priceAlerts, setPriceAlerts] = useState<PriceAlert[]>([])
-  const [deals] = useState<Deal[]>([])
+  const [deals, setDeals] = useState<Deal[]>([])
   // const [setDeals] = useState<Deal[]>([])
   const [personalizedDeals, setPersonalizedDeals] = useState<PersonalizedDeal[]>([])
   const [shoppingAlerts, setShoppingAlerts] = useState<ShoppingAlert[]>([])
-  const [marketAlerts] = useState<MarketAlert[]>([])
+  const [marketAlerts, setMarketAlerts] = useState<MarketAlert[]>([])
   // const [setMarketAlerts] = useState<MarketAlert[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  // Fetch user notifications
-  const fetchNotifications = useCallback(async () => {
-    if (!user) return
-
-    setLoading(true)
-    setError(null)
-
-    try {
-      // In a real implementation, this would fetch from a notifications table
-      // For now, we'll generate notifications based on current data
-      const generatedNotifications = await generateNotifications()
-      setNotifications(generatedNotifications)
-
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'שגיאה בטעינת התראות')
-    } finally {
-      setLoading(false)
-    }
-  }, [user])
-
   // Generate notifications based on current data
-  const generateNotifications = async (): Promise<Notification[]> => {
+  const generateNotifications = useCallback(async (): Promise<Notification[]> => {
     const notifications: Notification[] = []
 
     // Price alerts
@@ -197,10 +177,10 @@ export function useNotifications() {
     }
 
     return notifications.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-  }
+  }, [indexAlerts, currentIndex, shoppingLists, priceReports])
 
   // Generate current deals
-  const generateDeals = async (): Promise<Deal[]> => {
+  const generateDeals = useCallback(async (): Promise<Deal[]> => {
     const deals: Deal[] = []
 
     // Simulate finding deals by looking for price variations
@@ -244,7 +224,27 @@ export function useNotifications() {
     })
 
     return deals.slice(0, 10) // Limit to 10 deals
-  }
+  }, [priceReports])
+
+  // Fetch user notifications
+  const fetchNotifications = useCallback(async () => {
+    if (!user) return
+
+    setLoading(true)
+    setError(null)
+
+    try {
+      // In a real implementation, this would fetch from a notifications table
+      // For now, we'll generate notifications based on current data
+      const generatedNotifications = await generateNotifications()
+      setNotifications(generatedNotifications)
+
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'שגיאה בטעינת התראות')
+    } finally {
+      setLoading(false)
+    }
+  }, [user, generateNotifications])
 
   // Create price alert
   const createPriceAlert = useCallback(async (
@@ -377,7 +377,7 @@ export function useNotifications() {
     return personalized
       .sort((a, b) => b.relevanceScore - a.relevanceScore)
       .slice(0, 5) // Top 5 most relevant deals
-  }, [user, meatCuts, priceReports, shoppingLists, generateDeals])
+  }, [user, meatCuts, priceReports, generateDeals])
 
   // Check for price drops in shopping lists
   const checkShoppingListAlerts = useCallback(async (): Promise<ShoppingAlert[]> => {
@@ -389,7 +389,7 @@ export function useNotifications() {
     // }
 
     return alerts
-  }, [shoppingLists, priceReports, meatCuts])
+  }, [])
 
   // Initialize data
   useEffect(() => {
