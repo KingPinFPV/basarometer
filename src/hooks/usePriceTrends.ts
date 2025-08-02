@@ -175,7 +175,7 @@ export function usePriceTrends() {
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [availableCuts])
 
   // Track price changes (to be called when price reports are added/updated)
   const trackPriceChange = async (

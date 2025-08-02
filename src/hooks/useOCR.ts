@@ -204,11 +204,11 @@ export function useOCR() {
     } finally {
       setProcessing(false)
     }
-  }, [retailers, meatCuts])
+  }, [retailers, meatCuts, findBestMeatCutMatch])
 
 
   // Find best matching meat cut from database
-  const findBestMeatCutMatch = (text: string) => {
+  const findBestMeatCutMatch = useCallback((text: string) => {
     if (!meatCuts.length) return null
 
     const textLower = text.toLowerCase()
@@ -234,7 +234,7 @@ export function useOCR() {
     }
 
     return null
-  }
+  }, [meatCuts])
 
   // Extract quantity from text
   const extractQuantity = (text: string): number | undefined => {
