@@ -522,3 +522,21 @@ claudeDB.md
 deploy_to_production.sh
 *deploy*.sh
 *production*.sh
+
+# SECURITY - Never commit these (but allow example files)
+.env
+.env.*
+.env.local
+.env.production
+.env.development
+*.env
+env/
+!.env.example
+!.env.auth.example
+# MCP and other config files with secrets
+.mcp.json
+*.credentials
+*.secrets
+config/private/
+secrets/
+credentials/
