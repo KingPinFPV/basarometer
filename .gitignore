@@ -522,3 +522,67 @@ claudeDB.md
 deploy_to_production.sh
 *deploy*.sh
 *production*.sh
+
+# =============================================
+# 🏛️ GOVERNMENT INTEGRATION SENSITIVE DATA (V8.0)
+# =============================================
+
+# Government Scraper Results & Statistics
+logs/government-scraping-results.json
+logs/government-integration-validation.json
+**/government-scraping-results.json
+**/government-integration-validation.json
+
+# Government Integration Test Results
+test-government-integration-complete.py.log
+government-integration-test-*.log
+**/government-integration-test-*.log
+
+# Government Data Processing Artifacts
+/tmp/basarometer-gov-data/
+**/basarometer-gov-data/
+government-data-temp/
+**/government-data-temp/
+
+# Government Package Cache
+.il-supermarket-scraper/
+**/.il-supermarket-scraper/
+il-supermarket-cache/
+**/il-supermarket-cache/
+
+# Meat Filtering Validation Results
+meat-filtering-validation-*.json
+filtering-efficiency-report-*.json
+**/meat-filtering-validation-*.json
+**/filtering-efficiency-report-*.json
+
+# Government API Response Cache
+api-government-cache/
+**/api-government-cache/
+government-response-*.json
+**/government-response-*.json
+
+# Performance Metrics with Government Data
+performance-government-*.json
+benchmark-government-*.json
+**/performance-government-*.json
+**/benchmark-government-*.json
+
+# Hebrew Processing Analytics
+hebrew-processing-stats-*.json
+rtl-optimization-report-*.json
+**/hebrew-processing-stats-*.json
+**/rtl-optimization-report-*.json
+
+# Government Integration Documentation (Sensitive Business Intelligence)
+GOVERNMENT_INTEGRATION_COMPLETE.md
+MEAT_FILTERING_SUCCESS_REPORT.md
+MARKET_DOMINATION_STRATEGY.md
+COMPETITIVE_ANALYSIS_GOVERNMENT.md
+*GOVERNMENT_INTEGRATION*.md
+*MEAT_FILTERING_SUCCESS*.md
+*MARKET_DOMINATION*.md
+*COMPETITIVE_ANALYSIS*.md
+
+# Last Updated: August 5, 2025 - V8.0 Government Integration
+# Basarometer Security Team - Government Data Protection
