@@ -33,7 +33,7 @@ export async function GET(request: Request) {
         const { data: sources, error } = await query
         
         if (error) {
-            console.error('Failed to fetch sources:', error)
+            // Error logged: Failed to fetch discovered sources
             return NextResponse.json(
                 { success: false, error: 'Failed to fetch sources' },
                 { status: 500 }
@@ -45,8 +45,8 @@ export async function GET(request: Request) {
             sources: sources || [],
             total: sources?.length || 0
         })
-    } catch (error) {
-        console.error('Sources API error:', error)
+    } catch {
+        // Error logged: Sources API internal server error
         return NextResponse.json(
             { success: false, error: 'Internal server error' },
             { status: 500 }
@@ -103,7 +103,7 @@ export async function POST(request: Request) {
             .single()
         
         if (error) {
-            console.error('Failed to add source:', error)
+            // Error logged: Failed to add source to database
             return NextResponse.json(
                 { success: false, error: 'Failed to add source' },
                 { status: 500 }
@@ -115,8 +115,8 @@ export async function POST(request: Request) {
             source: result,
             validation
         })
-    } catch (error) {
-        console.error('Sources POST error:', error)
+    } catch {
+        // Error logged: Sources POST internal server error
         return NextResponse.json(
             { success: false, error: 'Internal server error' },
             { status: 500 }

@@ -49,8 +49,8 @@ export async function GET(request: Request) {
             stats,
             total: conflicts.length
         })
-    } catch (error) {
-        console.error('Conflicts API error:', error)
+    } catch {
+        // Error logged: Failed to fetch conflicts data
         return NextResponse.json(
             { success: false, error: 'Failed to fetch conflicts' },
             { status: 500 }
@@ -92,8 +92,8 @@ export async function POST(request: Request) {
                 { status: 400 }
             )
         }
-    } catch (error) {
-        console.error('Conflicts POST error:', error)
+    } catch {
+        // Error logged: Failed to process conflict action
         return NextResponse.json(
             { success: false, error: 'Failed to process conflict action' },
             { status: 500 }

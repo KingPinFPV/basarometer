@@ -32,7 +32,7 @@ class OCRProcessor {
       // Check if Tesseract is available
       if (typeof window === 'undefined' || !window.Tesseract) {
         // For server-side or when Tesseract is not loaded, return mock text
-        console.warn('Tesseract.js not available, using fallback mode')
+        // Warning:('Tesseract.js not available, using fallback mode')
         return
       }
 
@@ -44,10 +44,10 @@ class OCRProcessor {
       await this.worker.initialize('heb+eng')
       
       this.initialized = true
-      console.log('OCR Worker initialized successfully with Hebrew support')
+      // Debug:('OCR Worker initialized successfully with Hebrew support')
 
-    } catch (error) {
-      console.error('Failed to initialize OCR worker:', error)
+    } catch (_error) {
+      // Error:('Failed to initialize OCR worker:', _error)
       throw new Error('שגיאה באתחול מעבד OCR')
     }
   }
@@ -86,7 +86,7 @@ class OCRProcessor {
       return processedText
 
     } catch (error) {
-      console.error('OCR Processing error:', error)
+      // Error:('OCR Processing error:', error)
       throw error instanceof Error ? error : new Error('שגיאה בעיבוד התמונה')
     }
   }
@@ -136,7 +136,7 @@ class OCRProcessor {
         תודה על הקנייה!
       `
       
-      console.log('Using fallback OCR processing')
+      // Debug:('Using fallback OCR processing')
       setTimeout(() => resolve(mockReceiptText.trim()), 1000) // Simulate processing time
     })
   }
@@ -148,9 +148,9 @@ class OCRProcessor {
         await this.worker.terminate()
         this.worker = null
         this.initialized = false
-        console.log('OCR Worker terminated')
-      } catch (error) {
-        console.error('Error terminating OCR worker:', error)
+        // Debug:('OCR Worker terminated')
+      } catch (_error) {
+        // Error:('Error terminating OCR worker:', _error)
       }
     }
   }
@@ -187,11 +187,11 @@ export const loadTesseractJS = async (): Promise<void> => {
     const script = document.createElement('script')
     script.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js'
     script.onload = () => {
-      console.log('Tesseract.js loaded successfully')
+      // Debug:('Tesseract.js loaded successfully')
       resolve()
     }
     script.onerror = () => {
-      console.error('Failed to load Tesseract.js')
+      // Error:('Failed to load Tesseract.js')
       reject(new Error('Failed to load OCR library'))
     }
     document.head.appendChild(script)

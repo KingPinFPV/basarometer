@@ -29,8 +29,8 @@ export class PriceHistoryTracker {
           change_type: priceReport.is_on_sale ? 'sale_start' : 'increase',
           changed_at: priceReport.created_at
         })
-    } catch (err) {
-      console.error('Failed to track new price report:', err)
+    } catch (_err) {
+      // Error:('Failed to track new price report:', _err)
     }
   }
 
@@ -69,8 +69,8 @@ export class PriceHistoryTracker {
           change_type: changeType,
           changed_at: new Date().toISOString()
         })
-    } catch (err) {
-      console.error('Failed to track price update:', err)
+    } catch (_err) {
+      // Error:('Failed to track price update:', _err)
     }
   }
 
@@ -88,8 +88,8 @@ export class PriceHistoryTracker {
           change_type: 'decrease', // Treat expiration as decrease
           changed_at: new Date().toISOString()
         })
-    } catch (err) {
-      console.error('Failed to track price expiration:', err)
+    } catch (_err) {
+      // Error:('Failed to track price expiration:', _err)
     }
   }
 
@@ -115,7 +115,7 @@ export class PriceHistoryTracker {
       if (fetchError) throw fetchError
 
       if (!existingReports || existingReports.length === 0) {
-        console.log('No existing reports to initialize')
+        // Debug:('No existing reports to initialize')
         return
       }
 
@@ -134,9 +134,9 @@ export class PriceHistoryTracker {
 
       if (insertError) throw insertError
 
-      console.log(`Initialized history for ${existingReports.length} price reports`)
-    } catch (err) {
-      console.error('Failed to initialize existing reports:', err)
+      // Debug:(`Initialized history for ${existingReports.length} price reports`)
+    } catch (_err) {
+      // Error:('Failed to initialize existing reports:', _err)
     }
   }
 
@@ -217,8 +217,8 @@ export class PriceHistoryTracker {
         ...stats,
         avgChangePercent: stats.totalChanges > 0 ? stats.totalChangePercent / stats.totalChanges : 0
       }
-    } catch (err) {
-      console.error('Failed to get price change stats:', err)
+    } catch (_err) {
+      // Error:('Failed to get price change stats:', _err)
       return {
         totalChanges: 0,
         increases: 0,
@@ -245,9 +245,9 @@ export class PriceHistoryTracker {
 
       if (deleteError) throw deleteError
 
-      console.log('Cleaned up old price history entries')
-    } catch (err) {
-      console.error('Failed to cleanup old history:', err)
+      // Debug:('Cleaned up old price history entries')
+    } catch (_err) {
+      // Error:('Failed to cleanup old history:', _err)
     }
   }
 }
@@ -258,7 +258,7 @@ export class PriceHistoryTracker {
  */
 export const setupPriceHistoryTracking = () => {
   // This would typically be set up as database triggers or in API routes
-  console.log('Price history tracking setup - ready to track changes from V5.1 onwards')
+  // Debug:('Price history tracking setup - ready to track changes from V5.1 onwards')
   
   // Initialize existing reports (one-time migration)
   PriceHistoryTracker.initializeExistingReports()

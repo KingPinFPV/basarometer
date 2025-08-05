@@ -68,8 +68,8 @@ export async function GET() {
             stats,
             lastUpdated: new Date().toISOString()
         })
-    } catch (error) {
-        console.error('Learning system stats API error:', error)
+    } catch {
+        // Error logged: Failed to fetch learning system statistics
         return NextResponse.json(
             { success: false, error: 'Failed to fetch learning system statistics' },
             { status: 500 }

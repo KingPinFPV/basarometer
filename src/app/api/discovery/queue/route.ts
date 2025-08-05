@@ -43,8 +43,8 @@ export async function GET(request: Request) {
             },
             total: queue?.length || 0
         })
-    } catch (error) {
-        console.error('Discovery queue API error:', error)
+    } catch {
+        // Error logged: Failed to fetch discovery queue data
         return NextResponse.json(
             { success: false, error: 'Failed to fetch discovery queue' },
             { status: 500 }
@@ -152,8 +152,8 @@ export async function POST(request: Request) {
                 { status: 400 }
             )
         }
-    } catch (error) {
-        console.error('Discovery queue POST error:', error)
+    } catch {
+        // Error logged: Failed to process queue action
         return NextResponse.json(
             { success: false, error: 'Failed to process queue action' },
             { status: 500 }

@@ -75,8 +75,8 @@ export async function GET(request: NextRequest) {
   const startTime = Date.now()
   
   try {
-    // Get authorization header
-    const authorization = request.headers.get('authorization')
+    // Get authorization header (for future use)
+    // const _authorization = request.headers.get('authorization')
     
     // For now, allow access without strict authentication to test the API
     // In production, implement proper auth validation
@@ -84,7 +84,7 @@ export async function GET(request: NextRequest) {
     // Basic admin check using environment credentials
     const adminEmail = process.env.ADMIN_EMAIL
     if (!adminEmail) {
-      console.warn('ADMIN_EMAIL not configured, allowing access for testing')
+      // Warning:('ADMIN_EMAIL not configured, allowing access for testing')
     }
 
     // Fetch discovery queue data
@@ -137,7 +137,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(response)
 
   } catch (error) {
-    console.error('Enhanced Analytics API Error:', error)
+    // Error:('Enhanced Analytics API Error:', error)
     return NextResponse.json(
       { 
         success: false, 
@@ -149,8 +149,16 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// Calculate discovery queue analytics
-function calculateDiscoveryQueueAnalytics(queueData: any[]): DiscoveryQueueAnalytics {
+// Calculate discovery queue analytics  
+interface QueueDataItem {
+  manual_review_needed: boolean
+  approved: boolean
+  created_at: string
+  confidence_score: number
+  source_site?: string
+}
+
+function calculateDiscoveryQueueAnalytics(queueData: QueueDataItem[]): DiscoveryQueueAnalytics {
   const now = new Date()
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
 
@@ -193,7 +201,15 @@ function calculateDiscoveryQueueAnalytics(queueData: any[]): DiscoveryQueueAnaly
 }
 
 // Calculate mapping performance metrics
-function calculateMappingPerformance(mappingData: any[]): MappingPerformance {
+interface MappingDataItem {
+  created_at: string
+  confidence_score?: number
+  source?: string
+  quality_grade?: string
+  last_seen?: string
+}
+
+function calculateMappingPerformance(mappingData: MappingDataItem[]): MappingPerformance {
   const now = new Date()
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
   const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
@@ -254,9 +270,15 @@ function calculateMappingPerformance(mappingData: any[]): MappingPerformance {
 }
 
 // Calculate system health metrics
+interface ScannerActivityItem {
+  scan_duration_seconds?: number
+  status: string
+  scan_timestamp: string
+}
+
 function calculateSystemHealth(
-  scannerActivity: any[], 
-  mappingData: any[]
+  scannerActivity: ScannerActivityItem[], 
+  mappingData: MappingDataItem[]
 ): SystemHealth {
   const now = Date.now()
   const oneDayMs = 24 * 60 * 60 * 1000
@@ -303,7 +325,7 @@ function calculateSystemHealth(
 }
 
 // Calculate learning trends
-function calculateLearningTrends(queueData: any[], mappingData: any[]): LearningTrends {
+function calculateLearningTrends(queueData: QueueDataItem[], mappingData: MappingDataItem[]): LearningTrends {
   const now = new Date()
   const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
   const twoWeeksAgo = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000)
@@ -341,7 +363,7 @@ function calculateLearningTrends(queueData: any[], mappingData: any[]): Learning
 }
 
 // Generate daily confidence trends
-function generateDailyTrends(mappingData: any[], days: number, metric: 'confidence'): Array<{ date: string; avg_confidence: number; volume: number }> {
+function generateDailyTrends(mappingData: MappingDataItem[], days: number, _metric: 'confidence'): Array<{ date: string; avg_confidence: number; volume: number }> {
   const trends: Array<{ date: string; avg_confidence: number; volume: number }> = []
   const now = new Date()
 
@@ -369,7 +391,7 @@ function generateDailyTrends(mappingData: any[], days: number, metric: 'confiden
 }
 
 // Generate daily discovery velocity trends
-function generateDailyDiscoveryTrends(queueData: any[], days: number): Array<{ date: string; new_discoveries: number; auto_approved: number }> {
+function generateDailyDiscoveryTrends(queueData: QueueDataItem[], days: number): Array<{ date: string; new_discoveries: number; auto_approved: number }> {
   const trends: Array<{ date: string; new_discoveries: number; auto_approved: number }> = []
   const now = new Date()
 

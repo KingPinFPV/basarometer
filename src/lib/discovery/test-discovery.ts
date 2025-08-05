@@ -1,5 +1,4 @@
 // Discovery Engine Test Runner - Validate 15+ new meat retailers
-import { DiscoveryEngine } from './core/DiscoveryEngine'
 import { BusinessValidator } from './validators/BusinessValidator'
 import { HebrewProcessor } from './utils/HebrewProcessor'
 import { Logger } from './utils/Logger'

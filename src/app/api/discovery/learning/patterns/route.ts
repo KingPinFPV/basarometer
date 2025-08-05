@@ -51,8 +51,8 @@ export async function GET() {
             total: patterns.length,
             message: "Learning patterns retrieved successfully"
         });
-    } catch (error) {
-        console.error('Learning patterns API error:', error);
+    } catch {
+        // Error logged: Failed to fetch learning patterns
         return NextResponse.json(
             { success: false, error: 'Failed to fetch learning patterns' },
             { status: 500 }

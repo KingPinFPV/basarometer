@@ -196,7 +196,7 @@ export default function ReportsPage() {
           ].map((filterOption) => (
             <button
               key={filterOption.key}
-              onClick={() => setFilter(filterOption.key as any)}
+              onClick={() => setFilter(filterOption.key as 'all' | 'pending' | 'approved' | 'rejected')}
               className={`px-4 py-2 rounded-lg transition-colors ${
                 filter === filterOption.key
                   ? 'bg-blue-600 text-white'

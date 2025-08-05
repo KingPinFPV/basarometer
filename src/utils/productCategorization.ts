@@ -215,7 +215,7 @@ export function validateCategorization(categoryStats) {
   return qualityMetrics;
 }
 
-export default {
+const productCategorization = {
   categorizeProduct,
   getCategoryInfo,
   getAllCategories,
@@ -223,3 +223,5 @@ export default {
   validateCategorization,
   PRODUCT_CATEGORIES
 };
+
+export default productCategorization;

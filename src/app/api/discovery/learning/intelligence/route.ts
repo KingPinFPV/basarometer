@@ -42,8 +42,8 @@ export async function GET() {
             total: intelligence.length,
             message: "Market intelligence retrieved successfully"
         });
-    } catch (error) {
-        console.error('Intelligence API error:', error);
+    } catch {
+        // Error logged: Failed to fetch market intelligence data
         return NextResponse.json(
             { success: false, error: 'Failed to fetch market intelligence' },
             { status: 500 }

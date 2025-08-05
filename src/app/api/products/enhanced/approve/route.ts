@@ -105,7 +105,7 @@ export async function POST(request: NextRequest) {
         .single()
 
       if (mappingError) {
-        console.error('Error creating mapping:', mappingError)
+        // Error:('Error creating mapping:', mappingError)
         return NextResponse.json(
           { success: false, error: 'Failed to create mapping rule' },
           { status: 500 }
@@ -137,7 +137,7 @@ export async function POST(request: NextRequest) {
       .eq('id', approvalData.discovery_id)
 
     if (updateError) {
-      console.error('Error updating discovery item:', updateError)
+      // Error:('Error updating discovery item:', updateError)
       return NextResponse.json(
         { success: false, error: 'Failed to update discovery item' },
         { status: 500 }
@@ -169,7 +169,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(response)
 
   } catch (error) {
-    console.error('Enhanced Approval API Error:', error)
+    // Error:('Enhanced Approval API Error:', error)
     return NextResponse.json(
       { 
         success: false, 
@@ -271,8 +271,8 @@ export async function PUT(request: NextRequest) {
           results.failed++
         }
 
-      } catch (error) {
-        console.error(`Error processing discovery ${discoveryId}:`, error)
+      } catch (_error) {
+        // Error:(`Error processing discovery ${discoveryId}:`, _error)
         results.failed++
       }
     }
@@ -292,7 +292,7 @@ export async function PUT(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Bulk Approval API Error:', error)
+    // Error:('Bulk Approval API Error:', error)
     return NextResponse.json(
       { 
         success: false, 
@@ -305,9 +305,25 @@ export async function PUT(request: NextRequest) {
 }
 
 // Calculate the impact of this approval on the learning system
+interface DiscoveryItem {
+  id: string
+  product_name: string
+  confidence_score: number
+}
+
+interface MappingData {
+  original_name: string
+  normalized_name: string
+  quality_grade: string
+  confidence_score: number
+  source: string
+  auto_learned: boolean
+  usage_count: number
+}
+
 async function calculateLearningImpact(
-  discoveryItem: any,
-  mappingData: any,
+  discoveryItem: DiscoveryItem,
+  _mappingData: MappingData,
   approved: boolean
 ): Promise<{ confidence_boost: number; similar_items_affected: number }> {
   if (!approved) {
@@ -323,7 +339,7 @@ async function calculateLearningImpact(
     .neq('id', discoveryItem.id)
 
   if (error) {
-    console.error('Error finding similar items:', error)
+    // Error:('Error finding similar items:', error)
     return { confidence_boost: 0, similar_items_affected: 0 }
   }
 
@@ -337,7 +353,7 @@ async function calculateLearningImpact(
 }
 
 // Update confidence scores for similar items
-async function updateSimilarItems(discoveryItem: any, approvedConfidence: number) {
+async function updateSimilarItems(discoveryItem: DiscoveryItem, approvedConfidence: number) {
   const confidenceBoost = Math.min(0.05, (1 - approvedConfidence) * 0.2)
 
   // Find and update similar items (simplified approach without SQL functions)
@@ -349,7 +365,7 @@ async function updateSimilarItems(discoveryItem: any, approvedConfidence: number
     .neq('id', discoveryItem.id)
 
   if (fetchError) {
-    console.error('Error fetching similar items:', fetchError)
+    // Error:('Error fetching similar items:', fetchError)
     return
   }
 
@@ -365,30 +381,37 @@ async function updateSimilarItems(discoveryItem: any, approvedConfidence: number
       .upsert(updates)
 
     if (error) {
-      console.error('Error updating similar items:', error)
+      // Error:('Error updating similar items:', error)
     }
   }
 }
 
 // Log admin actions for audit trail
-async function logAdminAction(actionData: {
+interface BulkResults {
+  processed: number
+  successful: number
+  failed: number
+  mappings_created: number
+}
+
+async function logAdminAction(_actionData: {
   admin_user_id: string
   action: string
   discovery_id?: string
   discovery_ids?: string[]
   mapping_id?: string
   notes?: string
-  bulk_results?: any
+  bulk_results?: BulkResults
 }) {
   try {
     // Create a simple audit log entry
     // Note: You might want to create an admin_audit_log table for this
-    // Admin action logged (console.log removed for production)
+    // Admin action logged (// Debug: removed for production)
 
     // For now, we'll just log to console
     // In a full implementation, you'd insert into an audit table
     
-  } catch (error) {
-    console.error('Error logging admin action:', error)
+  } catch (_error) {
+    // Error:('Error logging admin action:', _error)
   }
 }

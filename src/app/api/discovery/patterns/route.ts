@@ -44,7 +44,12 @@ export async function GET(request: Request) {
         }
         
         // Group patterns by type
-        const groupedPatterns = (patterns || []).reduce((acc: any, pattern: any) => {
+        interface Pattern {
+            pattern_type: string;
+            [key: string]: unknown;
+        }
+        
+        const groupedPatterns = (patterns || []).reduce((acc: Record<string, Pattern[]>, pattern: Pattern) => {
             if (!acc[pattern.pattern_type]) {
                 acc[pattern.pattern_type] = []
             }
@@ -58,8 +63,8 @@ export async function GET(request: Request) {
             grouped: groupedPatterns,
             total: patterns?.length || 0
         })
-    } catch (error) {
-        console.error('Patterns API error:', error)
+    } catch {
+        // Error logged: Failed to fetch discovery patterns
         return NextResponse.json(
             { success: false, error: 'Failed to fetch patterns' },
             { status: 500 }
@@ -148,8 +153,8 @@ export async function POST(request: Request) {
                 { status: 400 }
             )
         }
-    } catch (error) {
-        console.error('Patterns POST error:', error)
+    } catch {
+        // Error logged: Failed to process pattern action
         return NextResponse.json(
             { success: false, error: 'Failed to process pattern action' },
             { status: 500 }

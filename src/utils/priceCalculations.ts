@@ -242,7 +242,7 @@ export function getSavingsText(savingsFromBest) {
   return `+${savingsFromBest}%`;
 }
 
-export default {
+const priceCalculations = {
   parseWeight,
   calculatePricePerKg,
   findBestValue,
@@ -254,3 +254,5 @@ export default {
   WEIGHT_UNITS,
   PRICE_BADGES
 };
+
+export default priceCalculations;

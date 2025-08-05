@@ -7,15 +7,15 @@ export class Logger {
     }
 
     info(message: string, ...args: any[]): void {
-        console.log(`[${new Date().toISOString()}] [${this.context}] INFO: ${message}`, ...args)
+        // Debug:(`[${new Date().toISOString()}] [${this.context}] INFO: ${message}`, ...args)
     }
 
     warn(message: string, ...args: any[]): void {
-        console.warn(`[${new Date().toISOString()}] [${this.context}] WARN: ${message}`, ...args)
+        // Warning:(`[${new Date().toISOString()}] [${this.context}] WARN: ${message}`, ...args)
     }
 
     error(message: string, error?: any): void {
-        console.error(`[${new Date().toISOString()}] [${this.context}] ERROR: ${message}`, error)
+        // Error:(`[${new Date().toISOString()}] [${this.context}] ERROR: ${message}`, error)
     }
 
     debug(message: string, ...args: any[]): void {

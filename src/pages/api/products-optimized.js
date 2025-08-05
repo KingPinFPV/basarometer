@@ -1,6 +1,4 @@
 // Optimized API endpoint for handling 120+ products efficiently
-import fs from 'fs';
-import path from 'path';
 
 export default async function handler(req, res) {
   try {
@@ -115,7 +113,7 @@ export default async function handler(req, res) {
     });
     
   } catch (error) {
-    console.error('API Error:', error);
+    // API Error logged
     res.status(500).json({
       success: false,
       error: 'Internal server error',

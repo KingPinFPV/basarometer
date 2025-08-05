@@ -20,7 +20,7 @@ export interface ProductMatch {
     name: string
     network: string
     price: number
-    original_data: any
+    original_data: Record<string, unknown>
   }[]
   confidence_score: number
   category: string
@@ -249,7 +249,7 @@ export function groupProductsBySemanticSimilarity(
     name: string
     network: string
     price: number
-    [key: string]: any
+    [key: string]: unknown
   }>,
   similarityThreshold = 0.75
 ): ProductMatch[] {
@@ -358,7 +358,7 @@ export function enhancedProductMatching(
     price: number
     category?: string
     brand?: string
-    [key: string]: any
+    [key: string]: unknown
   }>,
   options: {
     similarityThreshold?: number

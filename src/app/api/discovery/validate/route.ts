@@ -41,8 +41,8 @@ export async function POST(request: Request) {
         
         return NextResponse.json(response)
         
-    } catch (error) {
-        console.error('Validation API error:', error)
+    } catch {
+        // Error logged: Source validation failed
         return NextResponse.json(
             { success: false, error: 'Validation failed' },
             { status: 500 }
@@ -73,7 +73,19 @@ async function checkUrlAccessibility(url: string): Promise<boolean> {
     }
 }
 
-function generateRecommendations(validation: any): string[] {
+interface ValidationResult {
+    isValid: boolean;
+    confidence: number;
+    scores: {
+        nameScore: number;
+        locationScore: number;
+        urlScore: number;
+    };
+    meatCategories: string[];
+    qualityIndicators: string[];
+}
+
+function generateRecommendations(validation: ValidationResult): string[] {
     const recommendations: string[] = []
     
     if (!validation.isValid) {

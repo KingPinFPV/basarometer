@@ -71,7 +71,7 @@ export async function GET(request: Request) {
                 reliability_trends: reliabilityTrends || []
             }
         })
-    } catch (error) {
+    } catch {
         // Discovery performance API error: error?.message
         return NextResponse.json(
             { success: false, error: 'Failed to fetch performance metrics' },
@@ -80,11 +80,69 @@ export async function GET(request: Request) {
     }
 }
 
+interface SessionLog {
+    id: string;
+    search_date: string;
+    success: boolean;
+    search_results_count?: number;
+    successful_discoveries?: number;
+}
+
+interface SourceMetric {
+    discovery_date: string;
+    discovery_method?: string;
+    reliability_score?: number;
+    status?: string;
+    admin_approved: boolean;
+}
+
+interface ReliabilityTrend {
+    metric_date: string;
+    overall_quality_score?: number;
+    data_accuracy?: number;
+    hebrew_quality_score?: number;
+    meat_relevance_score?: number;
+}
+
+interface PerformanceMetrics {
+    summary: PerformanceSummary;
+    breakdowns: PerformanceBreakdowns;
+    trends: PerformanceTrends;
+    quality_metrics: QualityMetrics;
+}
+
+interface PerformanceSummary {
+    total_sessions: number;
+    session_success_rate: number;
+    total_discovered: number;
+    total_validated: number;
+    validation_rate: number;
+    avg_reliability_score: number;
+    approval_rate: number;
+    daily_discovery_rate: number;
+}
+
+interface PerformanceBreakdowns {
+    discovery_methods: Record<string, number>;
+    source_status: Record<string, number>;
+}
+
+interface PerformanceTrends {
+    reliability_trend: string;
+    reliability_data: ReliabilityTrend[];
+}
+
+interface QualityMetrics {
+    high_quality_sources: number;
+    medium_quality_sources: number;
+    low_quality_sources: number;
+}
+
 function calculatePerformanceMetrics(
-    sessionLogs: any[],
-    sourceMetrics: any[],
-    reliabilityTrends: any[]
-): any {
+    sessionLogs: SessionLog[],
+    sourceMetrics: SourceMetric[],
+    reliabilityTrends: ReliabilityTrend[]
+): PerformanceMetrics {
     // Discovery session performance
     const totalSessions = sessionLogs.length
     const successfulSessions = sessionLogs.filter(log => log.success).length
@@ -104,14 +162,14 @@ function calculatePerformanceMetrics(
         : 0
     
     // Discovery method breakdown
-    const methodBreakdown = sourceMetrics.reduce((acc: any, source: any) => {
+    const methodBreakdown = sourceMetrics.reduce((acc: Record<string, number>, source: SourceMetric) => {
         const method = source.discovery_method || 'unknown'
         acc[method] = (acc[method] || 0) + 1
         return acc
     }, {})
     
     // Status breakdown
-    const statusBreakdown = sourceMetrics.reduce((acc: any, source: any) => {
+    const statusBreakdown = sourceMetrics.reduce((acc: Record<string, number>, source: SourceMetric) => {
         const status = source.status || 'unknown'
         acc[status] = (acc[status] || 0) + 1
         return acc
@@ -164,7 +222,7 @@ function calculatePerformanceMetrics(
     }
 }
 
-function getDaysBetween(sourceMetrics: any[]): number {
+function getDaysBetween(sourceMetrics: SourceMetric[]): number {
     if (sourceMetrics.length === 0) return 1
     
     const dates = sourceMetrics.map(s => new Date(s.discovery_date)).sort()

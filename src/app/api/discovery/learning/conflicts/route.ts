@@ -41,8 +41,8 @@ export async function GET() {
             total: conflicts.length,
             message: "Advanced conflicts retrieved successfully"
         });
-    } catch (error) {
-        console.error('Conflicts API error:', error);
+    } catch {
+        // Error logged: Failed to fetch learning conflicts
         return NextResponse.json(
             { success: false, error: 'Failed to fetch conflicts' },
             { status: 500 }

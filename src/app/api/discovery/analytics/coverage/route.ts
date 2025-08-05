@@ -2,7 +2,7 @@
 import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
-export async function GET(_request: Request) {
+export async function GET() {
     try {
         // Get all discovered sources
         const { data: sources, error: sourcesError } = await supabase
@@ -36,7 +36,7 @@ export async function GET(_request: Request) {
             discovered_sources: sources?.length || 0,
             existing_retailers: existingRetailers?.length || 0
         })
-    } catch (error) {
+    } catch {
         // Discovery coverage API error: error?.message
         return NextResponse.json(
             { success: false, error: 'Failed to fetch coverage metrics' },
@@ -45,7 +45,85 @@ export async function GET(_request: Request) {
     }
 }
 
-function calculateCoverageMetrics(sources: any[], existingRetailers: any[]): any {
+interface DiscoveredSource {
+    id: string;
+    name: string;
+    location?: string;
+    business_type?: string;
+    reliability_score?: number;
+    discovery_method?: string;
+    admin_approved: boolean;
+}
+
+interface Retailer {
+    id: string;
+    name: string;
+    is_active: boolean;
+}
+
+interface CoverageMetrics {
+    geographic: LocationCoverage;
+    business_types: Record<string, number>;
+    quality: QualityDistribution;
+    methods: Record<string, MethodStats>;
+    expansion: ExpansionPotential;
+    hebrew_quality: HebrewQuality;
+    summary: CoverageSummary;
+}
+
+interface LocationCoverage {
+    unique_cities: string[];
+    location_distribution: Record<string, number>;
+    major_cities_coverage: CityCoverage[];
+    coverage_rate: number;
+}
+
+interface CityCoverage {
+    city: string;
+    sources_count: number;
+    covered: boolean;
+}
+
+interface QualityDistribution {
+    counts: {
+        excellent: number;
+        good: number;
+        fair: number;
+        poor: number;
+    };
+    percentages: Record<string, number>;
+}
+
+interface MethodStats {
+    count: number;
+    avgReliability: number;
+    approvalRate: number;
+}
+
+interface ExpansionPotential {
+    new_sources: number;
+    existing_retailers: number;
+    total_coverage: number;
+    expansion_rate: number;
+    potential_level: string;
+    market_saturation: number;
+}
+
+interface HebrewQuality {
+    hebrew_sources: number;
+    total_sources: number;
+    hebrew_coverage_rate: number;
+    avg_hebrew_quality: number;
+}
+
+interface CoverageSummary {
+    total_approved_sources: number;
+    unique_locations: number;
+    avg_reliability: number;
+    high_quality_percentage: number;
+}
+
+function calculateCoverageMetrics(sources: DiscoveredSource[], existingRetailers: Retailer[]): CoverageMetrics {
     // Geographic coverage analysis
     const locationCoverage = analyzeLocationCoverage(sources)
     
@@ -84,7 +162,7 @@ function calculateCoverageMetrics(sources: any[], existingRetailers: any[]): any
     }
 }
 
-function analyzeLocationCoverage(sources: any[]): any {
+function analyzeLocationCoverage(sources: DiscoveredSource[]): LocationCoverage {
     const locationCounts: Record<string, number> = {}
     const uniqueCities = new Set<string>()
     
@@ -118,7 +196,7 @@ function analyzeLocationCoverage(sources: any[]): any {
     }
 }
 
-function analyzeBusinessTypeCoverage(sources: any[]): any {
+function analyzeBusinessTypeCoverage(sources: DiscoveredSource[]): Record<string, number> {
     const typeCounts: Record<string, number> = {}
     
     for (const source of sources) {
@@ -129,7 +207,7 @@ function analyzeBusinessTypeCoverage(sources: any[]): any {
     return typeCounts
 }
 
-function analyzeQualityDistribution(sources: any[]): any {
+function analyzeQualityDistribution(sources: DiscoveredSource[]): QualityDistribution {
     const distribution = {
         excellent: 0,  // 90-100
         good: 0,       // 70-89
@@ -161,8 +239,8 @@ function analyzeQualityDistribution(sources: any[]): any {
     }
 }
 
-function analyzeMethodEffectiveness(sources: any[]): any {
-    const methodStats: Record<string, {count: number, avgReliability: number, approvalRate: number}> = {}
+function analyzeMethodEffectiveness(sources: DiscoveredSource[]): Record<string, MethodStats> {
+    const methodStats: Record<string, MethodStats> = {}
     
     for (const source of sources) {
         const method = source.discovery_method || 'unknown'
@@ -185,7 +263,7 @@ function analyzeMethodEffectiveness(sources: any[]): any {
     return methodStats
 }
 
-function calculateExpansionPotential(sources: any[], existingRetailers: any[]): any {
+function calculateExpansionPotential(sources: DiscoveredSource[], existingRetailers: Retailer[]): ExpansionPotential {
     const totalSources = sources.length + existingRetailers.length
     const newSourcesRatio = sources.length / Math.max(totalSources, 1)
     
@@ -205,7 +283,7 @@ function calculateExpansionPotential(sources: any[], existingRetailers: any[]): 
     }
 }
 
-function analyzeHebrewContentQuality(sources: any[]): any {
+function analyzeHebrewContentQuality(sources: DiscoveredSource[]): HebrewQuality {
     let hebrewSourcesCount = 0
     let totalHebrewQuality = 0
     

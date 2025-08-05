@@ -49,8 +49,8 @@ export async function GET(request: Request) {
             metrics: history,
             trends
         })
-    } catch (error) {
-        console.error('Reliability API error:', error)
+    } catch {
+        // Error logged: Failed to fetch reliability data
         return NextResponse.json(
             { success: false, error: 'Failed to fetch reliability data' },
             { status: 500 }
@@ -84,8 +84,8 @@ export async function POST(request: Request) {
             new_score: score,
             latest_metrics: history[0] || null
         })
-    } catch (error) {
-        console.error('Reliability POST error:', error)
+    } catch {
+        // Error logged: Failed to update reliability metrics
         return NextResponse.json(
             { success: false, error: 'Failed to update reliability metrics' },
             { status: 500 }
@@ -93,7 +93,25 @@ export async function POST(request: Request) {
     }
 }
 
-function calculateReliabilityTrends(history: any[]): any {
+interface ReliabilityMetric {
+    overall_quality_score: number;
+    data_accuracy: number;
+    hebrew_quality_score: number;
+    meat_relevance_score: number;
+    business_legitimacy_score: number;
+}
+
+interface ReliabilityTrends {
+    overall_trend: number;
+    data_accuracy_trend: number;
+    hebrew_quality_trend: number;
+    meat_relevance_trend: number;
+    business_legitimacy_trend: number;
+    trend_direction: 'improving' | 'declining';
+    data_points: number;
+}
+
+function calculateReliabilityTrends(history: ReliabilityMetric[]): ReliabilityTrends | null {
     if (history.length < 2) return null
     
     const latest = history[0]

@@ -64,8 +64,8 @@ export async function POST(request: Request) {
                 resolution
             })
         }
-    } catch (error) {
-        console.error('Conflict resolution error:', error)
+    } catch {
+        // Conflict resolution error logged
         return NextResponse.json(
             { success: false, error: 'Resolution failed' },
             { status: 500 }

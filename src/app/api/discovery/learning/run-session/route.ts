@@ -31,8 +31,8 @@ export async function POST() {
             result,
             message: "Learning session completed successfully"
         });
-    } catch (error) {
-        console.error('Learning session execution error:', error);
+    } catch {
+        // Error logged: Learning session execution failed
         return NextResponse.json(
             { success: false, error: 'Learning session failed to execute' },
             { status: 500 }

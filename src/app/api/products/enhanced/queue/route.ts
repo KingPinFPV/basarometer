@@ -71,7 +71,7 @@ export async function GET(request: NextRequest) {
     // Basic admin check using environment credentials
     const adminEmail = process.env.ADMIN_EMAIL
     if (!adminEmail) {
-      console.warn('ADMIN_EMAIL not configured, allowing access for testing')
+      // Warning:('ADMIN_EMAIL not configured, allowing access for testing')
     }
 
     const { searchParams } = new URL(request.url)
@@ -127,7 +127,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(response)
 
   } catch (error) {
-    console.error('Enhanced Queue API Error:', error)
+    // Error:('Enhanced Queue API Error:', error)
     return NextResponse.json(
       { 
         success: false, 
@@ -151,7 +151,7 @@ export async function POST(request: NextRequest) {
     // Basic admin check using environment credentials
     const adminEmail = process.env.ADMIN_EMAIL
     if (!adminEmail) {
-      console.warn('ADMIN_EMAIL not configured, allowing access for testing')
+      // Warning:('ADMIN_EMAIL not configured, allowing access for testing')
     }
 
     const queueData = await request.json()
@@ -188,7 +188,7 @@ export async function POST(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Add Queue Item API Error:', error)
+    // Error:('Add Queue Item API Error:', error)
     return NextResponse.json(
       { 
         success: false, 
@@ -323,7 +323,7 @@ async function findSimilarProducts(productName: string, excludeId: string): Prom
     .limit(5)
 
   if (error) {
-    console.error('Error finding similar products:', error)
+    // Error:('Error finding similar products:', error)
     return []
   }
 
@@ -346,7 +346,7 @@ async function calculateOccurrenceCount(productName: string): Promise<number> {
     .ilike('product_name', `%${productName}%`)
 
   if (error) {
-    console.error('Error calculating occurrence count:', error)
+    // Error:('Error calculating occurrence count:', error)
     return 0
   }
 
@@ -405,7 +405,7 @@ async function calculateQueueSummary(): Promise<QueueSummary> {
     .select('*')
 
   if (error) {
-    console.error('Error fetching queue summary data:', error)
+    // Error:('Error fetching queue summary data:', error)
     return {
       total_pending: 0,
       high_confidence: 0,

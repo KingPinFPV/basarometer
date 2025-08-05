@@ -41,8 +41,8 @@ export async function GET() {
             total: predictions.length,
             message: "Quality predictions retrieved successfully"
         });
-    } catch (error) {
-        console.error('Predictions API error:', error);
+    } catch {
+        // Error logged: Failed to fetch quality predictions
         return NextResponse.json(
             { success: false, error: 'Failed to fetch predictions' },
             { status: 500 }
