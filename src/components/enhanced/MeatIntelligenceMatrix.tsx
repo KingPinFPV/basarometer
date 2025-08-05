@@ -8,6 +8,7 @@ import React, { useState, useMemo } from 'react'
 import { ChevronDown, ChevronUp, Search, Filter, Star } from 'lucide-react'
 import { usePriceMatrixData } from '@/hooks/usePriceMatrixData'
 import { useEnhancedMeatData } from '@/hooks/useEnhancedMeatData'
+import { useGovernmentData, useGovernmentMeatCategories, useGovernmentRetailers } from '@/hooks/useGovernmentData'
 
 interface QualityGrade {
   id: string
@@ -48,7 +49,17 @@ export default function MeatIntelligenceMatrix() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [showOnlyPopular, setShowOnlyPopular] = useState(false)
 
-  // Enhanced hooks for meat intelligence data
+  // Government data integration - LIVE DATA CONNECTION FIX
+  const { 
+    data: governmentData, 
+    loading: governmentLoading, 
+    error: governmentError 
+  } = useGovernmentData()
+  
+  const governmentCategories = useGovernmentMeatCategories()
+  const governmentRetailers = useGovernmentRetailers()
+  
+  // Enhanced hooks for meat intelligence data (fallback)
   const { 
     enhancedMeatData, 
     qualityBreakdown, 
@@ -61,13 +72,69 @@ export default function MeatIntelligenceMatrix() {
     loading: priceLoading 
   } = usePriceMatrixData()
 
-  // Filter and sort meat cuts based on intelligence
-  const filteredMeatCuts = useMemo(() => {
-    if (!enhancedMeatData || !Array.isArray(enhancedMeatData)) return []
+  // LIVE GOVERNMENT DATA - Convert to enhanced format for display
+  const governmentProductsForDisplay = useMemo(() => {
+    if (!governmentData?.data || !Array.isArray(governmentData.data)) return []
     
-    return enhancedMeatData
-      .filter(cut => {
+    // Convert government products to enhanced meat cut format
+    return governmentData.data
+      .filter(product => {
+        // Category filter
+        if (selectedCategory !== 'בקר') {
+          const categoryProducts = governmentCategories[selectedCategory] || []
+          return categoryProducts.some(p => p.id === product.id)
+        }
+        return true
+      })
+      .filter(product => {
         // Search filter
+        if (searchTerm) {
+          const searchLower = searchTerm.toLowerCase()
+          return product.name_hebrew?.includes(searchTerm) ||
+                 product.name_english.toLowerCase().includes(searchLower)
+        }
+        return true
+      })
+      .map(product => ({
+        id: product.id,
+        name_hebrew: product.name_hebrew,
+        name_english: product.name_english,
+        normalized_cut_id: product.id,
+        quality_grades: [{
+          id: 'government',
+          name_hebrew: 'ממשלתי',
+          name_english: 'Government',
+          tier: 'premium' as const,
+          color: '#10B981',
+          description: 'נתונים ממשלתיים מאומתים'
+        }],
+        variations_count: 1,
+        avg_price_range: {
+          min: product.price,
+          max: product.price
+        },
+        is_popular: product.confidence_score >= 0.9,
+        market_coverage: 100, // Government data = 100% validated
+        trending_direction: 'stable' as const,
+        last_price_update: new Date().toISOString(),
+        retailer: product.retailer,
+        price: product.price,
+        confidence_score: product.confidence_score
+      }))
+      .sort((a, b) => {
+        // Sort by confidence score, then by price
+        if (a.confidence_score !== b.confidence_score) {
+          return b.confidence_score - a.confidence_score
+        }
+        return a.price - b.price
+      })
+  }, [governmentData, governmentCategories, selectedCategory, searchTerm])
+
+  // Use government data if available, fallback to enhanced data
+  const filteredMeatCuts = governmentProductsForDisplay.length > 0 
+    ? governmentProductsForDisplay 
+    : (enhancedMeatData || []).filter(cut => {
+        // Original filtering logic for fallback data
         if (searchTerm && cut?.name_hebrew && cut?.name_english) {
           const searchLower = searchTerm.toLowerCase()
           return cut.name_hebrew.toLowerCase().includes(searchLower) ||
@@ -75,30 +142,13 @@ export default function MeatIntelligenceMatrix() {
         }
         return true
       })
-      .filter(cut => {
-        // Quality filter
-        if (qualityFilter !== 'all' && cut?.quality_grades) {
-          return cut.quality_grades.some(grade => grade?.tier === qualityFilter)
-        }
-        return true
-      })
-      .filter(cut => {
-        // Popular filter
-        if (showOnlyPopular) {
-          return cut?.is_popular
-        }
-        return true
-      })
-      .sort((a, b) => {
-        // Sort by popularity first, then by market coverage
-        if (a?.is_popular !== b?.is_popular) {
-          return a?.is_popular ? -1 : 1
-        }
-        return (b?.market_coverage || 0) - (a?.market_coverage || 0)
-      })
-  }, [enhancedMeatData, searchTerm, qualityFilter, showOnlyPopular])
 
-  const loading = meatLoading || priceLoading
+  const loading = governmentLoading || meatLoading || priceLoading
+  
+  // Live government data status
+  const hasGovernmentData = governmentData?.data && governmentData.data.length > 0
+  const governmentRetailerCount = governmentRetailers.length
+  const governmentProductCount = governmentData?.data?.length || 0
 
   if (loading) {
     return (
@@ -167,9 +217,22 @@ export default function MeatIntelligenceMatrix() {
               מטריצת בשר חכמה
             </h1>
             <p className="text-gray-600">
-              {filteredMeatCuts?.length || 0} נתחים זמינים • 
-              {qualityBreakdown?.total_variations || 0} וריאציות בשוק • 
-              {marketInsights?.active_retailers || 0} רשתות פעילות
+              {hasGovernmentData ? (
+                <>
+                  {governmentProductCount} מוצרים ממשלתיים • 
+                  {governmentRetailerCount} רשתות מאומתות • 
+                  {governmentData?.market_coverage?.estimated_coverage_percentage || '0%'} כיסוי שוק
+                  <span className="inline-flex items-center px-2 py-0.5 ml-2 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    🏛️ נתונים ממשלתיים חיים
+                  </span>
+                </>
+              ) : (
+                <>
+                  {filteredMeatCuts?.length || 0} נתחים זמינים • 
+                  {qualityBreakdown?.total_variations || 0} וריאציות בשוק • 
+                  {marketInsights?.active_retailers || 0} רשתות פעילות
+                </>
+              )}
             </p>
           </div>
           
@@ -362,8 +425,32 @@ function EnhancedMeatCutCard({
       </div>
 
       <div className="px-6 pb-6">
-        {/* Price Range */}
-        {bestPrice && worstPrice && (
+        {/* Government Product Price Display */}
+        {(cut as any)?.retailer && (cut as any)?.price && (
+          <div className="mb-4 p-3 bg-green-50 rounded-lg border border-green-200">
+            <div className="flex justify-between items-center mb-1">
+              <span className="text-sm font-medium text-green-800">מחיר ממשלתי מאומת</span>
+              <span className="text-xs font-medium text-green-600">
+                100% מאומת • {(cut as any)?.confidence_score >= 0.9 ? '⭐ איכות גבוהה' : 'סטנדרט'}
+              </span>
+            </div>
+            <div className="flex justify-between items-center">
+              <div>
+                <span className="text-2xl font-bold text-green-700">
+                  ₪{(cut as any)?.price?.toFixed(2)}
+                </span>
+                <span className="text-sm text-green-600 mr-2">לק&quot;ג</span>
+              </div>
+              <div className="text-left">
+                <div className="text-sm font-medium text-green-800">{(cut as any)?.retailer}</div>
+                <div className="text-xs text-green-600">רשת מאומתת</div>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {/* Fallback Price Range for non-government data */}
+        {!(cut as any)?.retailer && bestPrice && worstPrice && (
           <div className="mb-4 p-3 bg-gray-50 rounded-lg">
             <div className="flex justify-between items-center mb-1">
               <span className="text-sm font-medium">טווח מחירים</span>

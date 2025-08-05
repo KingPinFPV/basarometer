@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
+import { useGovernmentData } from '@/hooks/useGovernmentData'
 
 interface ScannerProduct {
   id: string
@@ -112,6 +113,9 @@ function useDirectSupabaseProducts() {
 }
 
 export default function ComparisonPage() {
+  // Government data integration - LIVE DATA CONNECTION FIX
+  const { data: governmentData, loading: govLoading } = useGovernmentData()
+  
   // FORCE USE: Direct Supabase connection, bypass all old hooks
   const { products, loading, error } = useDirectSupabaseProducts()
   
@@ -119,11 +123,45 @@ export default function ComparisonPage() {
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [sortBy, setSortBy] = useState('name')
 
-  // Process products for display
-  const processedProducts = useMemo(() => {
-    // Processing ${products.length} products for display
+  // Convert government data to display format and merge with scanner products
+  const governmentProducts = useMemo(() => {
+    if (!governmentData?.data) return []
     
-    let filtered = [...products]
+    return governmentData.data.map(product => ({
+      id: `gov_${product.id}`,
+      product_name: product.name_hebrew,
+      normalized_name: product.name_english,
+      brand: '🏛️ ממשלתי',
+      price: product.price,
+      price_per_kg: product.price,
+      currency: 'ILS',
+      category: 'בשר ממשלתי',
+      weight: '1 ק"ג',
+      unit: 'ק"ג',
+      store_name: product.retailer,
+      store_site: 'government',
+      retailer_id: product.retailer,
+      scanner_confidence: product.confidence_score,
+      scanner_source: 'government_integrated',
+      scan_timestamp: new Date().toISOString(),
+      site_confidence: 1.0,
+      meat_cut_id: product.id,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      is_active: true,
+      is_valid: true,
+      validation_notes: 'Government verified data',
+      product_hash: `gov_${product.id}`
+    }))
+  }, [governmentData])
+
+  // Process products for display - MERGE GOVERNMENT + SCANNER DATA
+  const processedProducts = useMemo(() => {
+    // Merge government and scanner products
+    const allProducts = [...governmentProducts, ...products]
+    console.log(`🔄 Processing ${allProducts.length} products (${governmentProducts.length} government + ${products.length} scanner)`)
+    
+    let filtered = [...allProducts]
 
     // Search filter
     if (searchTerm.trim()) {
@@ -158,33 +196,37 @@ export default function ComparisonPage() {
       }
     })
 
-    // After processing: ${filtered.length} products displayed
+    console.log(`✅ After processing: ${filtered.length} products displayed`)
     return filtered
-  }, [products, searchTerm, selectedCategory, sortBy])
+  }, [governmentProducts, products, searchTerm, selectedCategory, sortBy])
 
-  // Get available categories
+  // Get available categories - INCLUDE GOVERNMENT CATEGORIES
   const categories = useMemo(() => {
-    const cats = [...new Set(products.map(p => p.category))].sort()
-    // Available categories
+    const allProducts = [...governmentProducts, ...products]
+    const cats = [...new Set(allProducts.map(p => p.category))].sort()
+    console.log(`📊 Available categories: ${cats.join(', ')}`)
     return cats
-  }, [products])
+  }, [governmentProducts, products])
 
-  // Statistics
+  // Statistics - INCLUDE GOVERNMENT DATA
   const stats = useMemo(() => {
-    const storeGroups = products.reduce((acc, p) => {
+    const allProducts = [...governmentProducts, ...products]
+    const storeGroups = allProducts.reduce((acc, p) => {
       acc[p.store_name] = (acc[p.store_name] || 0) + 1
       return acc
     }, {} as Record<string, number>)
     
-    const categories = [...new Set(products.map(p => p.category))]
+    const categories = [...new Set(allProducts.map(p => p.category))]
     
     return {
-      total: products.length,
+      total: allProducts.length,
+      government: governmentProducts.length,
+      scanner: products.length,
       stores: Object.keys(storeGroups).length,
       categories: categories.length,
-      avgPrice: products.length > 0 ? (products.reduce((sum, p) => sum + p.price, 0) / products.length).toFixed(2) : '0'
+      avgPrice: allProducts.length > 0 ? (allProducts.reduce((sum, p) => sum + p.price, 0) / allProducts.length).toFixed(2) : '0'
     }
-  }, [products])
+  }, [governmentProducts, products])
 
   // Debug output - COMPARISON PAGE STATE
   // Loading, Error, Products count, Filtered count, Stats, Product IDs, Search term, Selected category, Sort by
@@ -252,7 +294,7 @@ export default function ComparisonPage() {
                 השוואת מחירי בשר מתקדמת 🥩
               </h1>
               <p className="text-gray-600 mt-1">
-                עדכון אחרון: כעת • {stats.total} מוצרים • {stats.stores} רשתות • {stats.categories} קטגוריות
+                עדכון אחרון: כעת • {stats.total} מוצרים ({stats.government} ממשלתיים) • {stats.stores} רשתות • {stats.categories} קטגוריות
               </p>
             </div>
             <div className="text-right">
