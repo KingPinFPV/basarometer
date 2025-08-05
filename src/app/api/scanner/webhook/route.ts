@@ -1,6 +1,9 @@
 // /src/app/api/scanner/webhook/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
+import { Logger } from '@/lib/discovery/utils/Logger';
+
+const logger = new Logger('ScannerWebhookAPI');
 
 interface WebhookPayload {
   event: 'scan_completed' | 'scan_started' | 'scan_failed';
@@ -27,17 +30,14 @@ export async function POST(request: NextRequest) {
     // Process webhook based on event type
     switch (payload.event) {
       case 'scan_completed':
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         await handleScanCompleted(supabase as any, payload);
         break;
         
       case 'scan_started':
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         await handleScanStarted(supabase as any, payload);
         break;
         
       case 'scan_failed':
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         await handleScanFailed(supabase as any, payload);
         break;
         
@@ -46,7 +46,6 @@ export async function POST(request: NextRequest) {
     }
     
     // Trigger real-time notifications to connected clients
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     await notifyClients(supabase as any, payload);
     
     return NextResponse.json({ 
@@ -56,7 +55,7 @@ export async function POST(request: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Webhook processing error:', error);
+    logger.error('Webhook processing error:', error);
     return NextResponse.json(
       { error: 'Failed to process webhook', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
@@ -64,7 +63,6 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function handleScanCompleted(supabase: any, payload: WebhookPayload) {
   // Update scanner status and metrics
   await supabase
@@ -89,7 +87,6 @@ async function handleScanCompleted(supabase: any, payload: WebhookPayload) {
   });
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function handleScanStarted(supabase: any, payload: WebhookPayload) {
   // Log scan initiation
   await supabase
@@ -106,7 +103,6 @@ async function handleScanStarted(supabase: any, payload: WebhookPayload) {
     });
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function handleScanFailed(supabase: any, payload: WebhookPayload) {
   // Log scan failure
   await supabase
@@ -124,7 +120,6 @@ async function handleScanFailed(supabase: any, payload: WebhookPayload) {
     });
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function notifyClients(supabase: any, payload: WebhookPayload) {
   // Supabase automatically handles real-time subscriptions
   // We can also insert a notification record that clients can subscribe to
@@ -139,9 +134,10 @@ async function notifyClients(supabase: any, payload: WebhookPayload) {
       });
   } catch {
     // Table might not exist yet, that's ok
+    logger.info('Scanner notifications table not yet created');
   }
 
-  console.log(`Real-time notification sent: ${payload.event} for ${payload.site}`);
+  logger.info(`Real-time notification sent: ${payload.event} for ${payload.site}`);
 }
 
 // GET endpoint for webhook health check

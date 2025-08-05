@@ -351,7 +351,7 @@ export default function PriceVisualization({
     const secondAvg = secondHalf.reduce((sum, p) => sum + p, 0) / secondHalf.length
     
     const percentage = firstAvg > 0 ? ((secondAvg - firstAvg) / firstAvg) * 100 : 0
-    const direction = Math.abs(percentage) < 2 ? 'stable' : percentage > 0 ? 'up' : 'down'
+    const direction: 'up' | 'down' | 'stable' = Math.abs(percentage) < 2 ? 'stable' : percentage > 0 ? 'up' : 'down'
 
     return {
       data: prices,

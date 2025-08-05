@@ -6,19 +6,19 @@ export class Logger {
         this.context = context
     }
 
-    info(message: string, ...args: any[]): void {
-        // Debug:(`[${new Date().toISOString()}] [${this.context}] INFO: ${message}`, ...args)
+    info(message: string, ...args: unknown[]): void {
+        console.log(`[${new Date().toISOString()}] [${this.context}] INFO: ${message}`, ...args)
     }
 
-    warn(message: string, ...args: any[]): void {
-        // Warning:(`[${new Date().toISOString()}] [${this.context}] WARN: ${message}`, ...args)
+    warn(message: string, ...args: unknown[]): void {
+        console.warn(`[${new Date().toISOString()}] [${this.context}] WARN: ${message}`, ...args)
     }
 
-    error(message: string, error?: any): void {
-        // Error:(`[${new Date().toISOString()}] [${this.context}] ERROR: ${message}`, error)
+    error(message: string, error?: unknown): void {
+        console.error(`[${new Date().toISOString()}] [${this.context}] ERROR: ${message}`, error)
     }
 
-    debug(message: string, ...args: any[]): void {
+    debug(message: string, ...args: unknown[]): void {
         if (process.env.NODE_ENV === 'development') {
             console.debug(`[${new Date().toISOString()}] [${this.context}] DEBUG: ${message}`, ...args)
         }

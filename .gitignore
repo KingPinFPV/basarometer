@@ -584,5 +584,13 @@ COMPETITIVE_ANALYSIS_GOVERNMENT.md
 *MARKET_DOMINATION*.md
 *COMPETITIVE_ANALYSIS*.md
 
+# MCP and other config files with secrets
+.mcp.json
+*.credentials
+*.secrets
+config/private/
+secrets/
+credentials/
+
 # Last Updated: August 5, 2025 - V8.0 Government Integration
 # Basarometer Security Team - Government Data Protection

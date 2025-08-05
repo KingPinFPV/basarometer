@@ -6,6 +6,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
+import { Logger } from '@/lib/discovery/utils/Logger'
 
 export interface UnifiedProduct {
   id: string
@@ -39,6 +40,8 @@ export interface UnifiedProductsMetrics {
   last_updated: string
 }
 
+const logger = new Logger('useUnifiedProductsData')
+
 export function useUnifiedProductsData(categoryFilter?: string, onlyMeatProducts = false) {
   const [products, setProducts] = useState<UnifiedProduct[]>([])
   const [metrics, setMetrics] = useState<UnifiedProductsMetrics | null>(null)
@@ -50,7 +53,7 @@ export function useUnifiedProductsData(categoryFilter?: string, onlyMeatProducts
       setLoading(true)
       setError(null)
 
-      console.log('🔍 Fetching unified products from database...', { categoryFilter, onlyMeatProducts })
+      logger.info('Fetching unified products from database', { categoryFilter, onlyMeatProducts })
       
       // Test connection first
       const { data: testData, error: testError } = await supabase
@@ -58,11 +61,11 @@ export function useUnifiedProductsData(categoryFilter?: string, onlyMeatProducts
         .select('count', { count: 'exact', head: true })
         
       if (testError) {
-        console.error('❌ Connection test failed:', testError)
+        logger.error('Database connection test failed', testError)
         throw new Error(`Database connection failed: ${testError.message}`)
       }
       
-      console.log('✅ Database connection successful, total records:', testData)
+      logger.info('Database connection successful', { totalRecords: testData })
 
       // Build query
       let query = supabase
@@ -81,17 +84,19 @@ export function useUnifiedProductsData(categoryFilter?: string, onlyMeatProducts
       const { data, error: queryError } = await query
 
       if (queryError) {
-        console.error('❌ Database query error:', queryError)
+        logger.error('Database query failed', queryError)
         throw new Error(`Database query failed: ${queryError.message}`)
       }
 
       if (!data) {
-        console.error('❌ No data returned from database')
+        logger.error('No data returned from database')
         throw new Error('No data returned from database')
       }
 
-      console.log(`✅ Successfully fetched ${data.length} unified products`)
-      console.log('📝 Sample products:', data.slice(0, 3).map(p => ({ id: p.id, name: p.name, category: p.category })))
+      logger.info('Successfully fetched unified products', { 
+        count: data.length,
+        samples: data.slice(0, 3).map(p => ({ id: p.id, name: p.name, category: p.category }))
+      })
 
       // Process and enhance the data
       const processedProducts: UnifiedProduct[] = data.map(product => ({
@@ -136,7 +141,7 @@ export function useUnifiedProductsData(categoryFilter?: string, onlyMeatProducts
       setProducts(processedProducts)
       setMetrics(calculatedMetrics)
 
-      console.log('📊 Unified Products Metrics:', {
+      logger.info('Unified Products Metrics calculated', {
         total: calculatedMetrics.total_products,
         networks: calculatedMetrics.networks_covered,
         crossNetwork: calculatedMetrics.cross_network_products,
@@ -144,7 +149,7 @@ export function useUnifiedProductsData(categoryFilter?: string, onlyMeatProducts
       })
 
     } catch (err) {
-      console.error('❌ Error fetching unified products:', err)
+      logger.error('Error fetching unified products', err)
       const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred'
       setError(errorMessage)
       
@@ -164,7 +169,7 @@ export function useUnifiedProductsData(categoryFilter?: string, onlyMeatProducts
   useEffect(() => {
     if (error) return // Don't subscribe if there are errors
 
-    console.log('🔄 Setting up real-time subscription for unified_products...')
+    logger.info('Setting up real-time subscription for unified_products')
 
     const channel = supabase
       .channel('unified-products-updates')
@@ -173,22 +178,22 @@ export function useUnifiedProductsData(categoryFilter?: string, onlyMeatProducts
         schema: 'public',
         table: 'unified_products'
       }, (payload) => {
-        console.log('🔔 Unified products updated:', payload)
+        logger.info('Unified products updated via real-time', { event: payload.eventType, table: payload.table })
         // Debounce refetch to prevent flooding
         setTimeout(() => {
           fetchUnifiedProducts()
         }, 1000)
       })
       .subscribe((status) => {
-        if (status === 'SUBSCRIPTION_ERROR') {
-          console.warn('⚠️ Real-time subscription failed, continuing without live updates')
+        if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
+          logger.warn('Real-time subscription failed, continuing without live updates', { status })
         } else if (status === 'SUBSCRIBED') {
-          console.log('✅ Real-time subscription active for unified_products')
+          logger.info('Real-time subscription active for unified_products')
         }
       })
 
     return () => {
-      console.log('🔄 Cleaning up unified products subscription')
+      logger.info('Cleaning up unified products subscription')
       supabase.removeChannel(channel)
     }
   }, [fetchUnifiedProducts, error])

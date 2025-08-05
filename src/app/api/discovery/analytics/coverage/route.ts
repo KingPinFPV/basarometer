@@ -2,6 +2,38 @@
 import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
+<<<<<<< HEAD
+=======
+interface DiscoveredSource {
+  id: string;
+  name: string;
+  url: string;
+  category: string;
+  location?: string;
+  business_type?: string;
+  status: string;
+  created_at: string;
+  reliability_score?: number;
+}
+
+interface ExistingRetailer {
+  id: string;
+  name: string;
+  category: string;
+  location?: string;
+}
+
+interface CoverageMetrics {
+  geographic: Record<string, number>;
+  business_types: Record<string, number>;
+  quality: Record<string, number>;
+  methods: Record<string, number>;
+  expansion: any;
+  hebrew_quality: any;
+  summary: any;
+}
+
+>>>>>>> 7546903e90eac003c6dbdc64da3b3253f6a8ab69
 export async function GET() {
     try {
         // Get all discovered sources
@@ -45,6 +77,7 @@ export async function GET() {
     }
 }
 
+<<<<<<< HEAD
 interface DiscoveredSource {
     id: string;
     name: string;
@@ -124,6 +157,9 @@ interface CoverageSummary {
 }
 
 function calculateCoverageMetrics(sources: DiscoveredSource[], existingRetailers: Retailer[]): CoverageMetrics {
+=======
+function calculateCoverageMetrics(sources: DiscoveredSource[], existingRetailers: ExistingRetailer[]): CoverageMetrics {
+>>>>>>> 7546903e90eac003c6dbdc64da3b3253f6a8ab69
     // Geographic coverage analysis
     const locationCoverage = analyzeLocationCoverage(sources)
     

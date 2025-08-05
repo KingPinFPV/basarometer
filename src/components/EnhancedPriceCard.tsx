@@ -4,7 +4,6 @@ import React from 'react'
 import { MapPin, Calendar, Bot, User, Shield, Star } from 'lucide-react'
 
 interface EnhancedPriceCardProps {
-  id: number
   price: number
   normalizedPrice?: number
   unit: string
@@ -49,7 +48,6 @@ export default function EnhancedPriceCard({
   scannerConfidence,
   detectedBrand,
   scannerGrade,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   reportedBy: _reportedBy,
   isVerified = false
 }: EnhancedPriceCardProps) {

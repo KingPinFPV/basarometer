@@ -3,6 +3,8 @@
  * Handles Hebrew text recognition using Tesseract.js
  */
 
+import { Logger } from '@/lib/discovery/utils/Logger'
+
 // Type definitions for Tesseract.js (will be installed via CDN or npm)
 interface TesseractWorker {
   load(): Promise<void>
@@ -23,6 +25,7 @@ declare global {
 class OCRProcessor {
   private worker: TesseractWorker | null = null
   private initialized = false
+  private logger = new Logger('OCRProcessor')
 
   // Initialize Tesseract.js worker with Hebrew support
   async initializeWorker(): Promise<void> {
@@ -32,7 +35,7 @@ class OCRProcessor {
       // Check if Tesseract is available
       if (typeof window === 'undefined' || !window.Tesseract) {
         // For server-side or when Tesseract is not loaded, return mock text
-        // Warning:('Tesseract.js not available, using fallback mode')
+        this.logger.warn('Tesseract.js not available, using fallback mode')
         return
       }
 
@@ -44,10 +47,10 @@ class OCRProcessor {
       await this.worker.initialize('heb+eng')
       
       this.initialized = true
-      // Debug:('OCR Worker initialized successfully with Hebrew support')
+      this.logger.info('OCR Worker initialized successfully with Hebrew support')
 
-    } catch (_error) {
-      // Error:('Failed to initialize OCR worker:', _error)
+    } catch (error) {
+      this.logger.error('Failed to initialize OCR worker:', error)
       throw new Error('שגיאה באתחול מעבד OCR')
     }
   }
@@ -86,7 +89,7 @@ class OCRProcessor {
       return processedText
 
     } catch (error) {
-      // Error:('OCR Processing error:', error)
+      this.logger.error('OCR Processing error:', error)
       throw error instanceof Error ? error : new Error('שגיאה בעיבוד התמונה')
     }
   }
@@ -136,7 +139,7 @@ class OCRProcessor {
         תודה על הקנייה!
       `
       
-      // Debug:('Using fallback OCR processing')
+      this.logger.info('Using fallback OCR processing')
       setTimeout(() => resolve(mockReceiptText.trim()), 1000) // Simulate processing time
     })
   }
@@ -148,9 +151,9 @@ class OCRProcessor {
         await this.worker.terminate()
         this.worker = null
         this.initialized = false
-        // Debug:('OCR Worker terminated')
-      } catch (_error) {
-        // Error:('Error terminating OCR worker:', _error)
+        this.logger.info('OCR Worker terminated')
+      } catch (error) {
+        this.logger.error('Error terminating OCR worker:', error)
       }
     }
   }
@@ -187,11 +190,14 @@ export const loadTesseractJS = async (): Promise<void> => {
     const script = document.createElement('script')
     script.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js'
     script.onload = () => {
-      // Debug:('Tesseract.js loaded successfully')
+      // Use a local logger for this utility function
+      const logger = new Logger('TesseractLoader')
+      logger.info('Tesseract.js loaded successfully') 
       resolve()
     }
     script.onerror = () => {
-      // Error:('Failed to load Tesseract.js')
+      const logger = new Logger('TesseractLoader')
+      logger.error('Failed to load Tesseract.js')
       reject(new Error('Failed to load OCR library'))
     }
     document.head.appendChild(script)

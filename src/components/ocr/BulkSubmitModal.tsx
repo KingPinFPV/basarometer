@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react'
 import { X, MapPin, Store, CheckCircle, AlertTriangle, Package } from 'lucide-react'
 import { ModalPortal } from '@/components/ui/ModalPortal'
+import { useUINotifications } from '@/hooks/useUINotifications'
 import type { ValidationResult } from '@/hooks/useOCR'
 import { usePriceData } from '@/hooks/usePriceData'
 
@@ -28,6 +29,7 @@ export function BulkSubmitModal({
   detectedStore
 }: BulkSubmitModalProps) {
   const { retailers } = usePriceData()
+  const { showError } = useUINotifications()
   const [selectedRetailerId, setSelectedRetailerId] = useState<string>(detectedStore?.retailerId || '')
   const [location, setLocation] = useState<string>('')
   const [confirmSubmit, setConfirmSubmit] = useState(false)
@@ -54,7 +56,7 @@ export function BulkSubmitModal({
     e.preventDefault()
     
     if (!selectedRetailerId) {
-      alert('נא לבחור חנות')
+      showError('נא לבחור חנות')
       return
     }
 

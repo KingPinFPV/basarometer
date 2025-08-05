@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
+import { useUINotifications } from '@/hooks/useUINotifications'
+import { ToastContainer } from '@/components/ui/Toast'
 import { Plus, Trash2, Upload } from 'lucide-react'
 import type { MeatCategory, MeatSubCategory } from '@/lib/database.types'
 
@@ -17,6 +19,7 @@ interface BulkCutData {
 }
 
 export default function BulkCutCreator() {
+  const { showError, showSuccess, toasts, removeToast } = useUINotifications()
   const [categories, setCategories] = useState<MeatCategory[]>([])
   const [subCategories, setSubCategories] = useState<MeatSubCategory[]>([])
   const [cuts, setCuts] = useState<BulkCutData[]>([{
@@ -96,7 +99,7 @@ export default function BulkCutCreator() {
 
       const validCuts = cuts.filter(validateCut)
       if (validCuts.length === 0) {
-        alert('אין נתחים תקינים לשמירה')
+        showError('אין נתחים תקינים לשמירה')
         return
       }
 
@@ -133,10 +136,10 @@ export default function BulkCutCreator() {
         description: ''
       }])
 
-      alert(`נוספו בהצלחה ${data.length} נתחי בשר!`)
+      showSuccess(`נוספו בהצלחה ${data.length} נתחי בשר!`, 'הוספה הושלמה')
     } catch (error) {
       console.error('Error creating bulk cuts:', error)
-      alert('שגיאה בהוספת הנתחים')
+      showError('שגיאה בהוספת הנתחים')
     } finally {
       setSubmitting(false)
     }
@@ -344,6 +347,9 @@ export default function BulkCutCreator() {
           </div>
         ))}
       </div>
+
+      {/* Toast Notifications */}
+      <ToastContainer toasts={toasts} onClose={removeToast} />
     </div>
   )
 }

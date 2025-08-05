@@ -3,6 +3,7 @@
 import React, { useState, useRef, useCallback } from 'react'
 import { Camera, Upload, X } from 'lucide-react'
 import Image from 'next/image'
+import { useUINotifications } from '@/hooks/useUINotifications'
 import { loadTesseractJS, preprocessImage } from '@/utils/ocrProcessor'
 
 interface ReceiptCaptureProps {
@@ -12,6 +13,7 @@ interface ReceiptCaptureProps {
 }
 
 export function ReceiptCapture({ onImageCapture, processing, onCancel }: ReceiptCaptureProps) {
+  const { showError } = useUINotifications()
   const [dragActive, setDragActive] = useState(false)
   const [cameraActive, setCameraActive] = useState(false)
   const [previewImage, setPreviewImage] = useState<string | null>(null)
@@ -41,12 +43,12 @@ export function ReceiptCapture({ onImageCapture, processing, onCancel }: Receipt
   // Handle file upload
   const handleFileUpload = useCallback(async (file: File) => {
     if (!isValidImageFile(file)) {
-      alert('נא לבחור קובץ תמונה תקין (JPG, PNG, WebP)')
+      showError('נא לבחור קובץ תמונה תקין (JPG, PNG, WebP)')
       return
     }
 
     if (file.size > 10 * 1024 * 1024) {
-      alert('גודל הקובץ גדול מדי. מקסימום 10MB')
+      showError('גודל הקובץ גדול מדי. מקסימום 10MB')
       return
     }
 
@@ -57,9 +59,9 @@ export function ReceiptCapture({ onImageCapture, processing, onCancel }: Receipt
       setCapturedFile(file)
     } catch (error) {
       console.error('Error handling file:', error)
-      alert('שגיאה בטעינת הקובץ')
+      showError('שגיאה בטעינת הקובץ')
     }
-  }, [])
+  }, [showError])
 
   // Validate image file
   const isValidImageFile = (file: File): boolean => {
@@ -118,7 +120,7 @@ export function ReceiptCapture({ onImageCapture, processing, onCancel }: Receipt
       }
     } catch (error) {
       console.error('Error accessing camera:', error)
-      alert('לא ניתן לגשת למצלמה. נסה להעלות תמונה במקום')
+      showError('לא ניתן לגשת למצלמה. נסה להעלות תמונה במקום')
     }
   }, [])
 

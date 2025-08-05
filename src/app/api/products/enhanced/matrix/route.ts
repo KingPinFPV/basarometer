@@ -4,6 +4,10 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
+import { QueryOptimizer } from '@/lib/performance/QueryOptimizer'
+import { Logger } from '@/lib/discovery/utils/Logger'
+
+const logger = new Logger('EnhancedMatrixAPI');
 
 interface QualityBreakdown {
   total_variations: number
@@ -110,6 +114,7 @@ export async function GET(request: NextRequest) {
     const include_scanner = searchParams.get('include_scanner') !== 'false'
     const use_fast_path = searchParams.get('fast') !== 'false' // Allow fast path by default
 
+<<<<<<< HEAD
     // EMERGENCY FAST PATH: Return cached response if available and fresh
     if (use_fast_path && cachedResponse && Date.now() - cacheTimestamp < CACHE_DURATION) {
       perfLog.cache_hit = Date.now() - startTime
@@ -219,6 +224,36 @@ export async function GET(request: NextRequest) {
     
     // OPTIMIZATION: Process only essential data to reduce computation time
     const enhancedCuts = await processEnhancedMatrixDataOptimized(
+=======
+    // PERFORMANCE OPTIMIZATION: Use optimized query consolidation
+    const optimizer = QueryOptimizer.getInstance()
+    const optimizedData = await optimizer.getOptimizedMatrixData(
+      category,
+      quality_filter,
+      include_scanner
+    )
+
+    const {
+      enhanced_cuts: meatCuts,
+      quality_mappings: qualityMappings,
+      price_data: priceData,
+      scanner_data: scannerData,
+      retailers
+    } = optimizedData
+
+    // Convert scanner products to enhanced meat cut format
+    let scannerProducts: any[] = []
+    if (include_scanner && scannerData.length > 0) {
+      scannerProducts = convertScannerToEnhancedCuts(scannerData)
+      logger.info('Converted scanner products to enhanced cuts', { 
+        scannerCount: scannerData.length, 
+        enhancedCount: scannerProducts.length 
+      })
+    }
+
+    // Process and enhance the data - COMBINE MEAT CUTS + SCANNER PRODUCTS
+    const enhancedCuts = await processEnhancedMatrixData(
+>>>>>>> 7546903e90eac003c6dbdc64da3b3253f6a8ab69
       meatCuts || [],
       qualityMappings || [],
       priceData || [],
@@ -228,9 +263,19 @@ export async function GET(request: NextRequest) {
     )
     perfLog.data_processing = Date.now() - processingStart
 
+<<<<<<< HEAD
     // OPTIMIZATION: Limit scanner products for faster response
     const limitedScannerProducts = scannerProducts.slice(0, 20)
     const combinedEnhancedCuts = [...enhancedCuts, ...limitedScannerProducts]
+=======
+    // ADD SCANNER PRODUCTS AS ADDITIONAL ENHANCED CUTS
+    const combinedEnhancedCuts = [...enhancedCuts, ...scannerProducts]
+    logger.info('Combined data processed', {
+      meatCuts: enhancedCuts.length,
+      scannerProducts: scannerProducts.length,
+      total: combinedEnhancedCuts.length
+    })
+>>>>>>> 7546903e90eac003c6dbdc64da3b3253f6a8ab69
 
     // OPTIMIZATION: Calculate metrics in parallel
     const metricsStart = Date.now()
@@ -317,7 +362,11 @@ export async function GET(request: NextRequest) {
     }
 
   } catch (error) {
+<<<<<<< HEAD
     // Error:('Enhanced Matrix API Error:', error)
+=======
+    logger.error('Enhanced Matrix API Error:', error)
+>>>>>>> 7546903e90eac003c6dbdc64da3b3253f6a8ab69
     return NextResponse.json(
       { 
         success: false, 
@@ -330,7 +379,6 @@ export async function GET(request: NextRequest) {
 }
 
 // Process raw data into enhanced matrix format
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function processEnhancedMatrixData(
   meatCuts: any[],
   qualityMappings: any[],
@@ -633,19 +681,16 @@ function calculatePriceTrend(prices: number[]): 'up' | 'down' | 'stable' {
   return 'stable'
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
 function calculateOverallPriceTrend(_priceData: any[]): 'up' | 'down' | 'stable' {
   // Simplified implementation
   return 'stable'
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
 function calculateAvailabilityTrend(_scannerData: any[]): 'increasing' | 'decreasing' | 'stable' {
   // Simplified implementation
   return 'stable'
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
 function calculateQualityTrend(_scannerData: any[]): 'improving' | 'declining' | 'stable' {
   // Simplified implementation
   return 'stable'
@@ -711,8 +756,7 @@ function convertScannerToEnhancedCuts(scannerData: any[]): EnhancedMeatCut[] {
     const maxPrice = prices.length > 0 ? Math.max(...prices) : 0
     const avgPrice = prices.length > 0 ? prices.reduce((sum, p) => sum + p, 0) / prices.length : 0
     
-    // Map store names to network prices
-    const networkPrices: Record<string, number> = {}
+    // Map store names to retailer data
     const retailers: RetailerPriceData[] = []
     
     products.forEach(product => {
@@ -720,11 +764,6 @@ function convertScannerToEnhancedCuts(scannerData: any[]): EnhancedMeatCut[] {
       const price = parseFloat(product?.price_per_kg || product?.price || '0')
       
       if (!isNaN(price) && price > 0) {
-        // Map store names to network IDs
-        const networkId = mapStoreNameToNetworkId(storeName)
-        if (networkId) {
-          networkPrices[networkId] = price
-        }
         
         retailers.push({
           retailer_id: generateRetailerId(storeName),

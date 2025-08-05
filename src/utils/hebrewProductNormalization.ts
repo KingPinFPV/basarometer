@@ -267,7 +267,7 @@ export function groupProductsBySemanticSimilarity(
     const group: ProductMatch = {
       master_id: `group_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       master_name: product.normalized.normalized_name || product.name,
-      products: [product],
+      products: [{...product, original_data: product}],
       confidence_score: product.normalized.confidence_score,
       category: product.normalized.product_type
     }
@@ -288,7 +288,7 @@ export function groupProductsBySemanticSimilarity(
       const similarQuality = product.normalized.quality_grade === otherProduct.normalized.quality_grade
       
       if (similarity >= similarityThreshold && sameCategory) {
-        group.products.push(otherProduct)
+        group.products.push({...otherProduct, original_data: otherProduct})
         processed.add(otherProduct.id)
         
         // Adjust confidence based on group size and quality match
@@ -393,7 +393,7 @@ export function enhancedProductMatching(
     const group: ProductMatch = {
       master_id: `enhanced_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       master_name: product.normalized.normalized_name || product.name,
-      products: [product],
+      products: [{...product, original_data: product}],
       confidence_score: product.normalized.confidence_score,
       category: product.category
     }
@@ -428,7 +428,7 @@ export function enhancedProductMatching(
       if (qualityMatch) enhancedSimilarity += 0.05
       
       if (enhancedSimilarity >= similarityThreshold && sameCategory) {
-        group.products.push(otherProduct)
+        group.products.push({...otherProduct, original_data: otherProduct})
         processed.add(otherProduct.id)
         
         // Update group confidence

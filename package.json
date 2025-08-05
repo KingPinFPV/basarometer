@@ -28,6 +28,7 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:all": "npm run test && npm run test:e2e",
+    "test:ci": "jest --ci --coverage --watchAll=false",
     "deploy": "npm run build && vercel --prod",
     "db:reset": "psql $DATABASE_URL -f basarometer_production_data_complete.sql",
     "test:api": "node api-tester.js",
@@ -37,6 +38,7 @@
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.50.2",
     "autoprefixer": "^10.4.21",
+    "critters": "^0.0.23",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.511.0",
     "next": "15.3.3",
@@ -50,7 +52,11 @@
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^6.6.4",
     "@testing-library/react": "^16.3.0",
+<<<<<<< HEAD
     "@types/jest": "^30.0.0",
+=======
+    "@testing-library/user-event": "^14.6.1",
+>>>>>>> 7546903e90eac003c6dbdc64da3b3253f6a8ab69
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -58,9 +64,14 @@
     "eslint-config-next": "15.3.3",
     "jest": "^30.0.5",
     "jest-environment-jsdom": "^30.0.5",
+<<<<<<< HEAD
     "playwright": "^1.54.2",
     "tailwindcss": "^4",
     "ts-jest": "^29.4.1",
+=======
+    "tailwindcss": "^4",
+    "ts-jest": "^29.4.0",
+>>>>>>> 7546903e90eac003c6dbdc64da3b3253f6a8ab69
     "typescript": "^5"
   },
   "type": "module"

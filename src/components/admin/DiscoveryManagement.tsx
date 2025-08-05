@@ -2,6 +2,8 @@
 'use client'
 
 import React, { useState, useEffect, useCallback } from 'react'
+import { useUINotifications } from '@/hooks/useUINotifications'
+import { ToastContainer } from '@/components/ui/Toast'
 import { 
     DiscoveredSource, 
     PriceConflict, 
@@ -26,6 +28,7 @@ interface DiscoveryStats {
 }
 
 const DiscoveryManagement: React.FC<DiscoveryManagementProps> = ({ isAdmin }) => {
+    const { showSuccess, showError, toasts, removeToast } = useUINotifications()
     const [activeTab, setActiveTab] = useState<'sources' | 'conflicts' | 'queue' | 'analytics' | 'learning'>('sources')
     const [sources, setSources] = useState<DiscoveredSource[]>([])
     const [conflicts, setConflicts] = useState<PriceConflict[]>([])
@@ -199,14 +202,14 @@ const DiscoveryManagement: React.FC<DiscoveryManagementProps> = ({ isAdmin }) =>
             
             const data = await response.json()
             if (data.success) {
-                alert(`Discovery complete! Found ${data.result.totalDiscovered} sources, validated ${data.result.validated}`)
+                showSuccess(`Discovery complete! Found ${data.result.totalDiscovered} sources, validated ${data.result.validated}`, 'גילוי הושלם')
                 await loadDiscoveryData()
             } else {
-                alert('Discovery failed: ' + data.error)
+                showError('Discovery failed: ' + data.error, 'כשל בגילוי')
             }
         } catch (error) {
             console.error('Discovery session failed:', error)
-            alert('Discovery session failed')
+            showError('Discovery session failed', 'כשל בגילוי')
         } finally {
             setRunningDiscovery(false)
         }
@@ -294,14 +297,14 @@ const DiscoveryManagement: React.FC<DiscoveryManagementProps> = ({ isAdmin }) =>
             
             const data = await response.json()
             if (data.success) {
-                alert(`Learning session complete! Learned ${data.result.patternsLearned} patterns, accuracy: ${data.result.accuracy}%`)
+                showSuccess(`Learning session complete! Learned ${data.result.patternsLearned} patterns, accuracy: ${data.result.accuracy}%`, 'למידה הושלמה')
                 await loadDiscoveryData()
             } else {
-                alert('Learning session failed: ' + data.error)
+                showError('Learning session failed: ' + data.error, 'כשל בלמידה')
             }
         } catch (error) {
             console.error('Learning session failed:', error)
-            alert('Learning session failed')
+            showError('Learning session failed', 'כשל בלמידה')
         } finally {
             setRunningLearning(false)
         }
@@ -319,14 +322,14 @@ const DiscoveryManagement: React.FC<DiscoveryManagementProps> = ({ isAdmin }) =>
             
             const data = await response.json()
             if (data.success) {
-                alert('Pattern optimization completed successfully')
+                showSuccess('Pattern optimization completed successfully', 'אופטימיזציה הושלמה')
                 await loadLearningPatterns()
             } else {
-                alert('Pattern optimization failed: ' + data.error)
+                showError('Pattern optimization failed: ' + data.error, 'כשל באופטימיזציה')
             }
         } catch (error) {
             console.error('Failed to optimize patterns:', error)
-            alert('Pattern optimization failed')
+            showError('Pattern optimization failed', 'כשל באופטימיזציה')
         }
     }
 
@@ -342,14 +345,14 @@ const DiscoveryManagement: React.FC<DiscoveryManagementProps> = ({ isAdmin }) =>
             
             const data = await response.json()
             if (data.success) {
-                alert('Market intelligence generated successfully')
+                showSuccess('Market intelligence generated successfully', 'אינטליגנציה נוצרה')
                 await loadMarketIntelligence()
             } else {
-                alert('Market intelligence generation failed: ' + data.error)
+                showError('Market intelligence generation failed: ' + data.error, 'כשל ביצירת אינטליגנציה')
             }
         } catch (error) {
             console.error('Failed to generate market intelligence:', error)
-            alert('Market intelligence generation failed')
+            showError('Market intelligence generation failed', 'כשל ביצירת אינטליגנציה')
         }
     }
 
@@ -719,6 +722,9 @@ const DiscoveryManagement: React.FC<DiscoveryManagementProps> = ({ isAdmin }) =>
                     </div>
                 )}
             </div>
+
+            {/* Toast Notifications */}
+            <ToastContainer toasts={toasts} onClose={removeToast} />
         </div>
     )
 }

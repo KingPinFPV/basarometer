@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import { Package, Plus, Edit2, Trash2, Save, X } from 'lucide-react'
+import { useUINotifications } from '@/hooks/useUINotifications'
+import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
+import { ToastContainer } from '@/components/ui/Toast'
 
 interface Attribute {
   id: number
@@ -13,6 +16,7 @@ interface Attribute {
 }
 
 export default function AttributesPage() {
+  const { showConfirm, confirmDialog, closeConfirm, toasts, removeToast } = useUINotifications()
   const [attributes, setAttributes] = useState<Attribute[]>([])
   const [loading, setLoading] = useState(true)
   const [isAdding, setIsAdding] = useState(false)
@@ -96,8 +100,16 @@ export default function AttributesPage() {
     setFormData({ name: '', name_he: '', description: '' })
   }
 
-  const handleDelete = (id: number) => {
-    if (confirm('האם אתה בטוח שברצונך למחוק מאפיין זה?')) {
+  const handleDelete = async (id: number) => {
+    const confirmed = await showConfirm({
+      title: 'מחיקת מאפיין',
+      message: 'האם אתה בטוח שברצונך למחוק מאפיין זה?',
+      confirmText: 'מחק',
+      cancelText: 'ביטול',
+      variant: 'danger'
+    })
+    
+    if (confirmed) {
       setAttributes(attributes.filter(attr => attr.id !== id))
     }
   }
@@ -332,6 +344,21 @@ export default function AttributesPage() {
           </button>
         </div>
       )}
+
+      {/* Confirmation Dialog */}
+      <ConfirmDialog
+        isOpen={confirmDialog.isOpen}
+        onClose={closeConfirm}
+        onConfirm={confirmDialog.onConfirm}
+        title={confirmDialog.options.title}
+        message={confirmDialog.options.message}
+        confirmText={confirmDialog.options.confirmText}
+        cancelText={confirmDialog.options.cancelText}
+        variant={confirmDialog.options.variant}
+      />
+
+      {/* Toast Notifications */}
+      <ToastContainer toasts={toasts} onClose={removeToast} />
     </div>
   )
 }

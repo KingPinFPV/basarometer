@@ -12,6 +12,8 @@ import {
 import { useEnhancedMeatData } from './useEnhancedMeatData'
 import { usePriceMatrixData } from './usePriceMatrixData'
 import { useCombinedComparisonData } from './useCombinedComparisonData'
+import { Logger } from '@/lib/discovery/utils/Logger'
+import { supabase } from '@/lib/supabase'
 
 export interface UnifiedProduct {
   id: string
@@ -41,11 +43,24 @@ export interface UnificationStats {
   top_categories: Array<{ category: string; count: number }>
 }
 
+const logger = new Logger('useUnifiedComparisonData')
+
+interface ScannerProduct {
+  id: string
+  product_name: string
+  price: number
+  store_name: string
+  category?: string
+  scanner_confidence?: number
+  is_valid: boolean
+  is_active: boolean
+}
+
 export function useUnifiedComparisonData() {
   const [isUnifying, setIsUnifying] = useState(false)
   const [unificationStats, setUnificationStats] = useState<UnificationStats | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const [directScannerData, setDirectScannerData] = useState<any[]>([])
+  const [directScannerData, setDirectScannerData] = useState<ScannerProduct[]>([])
   const [directLoading, setDirectLoading] = useState(true)
 
   // FORCE OVERRIDE: Direct fetch from scanner_products instead of complex hooks
@@ -55,15 +70,9 @@ export function useUnifiedComparisonData() {
         setDirectLoading(true)
         setError(null)
         
-        console.log('🔄 UNIFIED HOOK V3: Force fetching from scanner_products table')
+        logger.info('Fetching from scanner_products table')
         
-        const { createClient } = await import('@supabase/supabase-js')
-        const directClient = createClient(
-          'https://ergxrxtuncymyqslmoen.supabase.co',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVyZ3hyeHR1bmN5bXlxc2xtb2VuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA0Mjg0NTMsImV4cCI6MjA2NjAwNDQ1M30.0gcTOi6eHqEGUdRPl40y2s_6B2CprtbMvE61zMqvFAk'
-        )
-        
-        const { data, error: fetchError } = await directClient
+        const { data, error: fetchError } = await supabase
           .from('scanner_products')
           .select('*')
           .eq('is_valid', true)
@@ -71,18 +80,18 @@ export function useUnifiedComparisonData() {
           .order('product_name')
         
         if (fetchError) {
-          console.error('❌ V3 Scanner products fetch error:', fetchError)
+          logger.error('Scanner products fetch error', fetchError)
           setError(`Database error: ${fetchError.message}`)
           return
         }
         
         if (data) {
-          console.log(`✅ V3 UNIFIED HOOK SUCCESS: ${data.length} scanner products fetched`)
+          logger.info('Scanner products fetched successfully', { count: data.length })
           setDirectScannerData(data)
         }
         
       } catch (err) {
-        console.error('❌ V3 Direct scanner fetch error:', err)
+        logger.error('Direct scanner fetch error', err)
         setError(`Error: ${err instanceof Error ? err.message : 'Unknown'}`)
       } finally {
         setDirectLoading(false)
@@ -105,7 +114,7 @@ export function useUnifiedComparisonData() {
   } = usePriceMatrixData()
 
   const {
-    combinedData,
+    combinedProducts: combinedData,
     loading: combinedLoading
   } = useCombinedComparisonData()
 
@@ -115,7 +124,7 @@ export function useUnifiedComparisonData() {
   const unifiedProducts = useMemo(() => {
     // PRIORITIZE SCANNER DATA: Use scanner_products as primary source
     if (directScannerData.length > 0) {
-      console.log(`🔄 V3 UNIFIED HOOK: Processing ${directScannerData.length} scanner products`)
+      logger.info('Processing scanner products', { count: directScannerData.length })
       
       try {
         // Convert scanner products to unified format
@@ -149,12 +158,12 @@ export function useUnifiedComparisonData() {
         }
         
         setUnificationStats(stats)
-        console.log(`✅ V3 UNIFIED HOOK: Processed ${unifiedFromScanner.length} unified products`)
+        logger.info('Processed unified products', { count: unifiedFromScanner.length })
         
         return unifiedFromScanner
         
       } catch (err) {
-        console.error('V3 Error processing scanner data:', err)
+        logger.error('Error processing scanner data', err)
         setError('Failed to process scanner products')
         return []
       }
@@ -194,9 +203,9 @@ export function useUnifiedComparisonData() {
                 name: meat.name_hebrew,
                 network: networkId,
                 price: price,
-                category: meat.category,
+                category: 'בשר',
                 quality_tier: meat.quality_grades?.[0]?.tier || 'regular',
-                trend: meat.trending_direction || meat.price_data?.price_trend || 'stable',
+                trend: meat.trending_direction || 'stable',
                 is_popular: meat.is_popular,
                 original_data: meat
               })
@@ -210,19 +219,19 @@ export function useUnifiedComparisonData() {
         combinedData.forEach(product => {
           // Skip if already added from enhanced data
           const alreadyExists = allRawProducts.some(p => 
-            p.name === product.name_hebrew && p.network === product.network
+            p.name === product.name_hebrew
           )
           
-          if (!alreadyExists && product.price > 0) {
+          if (!alreadyExists && product.best_price > 0) {
             allRawProducts.push({
               id: product.id,
-              name: product.name_hebrew || product.name,
-              network: product.network || product.store || 'unknown',
-              price: product.price,
+              name: product.name_hebrew,
+              network: 'mixed',
+              price: product.best_price,
               category: product.category,
               quality_tier: product.quality_tier || 'regular',
-              trend: product.trend || 'stable',
-              is_popular: product.is_popular || false,
+              trend: 'stable',
+              is_popular: false,
               original_data: product
             })
           }
@@ -268,7 +277,7 @@ export function useUnifiedComparisonData() {
       return enhancedUnifiedProducts
 
     } catch (err) {
-      console.error('Error in product unification:', err)
+      logger.error('Error in product unification', err)
       setError('Failed to unify products')
       setIsUnifying(false)
       return []

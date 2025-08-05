@@ -34,8 +34,8 @@ interface ApprovalResponse {
 export async function POST(request: NextRequest) {
   try {
     // Check admin authorization
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
-    if (authError || !user) {
+    const { data: { user }, error: _authError } = await supabase.auth.getUser()
+    if (_authError || !user) {
       return NextResponse.json(
         { success: false, error: 'Authentication required' },
         { status: 401 }
@@ -43,10 +43,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify admin status
-    const { data: isAdmin, error: adminError } = await supabase
+    const { data: isAdmin, error: _adminError } = await supabase
       .rpc('check_user_admin')
     
-    if (adminError || !isAdmin) {
+    if (_adminError || !isAdmin) {
       return NextResponse.json(
         { success: false, error: 'Admin access required' },
         { status: 403 }
@@ -63,13 +63,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Fetch the discovery item
-    const { data: discoveryItem, error: fetchError } = await supabase
+    const { data: discoveryItem, error: _fetchError } = await supabase
       .from('meat_discovery_queue')
       .select('*')
       .eq('id', approvalData.discovery_id)
       .single()
 
-    if (fetchError || !discoveryItem) {
+    if (_fetchError || !discoveryItem) {
       return NextResponse.json(
         { success: false, error: 'Discovery item not found' },
         { status: 404 }
@@ -98,14 +98,19 @@ export async function POST(request: NextRequest) {
         usage_count: 1
       }
 
-      const { data: newMapping, error: mappingError } = await supabase
+      const { data: newMapping, error: _mappingError } = await supabase
         .from('meat_name_mappings')
         .insert(mappingData)
         .select()
         .single()
 
+<<<<<<< HEAD
       if (mappingError) {
         // Error:('Error creating mapping:', mappingError)
+=======
+      if (_mappingError) {
+        console.error('Error creating mapping:', _mappingError)
+>>>>>>> 7546903e90eac003c6dbdc64da3b3253f6a8ab69
         return NextResponse.json(
           { success: false, error: 'Failed to create mapping rule' },
           { status: 500 }
@@ -127,7 +132,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Update the discovery item
-    const { error: updateError } = await supabase
+    const { error: _updateError } = await supabase
       .from('meat_discovery_queue')
       .update({
         approved: approvalData.approved,
@@ -136,8 +141,13 @@ export async function POST(request: NextRequest) {
       })
       .eq('id', approvalData.discovery_id)
 
+<<<<<<< HEAD
     if (updateError) {
       // Error:('Error updating discovery item:', updateError)
+=======
+    if (_updateError) {
+      console.error('Error updating discovery item:', _updateError)
+>>>>>>> 7546903e90eac003c6dbdc64da3b3253f6a8ab69
       return NextResponse.json(
         { success: false, error: 'Failed to update discovery item' },
         { status: 500 }
@@ -185,8 +195,8 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     // Check admin authorization
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
-    if (authError || !user) {
+    const { data: { user }, error: _authError } = await supabase.auth.getUser()
+    if (_authError || !user) {
       return NextResponse.json(
         { success: false, error: 'Authentication required' },
         { status: 401 }
@@ -194,10 +204,10 @@ export async function PUT(request: NextRequest) {
     }
 
     // Verify admin status
-    const { data: isAdmin, error: adminError } = await supabase
+    const { data: isAdmin, error: _adminError } = await supabase
       .rpc('check_user_admin')
     
-    if (adminError || !isAdmin) {
+    if (_adminError || !isAdmin) {
       return NextResponse.json(
         { success: false, error: 'Admin access required' },
         { status: 403 }
@@ -226,20 +236,20 @@ export async function PUT(request: NextRequest) {
       
       try {
         // Fetch discovery item
-        const { data: discoveryItem, error: fetchError } = await supabase
+        const { data: discoveryItem, error: _fetchError } = await supabase
           .from('meat_discovery_queue')
           .select('*')
           .eq('id', discoveryId)
           .single()
 
-        if (fetchError || !discoveryItem) {
+        if (_fetchError || !discoveryItem) {
           results.failed++
           continue
         }
 
         if (approved) {
           // Create mapping rule
-          const { error: mappingError } = await supabase
+          const { error: _mappingError } = await supabase
             .from('meat_name_mappings')
             .insert({
               original_name: discoveryItem.product_name,
@@ -251,13 +261,13 @@ export async function PUT(request: NextRequest) {
               usage_count: 1
             })
 
-          if (!mappingError) {
+          if (!_mappingError) {
             results.mappings_created++
           }
         }
 
         // Update discovery item
-        const { error: updateError } = await supabase
+        const { error: _updateError } = await supabase
           .from('meat_discovery_queue')
           .update({
             approved: approved,
@@ -265,7 +275,7 @@ export async function PUT(request: NextRequest) {
           })
           .eq('id', discoveryId)
 
-        if (!updateError) {
+        if (!_updateError) {
           results.successful++
         } else {
           results.failed++
@@ -357,15 +367,20 @@ async function updateSimilarItems(discoveryItem: DiscoveryItem, approvedConfiden
   const confidenceBoost = Math.min(0.05, (1 - approvedConfidence) * 0.2)
 
   // Find and update similar items (simplified approach without SQL functions)
-  const { data: similarItems, error: fetchError } = await supabase
+  const { data: similarItems, error: _fetchError } = await supabase
     .from('meat_discovery_queue')
     .select('id, confidence_score')
     .eq('approved', false)
     .ilike('product_name', `%${discoveryItem.product_name.split(' ')[0]}%`)
     .neq('id', discoveryItem.id)
 
+<<<<<<< HEAD
   if (fetchError) {
     // Error:('Error fetching similar items:', fetchError)
+=======
+  if (_fetchError) {
+    console.error('Error fetching similar items:', _fetchError)
+>>>>>>> 7546903e90eac003c6dbdc64da3b3253f6a8ab69
     return
   }
 

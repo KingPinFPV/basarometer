@@ -5,6 +5,9 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
+import { Logger } from '@/lib/discovery/utils/Logger'
+
+const logger = new Logger('useScannerData');
 
 interface ScannerProduct {
   id: string
@@ -122,7 +125,7 @@ export function useScannerData(storeFilter?: string, categoryFilter?: string) {
       }
 
     } catch (err) {
-      console.error('Error fetching scanner data:', err)
+      logger.error('Error fetching scanner data:', err)
       setError(err instanceof Error ? err.message : 'Unknown error')
     } finally {
       setLoading(false)

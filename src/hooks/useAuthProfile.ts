@@ -42,7 +42,6 @@ export function useAuthProfile() {
     getInitialSession()
 
     // Listen for auth changes with minimal processing
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: any, session: any) => {
       if (mounted) {
         setState({ user: session?.user || null, isLoading: false, error: null })
