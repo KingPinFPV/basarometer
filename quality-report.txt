@@ -1,0 +1,187 @@
+[96msrc/app/api/products/enhanced/government-integrated/route.ts[0m:[93m221[0m:[93m24[0m - [91merror[0m[90m TS2304: [0mCannot find name 'path'.
+
+[7m221[0m     const scriptPath = path.join(process.cwd(), 'src/lib/government-scraper-integration.py')
+[7m   [0m [91m                       ~~~~[0m
+
+[96msrc/app/api/products/enhanced/government-integrated/route.ts[0m:[93m224[0m:[93m38[0m - [91merror[0m[90m TS2304: [0mCannot find name 'execAsync'.
+
+[7m224[0m     const { stdout, stderr } = await execAsync(`python3 ${scriptPath}`)
+[7m   [0m [91m                                     ~~~~~~~~~[0m
+
+[96msrc/app/api/products/enhanced/government-integrated/route.ts[0m:[93m231[0m:[93m23[0m - [91merror[0m[90m TS2304: [0mCannot find name 'path'.
+
+[7m231[0m     const statsPath = path.join(process.cwd(), 'logs/government-scraping-results.json')
+[7m   [0m [91m                      ~~~~[0m
+
+[96msrc/app/api/products/enhanced/government-integrated/route.ts[0m:[93m234[0m:[93m31[0m - [91merror[0m[90m TS2304: [0mCannot find name 'fs'.
+
+[7m234[0m       const statsData = await fs.readFile(statsPath, 'utf-8')
+[7m   [0m [91m                              ~~[0m
+
+[96msrc/lib/scrapers/scraper-coordinator.ts[0m:[93m136[0m:[93m9[0m - [91merror[0m[90m TS2322: [0mType 'VictoryProduct[] | MegaProduct[]' is not assignable to type 'VictoryProduct[]'.
+  Type 'MegaProduct[]' is not assignable to type 'VictoryProduct[]'.
+    Type 'MegaProduct' is missing the following properties from type 'VictoryProduct': kosher_certification, store_location
+
+[7m136[0m         results.victory = victoryProducts.value
+[7m   [0m [91m        ~~~~~~~~~~~~~~~[0m
+
+[96msrc/lib/scrapers/scraper-coordinator.ts[0m:[93m145[0m:[93m9[0m - [91merror[0m[90m TS2322: [0mType 'VictoryProduct[] | MegaProduct[]' is not assignable to type 'MegaProduct[]'.
+  Type 'VictoryProduct[]' is not assignable to type 'MegaProduct[]'.
+    Type 'VictoryProduct' is missing the following properties from type 'MegaProduct': brand, branch_locations
+
+[7m145[0m         results.mega = megaProducts.value
+[7m   [0m [91m        ~~~~~~~~~~~~[0m
+
+
+Found 6 errors in 2 files.
+
+Errors  Files
+     4  src/app/api/products/enhanced/government-integrated/route.ts[90m:221[0m
+     2  src/lib/scrapers/scraper-coordinator.ts[90m:136[0m
+
+> basarometer-enhanced-intelligence@5.2.0 lint
+> next lint
+
+✔ No ESLint warnings or errors
+
+> basarometer-enhanced-intelligence@5.2.0 build
+> next build
+
+   ▲ Next.js 15.3.3
+   - Environments: .env.local
+   - Experiments (use with caution):
+     ✓ optimizeCss
+
+   Creating an optimized production build ...
+   Using tsconfig file: ./tsconfig.json
+ ✓ Compiled successfully in 3.0s
+   Linting and checking validity of types ...
+   Collecting page data ...
+🔥 Pre-warming Hebrew meat data cache...
+✅ Hebrew data pre-warmed in 0ms
+   Generating static pages (0/55) ...
+   Generating static pages (13/55) 
+🔥 Pre-warming Hebrew meat data cache...
+✅ Hebrew data pre-warmed in 0ms
+   Generating static pages (27/55) 
+   Generating static pages (41/55) 
+ ✓ Generating static pages (55/55)
+   Finalizing page optimization ...
+   Collecting build traces ...
+ ⚠ Failed to copy traced files for /Users/yogi/Desktop/basarometer/v5/v3/.next/server/app/index/page.js [Error: ENOENT: no such file or directory, open '/Users/yogi/Desktop/basarometer/v5/v3/.next/server/app/index/page.js.nft.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/yogi/Desktop/basarometer/v5/v3/.next/server/app/index/page.js.nft.json'
+}
+
+Route (app)                                          Size  First Load JS
+┌ ○ /                                             9.16 kB         424 kB
+├ ○ /_not-found                                     298 B         385 kB
+├ ○ /admin                                          606 B         385 kB
+├ ○ /admin/attributes                             2.49 kB         387 kB
+├ ○ /admin/bulk-add                                2.6 kB         418 kB
+├ ○ /admin/categories                             2.29 kB         417 kB
+├ ○ /admin/cuts                                   2.55 kB         418 kB
+├ ○ /admin/dashboard                              1.91 kB         417 kB
+├ ○ /admin/intelligence                           3.87 kB         419 kB
+├ ○ /admin/reports                                3.97 kB         389 kB
+├ ○ /admin/retailers                              3.36 kB         388 kB
+├ ƒ /api/data-quality/validate                      226 B         385 kB
+├ ƒ /api/debug/database                             225 B         385 kB
+├ ƒ /api/debug/runtime                              224 B         385 kB
+├ ƒ /api/discovery/analytics/coverage               224 B         385 kB
+├ ƒ /api/discovery/analytics/performance            225 B         385 kB
+├ ƒ /api/discovery/conflicts                        226 B         385 kB
+├ ƒ /api/discovery/conflicts/resolve                226 B         385 kB
+├ ƒ /api/discovery/learning/conflicts               224 B         385 kB
+├ ƒ /api/discovery/learning/intelligence            226 B         385 kB
+├ ƒ /api/discovery/learning/patterns                224 B         385 kB
+├ ƒ /api/discovery/learning/predictions             226 B         385 kB
+├ ƒ /api/discovery/learning/run-session             226 B         385 kB
+├ ƒ /api/discovery/learning/stats                   225 B         385 kB
+├ ƒ /api/discovery/patterns                         226 B         385 kB
+├ ƒ /api/discovery/queue                            225 B         385 kB
+├ ƒ /api/discovery/reliability                      225 B         385 kB
+├ ƒ /api/discovery/sources                          224 B         385 kB
+├ ƒ /api/discovery/test-simple                      224 B         385 kB
+├ ƒ /api/discovery/validate                         226 B         385 kB
+├ ƒ /api/products/enhanced/analytics                226 B         385 kB
+├ ƒ /api/products/enhanced/approve                  224 B         385 kB
+├ ƒ /api/products/enhanced/government-integrated    226 B         385 kB
+├ ƒ /api/products/enhanced/matrix                   226 B         385 kB
+├ ƒ /api/products/enhanced/queue                    226 B         385 kB
+├ ƒ /api/products/enhanced/scraped                  225 B         385 kB
+├ ƒ /api/products/sync                              226 B         385 kB
+├ ƒ /api/scanner-data                               226 B         385 kB
+├ ƒ /api/scanner/ingest                             225 B         385 kB
+├ ƒ /api/scanner/webhook                            226 B         385 kB
+├ ƒ /api/scraping/execute                           226 B         385 kB
+├ ƒ /api/test-fast                                  226 B         385 kB
+├ ƒ /api/test-government-integration                226 B         385 kB
+├ ○ /change-password                              2.07 kB         417 kB
+├ ○ /community                                     4.4 kB         419 kB
+├ ○ /comparison                                   3.32 kB         388 kB
+├ ○ /comparison-enhanced                          4.66 kB         390 kB
+├ ○ /enhanced                                       439 B         415 kB
+├ ƒ /index                                            0 B            0 B
+├ ƒ /ocr                                          10.6 kB         426 kB
+├ ○ /rankings                                      4.6 kB         420 kB
+├ ○ /reset-password                               2.28 kB         417 kB
+├ ○ /shopping-lists                               4.17 kB         419 kB
+└ ○ /trends                                       4.12 kB         419 kB
++ First Load JS shared by all                      385 kB
+  ├ chunks/common-0cf16438-d21f11a9475368fb.js    12.2 kB
+  ├ chunks/common-1eae8c51-7639da09f4beb51c.js    14.8 kB
+  ├ chunks/common-207d77d7-1c0c9725c28eeb86.js    11.6 kB
+  ├ chunks/common-66b14e9f-a60c452d6e56cdd5.js    11.4 kB
+  ├ chunks/common-6b948b9f-5bd91c4ed1cdd9bd.js    21.2 kB
+  ├ chunks/common-8cbd2506-cafe63a2c9f96157.js    21.6 kB
+  ├ chunks/common-be0c59e0-1c633296ee089879.js    15.1 kB
+  ├ chunks/common-c083354a-bb211dee1d017d4c.js    12.8 kB
+  ├ chunks/common-d87c119a-d04e19a89322d3cc.js    12.8 kB
+  ├ chunks/common-e9e18ac4-78a9d7f29ad80188.js    20.5 kB
+  ├ chunks/common-f3956634-6ea73a2e0fc7c4d4.js    24.2 kB
+  ├ chunks/vendors-362d063c-de87387f93be3483.js   14.1 kB
+  ├ chunks/vendors-4a7382ad-f3b020dc3a168d5c.js   11.9 kB
+  ├ chunks/vendors-89d5c698-728f827e1194d469.js   23.1 kB
+  ├ chunks/vendors-98a6762f-b93e5ac3aa0b7287.js   12.5 kB
+  ├ chunks/vendors-ff30e0d3-375a025aeb54f283.js   53.2 kB
+  └ other shared chunks (total)                   91.9 kB
+
+Route (pages)                                        Size  First Load JS
+─ ƒ /api/products-optimized                           0 B         442 kB
++ First Load JS shared by all                      442 kB
+  ├ chunks/common-0cf16438-d21f11a9475368fb.js    12.2 kB
+  ├ chunks/common-1eae8c51-7639da09f4beb51c.js    14.8 kB
+  ├ chunks/common-207d77d7-1c0c9725c28eeb86.js    11.6 kB
+  ├ chunks/common-66b14e9f-a60c452d6e56cdd5.js    11.4 kB
+  ├ chunks/common-6b948b9f-5bd91c4ed1cdd9bd.js    21.2 kB
+  ├ chunks/common-8cbd2506-cafe63a2c9f96157.js    21.6 kB
+  ├ chunks/common-be0c59e0-1c633296ee089879.js    15.1 kB
+  ├ chunks/common-c083354a-bb211dee1d017d4c.js    12.8 kB
+  ├ chunks/common-d87c119a-d04e19a89322d3cc.js    12.8 kB
+  ├ chunks/common-e9e18ac4-78a9d7f29ad80188.js    20.5 kB
+  ├ chunks/common-f3956634-6ea73a2e0fc7c4d4.js    24.2 kB
+  ├ chunks/react-36598b9c-4297cefaece3b6e0.js       53 kB
+  ├ chunks/vendors-362d063c-de87387f93be3483.js   14.1 kB
+  ├ chunks/vendors-4a7382ad-f3b020dc3a168d5c.js   11.9 kB
+  ├ chunks/vendors-89d5c698-728f827e1194d469.js   23.1 kB
+  ├ chunks/vendors-98a6762f-b93e5ac3aa0b7287.js   12.5 kB
+  ├ chunks/vendors-ff30e0d3-375a025aeb54f283.js   53.2 kB
+  └ other shared chunks (total)                   96.1 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+# npm audit report
+
+@eslint/plugin-kit  <0.3.4
+@eslint/plugin-kit is vulnerable to Regular Expression Denial of Service attacks through ConfigCommentParser - https://github.com/advisories/GHSA-xffm-g5w8-qvg7
+fix available via `npm audit fix`
+node_modules/@eslint/plugin-kit
+
+1 low severity vulnerability
+
+To address all issues, run:
+  npm audit fix

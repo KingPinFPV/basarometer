@@ -133,7 +133,7 @@ export class ScraperCoordinator {
 
       // Process Victory results
       if (victoryProducts.status === 'fulfilled') {
-        results.victory = victoryProducts.value
+        results.victory = victoryProducts.value as VictoryProduct[]
         this.currentSession!.scrapers_run.push('victory')
       } else {
         console.error('Victory scraper failed:', victoryProducts.reason)
@@ -142,7 +142,7 @@ export class ScraperCoordinator {
 
       // Process Mega results
       if (megaProducts.status === 'fulfilled') {
-        results.mega = megaProducts.value
+        results.mega = megaProducts.value as MegaProduct[]
         this.currentSession!.scrapers_run.push('mega')
       } else {
         console.error('Mega scraper failed:', megaProducts.reason)
@@ -354,7 +354,7 @@ export class ScraperCoordinator {
     const deduplicatedProducts: UnifiedProduct[] = []
 
     // Process each group
-    for (const [normalizedId, groupProducts] of productGroups) {
+    for (const [normalizedId, groupProducts] of Array.from(productGroups.entries())) {
       if (groupProducts.length === 1) {
         // Single product, no deduplication needed
         deduplicatedProducts.push(groupProducts[0])
