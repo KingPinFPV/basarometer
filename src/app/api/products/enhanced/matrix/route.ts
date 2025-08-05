@@ -4,7 +4,6 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
-import { QueryOptimizer } from '@/lib/performance/QueryOptimizer'
 import { Logger } from '@/lib/discovery/utils/Logger'
 
 const logger = new Logger('EnhancedMatrixAPI');
@@ -114,7 +113,6 @@ export async function GET(request: NextRequest) {
     const include_scanner = searchParams.get('include_scanner') !== 'false'
     const use_fast_path = searchParams.get('fast') !== 'false' // Allow fast path by default
 
-<<<<<<< HEAD
     // EMERGENCY FAST PATH: Return cached response if available and fresh
     if (use_fast_path && cachedResponse && Date.now() - cacheTimestamp < CACHE_DURATION) {
       perfLog.cache_hit = Date.now() - startTime
@@ -219,72 +217,36 @@ export async function GET(request: NextRequest) {
         scannerProducts = convertScannerToEnhancedCuts(scannerData)
       }
 
-    // PERFORMANCE CRITICAL: Optimized data processing with minimal computation
-    const processingStart = Date.now()
-    
-    // OPTIMIZATION: Process only essential data to reduce computation time
-    const enhancedCuts = await processEnhancedMatrixDataOptimized(
-=======
-    // PERFORMANCE OPTIMIZATION: Use optimized query consolidation
-    const optimizer = QueryOptimizer.getInstance()
-    const optimizedData = await optimizer.getOptimizedMatrixData(
-      category,
-      quality_filter,
-      include_scanner
-    )
+      // PERFORMANCE CRITICAL: Optimized data processing with minimal computation
+      const processingStart = Date.now()
+      
+      // Process and enhance the data - COMBINE MEAT CUTS + SCANNER PRODUCTS
+      const enhancedCuts = await processEnhancedMatrixData(
+        meatCuts || [],
+        qualityMappings || [],
+        priceData || [],
+        scannerData || [],
+        retailers || [],
+        quality_filter
+      )
+      perfLog.data_processing = Date.now() - processingStart
 
-    const {
-      enhanced_cuts: meatCuts,
-      quality_mappings: qualityMappings,
-      price_data: priceData,
-      scanner_data: scannerData,
-      retailers
-    } = optimizedData
-
-    // Convert scanner products to enhanced meat cut format
-    let scannerProducts: any[] = []
-    if (include_scanner && scannerData.length > 0) {
-      scannerProducts = convertScannerToEnhancedCuts(scannerData)
-      logger.info('Converted scanner products to enhanced cuts', { 
-        scannerCount: scannerData.length, 
-        enhancedCount: scannerProducts.length 
+      // ADD SCANNER PRODUCTS AS ADDITIONAL ENHANCED CUTS
+      const combinedEnhancedCuts = [...enhancedCuts, ...scannerProducts]
+      logger.info('Combined data processed', {
+        meatCuts: enhancedCuts.length,
+        scannerProducts: scannerProducts.length,
+        total: combinedEnhancedCuts.length
       })
-    }
 
-    // Process and enhance the data - COMBINE MEAT CUTS + SCANNER PRODUCTS
-    const enhancedCuts = await processEnhancedMatrixData(
->>>>>>> 7546903e90eac003c6dbdc64da3b3253f6a8ab69
-      meatCuts || [],
-      qualityMappings || [],
-      priceData || [],
-      scannerData || [],
-      retailers || [],
-      quality_filter
-    )
-    perfLog.data_processing = Date.now() - processingStart
-
-<<<<<<< HEAD
-    // OPTIMIZATION: Limit scanner products for faster response
-    const limitedScannerProducts = scannerProducts.slice(0, 20)
-    const combinedEnhancedCuts = [...enhancedCuts, ...limitedScannerProducts]
-=======
-    // ADD SCANNER PRODUCTS AS ADDITIONAL ENHANCED CUTS
-    const combinedEnhancedCuts = [...enhancedCuts, ...scannerProducts]
-    logger.info('Combined data processed', {
-      meatCuts: enhancedCuts.length,
-      scannerProducts: scannerProducts.length,
-      total: combinedEnhancedCuts.length
-    })
->>>>>>> 7546903e90eac003c6dbdc64da3b3253f6a8ab69
-
-    // OPTIMIZATION: Calculate metrics in parallel
-    const metricsStart = Date.now()
-    const [qualityBreakdown, marketInsights, performanceMetrics] = await Promise.all([
-      Promise.resolve(calculateQualityBreakdownOptimized(qualityMappings || [], combinedEnhancedCuts)),
-      Promise.resolve(calculateMarketInsightsOptimized(combinedEnhancedCuts, priceData || [], scannerData || [], retailers || [])),
-      Promise.resolve(calculatePerformanceMetricsOptimized(priceData || [], scannerData || [], qualityMappings || []))
-    ])
-    perfLog.metrics_calculation = Date.now() - metricsStart
+      // OPTIMIZATION: Calculate metrics in parallel
+      const metricsStart = Date.now()
+      const [qualityBreakdown, marketInsights, performanceMetrics] = await Promise.all([
+        Promise.resolve(calculateQualityBreakdownOptimized(qualityMappings || [], combinedEnhancedCuts)),
+        Promise.resolve(calculateMarketInsightsOptimized(combinedEnhancedCuts, priceData || [], scannerData || [], retailers || [])),
+        Promise.resolve(calculatePerformanceMetricsOptimized(priceData || [], scannerData || [], qualityMappings || []))
+      ])
+      perfLog.metrics_calculation = Date.now() - metricsStart
 
       const queryTime = Date.now() - startTime
 
@@ -362,11 +324,7 @@ export async function GET(request: NextRequest) {
     }
 
   } catch (error) {
-<<<<<<< HEAD
-    // Error:('Enhanced Matrix API Error:', error)
-=======
     logger.error('Enhanced Matrix API Error:', error)
->>>>>>> 7546903e90eac003c6dbdc64da3b3253f6a8ab69
     return NextResponse.json(
       { 
         success: false, 

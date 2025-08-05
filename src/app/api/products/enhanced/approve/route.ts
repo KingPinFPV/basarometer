@@ -104,13 +104,8 @@ export async function POST(request: NextRequest) {
         .select()
         .single()
 
-<<<<<<< HEAD
-      if (mappingError) {
-        // Error:('Error creating mapping:', mappingError)
-=======
       if (_mappingError) {
         console.error('Error creating mapping:', _mappingError)
->>>>>>> 7546903e90eac003c6dbdc64da3b3253f6a8ab69
         return NextResponse.json(
           { success: false, error: 'Failed to create mapping rule' },
           { status: 500 }
@@ -141,13 +136,8 @@ export async function POST(request: NextRequest) {
       })
       .eq('id', approvalData.discovery_id)
 
-<<<<<<< HEAD
-    if (updateError) {
-      // Error:('Error updating discovery item:', updateError)
-=======
     if (_updateError) {
       console.error('Error updating discovery item:', _updateError)
->>>>>>> 7546903e90eac003c6dbdc64da3b3253f6a8ab69
       return NextResponse.json(
         { success: false, error: 'Failed to update discovery item' },
         { status: 500 }
@@ -374,13 +364,8 @@ async function updateSimilarItems(discoveryItem: DiscoveryItem, approvedConfiden
     .ilike('product_name', `%${discoveryItem.product_name.split(' ')[0]}%`)
     .neq('id', discoveryItem.id)
 
-<<<<<<< HEAD
-  if (fetchError) {
-    // Error:('Error fetching similar items:', fetchError)
-=======
   if (_fetchError) {
     console.error('Error fetching similar items:', _fetchError)
->>>>>>> 7546903e90eac003c6dbdc64da3b3253f6a8ab69
     return
   }
 
